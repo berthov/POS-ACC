@@ -9,6 +9,7 @@
 <?php
 include("controller/doconnect.php");
 echo "string";
+echo "string";
 ?>
 <div class="row">
               <div class="col-md-12">
