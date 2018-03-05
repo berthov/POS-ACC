@@ -227,7 +227,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Form Elements</h3>
+                <h3>Form PO</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -276,7 +276,6 @@
                               </div>
                             </div>
                           </fieldset>
-                          <!-- <input class="date-picker form-control col-md-7 col-xs-12" required="required" type="text"> -->
                         </div>
                       </div>
 
@@ -293,39 +292,37 @@
                             <div class="panel-body">
                               <div class="panel panel-default" style="padding-top: 20px; overflow-x: scroll; max-width: 100%; border: 0px;">
 
-                                <div id="education_fields"></div>
-                               <div class="col-sm-3 nopadding">
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code">
-                                </div>
-                              </div>
-                              <div class="col-sm-3 nopadding">
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description">
-                                </div>
-                              </div>
-                              <div class="col-sm-3 nopadding">
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM">
-                                </div>
+                           
+                               
+                              <div class="table-responsive" >
+                                <table class="table" id="myTable">
+                                  <tr>
+                                    <th>Item Code</th>
+                                    <th>Item Description</th>
+                                    <th>UOM</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>
+                                    <td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>
+                                    <td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>
+                                    <td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>
+                                    <td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>
+                                    <td>
+                                        <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
+                                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
+                                        </button>
+                                    </td>
+                                  </tr>
+                                </table>
                               </div>
 
-                              <div class="col-sm-3 nopadding">
-                                <div class="form-group">
-                                  <input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity">
-                                </div>
-                              </div>
 
-                              <div class="col-sm-3 nopadding">
-                                <div class="form-group">
-                                  <div class="input-group">
-                                  <input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price">
-                                    <div class="input-group-btn">
-                                      <button class="btn btn-success" type="button"  onclick="education_fields();"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                              <button class="btn btn-success" type="button" onclick="myCreateFunction();"> <b>Insert New Row</b>
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                              </button>
 
                               <div class="clear"></div>    
                               </div>
@@ -337,7 +334,7 @@
                     </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <div class="col-md-12 col-sm-12 col-xs-12" align="center">
                           <button type="button" class="btn btn-primary">Cancel</button>
 						              <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" class="btn btn-success">Submit</button>
@@ -419,22 +416,41 @@
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <script type="text/javascript">
-      var room = 1;
-function education_fields() {
- 
-    room++;
-    var objTo = document.getElementById('education_fields')
-    var divtest = document.createElement("div");
-  divtest.setAttribute("class", "form-group removeclass"+room);
-  var rdiv = 'removeclass'+room;
-    divtest.innerHTML = '<div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></div></div><div class="col-sm-3 nopadding"><div class="form-group"> <input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></div></div><div class="col-sm-3 nopadding"><div class="form-group"><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></div></div><div class="col-sm-3 nopadding"><div class="form-group"><div class="input-group"><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Price"><div class="input-group-btn"> <button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div></div></div><div class="clear"></div>';
-    
-    objTo.appendChild(divtest)
+
+function myDeleteFunction() {
+    document.getElementById("myTable").deleteRow(1);
 }
-   function remove_education_fields(rid) {
-     $('.removeclass'+rid).remove();
-   }
+
+function deleteRow(row) {
+  var i = row.parentNode.parentNode.rowIndex;
+  document.getElementById('myTable').deleteRow(i);
+}
+
+
+
+function myCreateFunction() {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);  
+    cell1.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>';
+    cell2.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>';
+    cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>';
+    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>';
+    cell5.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>';
+    cell6.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
+}
+
+                                    
+                                                               
+
     </script>
 	
   </body>
 </html>
+
+
