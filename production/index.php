@@ -245,17 +245,17 @@ if(isset($_REQUEST['reservation'])){
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Gross Sales</span>
               <div class="count">Rp.<?php
-                  $sql1 = "SELECT sum(a.unit_price*a.qty) as amount  
+                  $sql = "SELECT sum(a.unit_price*a.qty) as amount  
                   FROM invoice a 
                   where
                   (date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
                   ";
-                  $result1 = $conn->query($sql1);
-                  while($row1 = $result1->fetch_assoc()) {
+                  $result = $conn->query($sql);
+                  while($row = $result->fetch_assoc()) {
                                     
-                  if($row1['amount'] > 0 ) {
+                  if($row['amount'] > 0 ) {
                     // echo $row1['amount'];
-                    echo number_format($row1['amount']);
+                    echo number_format($row['amount']);
                   }
                   else{
                     echo "0";
