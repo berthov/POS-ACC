@@ -78,6 +78,7 @@
                       <li><a href="form_validation.html">Master Item Form</a></li>
                       <li><a href="cogs.php">Cost of Goods Sold (COGS)</a></li>
                       <li><a href="form.html">Invoice Form</a></li>
+                      <li><a href="form_po.php">Purchase Order Form</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Account Receivable <span class="fa fa-chevron-down"></span></a>
@@ -311,9 +312,9 @@
                                     <td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>
                                     <td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>
                                     <td>
-                                        <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
+<!--                                         <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
                                           <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
-                                        </button>
+                                        </button> -->
                                     </td>
                                   </tr>
                                 </table>

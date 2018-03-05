@@ -77,6 +77,7 @@ include("controller/doconnect.php");
                       <li><a href="form_validation.html">Master Item Form</a></li>
                       <li><a href="cogs.php">Cost of Goods Sold (COGS)</a></li>
                       <li><a href="form.html">Invoice Form</a></li>
+                      <li><a href="form_po.php">Purchase Order Form</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Account Receivable <span class="fa fa-chevron-down"></span></a>
