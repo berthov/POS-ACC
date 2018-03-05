@@ -242,25 +242,25 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask">
+                    <form class="form-horizontal form-label-left input_mask" method="POST" action="doaddpo.php">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Outles ">
+                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Outles" name="outlets">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess3" placeholder="PO Date">
+                        <input type="text" class="form-control" id="inputSuccess3" placeholder="PO Date" name="po_date">
                         <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Supplier">
+                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Supplier" name="supplier">
                         <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Ship To">
+                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Ship To" name="ship_to">
                         <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
@@ -271,7 +271,7 @@
                           <fieldset>
                             <div class="control-group">
                               <div class="controls">
-                                  <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status2" readonly="">
+                                  <input type="text" class="form-control has-feedback-left" readonly="" name="created_date">
                                   <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                   <span id="inputSuccess2Status2" class="sr-only">(success)</span>
                               </div>
