@@ -245,39 +245,23 @@
                     <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Outles" name="outlets">
+                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="*Outles" name="outlets" required="required">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess3" placeholder="PO Date" name="po_date">
+                        <input type="text" class="form-control" id="inputSuccess3" placeholder="*PO Date" name="po_date" required="required">
                         <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Supplier" name="supplier">
+                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="*Supplier" name="supplier" required="required">
                         <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess5" placeholder="Ship To" name="ship_to">
+                        <input type="text" class="form-control" id="inputSuccess5" placeholder="*Ship To" name="ship_to" required="required">
                         <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Created Date <span class="required">*</span>
-                        </label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <fieldset>
-                            <div class="control-group">
-                              <div class="controls">
-                                  <input type="text" class="form-control has-feedback-left" readonly="" name="created_date">
-                                  <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-                                  <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                              </div>
-                            </div>
-                          </fieldset>
-                        </div>
                       </div>
 
                     <div class="row">
@@ -291,10 +275,9 @@
 
                             <!-- PO LINE  -->
                             <div class="panel-body">
-                              <div class="panel panel-default" style="padding-top: 20px; overflow-x: scroll; max-width: 100%; border: 0px;">
+                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">
 
-                           
-                               
+                                                  
                               <div class="table-responsive" >
                                 <table class="table" id="myTable">
                                   <tr>

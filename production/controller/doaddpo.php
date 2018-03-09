@@ -11,42 +11,33 @@ $outlets = $_REQUEST['outlets'];
 $po_date = $_REQUEST['po_date'];
 $supplier = $_REQUEST['supplier'];
 $ship_to = $_REQUEST['ship_to'];  
-$created_date = $_REQUEST['created_date'];
+$created_date = date("y-m-d H:i:s");
 $po_header_id =  date("YmdHis");
 $today =  date("y-m-d H:i:s");
 
 
 ?>
 
-
  <table>
 	<tr>
 		<td>Outlet</td>
-		<td>Purchase Order Date</td>
+		<td>PO Date</td>
 		<td>Supplier</td>
 		<td>Ship To</td>
 	</tr>
-		<?php
-	
-			for($y = 0; $y < count($outlets); $y++ ){
-			     	
-		?>
 	<tr>
 		<td>
-			<?php echo $outlets[$y]; ?>
+			<?php echo $outlets; ?>
 		</td>
 		<td>
-			<?php echo $po_date[$y]; ?>
+			<?php echo $po_date; ?>
 		</td>
 		<td>
-			<?php echo $supplier[$y]; ?>
+			<?php echo $supplier; ?>
 		</td>
 		<td>
-			<?php echo $ship_to[$y]; ?>
+			<?php echo $ship_to; ?>
 		</td>
-		<?php
-		}
-		?>
 	</tr>
 
 
@@ -87,3 +78,18 @@ $today =  date("y-m-d H:i:s");
 	</tr>
 
 </table> 
+
+
+<?php
+	// PO HEADER
+	$sql = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier ,ship_to,outlets,created_date)
+	VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."', '".$created_date."')";
+	mysqli_query($conn, $sql);
+
+// PO LINE
+	for($y = 0; $y < count($item_code); $y++ ){
+		$sql = "INSERT INTO PO_LINE_ALL (po_header_id,item_code,uom ,qty,price)
+		VALUES ('".$po_header_id."','".$item_code[$y]."' , '".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."')";
+		mysqli_query($conn, $sql);
+    	}
+?>
