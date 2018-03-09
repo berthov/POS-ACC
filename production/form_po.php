@@ -264,6 +264,20 @@
                         <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Due Date</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" placeholder="Sesuai sama TOP">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" placeholder="">
+                        </div>
+                      </div>
+
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
@@ -319,7 +333,6 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-12 col-sm-12 col-xs-12" align="center">
-                          <button type="button" class="btn btn-primary">Cancel</button>
 						              <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
