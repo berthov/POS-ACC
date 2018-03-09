@@ -242,7 +242,7 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" method="POST" action="doaddpo.php">
+                    <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="Outles" name="outlets">
