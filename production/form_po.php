@@ -274,7 +274,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" placeholder="">
+                          <input type="text" class="form-control" placeholder="" name="po_description">
                         </div>
                       </div>
 
