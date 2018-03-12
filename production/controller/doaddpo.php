@@ -10,12 +10,13 @@ $price = $_REQUEST['price'];
 $outlets = $_REQUEST['outlets'];
 $po_date = $_REQUEST['po_date'];
 $supplier = $_REQUEST['supplier'];
+$due_date = $_REQUEST['due_date'];
 $ship_to = $_REQUEST['ship_to'];  
 $po_description = $_REQUEST['po_description'];  
 $created_date = date("y-m-d H:i:s");
 $po_header_id =  date("YmdHis");
 $today =  date("y-m-d H:i:s");
-
+$status = "Open";
 
 ?>
 
@@ -86,8 +87,8 @@ $today =  date("y-m-d H:i:s");
 if (isset($_REQUEST['po_date'])) {
   
     // PO HEADER
-  $sql = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier ,ship_to,outlets,created_date,po_description)
-  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."', '".$created_date."','".$po_description."')";
+  $sql = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier ,ship_to,outlets,created_date,po_description,due_date,status)
+  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."', '".$created_date."','".$po_description."','".$due_date."','".$status."')";
   mysqli_query($conn, $sql);
 
 // PO LINE

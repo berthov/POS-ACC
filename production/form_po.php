@@ -1,3 +1,6 @@
+<?php
+include("controller/doconnect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -245,8 +248,20 @@
                     <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="*Outles" name="outlets" required="required">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                            <select class="form-control" name="outlets">
+                          
+                            <?php
+                            $sql = "SELECT * 
+                            FROM outlet";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                              <option value="<?php echo $row["name"] ?>"> <?php echo $row["name"] ?></option>
+                          <?php
+                            }
+                          ?>
+                          
+                            </select>        
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
@@ -267,7 +282,7 @@
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Due Date</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Sesuai sama TOP">
+                          <input type="text" class="form-control" placeholder="Sesuai sama TOP" name="due_date">
                         </div>
                       </div>
 
