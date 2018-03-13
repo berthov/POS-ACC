@@ -1,5 +1,8 @@
 <?php
 include("controller/doconnect.php");
+
+$po_header_id = $_REQUEST['po_header_id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,33 +12,28 @@ include("controller/doconnect.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
-    <title>Bonne Journée! </title>
+
+    <title>Gentelella Alela! | </title>
 
     <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- bootstrap-wysiwyg -->
-    <link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-    <!-- Select2 -->
-    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
-    <!-- Switchery -->
-    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
-    <!-- starrr -->
-    <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-        <!-- jQuery custom content scroller -->
+    <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
-    <!-- Custom Theme Style -->
+    
+    <!-- Custom styling plus plugins -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <style type="text/css" media="print">
+      @media print {
+      @page { margin: 0; }
+      body { margin: 1cm; }
+    }
+    </style>
   </head>
 
   <body class="nav-md">
@@ -98,14 +96,16 @@ include("controller/doconnect.php");
                     <ul class="nav child_menu">
                       <li><a href="tables_dynamic.php">Table Inventory</a></li>
                       <li><a href="tables_invoice.php">Table Invoice</a></li>
-                      <li><a href="table_cogs.php">Table COGS</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Outlets Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
+                      <li><a href="a">Account > bakal pindah ke setting atas</a></li>
+                      <li><a href="a">Billing > bakal pindah ke setting atas</a></li>
                       <li><a href="outlets.php">Outlets</a></li>
                       <li><a href="receipts.php">Receipt</a></li>
                       <li><a href="employees.php">Employees</a></li>
+                      <li><a href="a">Email Notification > bakal pindah ke setting atas</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -151,10 +151,10 @@ include("controller/doconnect.php");
                     <li>
                       <a href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
-                        <span>Billing</span>
+                        <span>Settings</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Email Notification</a></li>
+                    <li><a href="javascript:;">Help</a></li>
                     <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
@@ -215,7 +215,7 @@ include("controller/doconnect.php");
                     </li>
                     <li>
                       <div class="text-center">
-                        <a href="tables.html">
+                        <a>
                           <strong>See All Alerts</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
@@ -234,105 +234,191 @@ include("controller/doconnect.php");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>PO Listing</h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
+                <h3>Purchase Order </h3>
               </div>
             </div>
-            
+
             <div class="clearfix"></div>
 
             <div class="row">
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <!-- <h2>PO Listing</h2> -->
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>PO Design</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-                    <!-- start project list -->
-                    <table class="table table-striped projects">
-                      <thead>
-                        <tr>
-                          <th style="width: 1%">#</th>
-                          <th style="width: 20%">PO Number</th>
-                          <th>Description</th>
-                          <th>Supplier</th>
-                          <th>PO Date</th>
-                          <th>Due Date</th>
-                          <th>Status</th>
-                          <th style="width: 20%">#Edit</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                    <section class="content invoice" id="printableArea">
+                      <!-- title row -->
+                      <div class="row">
+                        
+                    <?php
 
-               <?php
-                  $sql = "SELECT *  
-                  FROM po_header_all";
-                  $result = $conn->query($sql);
-                  while($row = $result->fetch_assoc()) {                      
-               ?>
+                    $sql = "SELECT *  
+                    FROM po_header_all poh,
+                    outlet o
+                    where
+                    poh.outlets = o.name  
+                    and po_header_id = '".$po_header_id."'
+                    ";
+                    $result = $conn->query($sql);
+                    while($row = $result->fetch_assoc()) {
+                    $po_due = $row['due_date'];       
+                    ?>
 
-                        <tr>
-                          <td>#</td>
-                          <td>
-                            <a><?php echo $row['po_header_id']; ?></a>
-                          </td>
-                          <td>
-                            <?php echo $row['po_description']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['supplier']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['po_date']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['po_description']; ?>
-                          </td>
-                          <td>
-                            <button type="button" class="btn btn-success btn-xs"><?php echo $row['status']; ?></button>
-                          </td>
-                          <td>
-                            <a href="template_po.php?po_header_id=<?php echo $row["po_header_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                          </td>
-                        </tr> 
+                        <div class="col-xs-12 invoice-header">
+                          <h1>
+                                          <i class="fa fa-globe"></i> Purchase Order.
+                                          <small class="pull-right">Date: <?php  echo $row['address']; ?></small>
+                                      </h1>
+                        </div>                        
+                        <!-- /.col -->
+                      </div>
+                      <!-- info row -->
+                      <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                          From
+                          <address>
+                                          <strong><?php  echo $row['outlets']; ?></strong>
+                                          <br><?php  echo $row['address']; ?>
+                                          <br><?php  echo $row['city']; ?>
+                                          <br><?php  echo $row['province']; ?>
+                                          <br><?php  echo $row['email']; ?>
+                          </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          To
+                          <address>
+                                          <strong><?php  echo $row['supplier']; ?></strong>
+                                          <br><?php  echo $row['address']; ?>
+                                          <br><?php  echo $row['city']; ?>
+                                          <br><?php  echo $row['province']; ?>
+                                          <br><?php  echo $row['email']; ?>
+                          </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          <br>
+                          <b>Order ID:</b> <?php  echo $row['po_header_id']; ?>
+                          <br>
+                          <b>Payment Due:</b> <?php  echo $row['due_date']; ?>
+                          <br>
+                          <b>Description:</b> <?php  echo $row['po_description']; ?>
+                        </div>
+                        <!-- /.col -->
+                      </div>
 
-                        <?php
-                          }        
-                        ?>  
+                    <?php
 
-                      </tbody>
-                    </table>
-                    <!-- end project list -->
+                     }
+                  
+                    ?>
 
+                      <!-- /.row -->
+
+                      <!-- Table row -->
+                      <div class="row">
+                        <div class="col-xs-12 table">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Qty</th>
+                                <th>Item Code</th>
+                                <th>Item Name</th>
+                                <th style="width: 59%">Description</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!-- DETAIL ROW -->
+                            <?php
+
+                            $sql = "SELECT *  
+                            FROM po_line_all pol
+                            where  
+                            po_header_id = '".$po_header_id."'
+                            ";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                                                             
+                            ?>
+
+                              <tr>
+                                <td><?php  echo $row['qty']; ?></td>
+                                <td><?php  echo $row['item_code']; ?></td>
+                                <td><?php  echo $row['description']; ?></td>
+                                <td>El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson
+                                </td>
+                                <td><?php  echo $row['price']; ?></td>
+                                <td><?php  echo ($row['qty'] * $row['price'] ); ?></td>
+                              </tr>
+
+                            <?php
+                            
+                            }
+
+                            ?>
+                            <!-- END OF DETAIL ROW -->
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-xs-6">
+                          <p class="lead">Payment Methods:</p>
+                          <img src="images/visa.png" alt="Visa">
+                          <img src="images/mastercard.png" alt="Mastercard">
+                          <img src="images/american-express.png" alt="American Express">
+                          <img src="images/paypal.png" alt="Paypal">
+                          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris
+                          </p>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-6">
+                          <p class="lead">Amount Due <?php  echo $po_due; ?> </p>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <tbody>
+                                <tr>
+                                  <th style="width:50%">Subtotal:</th>
+                                  <td>Rp 125.000</td>
+                                </tr>
+                                <tr>
+                                  <th>Tax (10%)</th>
+                                  <td>Rp 12.500</td>
+                                </tr>
+                                <tr>
+                                  <th>Shipping:</th>
+                                  <td>Rp 9.000</td>
+                                </tr>
+                                <tr>
+                                  <th>Total:</th>
+                                  <td>Rp 146.500</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </section>
+                      <!-- this row will not appear when printing -->
+                       <div class="row no-print">
+                        <div class="col-xs-12">
+                          <button class="btn btn-default" onclick="printDiv('printableArea')"><i class="fa fa-print"></i> Print</button>
+                          <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                          <button class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="savePdf('printableArea')"><i class="fa fa-download"></i> Generate PDF</button>
+                        </div>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -355,94 +441,41 @@ include("controller/doconnect.php");
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- bootstrap-wysiwyg -->
-    <script src="../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
-    <script src="../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
-    <script src="../vendors/google-code-prettify/src/prettify.js"></script>
-    <!-- jQuery Tags Input -->
-    <script src="../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
-    <!-- Switchery -->
-    <script src="../vendors/switchery/dist/switchery.min.js"></script>
-    <!-- Select2 -->
-    <script src="../vendors/select2/dist/js/select2.full.min.js"></script>
-    <!-- Parsley -->
-    <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
-    <!-- Autosize -->
-    <script src="../vendors/autosize/dist/autosize.min.js"></script>
-    <!-- jQuery autocomplete -->
-    <script src="../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
-    <!-- starrr -->
-    <script src="../vendors/starrr/dist/starrr.js"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <!-- Datatables -->
-    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- PDFMaker -->
+    <script src="../vendors/pdfmake/build/pdfFromHTML.js"></script>
+
+    <script src="../vendors/pdfmake/build/jspdf.js"></script>
 
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript">
+<!--     <script type="../vendors/pdfmake/build/jquery-2.1.3.js"></script> -->
 
-function myDeleteFunction() {
-    document.getElementById("myTable").deleteRow(1);
-}
+    <!-- JavaScript -->
+        <script type="text/javascript">
 
-function deleteRow(row) {
-  var i = row.parentNode.parentNode.rowIndex;
-  document.getElementById('myTable').deleteRow(i);
-}
+      function printDiv(divName) {
+           var printContents = document.getElementById(divName).innerHTML;
+           var originalContents = document.body.innerHTML;
 
+           document.body.innerHTML = printContents;
 
+           window.print();
 
-function myCreateFunction() {
-    var table = document.getElementById("myTable");
-    var row = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);  
-    cell1.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>';
-    cell2.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>';
-    cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>';
-    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>';
-    cell5.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>';
-    cell6.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
-}
-
-                                    
-                                                               
-
+           document.body.innerHTML = originalContents;
+      }
     </script>
-	
   </body>
 </html>
+
 
 
