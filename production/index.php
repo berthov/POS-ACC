@@ -134,7 +134,7 @@ if(isset($_REQUEST['reservation'])){
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Logout" href="controller/dologout.php">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -165,7 +165,7 @@ if(isset($_REQUEST['reservation'])){
                       </a>
                     </li>
                     <li><a href="javascript:;">Email Notification</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="controller/dologout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 <!-- INI UNTUK NOTIFICATION NANTI PAKE QUERY AJA -->
