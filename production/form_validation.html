@@ -1,3 +1,8 @@
+<?php
+session_start();
+include("controller/session.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

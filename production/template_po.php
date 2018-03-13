@@ -1,4 +1,6 @@
 <?php
+session_start();
+include("controller/session.php");
 include("controller/doconnect.php");
 
 $po_header_id = $_REQUEST['po_header_id'];

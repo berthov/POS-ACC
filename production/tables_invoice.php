@@ -1,4 +1,6 @@
 <?php
+session_start();
+include("controller/session.php");
 include("controller/doconnect.php");
 $p_start_date = date('Y-m-d');
 $p_end_date = date('Y-m-d');

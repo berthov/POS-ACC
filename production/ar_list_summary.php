@@ -1,4 +1,6 @@
 <?php
+session_start();
+include("controller/session.php");
 include("controller/doconnect.php");
 $p_start_date= $_REQUEST['p_start_date']; 
 $p_end_date= $_REQUEST['p_end_date']; 
