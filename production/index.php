@@ -66,7 +66,11 @@ if(isset($_REQUEST['reservation'])){
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>Bernard Thoven</h2>
+                <h2>
+                  <?php
+                    echo ($user_check);
+                  ?>
+                </h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
