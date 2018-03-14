@@ -272,7 +272,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                         <div class="col-xs-12 invoice-header">
                           <h1>
                                           <i class="fa fa-globe"></i> Purchase Order.
-                                          <small class="pull-right">Date: <?php  echo $row['address']; ?></small>
+                                          <small class="pull-right">Date: <?php  echo $row['po_date']; ?></small>
                                       </h1>
                         </div>                        
                         <!-- /.col -->
@@ -417,7 +417,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                        <div class="row no-print">
                         <div class="col-xs-12">
                           <button class="btn btn-default" onclick="printDiv('printableArea')"><i class="fa fa-print"></i> Print</button>
-                          <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                          <a href="payment_po.php"><button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button></a>
                           <button class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="savePdf('printableArea')"><i class="fa fa-download"></i> Generate PDF</button>
                         </div>
                       </div>

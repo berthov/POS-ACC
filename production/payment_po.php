@@ -2,8 +2,10 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
-?>
 
+$po_header_id = $_REQUEST['po_header_id'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,7 +36,7 @@ include("controller/doconnect.php");
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-        <!-- jQuery custom content scroller -->
+    <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
@@ -237,109 +239,196 @@ include("controller/doconnect.php");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>PO Listing</h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
+                <h3>PO Status</h3>
               </div>
             </div>
-            
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <!-- <h2>PO Listing</h2> -->
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>Purchase Order Header</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                    <br />
+                    <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
+                      
+                  <?php
 
-                    <!-- start project list -->
-                    <table class="table table-striped projects">
-                      <thead>
-                        <tr>
-                          <th style="width: 1%">#</th>
-                          <th style="width: 20%">PO Number</th>
-                          <th>Description</th>
-                          <th>Supplier</th>
-                          <th>PO Date</th>
-                          <th>Due Date</th>
-                          <th>Status</th>
-                          <th style="width: 20%">#Edit</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+                    $sql = "SELECT *  
+                    FROM po_header_all poh,
+                    outlet o
+                    where
+                    poh.outlets = o.name  
+                    and po_header_id = '".$po_header_id."'
+                    ";
+                    $result = $conn->query($sql);
+                    while($row = $result->fetch_assoc()) {
+                    $po_due = $row['due_date'];       
 
-               <?php
-                  $sql = "SELECT *  
-                  FROM po_header_all";
-                  $result = $conn->query($sql);
-                  while($row = $result->fetch_assoc()) {                      
-               ?>
+                  ?>
+                      <div class="form-group">
+                        <label class="col-md-2 col-sm-2 col-xs-12">Outlet</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" name="outlets" placeholder="<?php echo $row["name"] ?>" disabled="disabled">
+                        </div>
 
-                        <tr>
-                          <td>#</td>
-                          <td>
-                            <a><?php echo $row['po_header_id']; ?></a>
-                          </td>
-                          <td>
-                            <?php echo $row['po_description']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['supplier']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['po_date']; ?>
-                          </td>
-                          <td>
-                            <?php echo $row['po_description']; ?>
-                          </td>
-                          <td>
-                            <a href="payment_po.php?po_header_id=<?php echo $row["po_header_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['status']; ?></button></a>
-                          </td>
-                          <td>
-                            <a href="template_po.php?po_header_id=<?php echo $row["po_header_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                          </td>
-                        </tr> 
+                        <label class="col-md-2 col-sm-2 col-xs-12">PO Date</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" name="po_date" placeholder="<?php echo $row["po_date"] ?>" disabled="disabled">
+                        </div>
+                      </div>
 
-                        <?php
-                          }        
-                        ?>  
+                      <div class="form-group">
+                        <label class="col-md-2 col-sm-2 col-xs-12">Supplier</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" name="supplier" placeholder="<?php echo $row["supplier"] ?>" disabled="disabled">
+                        </div>
 
-                      </tbody>
-                    </table>
-                    <!-- end project list -->
+                        <label class="col-md-2 col-sm-2 col-xs-12">Ship To</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" placeholder="<?php echo $row["ship_to"] ?>" name="ship_to" disabled="disabled">
+                        </div>
+                      </div>
 
+                      <div class="form-group">
+                        <label class="col-md-2 col-sm-2 col-xs-12">Due Date</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" placeholder="<?php echo $row["due_date"] ?>" name="due_date" disabled="disabled">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-2 col-sm-2 col-xs-12">Description</label>
+                        <div class="col-md-10 col-sm-10 col-xs-12">
+                          <input type="text" class="form-control" placeholder="<?php echo $row["po_description"] ?>" name="po_description" disabled="disabled">
+                        </div>
+                      </div>
+
+                      <?php 
+                      
+                      }
+                      
+                      ?>
+
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                          <div class="x_title">
+                            <h2><i class="fa fa-align-left"></i> Payment History <small>Sub-Title</small></h2>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content">
+
+                            <!-- PO LINE  -->
+                            <div class="panel-body">
+                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">
+
+                                                  
+                              <div class="table-responsive" >
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th class="column-title">Invoice </th>
+                            <th class="column-title">Invoice Date </th>
+                            <th class="column-title">Order </th>
+                            <th class="column-title">Bill to Name </th>
+                            <th class="column-title">Status </th>
+                            <th class="column-title">Amount </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr">
+                            <td class=" ">121000040</td>
+                            <td class=" ">May 23, 2014 11:47:56 PM </td>
+                            <td class=" ">121000210 </td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="">$7.45</td>
+                          </tr>
+                        </tbody>
+                                </table>
+                              </div>
+
+                              <div class="clear"></div>    
+                              </div>
+                            </div>
+                            <!-- END OF PO LINE -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                          <div class="x_title">
+                            <h2><i class="fa fa-align-left"></i> Payment <small>Sub-Title</small></h2>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content">
+
+                            <!-- PO LINE  -->
+                            <div class="panel-body">
+                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">
+
+                                                  
+                              <div class="table-responsive" >
+                                <table class="table" id="myTable">
+                                  <tr>
+                                    <th>Item Code</th>
+                                    <th>Item Description</th>
+                                    <th>UOM</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                  </tr>
+                                  <tr>
+                                    <td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>
+                                    <td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>
+                                    <td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>
+                                    <td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>
+                                    <td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>
+                                    <td>
+<!--                                         <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
+                                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
+                                        </button> -->
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+
+
+                              <button class="btn btn-success" type="button" onclick="myCreateFunction();"> <b>Insert New Row</b>
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                              </button>
+
+                              <div class="clear"></div>    
+                              </div>
+                            </div>
+                            <!-- END OF PO LINE -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12" align="center">
+						              <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
+
+
             </div>
+
           </div>
         </div>
         <!-- /page content -->
@@ -407,7 +496,7 @@ include("controller/doconnect.php");
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
-    <!-- jQuery custom content scroller -->
+        <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript">
