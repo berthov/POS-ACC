@@ -112,12 +112,7 @@ include("controller/doconnect.php");
         <!-- footer content -->
         <div hidden="hidden" id="printableArea">asd</div>
 
-        <footer>
-          <div class="pull-right">
-            Bonne Journée! - Admin DashBoard by Bernard Thoven
-          </div>
-          <div class="clearfix"></div>
-        </footer>
+        <?php include("view/footer.php"); ?>
         <!-- /footer content -->
       </div>
     </div>
