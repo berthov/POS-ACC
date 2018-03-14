@@ -317,6 +317,55 @@ $po_header_id = $_REQUEST['po_header_id'];
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                           <div class="x_title">
+                            <h2><i class="fa fa-align-left"></i> Payment History <small>Sub-Title</small></h2>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content">
+
+                            <!-- PO LINE  -->
+                            <div class="panel-body">
+                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">
+
+                                                  
+                              <div class="table-responsive" >
+                      <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                          <tr class="headings">
+                            <th class="column-title">Invoice </th>
+                            <th class="column-title">Invoice Date </th>
+                            <th class="column-title">Order </th>
+                            <th class="column-title">Bill to Name </th>
+                            <th class="column-title">Status </th>
+                            <th class="column-title">Amount </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr">
+                            <td class=" ">121000040</td>
+                            <td class=" ">May 23, 2014 11:47:56 PM </td>
+                            <td class=" ">121000210 </td>
+                            <td class=" ">John Blank L</td>
+                            <td class=" ">Paid</td>
+                            <td class="">$7.45</td>
+                          </tr>
+                        </tbody>
+                                </table>
+                              </div>
+
+                              <div class="clear"></div>    
+                              </div>
+                            </div>
+                            <!-- END OF PO LINE -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                          <div class="x_title">
                             <h2><i class="fa fa-align-left"></i> Payment <small>Sub-Title</small></h2>
                             <div class="clearfix"></div>
                           </div>
