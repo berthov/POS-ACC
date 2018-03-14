@@ -1,3 +1,8 @@
+<?php
+include("controller/session.php");
+include("controller/doconnect.php");
+?>
+
 <!-- SIDE BAR -->
 <div class="col-md-3 left_col menu_fixed">
   <div class="left_col scroll-view">
@@ -14,7 +19,7 @@
       </div>
       <div class="profile_info">
         <span>Welcome,</span>
-        <h2>Bernard Thoven</h2>
+        <h2> <?php echo($user_check); ?></h2>
       </div>
     </div>
     <!-- /menu profile quick info -->

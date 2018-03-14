@@ -1,3 +1,8 @@
+<?php
+include("controller/session.php");
+include("controller/doconnect.php");
+?>
+
 <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
@@ -9,7 +14,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt="">Bernard Thoven
+                    <img src="images/user.png" alt=""><?php echo($user_check); ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
