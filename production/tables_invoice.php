@@ -138,12 +138,7 @@ $p_end_date = date('Y-m-d');
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Bonne Journée! - Admin DashBoard by Bernard Thoven
-          </div>
-          <div class="clearfix"></div>
-        </footer>
+        <?php include("view/footer.php"); ?>
         <!-- /footer content -->
       </div>
     </div>
