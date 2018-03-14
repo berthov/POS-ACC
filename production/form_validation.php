@@ -1,8 +1,8 @@
 <?php
 session_start();
 include("controller/session.php");
-include("controller/doconnect.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,7 +28,7 @@ include("controller/doconnect.php");
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-
+        
         <!-- Sidebar Menu -->
         <?php include("view/sidebar.php"); ?>
         <!-- End Of Sidebar  -->
@@ -55,57 +55,57 @@ include("controller/doconnect.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
-                    <form class="form-horizontal form-label-left" action="controller/doupdategoods.php" novalidate>
+                    <form class="form-horizontal form-label-left" action="controller/doaddnewgoods.php" novalidate>
 
                       <span class="section">Master Item Info</span>
-                      <?php
-                        $id = $_REQUEST['id'];
-                        $sql = "SELECT * FROM inventory where id = '".$id."'";
-                        $result = $conn->query($sql);
-                        while($row = $result->fetch_assoc()) {
-                      ?>  
-                      <input type="hidden" name="id" value="<?php echo $row["id"]?>">
+
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Item Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="item_code" class="form-control col-md-7 col-xs-12" data-suggestions="White, Green, Blue, Black, Brown" name="item_code" placeholder="ex.RMT-00000001" required="required" type="text" value="<?php echo $row["item_code"]?>" readonly>
+                          <input id="item_code" class="form-control col-md-7 col-xs-12" data-suggestions="White, Green, Blue, Black, Brown" name="item_code" placeholder="ex.RMT-00000001" required="required" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" placeholder="PRIMA UP 480 SL UK.20 LTR - JERIGEN MAKIN" value="<?php echo $row["description"]?>">
+                          <input id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" placeholder="PRIMA UP 480 SL UK.20 LTR - JERIGEN MAKIN">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qty">Quantity <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="quantity" name="qty" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999" value="<?php echo $row["qty"]?>">
+                          <input type="number" id="quantity" name="qty" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">COGS <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="price" name="cogs" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="unit_price">Unit Price <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="price" name="unit_price" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999" value="<?php echo $row["unit_price"]?>">
+                          <input type="number" id="price" name="unit_price" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="max">Max Threshold <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="minthreshold" name="max" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999" value="<?php echo $row["max"]?>">
+                          <input type="number" id="minthreshold" name="max" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Min Threshold <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="maxthreshold" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999" value="<?php echo $row["min"]?>">
+                          <input type="number" id="maxthreshold" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -115,11 +115,33 @@ include("controller/doconnect.php");
                           <button id="send" type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
-                      <?php
-                    }
-                    ?>
                     </form>
                   </div>
+                </div>
+                <div class="x_panel">
+                  <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+                     <fieldset>
+                              <!-- Form Name -->
+                              <legend>MASS ADD CSV </legend>
+       
+                              <!-- File Button -->
+                              <div class="form-group">
+                                  <label class="col-md-4 control-label " for="filebutton">Select File</label>
+                                  <div class="col-md-4">
+                                      <input type="file" name="file" id="file" class="input-large">
+                                  </div>
+                              </div>
+       
+                              <!-- Button -->
+                              <div class="form-group">
+                                  <label class="col-md-4 control-label" for="singlebutton">Import data</label>
+                                  <div class="col-md-4">
+                                      <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+                                  </div>
+                              </div>
+       
+                    </fieldset>
+                 </form>
                 </div>
               </div>
             </div>

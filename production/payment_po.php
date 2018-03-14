@@ -46,193 +46,14 @@ $po_header_id = $_REQUEST['po_header_id'];
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col menu_fixed">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Bonne Journée!</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/user.png" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>Bernard Thoven</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                  <li><a href="index.php"><i class="fa fa-home"></i> Dashboard </a>
-                  </li>
-                  <li><a><i class="fa fa-table"></i> Reports <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="sales_summary.php">Sales Summary</a></li>
-                      <li><a href="gross_profit.php">Gross Profit</a></li>
-                      <li><a href="payment_method.php">Payment Method</a></li>
-                      <li><a href="category_sales.php">Category Sales</a></li>
-                      <li><a href="reports.php">Reports</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form_validation.html">Master Item Form</a></li>
-                      <li><a href="cogs.php">Cost of Goods Sold (COGS)</a></li>
-                      <li><a href="form.html">Invoice Form</a></li>
-                      <li><a href="form_po.php">Purchase Order Form</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-desktop"></i> Account Receivable <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <!-- <li><a href="projects.html">Projects</a></li> -->
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="media_gallery.php">Transaction</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables_dynamic.php">Table Inventory</a></li>
-                      <li><a href="tables_invoice.php">Table Invoice</a></li>
-                      <li><a href="table_cogs.php">Table COGS</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-table"></i> Outlets Settings <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="outlets.php">Outlets</a></li>
-                      <li><a href="receipts.php">Receipt</a></li>
-                      <li><a href="employees.php">Employees</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <!-- /sidebar menu -->
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="controller/dologout.php">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/user.png" alt="">Bernard Thoven
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Billing</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Email Notification</a></li>
-                    <li><a href="controller/dologout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
-                </li>
-<!-- INI UNTUK NOTIFICATION NANTI PAKE QUERY AJA -->
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
-                        <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
-                        <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
-                        <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
-                        <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a href="tables.html">
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
+        
+        <!-- Sidebar Menu -->
+        <?php include("view/sidebar.php"); ?>
+        <!-- End Of Sidebar  -->
+        
+        <!-- Top Navigation -->
+        <?php include("view/top_navigation.php"); ?>
+        <!-- End Of Top Navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
@@ -251,18 +72,19 @@ $po_header_id = $_REQUEST['po_header_id'];
                     <h2>Purchase Order Header</h2>
                     <div class="clearfix"></div>
                   </div>
+                  <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpayment.php">      
                   <div class="x_content">
-                    <br />
-                    <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
-                      
+                    <br />                      
                   <?php
 
-                    $sql = "SELECT *  
+                    $sql = "SELECT o.name , poh.po_date , poh.supplier , poh.ship_to , poh.due_date , poh.po_description ,pol.qty , pol.price
                     FROM po_header_all poh,
-                    outlet o
+                    outlet o,
+                    po_line_all pol
                     where
                     poh.outlets = o.name  
-                    and po_header_id = '".$po_header_id."'
+                    and poh.po_header_id = pol.po_header_id
+                    and poh.po_header_id = '".$po_header_id."'
                     ";
                     $result = $conn->query($sql);
                     while($row = $result->fetch_assoc()) {
@@ -301,6 +123,13 @@ $po_header_id = $_REQUEST['po_header_id'];
                       </div>
 
                       <div class="form-group">
+                        <label class="col-md-2 col-sm-2 col-xs-12">Oustanding</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" placeholder="<?php echo ($row["qty"] * $row["price"]) ?>" name="due_date" disabled="disabled">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
                         <label class="col-md-2 col-sm-2 col-xs-12">Description</label>
                         <div class="col-md-10 col-sm-10 col-xs-12">
                           <input type="text" class="form-control" placeholder="<?php echo $row["po_description"] ?>" name="po_description" disabled="disabled">
@@ -324,39 +153,35 @@ $po_header_id = $_REQUEST['po_header_id'];
 
                             <!-- PO LINE  -->
                             <div class="panel-body">
-                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">
-
-                                                  
+                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">                                                 
                               <div class="table-responsive" >
-                      <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                          <tr class="headings">
-                            <th class="column-title">Invoice </th>
-                            <th class="column-title">Invoice Date </th>
-                            <th class="column-title">Order </th>
-                            <th class="column-title">Bill to Name </th>
-                            <th class="column-title">Status </th>
-                            <th class="column-title">Amount </th>
-                          </tr>
-                        </thead>
+                                <table class="table table-striped jambo_table bulk_action">
+                                  <thead>
+                                    <tr class="headings">
+                                      <th class="column-title">#</th>
+                                      <th class="column-title">Payment Number </th>
+                                      <th class="column-title">Payment Date </th>
+                                      <th class="column-title">Payment Type </th>
+                                      <th class="column-title">Amount </th>
+                                    </tr>
+                                  </thead>
 
-                        <tbody>
-                          <tr">
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210 </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="">$7.45</td>
-                          </tr>
-                        </tbody>
+                                  <tbody>
+                                    <tr">
+                                      <td>#</td>
+                                      <td>121000040</td>
+                                      <td>May 23, 2014 11:47:56 PM </td>
+                                      <td>John Blank L</td>
+                                      <td class="">$7.45</td>
+                                    </tr>
+                                  </tbody>
                                 </table>
                               </div>
 
                               <div class="clear"></div>    
                               </div>
                             </div>
-                            <!-- END OF PO LINE -->
+                            <!-- END OF PAYMENT -->
                           </div>
                         </div>
                       </div>
@@ -373,38 +198,24 @@ $po_header_id = $_REQUEST['po_header_id'];
 
                             <!-- PO LINE  -->
                             <div class="panel-body">
-                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">
-
-                                                  
+                              <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">            
                               <div class="table-responsive" >
                                 <table class="table" id="myTable">
                                   <tr>
-                                    <th>Item Code</th>
-                                    <th>Item Description</th>
-                                    <th>UOM</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
+                                    <th>Payment Number</th>
+                                    <th>Payment Date</th>
+                                    <th>Payment Type</th>
+                                    <th>Amount</th>
                                     <th></th>
                                   </tr>
                                   <tr>
-                                    <td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>
-                                    <td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>
-                                    <td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>
-                                    <td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>
-                                    <td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>
-                                    <td>
-<!--                                         <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
-                                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
-                                        </button> -->
-                                    </td>
+                                    <td><input type="text" class="form-control" id="item_code" name="payment_number"></td>
+                                    <td><input type="text" class="form-control" id="description" name="payment_date"></td>
+                                    <td><input type="text" class="form-control" id="uom" name="payment_type"></td>
+                                    <td><input type="text" class="form-control" id="qty" name="amount"></td>
                                   </tr>
                                 </table>
                               </div>
-
-
-                              <button class="btn btn-success" type="button" onclick="myCreateFunction();"> <b>Insert New Row</b>
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
-                              </button>
 
                               <div class="clear"></div>    
                               </div>
@@ -434,12 +245,7 @@ $po_header_id = $_REQUEST['po_header_id'];
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Bonne Journée! - Admin DashBoard by Bernard Thoven
-          </div>
-          <div class="clearfix"></div>
-        </footer>
+        <?php include("view/footer.php"); ?>
         <!-- /footer content -->
       </div>
     </div>
@@ -499,41 +305,6 @@ $po_header_id = $_REQUEST['po_header_id'];
         <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script type="text/javascript">
-
-function myDeleteFunction() {
-    document.getElementById("myTable").deleteRow(1);
-}
-
-function deleteRow(row) {
-  var i = row.parentNode.parentNode.rowIndex;
-  document.getElementById('myTable').deleteRow(i);
-}
-
-
-
-function myCreateFunction() {
-    var table = document.getElementById("myTable");
-    var row = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);  
-    cell1.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>';
-    cell2.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>';
-    cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>';
-    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>';
-    cell5.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>';
-    cell6.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
-}
-
-                                    
-                                                               
-
-    </script>
-	
   </body>
 </html>
 
