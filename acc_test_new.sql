@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2018 at 05:42 PM
+-- Generation Time: Mar 17, 2018 at 06:28 AM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -19,6 +19,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `acc_test`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ap_check_all`
+--
+
+CREATE TABLE `ap_check_all` (
+  `payment_id` int(11) NOT NULL,
+  `po_header_id` varchar(255) NOT NULL,
+  `payment_number` varchar(255) NOT NULL,
+  `payment_date` date NOT NULL,
+  `payment_type` varchar(255) NOT NULL,
+  `payment_amount` int(11) NOT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `last_update_by` varchar(255) DEFAULT NULL,
+  `last_update_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ap_check_all`
+--
+
+INSERT INTO `ap_check_all` (`payment_id`, `po_header_id`, `payment_number`, `payment_date`, `payment_type`, `payment_amount`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
+(1, '20180312222216', 'a', '0000-00-00', 'c', 0, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -62,15 +88,16 @@ CREATE TABLE `employee` (
   `created_by` varchar(255) DEFAULT NULL,
   `last_update_by` varchar(255) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
-  `last_update_date` date DEFAULT NULL
+  `last_update_date` date DEFAULT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`name`, `role`, `email`, `outlet_id`, `employee_id`, `created_by`, `last_update_by`, `created_date`, `last_update_date`) VALUES
-('Martin', 'Admin', 'martinganteng@gmail.com', 'CaseNation.ID', 3, '0', NULL, NULL, NULL);
+INSERT INTO `employee` (`name`, `role`, `email`, `outlet_id`, `employee_id`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `password`) VALUES
+('admin', 'Admin', 'martinganteng@gmail.com', 'CaseNation.ID', 3, '0', NULL, NULL, NULL, '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -288,6 +315,12 @@ INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `item_code`, `uom`, `qt
 --
 
 --
+-- Indexes for table `ap_check_all`
+--
+ALTER TABLE `ap_check_all`
+  ADD PRIMARY KEY (`payment_id`);
+
+--
 -- Indexes for table `cogs`
 --
 ALTER TABLE `cogs`
@@ -333,6 +366,11 @@ ALTER TABLE `po_line_all`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `ap_check_all`
+--
+ALTER TABLE `ap_check_all`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `cogs`
 --
