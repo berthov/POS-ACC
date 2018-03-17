@@ -167,13 +167,35 @@ $po_header_id = $_REQUEST['po_header_id'];
                                   </thead>
 
                                   <tbody>
+                                  <!-- QUERY UNTUK PAYMENT DETAIL BERDASARKAN PO ID  -->
+                                    <?php
+                                    $sql_payment = 
+                                    "SELECT * 
+                                    FROM
+                                    AP_CHECK_ALL ACA
+                                    where
+                                    ACA.PO_HEADER_ID = '".$po_header_id."'
+                                    ";
+
+                                    $result_payment = $conn->query($sql_payment);
+                                    while($row_payment = $result_payment->fetch_assoc()) {
+
+                                    ?>
+                                  
                                     <tr">
                                       <td>#</td>
-                                      <td>121000040</td>
-                                      <td>May 23, 2014 11:47:56 PM </td>
-                                      <td>John Blank L</td>
-                                      <td class="">$7.45</td>
+                                      <td><?php echo $row_payment["payment_number"] ?></td>
+                                      <td><?php echo $row_payment["payment_date"] ?></td>
+                                      <td><?php echo $row_payment["payment_type"] ?></td>
+                                      <td><?php echo $row_payment["payment_amount"] ?></td>
                                     </tr>
+                                  
+                                  <?php
+                                  
+                                  }
+                                  
+                                  ?>
+                                  <!-- END OF QUERY -->
                                   </tbody>
                                 </table>
                               </div>
@@ -181,7 +203,6 @@ $po_header_id = $_REQUEST['po_header_id'];
                               <div class="clear"></div>    
                               </div>
                             </div>
-                            <!-- END OF PAYMENT -->
                           </div>
                         </div>
                       </div>
@@ -209,10 +230,11 @@ $po_header_id = $_REQUEST['po_header_id'];
                                     <th></th>
                                   </tr>
                                   <tr>
-                                    <td><input type="text" class="form-control" id="item_code" name="payment_number"></td>
-                                    <td><input type="text" class="form-control" id="description" name="payment_date"></td>
-                                    <td><input type="text" class="form-control" id="uom" name="payment_type"></td>
-                                    <td><input type="text" class="form-control" id="qty" name="amount"></td>
+                                    <td><input type="text" class="form-control" name="payment_number"></td>
+                                    <td><input type="text" class="form-control" name="payment_date"></td>
+                                    <td><input type="text" class="form-control" name="payment_type"></td>
+                                    <td><input type="text" class="form-control" name="payment_amount"></td>
+                                    <td><input type="hidden" name="po_header_id" value="<?php echo $po_header_id; ?>"></td>
                                   </tr>
                                 </table>
                               </div>

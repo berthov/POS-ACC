@@ -62,6 +62,7 @@ include("controller/doconnect.php");
               <li><a href="tables_dynamic.php">Table Inventory</a></li>
               <li><a href="tables_invoice.php">Table Invoice</a></li>
               <li><a href="table_cogs.php">Table COGS</a></li>
+              <li><a href="po_summary.php">Table PO</a></li>             
             </ul>
           </li>
           <li><a><i class="fa fa-table"></i> Outlets Settings <span class="fa fa-chevron-down"></span></a>
