@@ -42,7 +42,7 @@ include("controller/doconnect.php");
                 <input type="password" class="form-control" placeholder="Password" name="password" required="" />
               </div>
               <div>
-               <input type = "submit" value = " Log in "/>
+               <input class="btn btn-default" type = "submit" value = " Log in "/>
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
 
@@ -67,19 +67,25 @@ include("controller/doconnect.php");
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
+            <form action = "controller/doregister.php" method = "POST">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Username" name="username" required="" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="email" class="form-control" placeholder="Email" name="email" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <input type="text" class="form-control" placeholder="Role" name="role" required="" />
+              </div>
+              <div>
+                <input type="text" class="form-control" placeholder="Outlet" name="outlet" required="" />
+              </div>
+              <div>
+                <button type="submit" class="btn btn-default" name="reg_user">Register</button>
               </div>
 
               <div class="clearfix"></div>
