@@ -79,8 +79,11 @@ include("controller/doconnect.php");
                 <input type="password" class="form-control" placeholder="Password" name="password" required="" />
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Role" name="role" required="" />
+                <input type="password" class="form-control" placeholder="Confirm Password" name="cpassword" required="" />
               </div>
+             <!--  <div>
+                <input type="text" class="form-control" placeholder="Role" name="role" required="" />
+              </div> -->
               <div>
                 <input type="text" class="form-control" placeholder="Outlet" name="outlet" required="" />
               </div>
