@@ -5,6 +5,7 @@ include("controller/doconnect.php");
 
 $po_header_id = $_REQUEST['po_header_id'];
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,9 +124,9 @@ $po_header_id = $_REQUEST['po_header_id'];
                       </div>
 
                       <div class="form-group">
-                        <label class="col-md-2 col-sm-2 col-xs-12">Oustanding</label>
+                        <label class="col-md-2 col-sm-2 col-xs-12">Outsanding</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" placeholder="<?php echo ($row["qty"] * $row["price"]) ?>" name="due_date" disabled="disabled">
+                          <input type="text" class="form-control" placeholder="<?php include("query/po_outstanding.php"); ?>" name="due_date" disabled="disabled">
                         </div>
                       </div>
 
@@ -185,7 +186,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                                     <tr">
                                       <td>#</td>
                                       <td><?php echo $row_payment["payment_number"] ?></td>
-                                      <td><?php echo $row_payment["payment_date"] ?></td>
+                                      <td><?php echo date('d-M-Y', strtotime($row_payment["payment_date"])); ?></td>
                                       <td><?php echo $row_payment["payment_type"] ?></td>
                                       <td><?php echo $row_payment["payment_amount"] ?></td>
                                     </tr>
@@ -231,8 +232,28 @@ $po_header_id = $_REQUEST['po_header_id'];
                                   </tr>
                                   <tr>
                                     <td><input type="text" class="form-control" name="payment_number"></td>
-                                    <td><input type="text" class="form-control" name="payment_date"></td>
-                                    <td><input type="text" class="form-control" name="payment_type"></td>
+                                    <!-- <td><input type="text" class="form-control" name="payment_date"></td> -->
+                                    <td>
+                                      <fieldset>
+                                        <div class="control-group">
+                                          <div class="controls">
+                                            <div class="col-md-12 xdisplay_inputx form-group has-feedback">
+                                              <input type="text" class="form-control has-feedback-left" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="payment_date">
+                                              <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                              <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </fieldset>
+                                    </td>
+                                    <td>
+                                     <div class="form-group">
+                                        <select class="form-control" name="payment_type">
+                                          <option value="Cash">Cash</option>
+                                          <option value="Giro/Check">Giro/Check</option>
+                                        </select>
+                                      </div>
+                                    </td>
                                     <td><input type="text" class="form-control" name="payment_amount"></td>
                                     <td><input type="hidden" name="po_header_id" value="<?php echo $po_header_id; ?>"></td>
                                   </tr>

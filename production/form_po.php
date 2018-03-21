@@ -91,10 +91,20 @@ include("controller/doconnect.php");
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess3" placeholder="*PO Date" name="po_date" required="required">
-                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                       <fieldset>
+                          <div class="control-group">
+                            <div class="controls">
+                              <div class="xdisplay_inputx">
+                                <input type="text" class="form-control" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="po_date">
+                                <span class="fa fa-calendar-o form-control-feedback right" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status3" class="sr-only">(success)</span>
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
                       </div>
 
+      
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="*Supplier" name="supplier" required="required">
                         <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
@@ -108,7 +118,7 @@ include("controller/doconnect.php");
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Due Date</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Sesuai sama TOP" name="due_date">
+                          <input type="text" class="form-control" placeholder="Sesuai sama TOP" name="due_date" required="required">
                         </div>
                       </div>
 
@@ -144,11 +154,11 @@ include("controller/doconnect.php");
                                     <th></th>
                                   </tr>
                                   <tr>
-                                    <td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>
-                                    <td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>
-                                    <td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>
-                                    <td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>
-                                    <td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>
+                                    <td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>
+                                    <td><input type="text" class="form-control" id="description" name="description[]"  required="required"></td>
+                                    <td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td>
+                                    <td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>
+                                    <td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>
                                     <td>
 <!--                                         <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
                                           <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
@@ -273,11 +283,11 @@ function myCreateFunction() {
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
     var cell6 = row.insertCell(5);  
-    cell1.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" value="" placeholder="Item Code"></td>';
-    cell2.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" value="" placeholder="Item Description"></td>';
-    cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" value="" placeholder="UOM"></td>';
-    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" value="" placeholder="Quantity"></td>';
-    cell5.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" value="" placeholder="Unit Price"></td>';
+    cell1.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>';
+    cell2.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" required="required"></td>';
+    cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td>';
+    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
+    cell5.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>';
     cell6.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
 }
 

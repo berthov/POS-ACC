@@ -3,11 +3,10 @@
 	include("doconnect.php");
 
 	$payment_number = $_REQUEST['payment_number'];	
-	$payment_date = $_REQUEST['payment_date'];
+	$payment_date = date('Y-m-d', strtotime($_REQUEST['payment_date']));
 	$payment_type = $_REQUEST['payment_type'];
 	$payment_amount = $_REQUEST['payment_amount'];
 	$po_header_id = $_REQUEST['po_header_id'];
-
 
 
 
@@ -22,6 +21,6 @@
 
 		mysqli_close($conn);
 
-		header("Location:../payment_po.php");
+		header("Location:../payment_po.php?po_header_id=$po_header_id");
 
 ?>

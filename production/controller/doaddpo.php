@@ -1,14 +1,13 @@
 <?php
 	
-include("doconnect.php");
-date_default_timezone_set('Asia/Jakarta');			
+include("doconnect.php");		
 $item_code = $_REQUEST['item_code'];
 $description = $_REQUEST['description'];	
 $uom = $_REQUEST['uom'];
 $qty = $_REQUEST['qty'];
 $price = $_REQUEST['price'];
 $outlets = $_REQUEST['outlets'];
-$po_date = $_REQUEST['po_date'];
+$po_date = date('Y-m-d', strtotime($_REQUEST['po_date']));
 $supplier = $_REQUEST['supplier'];
 $due_date = $_REQUEST['due_date'];
 $ship_to = $_REQUEST['ship_to'];  
@@ -18,9 +17,11 @@ $po_header_id =  date("YmdHis");
 $today =  date("y-m-d H:i:s");
 $status = "Open";
 
+
+
 ?>
 
- <table>
+<!--  <table>
 	<tr>
 		<td>Outlet</td>
 		<td>PO Date</td>
@@ -79,7 +80,7 @@ $status = "Open";
 		?>
 	</tr>
 
-</table> 
+</table>  -->
 
 
 <?php
