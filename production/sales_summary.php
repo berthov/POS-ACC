@@ -8,6 +8,7 @@ include("controller/session.php");
 include("controller/doconnect.php");
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
+
 if(isset($_REQUEST['reservation'])){
   $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 1,10))) ;
 }
@@ -15,6 +16,14 @@ if(isset($_REQUEST['reservation'])){
 if(isset($_REQUEST['reservation'])){
   $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
+
+// echo $start_date1 =  '<p id=demo></p>';
+// echo '<br>';
+// echo $end_date1 = '<p id=demo1></p>' ;
+
+// testing
+echo  '<p id=demo></p>';
+echo  '<p id=demo1></p>';
 
 ?>
 
@@ -78,12 +87,13 @@ if(isset($_REQUEST['reservation'])){
                     <!-- Date Picker -->
                    <div class="col-md-6">
                     <!--INI GK JELAS PARAMETERNYA  -->
+                    <!-- kalo gw pake onchange kgak mau di click pas udah milih tanggal -->
                       <form class="form-horizontal" action="sales_summary.php" method="post">
                         <fieldset>
                           <div class="control-group" >
                             <div class="controls" >
                               <div class="input-prepend input-group">
-                                <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right" />
+                                <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right" onchange="this.form.submit()" />
                                 <span class="add-on input-group-addon">
                                   <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -92,6 +102,8 @@ if(isset($_REQUEST['reservation'])){
                           </div>
                         </fieldset>
                     </div>
+
+                    <!-- kalo button nya gw ilangin loop trus dia -->
                     <div class="col-md-2">
                       <input type="submit" name="submit"  class="btn btn-round btn-primary pull-right"/>
                     </div>
@@ -190,6 +202,7 @@ if(isset($_REQUEST['reservation'])){
             </div>
           </div>
         </div>
+
         
         <!-- /page content -->
 
@@ -241,5 +254,30 @@ if(isset($_REQUEST['reservation'])){
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 	
+    <script type="text/javascript">
+  
+
+/*testing*/ 
+        $("#reservation").bind("change paste keyup", function() {
+         var x = document.getElementById("reservation").value;
+         var y = document.getElementById("reservation").value;
+         var start_date = x.substr(1,10) ;
+         var end_date = x.substr(14,10) ;
+
+        document.getElementById("demo").innerHTML = start_date;
+        document.getElementById("demo1").innerHTML = end_date;
+
+        });
+
+
+
+          // $("#reservation").change(function() {
+          //      this.form.submit();
+          // });
+
+
+
+
+    </script>
   </body>
 </html>
