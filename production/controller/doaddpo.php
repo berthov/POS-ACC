@@ -1,6 +1,9 @@
 <?php
 	
-include("doconnect.php");		
+session_start();
+include("doconnect.php");
+include("session.php");	
+	
 $item_code = $_REQUEST['item_code'];
 $description = $_REQUEST['description'];	
 $uom = $_REQUEST['uom'];
@@ -16,6 +19,8 @@ $created_date = date("y-m-d H:i:s");
 $po_header_id =  date("YmdHis");
 $today =  date("y-m-d H:i:s");
 $status = "Open";
+$created_date =  date("Y-m-d");
+$last_update_date =  date("Y-m-d");	
 
 
 
@@ -88,14 +93,14 @@ $status = "Open";
 if (isset($_REQUEST['po_date'])) {
   
     // PO HEADER
-  $sql = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier ,ship_to,outlets,created_date,po_description,due_date,status)
-  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."', '".$created_date."','".$po_description."','".$due_date."','".$status."')";
+  $sql = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier ,ship_to,outlets,created_date,po_description,due_date,status,created_by , created_date,last_update_by,last_update_date)
+  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."', '".$created_date."','".$po_description."','".$due_date."','".$status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
   mysqli_query($conn, $sql);
 
 // PO LINE
   for($y = 0; $y < count($item_code); $y++ ){
-    $sql = "INSERT INTO PO_LINE_ALL (po_header_id,item_code,uom ,qty,price,description)
-    VALUES ('".$po_header_id."','".$item_code[$y]."' , '".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."','".$description[$y]."')";
+    $sql = "INSERT INTO PO_LINE_ALL (po_header_id,item_code,uom ,qty,price,description,created_by , created_date,last_update_by,last_update_date)
+    VALUES ('".$po_header_id."','".$item_code[$y]."' , '".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."','".$description[$y]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
     mysqli_query($conn, $sql);
       }
 

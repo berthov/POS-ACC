@@ -1,7 +1,10 @@
 <?php
 	
-	include("doconnect.php");
-	date_default_timezone_set('Asia/Jakarta');			
+  session_start();
+  date_default_timezone_set('Asia/Jakarta');      
+  include("doconnect.php");
+  include("session.php");
+
 	$arr = $_REQUEST['arr'];
 	$arr1 = $_REQUEST['arr1'];	
 	$quant = $_REQUEST['quant'];
@@ -11,6 +14,8 @@
   $month = date("F");
   // $payment_method = $_REQUEST['payment_method'];
   $payment_method = $_POST['payment_method'];
+  $created_date =  date("Y-m-d");
+  $last_update_date =  date("Y-m-d");
 
 	$subtotal = 0;
 	for($x = 0; $x < count($arr); $x++ ){
@@ -220,11 +225,11 @@
 		    			header("Location:../media_gallery.php?err=2&item=$arr[$y]");
 	    		}
 	    		else{
-	    				$sql = "INSERT INTO invoice (description,unit_price,qty ,date,invoice_id,month,payment_method)
-						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$payment_method."')";
+	    				$sql = "INSERT INTO invoice (description,unit_price,qty ,date,invoice_id,month,payment_method,created_by , created_date,last_update_by,last_update_date)
+						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$payment_method."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
 						mysqli_query($conn, $sql);
 					
-		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' WHERE description = '".$arr[$y]."'";
+		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE description = '".$arr[$y]."'";
 							if (mysqli_query($conn, $sql1)) {
 							   /* echo $y , "New row has been insert successfully <br>";*/
 							    /*header("Location:../media_gallery.php");*/

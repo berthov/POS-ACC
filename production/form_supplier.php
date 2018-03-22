@@ -20,12 +20,10 @@ include("controller/session.php");
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    
+        <!-- jQuery custom content scroller -->
+    <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>    
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-
-    <!-- jQuery custom content scroller -->
-    <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
   </head>
 
@@ -46,7 +44,7 @@ include("controller/session.php");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Form Validation Item</h3>
+                <!-- <h3>Form Supplier</h3> -->
               </div>
             </div>
             <div class="clearfix"></div>
@@ -59,57 +57,36 @@ include("controller/session.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="form-horizontal form-label-left" action="controller/doaddnewgoods.php" novalidate>
+                    <form class="form-horizontal form-label-left" action="controller/doaddsupplier.php" novalidate>
 
-                      <span class="section">Master Item Info</span>
+                      <span class="section">Supplier Info</span>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Item Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supplier_name">Suplier Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="item_code" class="form-control col-md-7 col-xs-12" data-suggestions="White, Green, Blue, Black, Brown" name="item_code" placeholder="ex.RMT-00000001" required="required" type="text">
+                          <input id="supplier_name" class="form-control col-md-7 col-xs-12" data-suggestions="White, Green, Blue, Black, Brown" name="supplier_name" placeholder="Ex. PT.Integrasi Solution" required="required" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supplier_site">Supplier Site <span class="required"> </span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" placeholder="PRIMA UP 480 SL UK.20 LTR - JERIGEN MAKIN">
+                          <input id="supplier_site" name="supplier_site" class="form-control col-md-7 col-xs-12" placeholder="Jakarta" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qty">Quantity <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supplier_type">Supplier Type <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="quantity" name="qty" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                          <input id="supplier_type" name="supplier_type" class="form-control col-md-7 col-xs-12" placeholder="Impor/Lokal" type="text">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">COGS <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tax">Tax <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="price" name="cogs" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="unit_price">Unit Price <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="price" name="unit_price" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="max">Max Threshold <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="minthreshold" name="max" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Min Threshold <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="maxthreshold" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                          <input type="number" id="tax" name="tax" required="required" min="0" max="20" class="form-control col-md-7 col-xs-12" placeholder="0-20%">
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -140,7 +117,7 @@ include("controller/session.php");
                               <div class="form-group">
                                   <label class="col-md-4 control-label" for="singlebutton">Import data</label>
                                   <div class="col-md-4">
-                                      <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+                                      <button type="submit" id="submit" name="Import_supplier" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
                                   </div>
                               </div>
        
@@ -172,7 +149,11 @@ include("controller/session.php");
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	   
+    <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+	
+
+
+
   </body>
 </html>

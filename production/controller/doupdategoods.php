@@ -1,6 +1,8 @@
 <?php
-	
+	session_start();
 	include("doconnect.php");
+	include("session.php");
+	
 	$id = $_REQUEST['id'];
 	$item_code = $_REQUEST['item_code'];	
 	$description = $_REQUEST['description'];
@@ -8,6 +10,7 @@
 	$unit_price = $_REQUEST['unit_price'];
 	$min = $_REQUEST['min'];
 	$max = $_REQUEST['max'];
+	$last_update_date =  date("Y-m-d");
 
 	if($item_code=="" || $description=="" || $qty=="" || $unit_price=="" || $min=="" || $max==""){
 		echo "
@@ -53,7 +56,7 @@
 	}
 	else{
 		
-		$sql = "UPDATE INVENTORY SET item_code= '".$item_code."', description = '".$description."',qty = '".$qty."',unit_price = '".$unit_price."',min='".$min."',max='".$max."' where ID = '".$id."'";
+		$sql = "UPDATE INVENTORY SET item_code= '".$item_code."', description = '".$description."',qty = '".$qty."',unit_price = '".$unit_price."',min='".$min."',max='".$max."' ,last_update_by = '".$user_check."'  ,last_update_date = '".$last_update_date."' where ID = '".$id."'";
 		
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";

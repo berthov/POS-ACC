@@ -1,6 +1,8 @@
 <?php
 	
+	session_start();
 	include("doconnect.php");
+	include("session.php");
 
 	$item_code = $_REQUEST['item_code'];	
 	$description = $_REQUEST['description'];
@@ -9,6 +11,8 @@
 	$min = $_REQUEST['min'];
 	$max = $_REQUEST['max'];
 	$cogs = $_REQUEST['cogs'];
+	$created_date =  date("Y-m-d");	
+	$last_update_date =  date("Y-m-d");
 
 
 	if($item_code=="" || $description=="" || $qty=="" || $unit_price=="" || $min=="" || $max==""){
@@ -62,8 +66,8 @@
 	}
 	else{
 		
-		$sql = "INSERT INTO inventory (item_code, description,qty,unit_price,min,max,hpp)
-		VALUES ('".$item_code."', '".$description."','".$qty."' , '".$unit_price."' , '".$min."' , '".$max."','".$cogs."')";
+		$sql = "INSERT INTO inventory (item_code, description,qty,unit_price,min,max,hpp,created_by , created_date,last_update_by,last_update_date)
+		VALUES ('".$item_code."', '".$description."','".$qty."' , '".$unit_price."' , '".$min."' , '".$max."','".$cogs."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
 
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";
@@ -73,7 +77,7 @@
 
 		mysqli_close($conn);
 
-		header("Location:../form_validation.html");
+		header("Location:../form_validation.php");
 	}
 
 ?>

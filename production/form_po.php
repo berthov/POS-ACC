@@ -74,7 +74,7 @@ include("controller/doconnect.php");
                     <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                            <select class="form-control" name="outlets">
+                            <select class="form-control" name="outlets" id="mySelect" onchange="myFunction()">
                           
                             <?php
                             $sql = "SELECT * 
@@ -107,6 +107,7 @@ include("controller/doconnect.php");
       
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="*Supplier" name="supplier" required="required">
+                        <!-- <div id="demo"></div> -->
                         <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
@@ -125,7 +126,7 @@ include("controller/doconnect.php");
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" placeholder="" name="po_description">
+                          <input type="text" class="form-control" name="po_description" ></input>
                         </div>
                       </div>
 
@@ -291,7 +292,11 @@ function myCreateFunction() {
     cell6.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
 }
 
-                                    
+            
+    function myFunction() {
+        var x = document.getElementById("mySelect").value;
+        document.getElementById("demo").innerHTML = '<input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="'+x+'" name="supplier" readonly><span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>';
+    }                      
                                                                
 
     </script>

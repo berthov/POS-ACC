@@ -1,7 +1,11 @@
 <?php
-
+session_start();
 include("doconnect.php");
-	
+include("session.php");
+
+$created_date =  date("Y-m-d");
+$last_update_date =  date("Y-m-d");
+
  if(isset($_POST["Import"])){
 		
 		$filename=$_FILES["file"]["tmp_name"];		
@@ -14,8 +18,8 @@ include("doconnect.php");
 	         {
 
 
-	           $sql = "INSERT into inventory (item_code, description,qty,unit_price,min,max) 
-                   values ('".$getData[1]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."')";
+	           $sql = "INSERT into inventory (item_code, description,qty,unit_price,min,max, created_by , created_date,last_update_by,last_update_date) 
+                   values ('".$getData[1]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
                    $result = mysqli_query($conn, $sql);
 				if(!isset($result))
 				{
@@ -34,6 +38,37 @@ include("doconnect.php");
 	}	 
 
 
+ if(isset($_POST["Import_supplier"])){
+		
+		$filename=$_FILES["file"]["tmp_name"];		
+
+
+		 if($_FILES["file"]["size"] > 0)
+		 {
+		  	$file = fopen($filename, "r");
+	        while (($getData = fgetcsv($file, 10000, ";")) !== FALSE)
+	         {
+
+
+	           $sql = "INSERT into ap_supplier_all (supplier_name, supplier_site,supplier_type,status,tax , created_by , created_date,last_update_by,last_update_date) 
+                   values ('".$getData[1]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+                   $result = mysqli_query($conn, $sql);
+				if(!isset($result))
+				{
+					echo "<script type=\"text/javascript\">
+							alert(\"Invalid File:Please Upload CSV File.\");
+							window.history.back();
+						  </script>";		
+				}
+				else {
+					  header("Location:../upload_csv.php?");
+				}
+	         }
+			
+	         fclose($file);	
+		 }
+	}	
+
 
 if(isset($_POST["Export"])){
 		 
@@ -49,6 +84,9 @@ if(isset($_POST["Export"])){
       }  
       fclose($output);  
  } 
+
+
+
 
 
  ?>

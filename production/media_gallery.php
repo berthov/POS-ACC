@@ -110,7 +110,7 @@ include("controller/doconnect.php");
                               </div>
                               <div class="modal-body">
                                
-                               <div class="form-group">
+                        <div class="form-group">
                           <select class="form-control" name="payment_method">
                             <option value="Cash">Cash</option>
                             <option value="Debit/Credit">Debit/Credit</option>
