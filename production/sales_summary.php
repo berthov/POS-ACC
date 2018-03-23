@@ -93,7 +93,7 @@ echo  '<p id=demo1></p>';
                           <div class="control-group" >
                             <div class="controls" >
                               <div class="input-prepend input-group">
-                                <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right" onchange="this.form.submit()" />
+                                <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right"  />
                                 <span class="add-on input-group-addon">
                                   <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
@@ -104,9 +104,9 @@ echo  '<p id=demo1></p>';
                     </div>
 
                     <!-- kalo button nya gw ilangin loop trus dia -->
-                    <div class="col-md-2">
+                   <!--  <div class="col-md-2">
                       <input type="submit" name="submit"  class="btn btn-round btn-primary pull-right"/>
-                    </div>
+                    </div> -->
                     </div>
  
                   <div class="x_content">
@@ -256,28 +256,22 @@ echo  '<p id=demo1></p>';
 	
     <script type="text/javascript">
   
+    $(document).ready(function(){
+      /*$("#reservation").on("change paste keyup", function() {
+             var x = document.getElementById("reservation").value;
+             var y = document.getElementById("reservation").value;
+             var start_date = x.substr(1,10) ;
+             var end_date = x.substr(14,10) ;
 
-/*testing*/ 
-        $("#reservation").bind("change paste keyup", function() {
-         var x = document.getElementById("reservation").value;
-         var y = document.getElementById("reservation").value;
-         var start_date = x.substr(1,10) ;
-         var end_date = x.substr(14,10) ;
+            document.getElementById("demo").innerHTML = start_date;
+            document.getElementById("demo1").innerHTML = end_date;
 
-        document.getElementById("demo").innerHTML = start_date;
-        document.getElementById("demo1").innerHTML = end_date;
+            });*/
 
-        });
-
-
-
-          // $("#reservation").change(function() {
-          //      this.form.submit();
-          // });
-
-
-
-
+              $("#reservation").on("change", function() {
+                this.form.submit();
+              });
+    });
     </script>
   </body>
 </html>
