@@ -17,7 +17,7 @@
 		$result = mysqli_query($conn,$user_check_sql);
 		$existing_user = mysqli_fetch_assoc($result);
 
-		if($passwordregister == $cpasswordregister){
+		
 			if ($existing_user) { 
 			    if ($existing_user['name'] === $usernameregister) {
 			      ?>
@@ -41,26 +41,35 @@
 
 			else {
 				if($roleregister == null){
-					$roleregister = "Admin";
-					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
-	  				$result = mysqli_query($conn, $sql);
-					header("location: ../login.php");
+					if($passwordregister == $cpasswordregister){
+						$roleregister = "Admin";
+						$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
+		  				$result = mysqli_query($conn, $sql);
+						header("location: ../login.php");
+					} else {
+						?>
+							<script type="text/javascript">
+								alert("Password did not match");
+								window.location = "http://localhost:8085/POS-ACC/production/login.php#signup";
+							</script>
+						<?php
+					}
 				} else {
-					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
-	  				$result = mysqli_query($conn, $sql);
-					header("location: ../employees.php");
+					if($passwordregister == $cpasswordregister){
+						$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
+		  				$result = mysqli_query($conn, $sql);
+						header("location: ../employees.php");
+					}
+					else {
+						?>
+							<script type="text/javascript">
+								alert("Password did not match");
+								window.location = "http://localhost:8085/POS-ACC/production/addstaff.php?";
+							</script>
+						<?php
+					}
 				}
 				
 			}
-		} else {
-			?>
-				<script type="text/javascript">
-					alert("Password did not match");
-					window.location = "http://localhost:8085/POS-ACC/production/login.php#signup";
-				</script>
-			<?php
-		}
-		
-	}
-
+		} 	
 ?>
