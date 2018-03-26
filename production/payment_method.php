@@ -71,7 +71,7 @@ if(isset($_REQUEST['reservation'])){
                       <h2>Payment Method</h2>
                       <div class="clearfix"></div>
                     </div>
-                   <div class="col-md-6">
+                   <div class="col-md-12">
                           <form class="form-horizontal">
                             <fieldset>
                               <div class="control-group" >
@@ -85,9 +85,6 @@ if(isset($_REQUEST['reservation'])){
                                 </div>
                               </div>
                             </fieldset>
-                    </div>
-                                                            <div class="col-md-2">
-                      <input type="submit" name="submit"  class="btn btn-round btn-primary pull-right"/>
                     </div>
                   </div>
  
@@ -268,5 +265,14 @@ if(isset($_REQUEST['reservation'])){
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 	
+    <script type="text/javascript">
+  
+    $(document).ready(function(){
+              $("#reservation").on("change", function() {
+                this.form.submit();
+              });
+    });
+    </script>
+
   </body>
 </html>

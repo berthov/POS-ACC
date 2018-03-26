@@ -100,7 +100,7 @@ form select option:first-child {
                           <option class="options" value="Admin">Admin</option>
                           <option class="options" value="Staff">Staff</option>
                         </select>
-                        <span class="fa fa-user form-control-feedback right" aria-hidden="true" required ="required"></span>
+                        <!-- <span class="fa fa-user form-control-feedback right" aria-hidden="true" required ="required"></span> -->
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
@@ -109,8 +109,23 @@ form select option:first-child {
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="phone" placeholder="Outlet" required ="required" name="outlet">
-                        <span class="fa fa-phone form-control-feedback right" aria-hidden="true" required ="required"></span>
+<!--                         <input type="text" class="form-control" id="outlet" placeholder="Outlet" required ="required" name="outlet">
+                        <span class="fa fa-phone form-control-feedback right" aria-hidden="true" required ="required"></span> -->
+                          <select class="form-control" name="outlet">
+                              <option value="" disabled selected>Select Outlet</option>
+                          
+                            <?php
+                            $sql = "SELECT * 
+                            FROM outlet";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                              <option value="<?php echo $row["name"] ?>"> <?php echo $row["name"] ?></option>
+                          <?php
+                            }
+                          ?>
+                          
+                            </select> 
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
@@ -126,7 +141,7 @@ form select option:first-child {
 
                       <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-4">
                           <button type="button" class="btn btn-primary"  onclick="window.location='../production/employees.php';">Cancel</button>
 						              <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" class="btn btn-success" name="reg_user">Submit</button>

@@ -74,7 +74,8 @@ include("controller/doconnect.php");
                     <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                            <select class="form-control" name="outlets" id="mySelect" onchange="myFunction()">
+                            <select class="form-control" name="outlets">
+                              <option value="" disabled selected>Select Outlet</option>
                           
                             <?php
                             $sql = "SELECT * 
@@ -292,12 +293,7 @@ function myCreateFunction() {
     cell6.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
 }
 
-            
-    function myFunction() {
-        var x = document.getElementById("mySelect").value;
-        document.getElementById("demo").innerHTML = '<input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="'+x+'" name="supplier" readonly><span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>';
-    }                      
-                                                               
+                                                       
 
     </script>
 	

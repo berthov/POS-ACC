@@ -17,13 +17,7 @@ if(isset($_REQUEST['reservation'])){
   $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
 
-// echo $start_date1 =  '<p id=demo></p>';
-// echo '<br>';
-// echo $end_date1 = '<p id=demo1></p>' ;
 
-// testing
-echo  '<p id=demo></p>';
-echo  '<p id=demo1></p>';
 
 ?>
 
@@ -85,7 +79,7 @@ echo  '<p id=demo1></p>';
                       <div class="clearfix"></div>
                     </div>
                     <!-- Date Picker -->
-                   <div class="col-md-6">
+                   <div class="col-md-12">
                     <!--INI GK JELAS PARAMETERNYA  -->
                     <!-- kalo gw pake onchange kgak mau di click pas udah milih tanggal -->
                       <form class="form-horizontal" action="sales_summary.php" method="post">
