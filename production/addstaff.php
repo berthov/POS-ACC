@@ -4,6 +4,13 @@ include("controller/session.php");
 ?>
 
 <!DOCTYPE html>
+
+<style>
+select { color: #999999 }
+option { color: #555555 }
+option[selected]  { color: #999999; background: white }
+</style>
+
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -68,20 +75,25 @@ include("controller/session.php");
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask " action="controller/doaddnewstaff.php" method="POST">
+                    <form class="form-horizontal form-label-left input_mask " action="controller/doregister.php" method="POST">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="employee_name" name="employee_name" placeholder="Employee Name" required="required">
+                        <input type="text" class="form-control has-feedback-left" id="employee_name" name="username" placeholder="Employee Name" required="required">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true" required ="required"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="address" name="role" placeholder="Role" required ="required">
+                        <!-- <input type="text" class="form-control" id="role" name="role" placeholder="Role" required ="required"> -->
+                        <select class="form-control" name="role" required ="required" onchange="if(this.value==='') {this.style.color='#999999'} else {this.style.color='#555555'}">
+                          <option value="" disabled selected>Select Role</option>
+                          <option class="options" value="Admin">Admin</option>
+                          <option class="options" value="Staff">Staff</option>
+                        </select>
                         <span class="fa fa-user form-control-feedback right" aria-hidden="true" required ="required"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="email" name="email" placeholder="Email" required ="required">
+                        <input type="email" class="form-control has-feedback-left" id="email" name="email" placeholder="Email" required ="required">
                         <span class="fa fa-envelope form-control-feedback left" aria-hidden="true" required ="required"></span>
                       </div>
 
@@ -90,13 +102,23 @@ include("controller/session.php");
                         <span class="fa fa-phone form-control-feedback right" aria-hidden="true" required ="required"></span>
                       </div>
 
+                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
+                        <input type="password" class="form-control has-feedback-left" id="password" placeholder="Password" required ="required" name="password">
+                        <span class="fa fa-key form-control-feedback left" aria-hidden="true" required ="required"></span>
+                      </div>
+
+                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
+                        <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password" required ="required" name="cpassword">
+                        <span class="fa fa-check form-control-feedback right" aria-hidden="true" required ="required"></span>
+                      </div>
+
 
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                          <button type="button" class="btn btn-primary">Cancel</button>
+                          <button type="button" class="btn btn-primary"  onclick="window.location='../production/employees.php';">Cancel</button>
 						              <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
+                          <button type="submit" class="btn btn-success" name="reg_user">Submit</button>
                         </div>
                       </div>
                     </form>
@@ -169,6 +191,5 @@ include("controller/session.php");
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
-	
   </body>
 </html>

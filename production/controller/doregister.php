@@ -9,7 +9,7 @@
 		$passwordregister = md5(mysqli_escape_string($conn, $_POST['password']));
 		$cpasswordregister = md5(mysqli_escape_string($conn, $_POST['cpassword']));
 		$emailregister = mysqli_escape_string($conn, $_POST['email']);
-		//$roleregister = mysqli_escape_string($conn, $_POST['role']);
+		$roleregister = mysqli_escape_string($conn, $_POST['role']);
 		$outletregister = mysqli_escape_string($conn, $_POST['outlet']);
 		$created = date("Y-m-d H:i:s");
 
@@ -40,10 +40,17 @@
 			}
 
 			else {
-
-				$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', 'Admin', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
-	  			$result = mysqli_query($conn, $sql);
-				header("location: ../login.php");
+				if($roleregister == null){
+					$roleregister = "Admin";
+					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
+	  				$result = mysqli_query($conn, $sql);
+					header("location: ../login.php");
+				} else {
+					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
+	  				$result = mysqli_query($conn, $sql);
+					header("location: ../employees.php");
+				}
+				
 			}
 		} else {
 			?>
