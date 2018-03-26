@@ -6,9 +6,20 @@ include("controller/session.php");
 <!DOCTYPE html>
 
 <style>
-select { color: #999999 }
+/*select { color: #999999 }
 option { color: #555555 }
-option[selected]  { color: #999999; background: white }
+option[selected]  { color: #999999; background: white }*/
+form select.not_chosen {
+  color: #999999;
+}
+
+form select option {
+    color: #555555;
+}
+form select option:first-child {
+    color: #999999;
+}
+
 </style>
 
 <html lang="en">
@@ -84,7 +95,7 @@ option[selected]  { color: #999999; background: white }
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
                         <!-- <input type="text" class="form-control" id="role" name="role" placeholder="Role" required ="required"> -->
-                        <select class="form-control" name="role" required ="required" onchange="if(this.value==='') {this.style.color='#999999'} else {this.style.color='#555555'}">
+                        <select class="form-control not_chosen" name="role" required ="required" >
                           <option value="" disabled selected>Select Role</option>
                           <option class="options" value="Admin">Admin</option>
                           <option class="options" value="Staff">Staff</option>
@@ -190,6 +201,36 @@ option[selected]  { color: #999999; background: white }
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <script type="text/javascript">
+
+        if ($('select').length) {
+        // Traverse through all dropdowns
+        $.each($('select'), function (i, val) {
+            var $el = $(val);
+             
+            // If there's any dropdown with default option selected
+            // give them `not_chosen` class to style appropriately
+            // We assume default option to have a value of '' (empty string)
+            if (!$el.val()) {
+                $el.addClass("not_chosen");
+            }
+             
+            // Add change event handler to do the same thing,
+            // i.e., adding/removing classes for proper
+            // styling. Basically we are emulating placeholder
+            // behaviour on select dropdowns.
+            $el.on("change", function () {
+                if (!$el.val())
+                    $el.addClass("not_chosen");
+                else
+                    $el.removeClass("not_chosen");
+            });
+             
+            // end of each callback
+      });
+    }
+    </script>
 
   </body>
 </html>
