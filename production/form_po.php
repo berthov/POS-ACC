@@ -106,10 +106,23 @@ include("controller/doconnect.php");
                       </div>
 
       
-                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="*Supplier" name="supplier" required="required">
-                        <!-- <div id="demo"></div> -->
-                        <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
+                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback"> 
+                        <select class="form-control" name="supplier">
+                              <option value="" disabled selected>Select Supplier</option>
+                          
+                            <?php
+                            $sql = "SELECT * 
+                            FROM ap_supplier_all
+                            where status = 'Active'";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                              <option value="<?php echo $row["supplier_name"] ?>"> <?php echo $row["supplier_name"] ?></option>
+                          <?php
+                            }
+                          ?>
+                          
+                            </select> 
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
