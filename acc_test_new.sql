@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2018 at 06:28 AM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Mar 27, 2018 at 12:07 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -44,7 +46,38 @@ CREATE TABLE `ap_check_all` (
 --
 
 INSERT INTO `ap_check_all` (`payment_id`, `po_header_id`, `payment_number`, `payment_date`, `payment_type`, `payment_amount`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
-(1, '20180312222216', 'a', '0000-00-00', 'c', 0, NULL, NULL, NULL, NULL);
+(1, '20180312222216', 'a', '0000-00-00', 'c', 0, NULL, NULL, NULL, NULL),
+(2, '20180312222216', 'asd', '2018-03-22', 'Cash', 11, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ap_supplier_all`
+--
+
+CREATE TABLE `ap_supplier_all` (
+  `party_id` int(20) NOT NULL,
+  `supplier_name` varchar(255) NOT NULL,
+  `supplier_site` varchar(255) DEFAULT NULL,
+  `supplier_type` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
+  `tax` int(20) NOT NULL,
+  `created_date` date DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `last_update_date` date DEFAULT NULL,
+  `last_update_by` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ap_supplier_all`
+--
+
+INSERT INTO `ap_supplier_all` (`party_id`, `supplier_name`, `supplier_site`, `supplier_type`, `status`, `tax`, `created_date`, `created_by`, `last_update_date`, `last_update_by`) VALUES
+(1, 'aa', 'a', 'a', 'Active', 1, NULL, NULL, '2018-03-22', 'admin'),
+(2, 'cba', 'jakarta', 'impor', 'Active', 2, '2018-03-22', 'admin', NULL, NULL),
+(3, 'bbbbbb', 'aaaa', 'aaa', 'Active', 1, '2018-03-22', 'admin', '2018-03-22', 'admin'),
+(4, 'bbbbbb', 'aaaa', 'aaa', 'Active', 1, '2018-03-22', 'admin', '2018-03-22', 'admin'),
+(5, 'bbbbbb', 'aaaa', 'aaa', 'Active', 1, '2018-03-22', 'admin', '2018-03-22', 'admin');
 
 -- --------------------------------------------------------
 
@@ -321,6 +354,12 @@ ALTER TABLE `ap_check_all`
   ADD PRIMARY KEY (`payment_id`);
 
 --
+-- Indexes for table `ap_supplier_all`
+--
+ALTER TABLE `ap_supplier_all`
+  ADD PRIMARY KEY (`party_id`);
+
+--
 -- Indexes for table `cogs`
 --
 ALTER TABLE `cogs`
@@ -370,37 +409,51 @@ ALTER TABLE `po_line_all`
 -- AUTO_INCREMENT for table `ap_check_all`
 --
 ALTER TABLE `ap_check_all`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `ap_supplier_all`
+--
+ALTER TABLE `ap_supplier_all`
+  MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `cogs`
 --
 ALTER TABLE `cogs`
   MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
   MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=999;
+
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
   MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
   MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
