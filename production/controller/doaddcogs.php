@@ -5,7 +5,7 @@
 	$description = $_REQUEST['description'];	
 	$cogs = $_REQUEST['cogs'];
 	$period = $_REQUEST['period'];
-
+	$type = 'Manual';
 //UNTUK PERIOD MASIH BINGGUNG 
 
 	if($description=="" || $cogs=="" || $period==""){
@@ -24,8 +24,8 @@
 	}
 	else{
 		
-		$sql = "INSERT INTO cogs (description, cogs,period)
-		VALUES ('".$description."', '".$cogs."','".$period."')";
+		$sql = "INSERT INTO cogs (description, cogs,period,type)
+		VALUES ('".$description."', '".$cogs."','".$period."','".$type."')";
 
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";

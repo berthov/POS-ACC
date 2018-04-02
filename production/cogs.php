@@ -26,6 +26,8 @@ include("controller/doconnect.php");
     
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+
   </head>
 
   <body class="nav-md">
@@ -65,7 +67,7 @@ include("controller/doconnect.php");
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <div class="form-group">
-                            <select class="form-control" name="description">
+                            <select class="form-control" name="description" required="required">
                               <?php
 
                             $sql = "SELECT description FROM inventory";
@@ -92,8 +94,31 @@ include("controller/doconnect.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Period <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="period" name="period" required="required" class="form-control col-md-7 col-xs-12" placeholder="DEC-17">
-                          
+                          <input type="text" id="period" name="period" required="required" class="form-control col-md-7 col-xs-12" placeholder="DEC-17">                          
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Period <span class="required">*</span>
+                        </label>
+                        <div class="col-md-1">
+                          <select name="d" class="form-control">
+                              <?php for($i=1;$i<=12;$i++):?>
+                                   <option value="<?=$i?>"><?=$i?></option>
+                              <?php endfor?>
+                          </select>            
+                        </div>
+                        <div class="col-md-1 control-label">
+                          <p align="left"><b>/Month</b></p>            
+                        </div>
+                        <div class="col-md-1">
+                          <select name="d" class="form-control">
+                              <?php for($a=1990;$a<=2030;$a++):?>
+                                   <option value="<?=$a?>"><?=$a?></option>
+                              <?php endfor?>
+                          </select>             
+                        </div>
+                        <div class="col-md-1 control-label">
+                          <p align="left"><b>/Year</b></p>            
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -131,6 +156,8 @@ include("controller/doconnect.php");
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+	 
+
+
   </body>
 </html>
