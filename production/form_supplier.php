@@ -82,6 +82,14 @@ include("controller/session.php");
                           <input id="supplier_type" name="supplier_type" class="form-control col-md-7 col-xs-12" placeholder="Impor/Lokal" type="text">
                         </div>
                       </div>
+                      <!-- MASIH PERTANYAAN TOP MAU DI PAKE ATO GAK -->
+<!--                       <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="top">TOP <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="number" id="top" name="top" required="required" min="0" max="20" class="form-control col-md-7 col-xs-12" placeholder="0-20%">
+                        </div>
+                      </div> -->
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tax">Tax <span class="required">*</span>
                         </label>

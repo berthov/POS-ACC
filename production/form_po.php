@@ -132,8 +132,18 @@ include("controller/doconnect.php");
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Due Date</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Sesuai sama TOP" name="due_date" required="required">
+                        <div class="col-md-7 col-sm-7 col-xs-12">                        
+                       <fieldset>
+                          <div class="control-group">
+                            <div class="controls">
+                              <div class="xdisplay_inputx">
+                                <input type="text" class="form-control" id="single_cal2" placeholder="Date" aria-describedby="inputSuccess2Status2" name="due_date">
+                                <span class="fa fa-calendar-o form-control-feedback right" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
                         </div>
                       </div>
 

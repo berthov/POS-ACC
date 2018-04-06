@@ -12,7 +12,7 @@ $price = $_REQUEST['price'];
 $outlets = $_REQUEST['outlets'];
 $po_date = date('Y-m-d', strtotime($_REQUEST['po_date']));
 $supplier = $_REQUEST['supplier'];
-$due_date = $_REQUEST['due_date'];
+$due_date = date('Y-m-d', strtotime($_REQUEST['due_date']));
 $ship_to = $_REQUEST['ship_to'];  
 $po_description = $_REQUEST['po_description'];  
 $created_date = date("y-m-d H:i:s");
@@ -32,6 +32,7 @@ $last_update_date =  date("Y-m-d");
 		<td>PO Date</td>
 		<td>Supplier</td>
 		<td>Ship To</td>
+		<td>due date</td>
 	</tr>
 	<tr>
 		<td>
@@ -45,6 +46,9 @@ $last_update_date =  date("Y-m-d");
 		</td>
 		<td>
 			<?php echo $ship_to; ?>
+		</td>
+		<td>
+			<?php echo $due_date; ?>
 		</td>
 	</tr>
 
@@ -85,23 +89,23 @@ $last_update_date =  date("Y-m-d");
 		?>
 	</tr>
 
-</table>  -->
-
+</table> 
+ -->
 
 <?php
 
 if (isset($_REQUEST['po_date'])) {
   
     // PO HEADER
-  $sql = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier ,ship_to,outlets,created_date,po_description,due_date,status,created_by , created_date,last_update_by,last_update_date)
-  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."', '".$created_date."','".$po_description."','".$due_date."','".$status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
-  mysqli_query($conn, $sql);
+  $sql_header = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier,ship_to,outlets,po_description,due_date,status,created_by , created_date,last_update_by,last_update_date)
+  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."','".$po_description."','".$due_date."','".$status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+  mysqli_query($conn, $sql_header);
 
 // PO LINE
   for($y = 0; $y < count($item_code); $y++ ){
-    $sql = "INSERT INTO PO_LINE_ALL (po_header_id,item_code,uom ,qty,price,description,created_by , created_date,last_update_by,last_update_date)
+    $sql_line = "INSERT INTO PO_LINE_ALL (po_header_id,item_code,uom ,qty,price,description,created_by , created_date,last_update_by,last_update_date)
     VALUES ('".$po_header_id."','".$item_code[$y]."' , '".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."','".$description[$y]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
-    mysqli_query($conn, $sql);
+    mysqli_query($conn, $sql_line);
       }
 
       header("Location:../form_po.php");
