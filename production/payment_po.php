@@ -70,7 +70,7 @@ $po_header_id = $_REQUEST['po_header_id'];
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Purchase Order Header</h2>
+                    <h2>Purchase Order Header <small>PO Number : <?php echo $po_header_id; ?> </small></h2> 
                     <div class="clearfix"></div>
                   </div>
                   <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpayment.php">      
@@ -117,6 +117,11 @@ $po_header_id = $_REQUEST['po_header_id'];
                       </div>
 
                       <div class="form-group">
+                        <label class="col-md-2 col-sm-2 col-xs-12">PO Amount</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" name="supplier" placeholder="<?php include("query/po_amount.php"); ?>" disabled="disabled">
+                        </div>
+
                         <label class="col-md-2 col-sm-2 col-xs-12">Due Date</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
                           <input type="text" class="form-control" placeholder="<?php echo $row["due_date"] ?>" name="due_date" disabled="disabled">

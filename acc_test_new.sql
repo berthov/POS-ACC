@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2018 at 04:49 PM
+-- Generation Time: Apr 06, 2018 at 05:18 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -44,7 +44,38 @@ CREATE TABLE `ap_check_all` (
 --
 
 INSERT INTO `ap_check_all` (`payment_id`, `po_header_id`, `payment_number`, `payment_date`, `payment_type`, `payment_amount`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
-(12, '20180312222216', '1', '2018-03-20', 'Cash', 1, NULL, NULL, NULL, NULL);
+(1, '20180312222216', 'a', '0000-00-00', 'c', 0, NULL, NULL, NULL, NULL),
+(2, '20180312222216', 'asd', '2018-03-22', 'Cash', 11, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ap_supplier_all`
+--
+
+CREATE TABLE `ap_supplier_all` (
+  `party_id` int(20) NOT NULL,
+  `supplier_name` varchar(255) NOT NULL,
+  `supplier_site` varchar(255) DEFAULT NULL,
+  `supplier_type` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL,
+  `tax` int(20) NOT NULL,
+  `created_date` date DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `last_update_date` date DEFAULT NULL,
+  `last_update_by` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ap_supplier_all`
+--
+
+INSERT INTO `ap_supplier_all` (`party_id`, `supplier_name`, `supplier_site`, `supplier_type`, `status`, `tax`, `created_date`, `created_by`, `last_update_date`, `last_update_by`) VALUES
+(1, 'aa', 'a', 'a', 'Active', 1, NULL, NULL, '2018-03-22', 'admin'),
+(2, 'cba', 'jakarta', 'impor', 'Active', 2, '2018-03-22', 'admin', NULL, NULL),
+(3, 'bbbbbb', 'aaaa', 'aaa', 'Active', 1, '2018-03-22', 'admin', '2018-03-22', 'admin'),
+(4, 'bbbbbb', 'aaaa', 'aaa', 'Active', 1, '2018-03-22', 'admin', '2018-03-22', 'admin'),
+(5, 'bbbbbb', 'aaaa', 'aaa', 'Active', 1, '2018-03-22', 'admin', '2018-03-22', 'admin');
 
 -- --------------------------------------------------------
 
@@ -97,9 +128,7 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`name`, `role`, `email`, `outlet_id`, `employee_id`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `password`) VALUES
-('admin', 'Admin', 'martinganteng@gmail.com', 'CaseNation.ID', 3, '0', NULL, NULL, NULL, '5f4dcc3b5aa765d61d8327deb882cf99'),
-('bernard', 'Admin', 'bernard.thoven@gmail.com', 'CaseNation.ID', 4, NULL, NULL, '2018-03-26', NULL, '5f4dcc3b5aa765d61d8327deb882cf99'),
-('Novi', 'Admin', 'noviani@gmail.com', 'Toko kue Martin', 5, NULL, NULL, '2018-03-26', NULL, '5f4dcc3b5aa765d61d8327deb882cf99');
+('admin', 'Admin', 'martinganteng@gmail.com', 'CaseNation.ID', 3, '0', NULL, NULL, NULL, '5f4dcc3b5aa765d61d8327deb882cf99');
 
 -- --------------------------------------------------------
 
@@ -127,7 +156,7 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `unit_price`, `min`, `max`, `hpp`, `created_by`, `last_update_by`, `created_date`, `last_update_date`) VALUES
-(27, 'RMT-0000002', 'Mario Bros', 5, 100000, 3, 10, 50000, NULL, 'admin', NULL, '2018-03-22'),
+(27, 'RMT-0000002', 'Mario Bros', 6, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
 (36, 'RMT-0000003', 'Eye case', 46, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
 (37, 'RMT-0000004', 'Blue Ceramic', 31, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
 (38, 'RMT-0000005', 'Pink Flower', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
@@ -211,8 +240,7 @@ INSERT INTO `invoice` (`description`, `unit_price`, `qty`, `date`, `invoice_line
 ('Mario Bros', 100000, 1, '2018-02-19 17:12:36', 995, '20180219171236', 'February', 'Cash', NULL, NULL, NULL, NULL),
 ('Eye case', 100000, 2, '2018-02-19 20:03:03', 996, '20180219200303', 'February', 'Cash', NULL, NULL, NULL, NULL),
 ('Blue Ceramic', 100000, 4, '2018-02-19 20:03:03', 997, '20180219200303', 'February', 'Cash', NULL, NULL, NULL, NULL),
-('Mario Bros', 100000, 2, '2018-02-20 15:18:25', 998, '20180220151825', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL),
-('Mario Bros', 100000, 1, '2018-03-22 23:10:59', 999, '20180322231059', 'March', 'Cash', 'admin', '2018-03-22', 'admin', '2018-03-22');
+('Mario Bros', 100000, 2, '2018-02-20 15:18:25', 998, '20180220151825', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -276,10 +304,6 @@ INSERT INTO `po_header_all` (`po_header_id`, `po_date`, `supplier`, `ship_to`, `
 ('20180312195735', '0000-00-00', 'tokopedia', 'asd', 'Novi', '2018-03-12', NULL, NULL, NULL, '', '0000-00-00', 'Paid'),
 ('20180312221913', '0000-00-00', 'tokopedia', 'tangerang', 'Toko kue Martin', '2018-03-12', NULL, NULL, NULL, 'xcfvg', '0000-00-00', 'Open'),
 ('20180312222216', '0000-00-00', 'tokopedia', 'tangerang', 'CaseNation.ID', '2018-03-12', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open'),
-('20180320233811', '2018-03-20', 'a', 'a', 'CaseNation.ID', '2018-03-20', NULL, NULL, NULL, 'a', '0000-00-00', 'Open'),
-('20180320235538', '2018-03-20', 'asd', 'asd', 'CaseNation.ID', '2018-03-20', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open'),
-('20180320235623', '2018-03-20', 'aaaaaaaaaaaaaa', 'asd', 'CaseNation.ID', '2018-03-20', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open'),
-('20180320235642', '2018-03-20', 'asd', 'asdasdasd', 'CaseNation.ID', '2018-03-20', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open'),
 ('2147483647', '0000-00-00', 'cc', 'dd', 'aa', '2018-03-09', NULL, NULL, NULL, '', '0000-00-00', 'Paid');
 
 -- --------------------------------------------------------
@@ -316,12 +340,7 @@ INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `item_code`, `uom`, `qt
 (7, '20180312194321', 'rmt-000001', 'pcs', 1, 15000000, NULL, NULL, NULL, NULL, ''),
 (8, '20180312195735', 'asd', 'asd', 0, 0, NULL, NULL, NULL, NULL, 'asd'),
 (9, '20180312221913', 'rmt-000002', 'asd', 1, 15000000, NULL, NULL, NULL, NULL, 'laptop'),
-(10, '20180312222216', 'rmt-000001', 'asd', 2, 100000, NULL, NULL, NULL, NULL, 'laptop'),
-(11, '20180320233811', 'a', 'a', 0, 0, NULL, NULL, NULL, NULL, 'a'),
-(12, '20180320235538', 'asd', 'asd', 1, 1, NULL, NULL, NULL, NULL, 'asd'),
-(13, '20180320235623', 'asd', 'asd', 1, 1, NULL, NULL, NULL, NULL, 'asd'),
-(14, '20180320235642', 'asd', 'asd', 0, 0, NULL, NULL, NULL, NULL, 'asd'),
-(15, '20180320235642', 'asd', 'asd', 1, 1, NULL, NULL, NULL, NULL, 'asd');
+(10, '20180312222216', 'rmt-000001', 'asd', 2, 100000, NULL, NULL, NULL, NULL, 'laptop');
 
 --
 -- Indexes for dumped tables
@@ -332,6 +351,12 @@ INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `item_code`, `uom`, `qt
 --
 ALTER TABLE `ap_check_all`
   ADD PRIMARY KEY (`payment_id`);
+
+--
+-- Indexes for table `ap_supplier_all`
+--
+ALTER TABLE `ap_supplier_all`
+  ADD PRIMARY KEY (`party_id`);
 
 --
 -- Indexes for table `cogs`
@@ -383,7 +408,12 @@ ALTER TABLE `po_line_all`
 -- AUTO_INCREMENT for table `ap_check_all`
 --
 ALTER TABLE `ap_check_all`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `ap_supplier_all`
+--
+ALTER TABLE `ap_supplier_all`
+  MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `cogs`
 --
@@ -393,7 +423,7 @@ ALTER TABLE `cogs`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `inventory`
 --
@@ -403,7 +433,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
+  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=999;
 --
 -- AUTO_INCREMENT for table `outlet`
 --
@@ -413,7 +443,7 @@ ALTER TABLE `outlet`
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
-  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

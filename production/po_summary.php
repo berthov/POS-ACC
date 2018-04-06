@@ -138,7 +138,7 @@ include("controller/doconnect.php");
                             <?php echo $row['po_date']; ?>
                           </td>
                           <td>
-                            <?php echo $row['po_description']; ?>
+                            <?php echo $row['due_date']; ?>
                           </td>
                           <td>
                             <a href="payment_po.php?po_header_id=<?php echo $row["po_header_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['status']; ?></button></a>
