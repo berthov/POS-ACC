@@ -1,11 +1,13 @@
 <?php
 session_start();
 include("controller/session.php");
+
 ?>
 
 <!DOCTYPE html>
 <?php
 include("controller/doconnect.php");
+include("controller/modaldelete.html");
 ?>
 <html lang="en">
   <head>
@@ -96,11 +98,12 @@ include("controller/doconnect.php");
                           <th>Email</th>
                           <th>Email Status</th>
                           <th>Outlet</th>
+                          <th></th>
                         </tr>
+                        
+
                         <?php
-                            $sql1 = "SELECT * 
-                            FROM employee
-                            ";
+                            $sql1 = "SELECT * FROM employee";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
                               ?>
@@ -110,6 +113,11 @@ include("controller/doconnect.php");
                           <td><?php echo $row1['email'];?></td>
                           <td>Active</td>
                           <td><?php echo $row1['outlet_id'];?></td>
+                          <td align="right">
+                            <button data-toggle="modal" data-remote="false" data-target="#modalDelete" type="button" class="btn btn-danger btndelete" data-id=<?php echo $row1['employee_id']; ?>>
+                              <i class="fa fa-minus" aria-hidden="true"></i>
+                            </button>
+                          </td>
                         </tr>
 
                         <?php
@@ -172,6 +180,8 @@ include("controller/doconnect.php");
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+    <!-- Delete Staff -->
+    <script src="../production/controller/deleteStaff.js"></script>
+    
   </body>
 </html>

@@ -144,7 +144,7 @@ form select option:first-child {
                         <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-4">
                           <button type="button" class="btn btn-primary"  onclick="window.location='../production/employees.php';">Cancel</button>
 						              <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" class="btn btn-success" name="reg_user">Submit</button>
+                          <button type="submit" class="btn btn-success" name="reg_staff">Submit</button>
                         </div>
                       </div>
                     </form>

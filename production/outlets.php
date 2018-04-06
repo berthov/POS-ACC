@@ -102,7 +102,6 @@ include("controller/doconnect.php");
                           <th>Province</th>
                           <th>Staff</th>
                           <th>Status</th>
-                          <th>Toogle</th>
                         </tr>
                         <?php
                             $sql1 = "SELECT a.name , a.address , a.phone , a.city ,a.province , count(b.outlet_id) as staff , a.status
@@ -122,11 +121,11 @@ include("controller/doconnect.php");
                           <td><?php echo $row1['city'];?></td>
                           <td><?php echo $row1['province'];?></td>
                           <td><?php echo $row1['staff'];?></td>
-                          <td><?php echo $row1['status'];?></td>
-                          <td>                                      
+                          <td>
                             <label>
                               <input type="checkbox" class="js-switch" checked /> 
                             </label>
+                            <?php echo $row1['status'];?>
                           </td>
                         </tr>
 
