@@ -35,6 +35,9 @@ include("controller/doconnect.php");
         <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
+    <!-- Switchery -->
+    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
   </head>
@@ -99,14 +102,15 @@ include("controller/doconnect.php");
                           <th>Province</th>
                           <th>Staff</th>
                           <th>Status</th>
+                          <th>Toogle</th>
                         </tr>
                         <?php
-                            $sql1 = "SELECT a.name , a.address , a.phone , a.city ,a.province , count(b.outlet_id) as staff
+                            $sql1 = "SELECT a.name , a.address , a.phone , a.city ,a.province , count(b.outlet_id) as staff , a.status
                             FROM outlet a
                             left join employee b
                             on a.name = b.outlet_id
                             group by
-                            a.name , a.address , a.phone , a.city ,a.province
+                            a.name , a.address , a.phone , a.city ,a.province , a.status
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -118,7 +122,12 @@ include("controller/doconnect.php");
                           <td><?php echo $row1['city'];?></td>
                           <td><?php echo $row1['province'];?></td>
                           <td><?php echo $row1['staff'];?></td>
-                          <td>Active</td>
+                          <td><?php echo $row1['status'];?></td>
+                          <td>                                      
+                            <label>
+                              <input type="checkbox" class="js-switch" checked /> 
+                            </label>
+                          </td>
                         </tr>
 
                         <?php
@@ -181,6 +190,9 @@ include("controller/doconnect.php");
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+
+    <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
 	
   </body>
 </html>
