@@ -104,7 +104,7 @@ include("controller/doconnect.php");
                           <th>Status</th>
                         </tr>
                         <?php
-                            $sql1 = "SELECT a.name , a.address , a.phone , a.city ,a.province , count(b.outlet_id) as staff , a.status
+                            $sql1 = "SELECT a.name , a.address , a.phone , a.city ,a.province , count(b.outlet_id) as staff , a.status, a.outlet_id as outlet_id
                             FROM outlet a
                             left join employee b
                             on a.name = b.outlet_id
@@ -122,10 +122,11 @@ include("controller/doconnect.php");
                           <td><?php echo $row1['province'];?></td>
                           <td><?php echo $row1['staff'];?></td>
                           <td>
-                            <label>
-                              <input type="checkbox" class="js-switch" checked /> 
-                            </label>
-                            <?php echo $row1['status'];?>
+                            <!-- <label>
+                              <input type="checkbox" class="js-switch changeStatus" checked data-value=<?php echo $row1['status'];?> data-id=<?php echo $row1['outlet_id']; ?>> 
+                            </label> -->
+                            <input type="checkbox" class="changeStatus" checked data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-id=<?php echo $row1['outlet_id']; ?>>
+                            
                           </td>
                         </tr>
 
@@ -189,9 +190,15 @@ include("controller/doconnect.php");
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+     <!-- Change Status -->
+    <script src="../production/controller/changeOutletStatus.js"></script>
 
     <!-- Switchery -->
     <script src="../vendors/switchery/dist/switchery.min.js"></script>
 	
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
   </body>
 </html>

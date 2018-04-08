@@ -7,7 +7,7 @@ include("controller/session.php");
 <!DOCTYPE html>
 <?php
 include("controller/doconnect.php");
-include("controller/modaldelete.html");
+include("common/modaldelete.html");
 ?>
 <html lang="en">
   <head>
