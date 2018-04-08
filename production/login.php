@@ -1,5 +1,5 @@
 <?php
-include("controller/doconnect.php");z
+include("controller/doconnect.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
