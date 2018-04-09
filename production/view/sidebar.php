@@ -39,7 +39,7 @@ include("controller/doconnect.php");
               <li><a href="gross_profit.php">Gross Profit</a></li>
               <li><a href="payment_method.php">Payment Method</a></li>
               <li><a href="category_sales.php">Category Sales</a></li>
-              <li><a href="reports.php">Reports</a></li>
+              <!-- <li><a href="reports.php">Reports</a></li> -->
             </ul>
           </li>
           <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
