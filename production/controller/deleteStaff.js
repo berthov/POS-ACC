@@ -14,7 +14,10 @@ $(document).ready(function(){
     $.ajax({
         type:'post',
         url:"controller/dodelete.php", 
-        data:{'action':'deleteStaff','id':idGlobal},
+        data:{
+            'action':'deleteStaff',
+            'id':idGlobal
+        },
         success:function(response){
             if (response == 'ok') {
                 currentRow.fadeOut(800,function(){

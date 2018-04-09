@@ -18,23 +18,18 @@
 		}*/
 
       	$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      	$active = $row['active'];
+      	//$active = $row['active'];
       
       	$count = mysqli_num_rows($result);
       	
       	// If result matched $myusername and $mypassword, table row must be 1 row
-		
       	if($count == 1) {
         	
         	$_SESSION['login_user'] = $usernamelogin;
-        	header("location: ../index.php");
+        	echo 'success';
+        	//header("location: ../index.php");
       	}else {
-      		?>
-			  <script type="text/javascript">
-			    alert("Wrong Username or Password");
-			  	window.location = "http://localhost:8085/POS-ACC/production/login.php";
-			  </script>
-			<?php
+      		echo 'error';
      	}
 	}
 

@@ -4,6 +4,9 @@ include("controller/doconnect.php");
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -12,6 +15,9 @@ include("controller/doconnect.php");
 
     <title>Gentelella Alela! | </title>
 
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -33,13 +39,13 @@ include("controller/doconnect.php");
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action = "controller/dologin.php" method = "POST">
+            <form id="formLogin" >
               <h1>Login Form</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" name="username" required="" />
+                <input type="text" class="form-control" id="username" placeholder="Username" name="username" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
+                <input type="password" class="form-control" id="password" placeholder="Password" name="password" required="" />
               </div>
               <div>
                <input class="btn btn-default" type = "submit" value = " Log in "/>
@@ -111,5 +117,48 @@ include("controller/doconnect.php");
         </div>
       </div>
     </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        $("#formLogin").submit(function(){
+        event.preventDefault();
+
+          var username=$("#username").val();
+          var password=$("#password").val();
+          if(username!="" && password!=""){
+             $.ajax({
+              type:'post',
+              url:'controller/dologin.php',
+              data:{
+               'username':username,
+               'password':password
+              },
+              success:function(response) {
+                console.log(response);
+                if(response=='success')
+                {
+                  window.location.href="../production/index.php";
+                }
+                else
+                {
+                  toastr.error('Wrong Password or Username!');
+                }
+              }
+            });  
+          }
+        });
+
+          // show when page load
+          /*toastr.error('Page Loaded!');
+          */
+         
+         
+
+      });
+
+    </script>
+    
+});
   </body>
 </html>
