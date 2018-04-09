@@ -5,7 +5,7 @@ include("controller/doconnect.php");
 <html lang="en">
   <head>
 
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -14,10 +14,10 @@ include("controller/doconnect.php");
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Gentelella Alela! | </title>
-
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -39,7 +39,7 @@ include("controller/doconnect.php");
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form id="formLogin" >
+            <form id="formLogin" method="post" action="controller/dologin.php">
               <h1>Login Form</h1>
               <div>
                 <input type="text" class="form-control" id="username" placeholder="Username" name="username" required="" />
@@ -148,15 +148,7 @@ include("controller/doconnect.php");
             });  
           }
         });
-
-          // show when page load
-          /*toastr.error('Page Loaded!');
-          */
-         
-         
-
       });
-
     </script>
     
 });
