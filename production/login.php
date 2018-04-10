@@ -37,7 +37,7 @@ include("controller/doconnect.php");
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form id="formLogin" method="post" action="controller/dologin.php">
+            <form id="formLogin" action="controller/dologin.php" method="post" >
               <h1>Login Form</h1>
               <div>
                 <input type="text" class="form-control" id="username" placeholder="Username" name="username" required="" />
@@ -71,25 +71,25 @@ include("controller/doconnect.php");
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form action = "controller/doregister.php" method = "POST">
+            <form id="formRegister" action="controller/doregister.php" method="post">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" name="username" required="" />
+                <input type="text" class="form-control" id="usernameregister" placeholder="Username" name="username" required="" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" name="email" required="" />
+                <input type="email" class="form-control" id="email" placeholder="Email" name="email" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" name="password" required="" />
+                <input type="password" class="form-control" id="passwordregister" placeholder="Password" name="password" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Confirm Password" name="cpassword" required="" />
+                <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password" name="cpassword" required="" />
               </div>
              <!--  <div>
                 <input type="text" class="form-control" placeholder="Role" name="role" required="" />
               </div> -->
               <div>
-                <input type="text" class="form-control" placeholder="Outlet" name="outlet" required="" />
+                <input type="text" class="form-control" id="outlet" placeholder="Outlet" name="outlet" required="" />
               </div>
               <div>
                 <button type="submit" class="btn btn-default" name="reg_user">Register</button>
@@ -116,39 +116,7 @@ include("controller/doconnect.php");
       </div>
     </div>
 
-    <script type="text/javascript">
-      $(document).ready(function() {
-
-        $("#formLogin").submit(function(){
-        event.preventDefault();
-
-          var username=$("#username").val();
-          var password=$("#password").val();
-          if(username!="" && password!=""){
-             $.ajax({
-              type:'post',
-              url:'controller/dologin.php',
-              data:{
-               'username':username,
-               'password':password
-              },
-              success:function(response) {
-                console.log(response);
-                if(response=='success')
-                {
-                  window.location.href="../production/index.php";
-                }
-                else
-                {
-                  toastr.error('Wrong Password or Username!');
-                }
-              }
-            });  
-          }
-        });
-      });
-    </script>
+    <script src="../production/common/error.js"></script>
     
-});
   </body>
 </html>
