@@ -1,4 +1,5 @@
 <?php
+
 	include("doconnect.php");
 	session_start();
 
@@ -8,6 +9,7 @@
 		$passwordregister = md5(mysqli_escape_string($conn, $_POST['password']));
 		$cpasswordregister = md5(mysqli_escape_string($conn, $_POST['cpassword']));
 		$emailregister = mysqli_escape_string($conn, $_POST['email']);
+		$roleregister = mysqli_escape_string($conn, $_POST['role']);
 		$outletregister = mysqli_escape_string($conn, $_POST['outlet']);
 		$created = date("Y-m-d H:i:s");
 
@@ -17,7 +19,7 @@
 
 		if($passwordregister == $cpasswordregister){
 			if ($existing_user) { 
-			    if ($existing_user['name'] === $usernameregister) {
+			     if ($existing_user['name'] === $usernameregister) {
 			      echo 'Username already exist';
 			    }
 
@@ -27,18 +29,10 @@
 			}
 
 			else {
-				$roleregister = "Admin";
-				$undefined = "Undefined";
-				$status = "Active";
-				$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
-	  			$result = mysqli_query($conn, $sql);
-
-				$sql_outlet = "INSERT INTO outlet (name, address, phone, city, province, outlet_id, postal_code ,date_founded,email,last_update_by, created_by,created_date, last_update_date, status) VALUES ('$outletregister', '$undefined', '$undefined', '$undefined', '$undefined', NULL, '$undefined', '$created', '$undefined','$usernameregister','$usernameregister','$created','$created','$status')";
-	  			$result = mysqli_query($conn, $sql_outlet);	  			
-
-				header("location: ../login.php");
+					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
+	  				$result = mysqli_query($conn, $sql);
+					header("location: ../employees.php");
 			}
-
 		} else {
 			echo 'password did not match';
 		}

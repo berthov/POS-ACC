@@ -32,6 +32,11 @@ form select option:first-child {
 	  
     <title>Bonne Journée! </title>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -86,16 +91,16 @@ form select option:first-child {
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask " action="controller/doregister.php" method="POST">
+                    <form id="formRegisterStaff" class="form-horizontal form-label-left input_mask " action="controller/doregisterstaff.php" method="POST">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="employee_name" name="username" placeholder="Employee Name" required="required">
+                        <input type="text" class="form-control has-feedback-left" id="usernamestaff" name="username" placeholder="Employee Name" required="required">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true" required ="required"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
                         <!-- <input type="text" class="form-control" id="role" name="role" placeholder="Role" required ="required"> -->
-                        <select class="form-control not_chosen" name="role" required ="required" >
+                        <select class="form-control not_chosen" id="rolestaff" name="role" required ="required" >
                           <option value="" disabled selected>Select Role</option>
                           <option class="options" value="Admin">Admin</option>
                           <option class="options" value="Staff">Staff</option>
@@ -104,14 +109,14 @@ form select option:first-child {
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="email" class="form-control has-feedback-left" id="email" name="email" placeholder="Email" required ="required">
+                        <input type="email" class="form-control has-feedback-left" id="emailstaff" name="email" placeholder="Email" required ="required">
                         <span class="fa fa-envelope form-control-feedback left" aria-hidden="true" required ="required"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
 <!--                         <input type="text" class="form-control" id="outlet" placeholder="Outlet" required ="required" name="outlet">
                         <span class="fa fa-phone form-control-feedback right" aria-hidden="true" required ="required"></span> -->
-                          <select class="form-control" name="outlet">
+                          <select class="form-control" name="outlet" id="outletstaff">
                               <option value="" disabled selected>Select Outlet</option>
                           
                             <?php
@@ -131,12 +136,12 @@ form select option:first-child {
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="password" class="form-control has-feedback-left" id="password" placeholder="Password" required ="required" name="password">
+                        <input type="password" class="form-control has-feedback-left" id="passwordstaff" placeholder="Password" required ="required" name="password">
                         <span class="fa fa-key form-control-feedback left" aria-hidden="true" required ="required"></span>
                       </div>
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="password" class="form-control" id="cpassword" placeholder="Confirm Password" required ="required" name="cpassword">
+                        <input type="password" class="form-control" id="cpasswordstaff" placeholder="Confirm Password" required ="required" name="cpassword">
                         <span class="fa fa-check form-control-feedback right" aria-hidden="true" required ="required"></span>
                       </div>
 
@@ -218,6 +223,8 @@ form select option:first-child {
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+    <script src="../production/common/error.js"></script>
 
     <script type="text/javascript">
 
