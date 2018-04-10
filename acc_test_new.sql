@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2018 at 05:18 PM
+-- Generation Time: Apr 10, 2018 at 09:08 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -120,15 +120,23 @@ CREATE TABLE `employee` (
   `last_update_by` varchar(255) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `ledger_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee`
 --
 
-INSERT INTO `employee` (`name`, `role`, `email`, `outlet_id`, `employee_id`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `password`) VALUES
-('admin', 'Admin', 'martinganteng@gmail.com', 'CaseNation.ID', 3, '0', NULL, NULL, NULL, '5f4dcc3b5aa765d61d8327deb882cf99');
+INSERT INTO `employee` (`name`, `role`, `email`, `outlet_id`, `employee_id`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `password`, `ledger_id`) VALUES
+('admin', 'Admin', 'martinganteng@gmail.com', 'CaseNation.ID', 3, '0', NULL, NULL, NULL, '5f4dcc3b5aa765d61d8327deb882cf99', ''),
+('bernard', 'Admin', 'bernard@asd', 'Amoxilin', 4, NULL, NULL, '2018-04-09', NULL, '912ec803b2ce49e4a541068d495ab570', ''),
+('asd', 'Admin', 'admin@asd', 'Amoxilin', 5, NULL, NULL, '2018-04-09', NULL, '7815696ecbf1c96e6894b779456d330e', ''),
+('bernard123', 'Admin', 'bernad@ayam', 'keprabon', 6, NULL, NULL, '2018-04-09', NULL, '7815696ecbf1c96e6894b779456d330e', ''),
+('qwe', 'Admin', 'bernard@makanan', 'keprabon', 7, NULL, NULL, '2018-04-10', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
+('asdwqww', 'Staff', 'asd!as@d', 'CaseNation.ID', 8, NULL, NULL, '2018-04-11', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
+('ayam', 'Admin', 'asayam@makanan', 'CaseNation.ID', 9, NULL, NULL, '2018-04-11', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
+('ayam1', 'Admin', 'asayam@makanan2', 'CaseNation.ID', 10, NULL, NULL, '2018-04-11', NULL, '7815696ecbf1c96e6894b779456d330e', '123');
 
 -- --------------------------------------------------------
 
@@ -250,7 +258,7 @@ INSERT INTO `invoice` (`description`, `unit_price`, `qty`, `date`, `invoice_line
 
 CREATE TABLE `outlet` (
   `name` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `province` varchar(255) DEFAULT NULL,
@@ -262,16 +270,19 @@ CREATE TABLE `outlet` (
   `created_by` varchar(255) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `ledger_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `outlet`
 --
 
-INSERT INTO `outlet` (`name`, `address`, `phone`, `city`, `province`, `outlet_id`, `postal_code`, `date_founded`, `email`, `last_update_by`, `created_by`, `created_date`, `last_update_date`, `status`) VALUES
-('CaseNation.ID', 'Tangerang', '089636053432', 'Tangerang', 'Tangerang', 1, 0, '0000-00-00', NULL, '', NULL, NULL, NULL, 'Active'),
-('Toko kue Martin', 'Cimone', '0808080808', 'Banten', 'Tangerang', 2, 15810, '0000-00-00', 'martinganteng@gmail.com', '', NULL, NULL, NULL, 'Active');
+INSERT INTO `outlet` (`name`, `address`, `phone`, `city`, `province`, `outlet_id`, `postal_code`, `date_founded`, `email`, `last_update_by`, `created_by`, `created_date`, `last_update_date`, `status`, `ledger_id`) VALUES
+('CaseNation.ID', 'Tangerang', '089636053432', 'Tangerang', 'Tangerang', 1, 0, '0000-00-00', NULL, '', NULL, NULL, NULL, 'Active', '123'),
+('Toko kue Martin', 'Cimone', '0808080808', 'Banten', 'Tangerang', 2, 15810, '0000-00-00', 'martinganteng@gmail.com', '', NULL, NULL, NULL, 'Active', ''),
+('keprabon', 'Undefined', 'Undefined', 'Undefined', 'Undefined', 3, 0, '2018-04-09', 'Undefined', NULL, NULL, NULL, NULL, 'Active', '123'),
+('keprabon', 'Undefined', 'Undefined', 'Undefined', 'Undefined', 4, 0, '2018-04-10', 'Undefined', 'qwe', 'qwe', '2018-04-10', '2018-04-10', 'Active', '123');
 
 -- --------------------------------------------------------
 
@@ -299,12 +310,8 @@ CREATE TABLE `po_header_all` (
 --
 
 INSERT INTO `po_header_all` (`po_header_id`, `po_date`, `supplier`, `ship_to`, `outlets`, `created_date`, `created_by`, `last_update_by`, `last_update_date`, `po_description`, `due_date`, `status`) VALUES
-('20180312193942', '0000-00-00', 'tokopedia', 'tangerang', 'Bernard', '2018-03-12', NULL, NULL, NULL, '', '0000-00-00', 'Paid'),
-('20180312194321', '0000-00-00', 'tokopedia', 'tangerang', 'Novi', '2018-03-12', NULL, NULL, NULL, '', '0000-00-00', 'Paid'),
-('20180312195735', '0000-00-00', 'tokopedia', 'asd', 'Novi', '2018-03-12', NULL, NULL, NULL, '', '0000-00-00', 'Paid'),
 ('20180312221913', '0000-00-00', 'tokopedia', 'tangerang', 'Toko kue Martin', '2018-03-12', NULL, NULL, NULL, 'xcfvg', '0000-00-00', 'Open'),
-('20180312222216', '0000-00-00', 'tokopedia', 'tangerang', 'CaseNation.ID', '2018-03-12', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open'),
-('2147483647', '0000-00-00', 'cc', 'dd', 'aa', '2018-03-09', NULL, NULL, NULL, '', '0000-00-00', 'Paid');
+('20180312222216', '0000-00-00', 'tokopedia', 'tangerang', 'CaseNation.ID', '2018-03-12', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open');
 
 -- --------------------------------------------------------
 
@@ -331,14 +338,6 @@ CREATE TABLE `po_line_all` (
 --
 
 INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `item_code`, `uom`, `qty`, `price`, `created_date`, `created_by`, `last_update_date`, `last_update_by`, `description`) VALUES
-(1, '2147483647', '2', '2', 0, 0, NULL, NULL, NULL, NULL, ''),
-(2, '2147483647', '1', '1', 0, 0, NULL, NULL, NULL, NULL, ''),
-(3, '2', 'r', 'P', 1, 1000, NULL, NULL, NULL, NULL, ''),
-(4, '2', 'rmt-01', 'PCS', 2, 2000, NULL, NULL, NULL, NULL, ''),
-(5, '20180312193942', 'rmt-000001', 'pcs', 1, 15000000, NULL, NULL, NULL, NULL, ''),
-(6, '20180312194321', 'rmt-000002', 'pcs', 2, 100000, NULL, NULL, NULL, NULL, ''),
-(7, '20180312194321', 'rmt-000001', 'pcs', 1, 15000000, NULL, NULL, NULL, NULL, ''),
-(8, '20180312195735', 'asd', 'asd', 0, 0, NULL, NULL, NULL, NULL, 'asd'),
 (9, '20180312221913', 'rmt-000002', 'asd', 1, 15000000, NULL, NULL, NULL, NULL, 'laptop'),
 (10, '20180312222216', 'rmt-000001', 'asd', 2, 100000, NULL, NULL, NULL, NULL, 'laptop');
 
@@ -423,7 +422,7 @@ ALTER TABLE `cogs`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `inventory`
 --
@@ -438,7 +437,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
-  MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --

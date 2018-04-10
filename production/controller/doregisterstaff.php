@@ -29,7 +29,16 @@
 			}
 
 			else {
-					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister')";
+
+					$user_name = $_SESSION['login_user'];
+
+					$user_check_ledger = "SELECT a.ledger_id as ledger FROM employee a WHERE a.name = '".$user_name."'"; 
+					$result_ledger = mysqli_query($conn,$user_check_ledger);
+					$existing_ledger = mysqli_fetch_assoc($result_ledger);
+
+					$ledger_new =  $existing_ledger['ledger'];
+					
+					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password,ledger_id) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister','$ledger_new')";
 	  				$result = mysqli_query($conn, $sql);
 					header("location: ../employees.php");
 			}
