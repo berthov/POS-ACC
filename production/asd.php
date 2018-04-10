@@ -155,4 +155,7 @@ echo "string";
                             while($row1 = $result1->fetch_assoc()) {                                                               
                               echo $row1['count'];
                           }
+
+echo "<br>";
+                          echo date("mdhs");
 ?>

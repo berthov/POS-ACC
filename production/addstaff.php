@@ -115,8 +115,10 @@ form select option:first-child {
                               <option value="" disabled selected>Select Outlet</option>
                           
                             <?php
-                            $sql = "SELECT * 
-                            FROM outlet";
+                            $sql = "SELECT distinct a.name 
+                            FROM outlet a, employee b
+                            where a.ledger_id = b.ledger_id
+                            and b.name = '".$_SESSION['login_user']."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                           ?>
