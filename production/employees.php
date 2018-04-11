@@ -103,7 +103,6 @@ include("query/find_ledger.php");
                           <th></th>
                         </tr>
                         
-  -->
                         <?php
 
                             $sql1 = "SELECT distinct a.* FROM employee a
