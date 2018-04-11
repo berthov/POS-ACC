@@ -8,6 +8,8 @@ include("controller/session.php");
 <?php
 include("controller/doconnect.php");
 include("common/modaldelete.html");
+include("query/find_ledger.php");
+
 ?>
 <html lang="en">
   <head>
@@ -103,12 +105,6 @@ include("common/modaldelete.html");
                         
   -->
                         <?php
-
-                            $user_check_ledger = "SELECT a.ledger_id as ledger FROM employee a WHERE a.name = '".$user_check."'"; 
-                            $result_ledger = mysqli_query($conn,$user_check_ledger);
-                            $existing_ledger = mysqli_fetch_assoc($result_ledger);
-
-                            $ledger_new =  $existing_ledger['ledger'];
 
                             $sql1 = "SELECT distinct a.* FROM employee a
                             where a.ledger_id = '".$ledger_new."' 

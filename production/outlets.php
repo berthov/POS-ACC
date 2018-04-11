@@ -7,6 +7,7 @@ include("controller/session.php");
 <html lang="en">
 <?php
 include("controller/doconnect.php");
+include("query/find_ledger.php");
 ?>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -155,12 +156,7 @@ include("controller/doconnect.php");
                           <th>Status</th>
                         </tr>
                         <?php
-
-                            $user_check_ledger = "SELECT a.ledger_id as ledger FROM employee a WHERE a.name = '".$user_check."'"; 
-                            $result_ledger = mysqli_query($conn,$user_check_ledger);
-                            $existing_ledger = mysqli_fetch_assoc($result_ledger);
-
-                            $ledger_new =  $existing_ledger['ledger'];                       
+            
 
                             $sql1 = "SELECT a.name , a.address , a.phone , a.city ,a.province , count(b.outlet_id) as staff , a.status, a.outlet_id as outlet_id
                             FROM outlet a
