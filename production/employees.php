@@ -101,9 +101,19 @@ include("common/modaldelete.html");
                           <th></th>
                         </tr>
                         
-
+  -->
                         <?php
-                            $sql1 = "SELECT * FROM employee";
+
+                            $user_check_ledger = "SELECT a.ledger_id as ledger FROM employee a WHERE a.name = '".$user_check."'"; 
+                            $result_ledger = mysqli_query($conn,$user_check_ledger);
+                            $existing_ledger = mysqli_fetch_assoc($result_ledger);
+
+                            $ledger_new =  $existing_ledger['ledger'];
+
+                            $sql1 = "SELECT distinct a.* FROM employee a
+                            where a.ledger_id = '".$ledger_new."' 
+                            order BY role,outlet_id asc
+                            ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
                               ?>
