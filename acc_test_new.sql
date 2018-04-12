@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 10, 2018 at 09:08 PM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Apr 12, 2018 at 12:35 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -130,13 +132,64 @@ CREATE TABLE `employee` (
 
 INSERT INTO `employee` (`name`, `role`, `email`, `outlet_id`, `employee_id`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `password`, `ledger_id`) VALUES
 ('admin', 'Admin', 'martinganteng@gmail.com', 'CaseNation.ID', 3, '0', NULL, NULL, NULL, '5f4dcc3b5aa765d61d8327deb882cf99', ''),
-('bernard', 'Admin', 'bernard@asd', 'Amoxilin', 4, NULL, NULL, '2018-04-09', NULL, '912ec803b2ce49e4a541068d495ab570', ''),
 ('asd', 'Admin', 'admin@asd', 'Amoxilin', 5, NULL, NULL, '2018-04-09', NULL, '7815696ecbf1c96e6894b779456d330e', ''),
 ('bernard123', 'Admin', 'bernad@ayam', 'keprabon', 6, NULL, NULL, '2018-04-09', NULL, '7815696ecbf1c96e6894b779456d330e', ''),
-('qwe', 'Admin', 'bernard@makanan', 'keprabon', 7, NULL, NULL, '2018-04-10', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
-('asdwqww', 'Staff', 'asd!as@d', 'CaseNation.ID', 8, NULL, NULL, '2018-04-11', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
 ('ayam', 'Admin', 'asayam@makanan', 'CaseNation.ID', 9, NULL, NULL, '2018-04-11', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
-('ayam1', 'Admin', 'asayam@makanan2', 'CaseNation.ID', 10, NULL, NULL, '2018-04-11', NULL, '7815696ecbf1c96e6894b779456d330e', '123');
+('ben', 'Staff', 'ben@aa', 'CaseNation.ID', 12, NULL, NULL, '2018-04-12', NULL, '7815696ecbf1c96e6894b779456d330e', '123');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fmd_recipe_header`
+--
+
+CREATE TABLE `fmd_recipe_header` (
+  `recipe_id` varchar(20) NOT NULL,
+  `recipe_name` varchar(255) NOT NULL,
+  `ledger_id` varchar(20) NOT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `last_update_by` varchar(255) DEFAULT NULL,
+  `last_update_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fmd_recipe_header`
+--
+
+INSERT INTO `fmd_recipe_header` (`recipe_id`, `recipe_name`, `ledger_id`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
+('R04120332', 'Makaroni', '123', 'ayam', '2018-04-12', 'ayam', '2018-04-12'),
+('R04120343', 'Makaroni2', '123', 'ayam', '2018-04-12', 'ayam', '2018-04-12'),
+('R04120351', 'Makaroni3', '123', 'ayam', '2018-04-12', 'ayam', '2018-04-12'),
+('R04120455', 'Makaroni4', '123', 'ben', '2018-04-12', 'ben', '2018-04-12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fmd_recipe_line`
+--
+
+CREATE TABLE `fmd_recipe_line` (
+  `recipe_line_id` int(20) NOT NULL,
+  `recipe_id` varchar(20) NOT NULL,
+  `item_code` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `qty` int(20) NOT NULL,
+  `created_date` date DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `last_update_by` varchar(255) DEFAULT NULL,
+  `last_update_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fmd_recipe_line`
+--
+
+INSERT INTO `fmd_recipe_line` (`recipe_line_id`, `recipe_id`, `item_code`, `description`, `qty`, `created_date`, `created_by`, `last_update_by`, `last_update_date`) VALUES
+(37, 'R04120332', 'a', 'a', 2, '2018-04-12', 'ayam', 'ayam', '2018-04-12'),
+(38, 'R04120343', 'a', 'a', 1, '2018-04-12', 'ayam', 'ayam', '2018-04-12'),
+(39, 'R04120351', 'a', 'a', 2, '2018-04-12', 'ayam', 'ayam', '2018-04-12'),
+(40, 'R04120455', 'a', 'a', 1, '2018-04-12', 'ben', 'ben', '2018-04-12');
 
 -- --------------------------------------------------------
 
@@ -370,6 +423,18 @@ ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`);
 
 --
+-- Indexes for table `fmd_recipe_header`
+--
+ALTER TABLE `fmd_recipe_header`
+  ADD PRIMARY KEY (`recipe_id`);
+
+--
+-- Indexes for table `fmd_recipe_line`
+--
+ALTER TABLE `fmd_recipe_line`
+  ADD PRIMARY KEY (`recipe_line_id`);
+
+--
 -- Indexes for table `inventory`
 --
 ALTER TABLE `inventory`
@@ -408,41 +473,56 @@ ALTER TABLE `po_line_all`
 --
 ALTER TABLE `ap_check_all`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `ap_supplier_all`
 --
 ALTER TABLE `ap_supplier_all`
   MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `cogs`
 --
 ALTER TABLE `cogs`
   MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `fmd_recipe_line`
+--
+ALTER TABLE `fmd_recipe_line`
+  MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
   MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=999;
+
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
   MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
   MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
