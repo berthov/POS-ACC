@@ -14,6 +14,11 @@ include("controller/doconnect.php");
 	  
     <title>Bonne Journée! </title>
 
+        <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -71,12 +76,11 @@ include("controller/doconnect.php");
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddrecipe.php">
-
+                    <form id="formregisterrecipe" class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddrecipe.php">
                       <div class="form-group">
                         <label class="col-md-1 col-sm-3 col-xs-3">Recipe Name</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="text" class="form-control" name="recipe_name" ></input>
+                          <input type="text" class="form-control" name="recipe_name" id="recipe_name"></input>
                         </div>
                       </div>
                       <div class="clearfix"><br></div>
@@ -107,7 +111,7 @@ include("controller/doconnect.php");
                                     <td>#</td>
                                     <td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>
                                     <td><input type="text" class="form-control" id="description" name="description[]"  required="required"></td>
-                                    <td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>
+                                    <td><input type="number" class="form-control" id="qty" name="qty[]" required="required"></td>
                                     <td>
                                     </td>
                                   </tr>
@@ -207,6 +211,8 @@ include("controller/doconnect.php");
         <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
+    <script src="../production/common/error.js"></script>
+    
     <script type="text/javascript">
 
 function myDeleteFunction() {

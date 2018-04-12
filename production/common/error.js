@@ -99,4 +99,32 @@ $(document).ready(function() {
         }
     });
   });
+
+    $("#formregisterrecipe").submit(function(){
+    event.preventDefault();
+
+    var recipe_name=$("#recipe_name").val();
+    var item_code=$("#item_code").val();
+    var description=$("#description").val();
+    var qty=$("#qty").val();
+
+      $.ajax({
+        type:'post',
+        url:'controller/doaddrecipe.php',
+        data:{
+            'recipe_name':recipe_name,
+            'item_code':item_code,
+            'description':description,
+            'qty':qty
+        },
+        success:function(response){
+          if(response=='Recipe already exist'){
+            toastr.error('Recipe already exist');
+          }
+          else{
+            window.location.href="../production/recipe.php";
+          }
+        }
+    });
+  });
 });

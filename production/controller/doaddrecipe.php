@@ -1,23 +1,23 @@
 <?php
 
 	include("doconnect.php");
-	include("session.php");
-	include("query/find_ledger.php");
 	session_start();
+	$user_check = $_SESSION['login_user'];
+
+	include("../query/find_ledger.php");
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-		$recipe_name = $_REQUEST['recipe_name'];	
-		$item_code = $_REQUEST['item_code'];	
-		$description = $_REQUEST['description'];	
+		$recipe_name = $_REQUEST['recipe_name'];
+		$item_code = $_REQUEST['item_code'];
+		$description = $_REQUEST['description'];
 		$qty = $_REQUEST['qty'];
-		$created = date("Y-m-d H:i:s");
-		$ledger = date("mdhs");
-		$recipe_id = "R". "" .date("mdhs");
+		$created = date("Y-m-d");
+		$recipe_id = "R". "" .date("mdhs");        
 
-		$check_recipe = "SELECT * FROM fmd_recipe WHERE ledger_id = '".$ledger_new."";
-		$result = mysqli_query($conn,$check_recipe);
-		$existing_recipe = mysqli_fetch_assoc($result);
+		$check_recipe = "SELECT * FROM fmd_recipe_header WHERE ledger_id = '".$ledger_new."' and recipe_name = '".$recipe_name."' ";
+		$result_recipe = mysqli_query($conn,$check_recipe);
+		$existing_recipe = mysqli_fetch_assoc($result_recipe);
 
 
 			if ($existing_recipe) { 
@@ -26,20 +26,19 @@
 			    }
 			}
 			else {
-
 					// RECIPE HEADER
-					$sql = "INSERT INTO fmd_recipe_header (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password,ledger_id) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister','$ledger_new')";
+					$sql = "INSERT INTO fmd_recipe_header (recipe_id, recipe_name, ledger_id, created_by, last_update_by, created_date, last_update_date) VALUES ('$recipe_id', '$recipe_name', '$ledger_new', '$user_check', '$user_check', '$created', '$created')";
 	  				$result = mysqli_query($conn, $sql);
 
 	  				// RECIPE LINE
+
   				    for($y = 0; $y < count($item_code); $y++ ){
-				    $sql_line = "INSERT INTO fmd_recipe_line (po_header_id,item_code,uom ,qty,price,description,created_by , created_date,last_update_by,last_update_date)
-				    VALUES ('".$po_header_id."','".$item_code[$y]."' , '".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."','".$description[$y]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+				    $sql_line = "INSERT INTO fmd_recipe_line (recipe_id,item_code,description,qty,created_by, created_date,last_update_by,last_update_date)
+				    VALUES ('".$recipe_id."','".$item_code[$y]."' , '".$description[$y]."' , '".$qty[$y]."' ,'".$user_check."','".$created."','".$user_check."','".$created."')";
 				    mysqli_query($conn, $sql_line);
 				      }
 
-					header("location: ../recipe.php");
+				   header("location: ../recipe.php");
 			}
-		
 	}
 ?>
