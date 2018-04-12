@@ -57,7 +57,7 @@ include("controller/doconnect.php");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Form PO</h3>
+                <h3>RECIPE</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -66,104 +66,30 @@ include("controller/doconnect.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Purchase Order Header</h2>
+                    <h2>Detail</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
-
-                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                            <select class="form-control" name="outlets">
-                              <option value="" disabled selected>Select Outlet</option>
-                          
-                            <?php
-                            $sql = "SELECT * 
-                            FROM outlet";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {
-                          ?>
-                              <option value="<?php echo $row["name"] ?>"> <?php echo $row["name"] ?></option>
-                          <?php
-                            }
-                          ?>
-                          
-                            </select>        
-                      </div>
-
-                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                       <fieldset>
-                          <div class="control-group">
-                            <div class="controls">
-                              <div class="xdisplay_inputx">
-                                <input type="text" class="form-control" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="po_date">
-                                <span class="fa fa-calendar-o form-control-feedback right" aria-hidden="true"></span>
-                                <span id="inputSuccess2Status3" class="sr-only">(success)</span>
-                              </div>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </div>
-
-      
-                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback"> 
-                        <select class="form-control" name="supplier">
-                              <option value="" disabled selected>Select Supplier</option>
-                          
-                            <?php
-                            $sql = "SELECT * 
-                            FROM ap_supplier_all
-                            where status = 'Active'";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {
-                          ?>
-                              <option value="<?php echo $row["supplier_name"] ?>"> <?php echo $row["supplier_name"] ?></option>
-                          <?php
-                            }
-                          ?>
-                          
-                            </select> 
-                      </div>
-
-                      <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="inputSuccess5" placeholder="*Ship To" name="ship_to" required="required">
-                        <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-                      </div>
+                    <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddrecipe.php">
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Due Date</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">                        
-                       <fieldset>
-                          <div class="control-group">
-                            <div class="controls">
-                              <div class="xdisplay_inputx">
-                                <input type="text" class="form-control" id="single_cal2" placeholder="Date" aria-describedby="inputSuccess2Status2" name="due_date">
-                                <span class="fa fa-calendar-o form-control-feedback right" aria-hidden="true"></span>
-                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                              </div>
-                            </div>
-                          </div>
-                        </fieldset>
+                        <label class="col-md-1 col-sm-3 col-xs-3">Recipe Name</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <input type="text" class="form-control" name="recipe_name" ></input>
                         </div>
                       </div>
-
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
-                        <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" class="form-control" name="po_description" ></input>
-                        </div>
-                      </div>
-
+                      <div class="clearfix"><br></div>
                     <div class="row">
-                      <div class="col-md-12 col-sm-12 col-xs-12">
+                      <div class="col-md-8 col-sm-12 col-xs-12">
                         <div class="x_panel">
                           <div class="x_title">
-                            <h2><i class="fa fa-align-left"></i> Purchase Order Line <small>Sub-Title</small></h2>
+                            <h2><i class="fa fa-align-left"></i> Ingredient </h2>
                             <div class="clearfix"></div>
                           </div>
                           <div class="x_content">
 
-                            <!-- PO LINE  -->
+                            <!-- Ingredient LINE  -->
                             <div class="panel-body">
                               <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">
 
@@ -171,26 +97,25 @@ include("controller/doconnect.php");
                               <div class="table-responsive" >
                                 <table class="table" id="myTable">
                                   <tr>
+                                    <th>#</th>
                                     <th>Item Code</th>
                                     <th>Item Description</th>
                                     <th>Quantity</th>
                                     <th></th>
                                   </tr>
                                   <tr>
+                                    <td>#</td>
                                     <td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>
                                     <td><input type="text" class="form-control" id="description" name="description[]"  required="required"></td>
                                     <td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>
                                     <td>
-<!--                                         <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
-                                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
-                                        </button> -->
                                     </td>
                                   </tr>
                                 </table>
                               </div>
 
 
-                              <button class="btn btn-success" type="button" onclick="myCreateFunction();"> <b>Insert New Row</b>
+                              <button class="btn btn-success" type="button" onclick="myCreateFunction();" style="margin-top: 20px;"> <b>Insert New Row</b>
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
                               </button>
 
@@ -302,10 +227,12 @@ function myCreateFunction() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
-    cell1.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>';
-    cell2.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" required="required"></td>';
-    cell3.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
-    cell4.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
+    var cell5 = row.insertCell(4);
+    cell1.innerHTML = '<td>#</td>';
+    cell2.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>';
+    cell3.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" required="required"></td>';
+    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
+    cell5.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
 }
 
                                                        
