@@ -11,9 +11,8 @@ if(isset($_REQUEST['reservation'])){
 if(isset($_REQUEST['reservation'])){
   $p_end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +24,11 @@ if(isset($_REQUEST['reservation'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Bonne Journée </title>
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
@@ -47,6 +51,8 @@ if(isset($_REQUEST['reservation'])){
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.css" rel="stylesheet">
   </head>
+
+    
 
   <body class="nav-md">
     <div class="container body">
@@ -337,6 +343,7 @@ if(isset($_REQUEST['reservation'])){
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+
 	
     <script type="text/javascript">
 
@@ -410,6 +417,15 @@ if(isset($_REQUEST['reservation'])){
 
 
     </script>
-
+    <?php
+      if($_SESSION['firstLogin'] == true){
+      ?>
+      <script>
+        toastr.info('Succesfully Logged in');
+      </script>
+      <?php
+        unset($_SESSION['firstLogin']);
+      }
+    ?>
   </body>
 </html>

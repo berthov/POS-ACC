@@ -5,23 +5,6 @@ include("controller/session.php");
 
 <!DOCTYPE html>
 
-<style>
-/*select { color: #999999 }
-option { color: #555555 }
-option[selected]  { color: #999999; background: white }*/
-form select.not_chosen {
-  color: #999999;
-}
-
-form select option {
-    color: #555555;
-}
-form select option:first-child {
-    color: #999999;
-}
-
-</style>
-
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -123,7 +106,6 @@ form select option:first-child {
                             $sql = "SELECT distinct a.name 
                             FROM outlet a, employee b
                             where a.ledger_id = b.ledger_id
-                            and a.status = 'Active'
                             and b.name = '".$_SESSION['login_user']."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
