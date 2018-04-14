@@ -421,7 +421,7 @@ if(isset($_REQUEST['reservation'])){
       if($_SESSION['firstLogin'] == true){
       ?>
       <script>
-        toastr.info('Succesfully Logged in');
+        toastr.success('You are logged in');
       </script>
       <?php
         unset($_SESSION['firstLogin']);
