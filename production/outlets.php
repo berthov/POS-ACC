@@ -86,7 +86,7 @@ include("query/find_ledger.php");
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <!-- <script src="../build/js/custom.min.js"></script> -->
      <!-- Change Status -->
     <script src="../production/controller/changeOutletStatus.js"></script>
 
