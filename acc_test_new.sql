@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2018 at 12:58 PM
+-- Generation Time: Apr 15, 2018 at 08:00 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -87,25 +87,25 @@ INSERT INTO `ap_supplier_all` (`party_id`, `supplier_name`, `supplier_site`, `su
 
 CREATE TABLE `cogs` (
   `item_cost_id` int(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `cogs` int(16) NOT NULL,
-  `period` varchar(11) NOT NULL,
+  `item_cost` int(16) DEFAULT NULL,
+  `periode` date DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
   `last_update_by` varchar(255) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `created_by` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  `item_code` varchar(255) NOT NULL
+  `inventory_item_id` varchar(255) DEFAULT NULL,
+  `ledger_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cogs`
 --
 
-INSERT INTO `cogs` (`item_cost_id`, `description`, `cogs`, `period`, `last_update_date`, `last_update_by`, `created_date`, `created_by`, `type`, `item_code`) VALUES
-(1, 'Mario Bros', 45000, 'FEB-18', NULL, NULL, NULL, NULL, NULL, 'RMT-0000002'),
-(2, 'Eye case', 55000, 'JAN-18', NULL, NULL, NULL, NULL, NULL, ''),
-(3, 'Flower case', 34000, 'JAN-18', NULL, NULL, NULL, NULL, NULL, '');
+INSERT INTO `cogs` (`item_cost_id`, `item_cost`, `periode`, `last_update_date`, `last_update_by`, `created_date`, `created_by`, `type`, `inventory_item_id`, `ledger_id`) VALUES
+(1, 45000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, 'RMT-0000002', ''),
+(2, 55000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '', ''),
+(3, 34000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -159,11 +159,12 @@ CREATE TABLE `fmd_recipe_header` (
 --
 
 INSERT INTO `fmd_recipe_header` (`recipe_id`, `recipe_name`, `ledger_id`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
-('R04120332', 'Makaroni', '123', 'ayam', '2018-04-12', 'ayam', '2018-04-12'),
-('R04120343', 'Makaroni2', '123', 'ayam', '2018-04-12', 'ayam', '2018-04-12'),
-('R04120351', 'Makaroni3', '123', 'ayam', '2018-04-12', 'ayam', '2018-04-12'),
-('R04120455', 'Makaroni4', '123', 'ben', '2018-04-12', 'ben', '2018-04-12'),
-('R04140410', 'Makaroni5', '123', 'ben', '2018-04-14', 'ben', '2018-04-14');
+('R04150604', 'a', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
+('R04150617', 'aa', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
+('R04150621', 'a2', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
+('R04150644', 'a1', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
+('R04150645', 'aab', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
+('R04150649', 'ben', '123', 'ben', '2018-04-15', 'ben', '2018-04-15');
 
 -- --------------------------------------------------------
 
@@ -174,8 +175,7 @@ INSERT INTO `fmd_recipe_header` (`recipe_id`, `recipe_name`, `ledger_id`, `creat
 CREATE TABLE `fmd_recipe_line` (
   `recipe_line_id` int(20) NOT NULL,
   `recipe_id` varchar(20) NOT NULL,
-  `item_code` varchar(255) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `inventory_item_id` varchar(255) NOT NULL,
   `qty` int(20) NOT NULL,
   `created_date` date DEFAULT NULL,
   `created_by` varchar(255) DEFAULT NULL,
@@ -187,12 +187,15 @@ CREATE TABLE `fmd_recipe_line` (
 -- Dumping data for table `fmd_recipe_line`
 --
 
-INSERT INTO `fmd_recipe_line` (`recipe_line_id`, `recipe_id`, `item_code`, `description`, `qty`, `created_date`, `created_by`, `last_update_by`, `last_update_date`) VALUES
-(37, 'R04120332', 'RMT-0000002', 'a', 2, '2018-04-12', 'ayam', 'ayam', '2018-04-12'),
-(38, 'R04120343', 'a', 'a', 1, '2018-04-12', 'ayam', 'ayam', '2018-04-12'),
-(39, 'R04120351', 'a', 'a', 2, '2018-04-12', 'ayam', 'ayam', '2018-04-12'),
-(40, 'R04120455', 'a', 'a', 1, '2018-04-12', 'ben', 'ben', '2018-04-12'),
-(41, 'R04140410', 'a', 'a', 1, '2018-04-14', 'ben', 'ben', '2018-04-14');
+INSERT INTO `fmd_recipe_line` (`recipe_line_id`, `recipe_id`, `inventory_item_id`, `qty`, `created_date`, `created_by`, `last_update_by`, `last_update_date`) VALUES
+(53, 'R04150604', 'Mario Bros', 1, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(54, 'R04150617', 'Starwars', 2, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(55, 'R04150617', 'Mario Bros', 1, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(56, 'R04150645', 'Nike', 123, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(57, 'R04150645', 'Captain America', 2, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(58, 'R04150645', 'Mario Bros', 1, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(59, 'R04150649', '36', 1, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(60, 'R04150649', '27', 1, '2018-04-15', 'ben', 'ben', '2018-04-15');
 
 -- --------------------------------------------------------
 
@@ -212,26 +215,27 @@ CREATE TABLE `inventory` (
   `created_by` varchar(255) DEFAULT NULL,
   `last_update_by` varchar(255) DEFAULT NULL,
   `created_date` date DEFAULT NULL,
-  `last_update_date` date DEFAULT NULL
+  `last_update_date` date DEFAULT NULL,
+  `ledger_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `unit_price`, `min`, `max`, `hpp`, `created_by`, `last_update_by`, `created_date`, `last_update_date`) VALUES
-(27, 'RMT-0000002', 'Mario Bros', 6, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(36, 'RMT-0000003', 'Eye case', 46, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(37, 'RMT-0000004', 'Blue Ceramic', 31, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(38, 'RMT-0000005', 'Pink Flower', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(39, 'RMT-0000006', 'Pineapple Case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(40, 'RMT-0000007', 'Black Flower', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(41, 'RMT-0000008', 'Flower case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(42, 'RMT-0000009', 'Pug Case', 38, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(43, 'RMT-0000010', 'Simpsons', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(44, 'RMT-0000011', 'Captain America', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(45, 'RMT-0000012', 'Nike', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL),
-(46, 'RMT-0000013', 'Starwars', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL);
+INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `unit_price`, `min`, `max`, `hpp`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `ledger_id`) VALUES
+(27, 'RMT-0000002', 'Mario Bros', 6, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(36, 'RMT-0000003', 'Eye case', 46, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(37, 'RMT-0000004', 'Blue Ceramic', 31, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(38, 'RMT-0000005', 'Pink Flower', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(39, 'RMT-0000006', 'Pineapple Case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(40, 'RMT-0000007', 'Black Flower', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(41, 'RMT-0000008', 'Flower case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(42, 'RMT-0000009', 'Pug Case', 38, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(43, 'RMT-0000010', 'Simpsons', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(44, 'RMT-0000011', 'Captain America', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(45, 'RMT-0000012', 'Nike', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(46, 'RMT-0000013', 'Starwars', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '1233');
 
 -- --------------------------------------------------------
 
@@ -368,7 +372,8 @@ CREATE TABLE `po_header_all` (
 INSERT INTO `po_header_all` (`po_header_id`, `po_date`, `supplier`, `ship_to`, `outlets`, `created_date`, `created_by`, `last_update_by`, `last_update_date`, `po_description`, `due_date`, `status`) VALUES
 ('20180312221913', '0000-00-00', 'tokopedia', 'tangerang', 'Toko kue Martin', '2018-03-12', NULL, NULL, NULL, 'xcfvg', '0000-00-00', 'Open'),
 ('20180312222216', '0000-00-00', 'tokopedia', 'tangerang', 'CaseNation.ID', '2018-03-12', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open'),
-('20180414174847', '2018-04-14', '', 'ss', 'Toko kue Martin', '2018-04-14', 'ben', 'ben', '2018-04-14', 'asdasd', '2018-04-14', 'Open');
+('20180414174847', '2018-04-14', '', 'ss', 'Toko kue Martin', '2018-04-14', 'ben', 'ben', '2018-04-14', 'asdasd', '2018-04-14', 'Open'),
+('20180415180539', '2018-04-15', '', 'a', 'Toko kue Martin', '2018-04-15', 'ben', 'ben', '2018-04-15', 'a', '2018-04-15', 'Open');
 
 -- --------------------------------------------------------
 
@@ -397,7 +402,8 @@ CREATE TABLE `po_line_all` (
 INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `item_code`, `uom`, `qty`, `price`, `created_date`, `created_by`, `last_update_date`, `last_update_by`, `description`) VALUES
 (9, '20180312221913', 'RMT-0000002', 'asd', 1, 15000000, NULL, NULL, NULL, NULL, 'laptop'),
 (10, '20180312222216', 'rmt-000001', 'asd', 2, 100000, NULL, NULL, NULL, NULL, 'laptop'),
-(11, '20180414174847', 'RMT-0000002', 'RMT-0', 1, 50000, '2018-04-14', 'ben', '2018-04-14', 'ben', 'RMT-0000002');
+(11, '20180414174847', 'RMT-0000002', 'RMT-0', 1, 50000, '2018-04-14', 'ben', '2018-04-14', 'ben', 'RMT-0000002'),
+(12, '20180415180539', 'a', 'a', 1, 1, '2018-04-15', 'ben', '2018-04-15', 'ben', 'asdasd s');
 
 --
 -- Indexes for dumped tables
@@ -501,7 +507,7 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT for table `fmd_recipe_line`
 --
 ALTER TABLE `fmd_recipe_line`
-  MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -525,7 +531,7 @@ ALTER TABLE `outlet`
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
-  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
