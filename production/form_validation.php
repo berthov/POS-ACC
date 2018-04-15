@@ -14,23 +14,21 @@ include("controller/session.php");
 
     <title>Bonne Journée </title>
 
-    <!-- Toastr -->
+        <!-- Toastr -->
     <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
     <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
     <script src="../vendors/toastr/toastr.min.js"></script>
 
     <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
 
     <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
 
 
   </head>
@@ -166,24 +164,16 @@ include("controller/session.php");
     </div>
 
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.js"></script>
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- validator -->
-    <script src="../vendors/validator/validator.js"></script>
-
-
-    <script src="../production/common/error.js"></script>
-
+    <script src="../vendors/bootstrap/dist/js/bootstrap.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-	   
+        <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="../production/common/error.js"></script>
 
   </body>
 </html>
