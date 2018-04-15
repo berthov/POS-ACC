@@ -14,6 +14,11 @@ include("controller/session.php");
 
     <title>Bonne Journée </title>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -26,6 +31,7 @@ include("controller/session.php");
 
     <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
 
   </head>
 
@@ -59,7 +65,7 @@ include("controller/session.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="form-horizontal form-label-left" action="controller/doaddnewgoods.php" novalidate>
+                    <form id="formregistergoods" class="form-horizontal form-label-left" action="controller/doaddnewgoods.php" method="POST">
 
                       <span class="section">Master Item Info</span>
 
@@ -81,42 +87,42 @@ include("controller/session.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qty">Quantity <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="quantity" name="qty" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                          <input type="number" id="qty" name="qty" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
-                      <div class="item form-group">
+<!--                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">COGS <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="price" name="cogs" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
+                          <input type="number" id="cogs" name="cogs" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="unit_price">Unit Price <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="price" name="unit_price" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
+                          <input type="number" id="unit_price" name="unit_price" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
                         </div>
-                      </div>
+                      </div> -->
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="max">Max Threshold <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="minthreshold" name="max" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                          <input type="number" id="max" name="max" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Min Threshold <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="maxthreshold" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                          <input type="number" id="min" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancel</button>
-                          <button id="send" type="submit" class="btn btn-success">Submit</button>
+                          <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
                     </form>
@@ -140,7 +146,7 @@ include("controller/session.php");
                               <div class="form-group">
                                   <label class="col-md-4 control-label" for="singlebutton">Import data</label>
                                   <div class="col-md-4">
-                                      <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+                                      <button type="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
                                   </div>
                               </div>
        
@@ -170,9 +176,14 @@ include("controller/session.php");
     <!-- validator -->
     <script src="../vendors/validator/validator.js"></script>
 
+
+    <script src="../production/common/error.js"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+
 	   
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
   </body>
 </html>

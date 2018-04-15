@@ -104,8 +104,8 @@ $(document).ready(function() {
     event.preventDefault();
 
     var recipe_name=$("#recipe_name").val();
-    var item_code=$("#item_code").val();
-    var description=$("#description").val();
+    var inventory_item_id=$("#inventory_item_id").val();
+    var counter=$("#counter").val();
     var qty=$("#qty").val();
 
       $.ajax({
@@ -113,16 +113,52 @@ $(document).ready(function() {
         url:'controller/doaddrecipe.php',
         data:{
             'recipe_name':recipe_name,
-            'item_code':item_code,
-            'description':description,
-            'qty':qty
+            'inventory_item_id':inventory_item_id,
+            'qty':qty,
+            'counter':counter
         },
         success:function(response){
           if(response=='Recipe already exist'){
             toastr.error('Recipe already exist');
           }
           else{
+            // window.location.href="../production/recipe.php";
+          }
+        }
+    });
+  });
+
+    $("#formregistergoods").submit(function(){
+    event.preventDefault();
+
+    var item_code=$("#item_code").val();
+    var description=$("#description").val();
+    var qty=$("#qty").val();
+    // var unit_price=$("#unit_price").val();
+    var min=$("#min").val();
+    var max=$("#max").val();
+    // var cogs=$("#cogs").val();
+
+    
+      $.ajax({
+        type:'post',
+        url:'controller/doaddnewgoods.php',
+        data:{
+            'item_code':item_code,
+            'description':description,
+            'qty':qty,
+            // 'unit_price':unit_price,
+            'min':min,
+            'max':max
+            // 'cogs':cogs
+        },
+        success:function(response){
+          if(response=='Item already exist'){
+            // toastr.error('Item already exist');
             window.location.href="../production/recipe.php";
+          }
+          else{
+             // window.location.href="../production/form_validation.php";
           }
         }
     });
