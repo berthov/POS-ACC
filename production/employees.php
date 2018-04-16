@@ -107,6 +107,7 @@ include("query/find_ledger.php");
 
                             $sql1 = "SELECT distinct a.* FROM employee a
                             where a.ledger_id = '".$ledger_new."' 
+                            and a.name not in ('".$user_check."')
                             order BY role,outlet_id asc
                             ";
                             $result1 = $conn->query($sql1);
