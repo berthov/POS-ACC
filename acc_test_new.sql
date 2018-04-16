@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2018 at 08:00 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: Apr 16, 2018 at 06:42 PM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -95,17 +93,29 @@ CREATE TABLE `cogs` (
   `created_by` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `inventory_item_id` varchar(255) DEFAULT NULL,
-  `ledger_id` varchar(255) NOT NULL
+  `ledger_id` varchar(255) NOT NULL,
+  `sales_price` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cogs`
 --
 
-INSERT INTO `cogs` (`item_cost_id`, `item_cost`, `periode`, `last_update_date`, `last_update_by`, `created_date`, `created_by`, `type`, `inventory_item_id`, `ledger_id`) VALUES
-(1, 45000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, 'RMT-0000002', ''),
-(2, 55000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '', ''),
-(3, 34000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '', '');
+INSERT INTO `cogs` (`item_cost_id`, `item_cost`, `periode`, `last_update_date`, `last_update_by`, `created_date`, `created_by`, `type`, `inventory_item_id`, `ledger_id`, `sales_price`) VALUES
+(1, 45000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '27', '123', 0),
+(2, 55000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '36', '123', 0),
+(3, 34000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '37', '123', 0),
+(4, 1, '2018-04-16', '2018-04-16', 'ben', '2018-04-16', 'ben', 'Manual', '36', '123', 1),
+(5, 1, '2018-04-16', '2018-04-16', 'ben', '2018-04-16', 'ben', 'Manual', '27', '123', 2),
+(6, 1, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 2),
+(7, 1, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 2),
+(8, 2, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 2),
+(9, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '37', '123', 15000),
+(10, 0, '2018-04-04', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 0),
+(11, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '38', '123', 15000),
+(12, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '36', '123', 15000),
+(13, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 15000),
+(14, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 15000);
 
 -- --------------------------------------------------------
 
@@ -164,7 +174,8 @@ INSERT INTO `fmd_recipe_header` (`recipe_id`, `recipe_name`, `ledger_id`, `creat
 ('R04150621', 'a2', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
 ('R04150644', 'a1', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
 ('R04150645', 'aab', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
-('R04150649', 'ben', '123', 'ben', '2018-04-15', 'ben', '2018-04-15');
+('R04150649', 'ben', '123', 'ben', '2018-04-15', 'ben', '2018-04-15'),
+('R04160345', 'Makaroni', '123', 'ben', '2018-04-16', 'ben', '2018-04-16');
 
 -- --------------------------------------------------------
 
@@ -195,7 +206,8 @@ INSERT INTO `fmd_recipe_line` (`recipe_line_id`, `recipe_id`, `inventory_item_id
 (57, 'R04150645', 'Captain America', 2, '2018-04-15', 'ben', 'ben', '2018-04-15'),
 (58, 'R04150645', 'Mario Bros', 1, '2018-04-15', 'ben', 'ben', '2018-04-15'),
 (59, 'R04150649', '36', 1, '2018-04-15', 'ben', 'ben', '2018-04-15'),
-(60, 'R04150649', '27', 1, '2018-04-15', 'ben', 'ben', '2018-04-15');
+(60, 'R04150649', '27', 1, '2018-04-15', 'ben', 'ben', '2018-04-15'),
+(61, 'R04160345', '2', 1, '2018-04-16', 'ben', 'ben', '2018-04-16');
 
 -- --------------------------------------------------------
 
@@ -208,7 +220,7 @@ CREATE TABLE `inventory` (
   `item_code` varchar(20) NOT NULL,
   `description` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
-  `unit_price` int(11) NOT NULL,
+  `unit_price` int(11) DEFAULT NULL,
   `min` int(11) NOT NULL,
   `max` int(11) NOT NULL,
   `hpp` int(20) DEFAULT NULL,
@@ -373,7 +385,8 @@ INSERT INTO `po_header_all` (`po_header_id`, `po_date`, `supplier`, `ship_to`, `
 ('20180312221913', '0000-00-00', 'tokopedia', 'tangerang', 'Toko kue Martin', '2018-03-12', NULL, NULL, NULL, 'xcfvg', '0000-00-00', 'Open'),
 ('20180312222216', '0000-00-00', 'tokopedia', 'tangerang', 'CaseNation.ID', '2018-03-12', NULL, NULL, NULL, 'asd', '0000-00-00', 'Open'),
 ('20180414174847', '2018-04-14', '', 'ss', 'Toko kue Martin', '2018-04-14', 'ben', 'ben', '2018-04-14', 'asdasd', '2018-04-14', 'Open'),
-('20180415180539', '2018-04-15', '', 'a', 'Toko kue Martin', '2018-04-15', 'ben', 'ben', '2018-04-15', 'a', '2018-04-15', 'Open');
+('20180415180539', '2018-04-15', '', 'a', 'Toko kue Martin', '2018-04-15', 'ben', 'ben', '2018-04-15', 'a', '2018-04-15', 'Open'),
+('20180416234106', '2018-04-16', 'aa', 'a', 'CaseNation.ID', '2018-04-16', 'ben', 'ben', '2018-04-16', 'a', '2018-04-16', 'Open');
 
 -- --------------------------------------------------------
 
@@ -392,18 +405,19 @@ CREATE TABLE `po_line_all` (
   `created_by` varchar(255) DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
   `last_update_by` varchar(255) DEFAULT NULL,
-  `description` varchar(255) NOT NULL
+  `inventory_item_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `po_line_all`
 --
 
-INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `item_code`, `uom`, `qty`, `price`, `created_date`, `created_by`, `last_update_date`, `last_update_by`, `description`) VALUES
+INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `item_code`, `uom`, `qty`, `price`, `created_date`, `created_by`, `last_update_date`, `last_update_by`, `inventory_item_id`) VALUES
 (9, '20180312221913', 'RMT-0000002', 'asd', 1, 15000000, NULL, NULL, NULL, NULL, 'laptop'),
 (10, '20180312222216', 'rmt-000001', 'asd', 2, 100000, NULL, NULL, NULL, NULL, 'laptop'),
 (11, '20180414174847', 'RMT-0000002', 'RMT-0', 1, 50000, '2018-04-14', 'ben', '2018-04-14', 'ben', 'RMT-0000002'),
-(12, '20180415180539', 'a', 'a', 1, 1, '2018-04-15', 'ben', '2018-04-15', 'ben', 'asdasd s');
+(12, '20180415180539', 'a', 'a', 1, 1, '2018-04-15', 'ben', '2018-04-15', 'ben', 'asdasd s'),
+(13, '20180416234106', '', 'a', 1, 1, '2018-04-16', 'ben', '2018-04-16', 'ben', '27');
 
 --
 -- Indexes for dumped tables
@@ -484,56 +498,46 @@ ALTER TABLE `po_line_all`
 --
 ALTER TABLE `ap_check_all`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `ap_supplier_all`
 --
 ALTER TABLE `ap_supplier_all`
   MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `cogs`
 --
 ALTER TABLE `cogs`
-  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT for table `fmd_recipe_line`
 --
 ALTER TABLE `fmd_recipe_line`
-  MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
-
+  MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
   MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=999;
-
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
   MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
-  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-COMMIT;
-
+  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
