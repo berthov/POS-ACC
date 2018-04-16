@@ -1,11 +1,9 @@
-<?php
-session_start();
-include("controller/session.php");
-?>
-
 <!DOCTYPE html>
 <?php
 include("controller/doconnect.php");
+session_start();
+include("controller/session.php");
+include("query/find_ledger.php");
 ?>
 <html lang="en">
   <head>
@@ -21,11 +19,18 @@ include("controller/doconnect.php");
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
 
   </head>
@@ -53,7 +58,7 @@ include("controller/doconnect.php");
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Form Validation</h2>
@@ -63,62 +68,55 @@ include("controller/doconnect.php");
                     <form class="form-horizontal form-label-left" action="controller/doaddcogs.php" novalidate>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Item Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inventory_item_id">Item Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div class="form-group">
-                            <select class="form-control" name="description" required="required">
-                              <?php
-
-                            $sql = "SELECT description FROM inventory";
-                            $result = $conn->query($sql);
-                            $a = 0;
-                            while($row = $result->fetch_assoc()) {
-                          ?>
-                              <option value="<?php echo $row["description"] ?>"> <?php echo $row["description"] ?></option>
-                          <?php
-                            }
-                          ?>
+                            <select class="form-control" name="inventory_item_id" required="required">
+                            
+                            <?php
+                              $sql = "SELECT description,id FROM inventory
+                              where ledger_id = '".$ledger_new."' ";
+                              $result = $conn->query($sql);
+                              $a = 0;
+                              while($row = $result->fetch_assoc()) {
+                            ?>
+                            
+                              <option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option>
+                            
+                            <?php
+                              }
+                            ?>
+                            
                             </select>
-                          </div>
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">COGS <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="price" name="cogs" required="required" min="0" max="99999999999" class="form-control col-md-7 col-xs-12" placeholder="0-99999999999">
+                          <input type="number" id="cogs" name="cogs" required="required" min="0" max="99999999999" class="form-control col-md-7 col-xs-12" placeholder="0-99999999999">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Period <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">Sales Price <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="period" name="period" required="required" class="form-control col-md-7 col-xs-12" placeholder="DEC-17">                          
+                          <input type="number" id="sales_price" name="sales_price" required="required" min="0" max="99999999999" class="form-control col-md-7 col-xs-12" placeholder="0-99999999999">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Period <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Periode <span class="required">*</span>
                         </label>
-                        <div class="col-md-1">
-                          <select name="d" class="form-control">
-                              <?php for($i=1;$i<=12;$i++):?>
-                                   <option value="<?=$i?>"><?=$i?></option>
-                              <?php endfor?>
-                          </select>            
-                        </div>
-                        <div class="col-md-1 control-label">
-                          <p align="left"><b>/Month</b></p>            
-                        </div>
-                        <div class="col-md-1">
-                          <select name="d" class="form-control">
-                              <?php for($a=1990;$a<=2030;$a++):?>
-                                   <option value="<?=$a?>"><?=$a?></option>
-                              <?php endfor?>
-                          </select>             
-                        </div>
-                        <div class="col-md-1 control-label">
-                          <p align="left"><b>/Year</b></p>            
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <fieldset>
+                          <div class="control-group">
+                            <div class="controls">
+                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status" name="periode">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status" class="sr-only">(success)</span>
+                            </div>
+                          </div>
+                        </fieldset>        
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -129,6 +127,50 @@ include("controller/doconnect.php");
                         </div>
                       </div>
                     </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>History</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th>Item Name</th>
+                          <th>COGS</th>
+                          <th>Sales Price</th>
+                          <th>Transaction Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>           
+  
+                            <?php
+                              $sql = "SELECT c.item_cost , i.description FROM cogs c , inventory i
+                              where 
+                              c.inventory_item_id = i.id
+                              and c.ledger_id = i.ledger_id
+                              and c.ledger_id = '".$ledger_new."'";
+                              $result = $conn->query($sql);
+                              while($row = $result->fetch_assoc()) {
+                            ?>
+
+                        <tr>
+                          <td><?php echo $row["description"] ?></td>
+                          <td><?php echo $row["item_cost"] ?></td>
+                          <td>c</td>
+                          <td>d</td>
+                        </tr>
+
+                            <?php
+                              }
+                            ?>
+                            
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
@@ -147,17 +189,27 @@ include("controller/doconnect.php");
     <script src="../vendors/jquery/dist/jquery.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- validator -->
-    <script src="../vendors/validator/validator.js"></script>
-
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	 
-
 
   </body>
 </html>

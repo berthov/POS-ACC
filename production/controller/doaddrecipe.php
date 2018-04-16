@@ -8,9 +8,9 @@
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
+		$counter = $_REQUEST['counter'];
 		$recipe_name = $_REQUEST['recipe_name'];
-		$item_code = $_REQUEST['item_code'];
-		$description = $_REQUEST['description'];
+		$inventory_item_id = $_REQUEST['inventory_item_id'];
 		$qty = $_REQUEST['qty'];
 		$created = date("Y-m-d");
 		$recipe_id = "R". "" .date("mdhs");        
@@ -32,13 +32,14 @@
 
 	  				// RECIPE LINE
 
-  				    for($y = 0; $y < count($item_code); $y++ ){
-				    $sql_line = "INSERT INTO fmd_recipe_line (recipe_id,item_code,description,qty,created_by, created_date,last_update_by,last_update_date)
-				    VALUES ('".$recipe_id."','".$item_code[$y]."' , '".$description[$y]."' , '".$qty[$y]."' ,'".$user_check."','".$created."','".$user_check."','".$created."')";
+  				    for($y = 0; $y < count($counter); $y++ ){
+				    $sql_line = "INSERT INTO fmd_recipe_line (recipe_id,inventory_item_id,qty,created_by, created_date,last_update_by,last_update_date)
+				    VALUES ('".$recipe_id."','".$inventory_item_id[$y]."' , '".$qty[$y]."' ,'".$user_check."','".$created."','".$user_check."','".$created."')";
+				    
 				    mysqli_query($conn, $sql_line);
 				      }
 
-				   header("location: ../recipe.php");
+				   // header("location: ../recipe.php");
 			}
 	}
 ?>

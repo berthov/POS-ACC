@@ -3,6 +3,13 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
+
+$recipe_name = "";
+
+if(isset($_REQUEST['recipe_name'])){
+  $recipe_name = $_REQUEST['recipe_name'] ;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,11 +91,27 @@ include("query/find_ledger.php");
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="formregisterrecipe" class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddrecipe.php">
+                    <form class="form-horizontal form-label-left input_mask" method="POST" action="calculate_cogs.php">
                       <div class="form-group">
                         <label class="col-md-1 col-sm-3 col-xs-3">Goods Name</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="text" class="form-control" name="recipe_name" id="recipe_name"></input>
+                          <select class="form-control" name="recipe_name" id="calculate_cogs">
+                              <option value="" disabled selected>Select Goods</option>
+                          
+                            <?php
+                            $sql = "SELECT  frh.recipe_name ,frh.recipe_id
+                            FROM fmd_recipe_header frh
+                            where frh.ledger_id = '".$ledger_new."'
+                            ";
+                            $result = $conn->query($sql);
+                            while($row1 = $result->fetch_assoc()) {
+                          ?>
+                              <option value="<?php echo $row1["recipe_id"] ?>"> <?php echo $row1["recipe_name"] ?></option>
+                          <?php
+                        }
+                      
+                        ?>
+                            </select>
                         </div>
                       </div>
                       <div class="form-group">
@@ -133,6 +156,7 @@ include("query/find_ledger.php");
                             right join po_line_all pol
                             on frl.item_code = pol.item_code
                             where frh.recipe_id = frl.recipe_id
+                            and frh.recipe_id = '".$recipe_name."'
                             and frh.ledger_id = '".$ledger_new."'
                             group by
                             frl.item_code, 
@@ -154,6 +178,7 @@ include("query/find_ledger.php");
                         
                         <?php
                         }
+                      
                         ?>
                       
                       </tbody>
@@ -167,12 +192,6 @@ include("query/find_ledger.php");
                         </div>
                       </div>
                     </div>
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-12 col-sm-12 col-xs-12" align="center">
-						              <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
                       </div>
                     </form>
                   </div>
@@ -249,6 +268,25 @@ include("query/find_ledger.php");
 
     <script src="../production/common/error.js"></script>
     
+    <script type="text/javascript">
+  
+    $(document).ready(function(){
+      /*$("#reservation").on("change paste keyup", function() {
+             var x = document.getElementById("reservation").value;
+             var y = document.getElementById("reservation").value;
+             var start_date = x.substr(1,10) ;
+             var end_date = x.substr(14,10) ;
+
+            document.getElementById("demo").innerHTML = start_date;
+            document.getElementById("demo1").innerHTML = end_date;
+
+            });*/
+
+              $("#calculate_cogs").on("change", function() {
+                this.form.submit();
+              });
+    });
+    </script>
 	
   </body>
 </html>

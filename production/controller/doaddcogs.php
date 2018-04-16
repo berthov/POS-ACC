@@ -1,31 +1,22 @@
 <?php
-	
+	session_start();
 	include("doconnect.php");
 
-	$description = $_REQUEST['description'];	
-	$cogs = $_REQUEST['cogs'];
-	$period = $_REQUEST['period'];
-	$type = 'Manual';
-//UNTUK PERIOD MASIH BINGGUNG 
+	$user_check = $_SESSION['login_user'];
+	include("../query/find_ledger.php");
 
-	if($description=="" || $cogs=="" || $period==""){
-		echo "
-			<script>
-		  			alert('All fields must be filled');
-    				window.history.back();
-    		</script>";
-	}
-	else if (is_numeric($cogs) == 0) {
-		echo "
-			<script>
-		  			alert('COGS must be a number');
-    				window.history.back();
-    		</script>";
-	}
-	else{
-		
-		$sql = "INSERT INTO cogs (description, cogs,period,type)
-		VALUES ('".$description."', '".$cogs."','".$period."','".$type."')";
+	$inventory_item_id = $_REQUEST['inventory_item_id'];	
+	$cogs = $_REQUEST['cogs'];
+	// $periode = $_REQUEST['periode'];
+	$type = 'Manual';
+	$periode = date('Y-m-d', strtotime($_REQUEST['periode']));
+	$created = date("Y-m-d");
+
+
+	if($_SERVER["REQUEST_METHOD"]=="POST"){
+			
+		$sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by)
+		VALUES ('".$inventory_item_id."', '".$cogs."','".$periode."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."')";
 
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";
@@ -36,6 +27,6 @@
 		mysqli_close($conn);
 
 		header("Location:../cogs.php");
-	}
-
+	
+}
 ?>

@@ -122,7 +122,7 @@ $(document).ready(function() {
             toastr.error('Recipe already exist');
           }
           else{
-            // window.location.href="../production/recipe.php";
+            window.location.href="../production/recipe.php";
           }
         }
     });
@@ -134,10 +134,9 @@ $(document).ready(function() {
     var item_code=$("#item_code").val();
     var description=$("#description").val();
     var qty=$("#qty").val();
-    // var unit_price=$("#unit_price").val();
     var min=$("#min").val();
     var max=$("#max").val();
-    // var cogs=$("#cogs").val();
+
 
     
       $.ajax({
@@ -147,18 +146,15 @@ $(document).ready(function() {
             'item_code':item_code,
             'description':description,
             'qty':qty,
-            // 'unit_price':unit_price,
             'min':min,
             'max':max
-            // 'cogs':cogs
         },
         success:function(response){
           if(response=='Item already exist'){
-            // toastr.error('Item already exist');
-            window.location.href="../production/recipe.php";
+            toastr.error('Item already exist');
           }
           else{
-             // window.location.href="../production/form_validation.php";
+             window.location.href="../production/form_validation.php";
           }
         }
     });

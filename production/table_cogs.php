@@ -81,12 +81,12 @@ include("controller/doconnect.php");
           
                         <?php
 
-                            $sql1 = "SELECT distinct a.Period as period
+                            $sql1 = "SELECT distinct a.Periode as periode
                             from cogs a 
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {
-                              $period = $row1["period"];
+                              $period = $row1["periode"];
 
                         ?>
 
@@ -101,10 +101,10 @@ include("controller/doconnect.php");
                       <tbody>
                         <?php
 
-                            $sql = "SELECT a.description , a.item_code , b.cogs , b.period 
+                            $sql = "SELECT a.description , a.item_code , b.cogs , b.periode 
                             FROM inventory a , cogs b 
                             where a.description = b.description
-                            and b.period = '".$period."'";
+                            and b.periode = '".$period."'";
                             $result = $conn->query($sql);
                             echo "<strong>Period : </strong>"; echo $period;
                             while($row = $result->fetch_assoc()) {                           

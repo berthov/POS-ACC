@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		mysqli_close($conn);
 
-		// header("Location:../form_validation.php");
+		header("Location:../form_validation.php");
 
 
 	}

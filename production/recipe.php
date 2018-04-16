@@ -2,6 +2,7 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
+include("query/find_ledger.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,18 +103,30 @@ include("controller/doconnect.php");
                                 <table class="table" id="myTable">
                                   <tr>
                                     <th>#</th>
-                                    <th>Item Code</th>
                                     <th>Item Description</th>
                                     <th>Quantity</th>
                                     <th></th>
                                   </tr>
                                   <tr>
-                                    <td>#</td>
-                                    <td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>
-                                    <td><input type="text" class="form-control" id="description" name="description[]"  required="required"></td>
-                                    <td><input type="number" class="form-control" id="qty" name="qty[]" required="required"></td>
+                                    <td><input type="hidden" name="counter[]" id="counter">#</td>
                                     <td>
-                                    </td>
+                                      <select class="form-control" id="inventory_item_id" name="inventory_item_id[]" required="required">
+                                      <?php
+
+                                        $sql = "SELECT description , id 
+                                        FROM inventory 
+                                        where ledger_id = '".$ledger_new."'";
+                                        $result = $conn->query($sql);
+                                        $a = 0;
+                                        while($row = $result->fetch_assoc()) {
+                                      ?>
+                                      <option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option>
+                                      <?php
+                                        }
+                                      ?>
+                                      </select>
+                                    <td><input type="number" class="form-control" id="qty" name="qty[]" required="required"></td>
+                                    <td></td>
                                   </tr>
                                 </table>
                               </div>
@@ -142,10 +155,7 @@ include("controller/doconnect.php");
                   </div>
                 </div>
               </div>
-
-
             </div>
-
           </div>
         </div>
         <!-- /page content -->
@@ -233,12 +243,10 @@ function myCreateFunction() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
-    var cell5 = row.insertCell(4);
-    cell1.innerHTML = '<td>#</td>';
-    cell2.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>';
-    cell3.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" required="required"></td>';
-    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
-    cell5.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
+    cell1.innerHTML = '<td><input type="hidden" name="counter[]" id="counter">#</td>';
+    cell2.innerHTML = '<select class="form-control" id="inventory_item_id" name="inventory_item_id[]" required="required"><?php $sql = "SELECT description,id FROM inventory";$result = $conn->query($sql);$a = 0;while($row = $result->fetch_assoc()) {?><option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option><?php } ?></select>';
+    cell3.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
+    cell4.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
 }
 
                                                        
