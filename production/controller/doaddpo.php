@@ -4,8 +4,8 @@ session_start();
 include("doconnect.php");
 include("session.php");	
 	
-$item_code = $_REQUEST['item_code'];
-$description = $_REQUEST['description'];	
+$counter = $_REQUEST['counter'];
+$inventory_item_id = $_REQUEST['inventory_item_id'];	
 $uom = $_REQUEST['uom'];
 $qty = $_REQUEST['qty'];
 $price = $_REQUEST['price'];
@@ -102,9 +102,9 @@ if (isset($_REQUEST['po_date'])) {
   mysqli_query($conn, $sql_header);
 
 // PO LINE
-  for($y = 0; $y < count($item_code); $y++ ){
-    $sql_line = "INSERT INTO PO_LINE_ALL (po_header_id,item_code,uom ,qty,price,description,created_by , created_date,last_update_by,last_update_date)
-    VALUES ('".$po_header_id."','".$item_code[$y]."' , '".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."','".$description[$y]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+  for($y = 0; $y < count($counter); $y++ ){
+    $sql_line = "INSERT INTO PO_LINE_ALL (po_header_id,item_code,uom ,qty,price,inventory_item_id,created_by , created_date,last_update_by,last_update_date)
+    VALUES ('".$po_header_id."','".$item_code[$y]."' , '".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."','".$inventory_item_id[$y]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
     mysqli_query($conn, $sql_line);
       }
 

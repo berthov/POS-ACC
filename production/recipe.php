@@ -125,6 +125,7 @@ include("query/find_ledger.php");
                                         }
                                       ?>
                                       </select>
+                                    </td>
                                     <td><input type="number" class="form-control" id="qty" name="qty[]" required="required"></td>
                                     <td></td>
                                   </tr>

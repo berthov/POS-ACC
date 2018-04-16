@@ -2,6 +2,7 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
+include("query/find_ledger.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +57,21 @@ include("controller/doconnect.php");
                       <form action="controller/doaddnewinvoice.php" method="POST" >
                         <?php
 
-                            $sql = "SELECT * FROM inventory";
+                            $sql = "SELECT i.description , c.sales_price ,i.qty
+                            FROM inventory i,
+                            cogs c
+                            where
+                            c.inventory_item_id = i.id
+                              and c.ledger_id = i.ledger_id
+                              and c.ledger_id = '".$ledger_new."'
+                              and c.item_cost_id = (select 
+                                max(c_1.item_cost_id)
+                                From
+                                cogs c_1
+                                where
+                                c_1.inventory_item_id = c.inventory_item_id
+                                and c_1.ledger_id = c.ledger_id)
+                                ";
                             $result = $conn->query($sql);
                             $a = 0;
                             while($row = $result->fetch_assoc()) {
@@ -64,7 +79,7 @@ include("controller/doconnect.php");
                         <div class="col-md-3">
                           <div class="thumbnail" align="center">
                             <p><input type="hidden" name="arr[]" value="<?php echo $row["description"]?>"><?php echo $row["description"]?></p>
-                            <p><input type="hidden" name="arr1[]" value="<?php echo $row["unit_price"]?>"><?php echo $row["unit_price"] ?></p>
+                            <p><input type="hidden" name="arr1[]" value="<?php echo $row["unit_price"]?>"><?php echo number_format($row["sales_price"]) ?></p>
                             <div class="caption">
                               <div class="input-group">
                                     <span class="input-group-btn">

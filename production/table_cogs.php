@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <?php
+include("controller/doconnect.php");
 session_start();
 include("controller/session.php");
-include("controller/doconnect.php");
+include("query/find_ledger.php");
 ?>
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,40 +13,32 @@ include("controller/doconnect.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bonne Journée!</title>
+    <title>Bonne Journée </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
-<!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-        <!-- jQuery custom content scroller -->
-    <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-    
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+
+
   </head>
 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-
+        
         <!-- Sidebar Menu -->
         <?php include("view/sidebar.php"); ?>
         <!-- End Of Sidebar  -->
@@ -59,85 +52,69 @@ include("controller/doconnect.php");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Users <small>Some examples to get you started</small></h3>
+                <h3>Cost Of Goods Sold</h3>
               </div>
-
             </div>
-
             <div class="clearfix"></div>
 
             <div class="row">
-              <!-- YANG DI PAKE -->
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Table example<small>Sub-Title</small></h2>
+                    <h2>History</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      
-                    </p>
-          
-                        <?php
-
-                            $sql1 = "SELECT distinct a.Periode as periode
-                            from cogs a 
-                            ";
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {
-                              $period = $row1["periode"];
-
-                        ?>
-
-                    <table id="responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                       <thead>
                         <tr>
-                          <th>Item Code</th>
-                          <th>Item Description</th>
+                          <th>Item Name</th>
                           <th>COGS</th>
+                          <th>Sales Price</th>
+                          <th>Transaction Date</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <?php
+                      <tbody>           
+  
+                            <?php
+                              $sql = "SELECT c.item_cost , 
+                              i.description , 
+                              c.sales_price,
+                              c.periode 
+                              FROM cogs c, 
+                              inventory i
+                              where 
+                              c.inventory_item_id = i.id
+                              and c.ledger_id = i.ledger_id
+                              and c.ledger_id = '".$ledger_new."'
+                              and c.item_cost_id = (select 
+                                max(c_1.item_cost_id)
+                                From
+                                cogs c_1
+                                where
+                                c_1.inventory_item_id = c.inventory_item_id
+                                and c_1.ledger_id = c.ledger_id)
+                              ";
 
-                            $sql = "SELECT a.description , a.item_code , b.cogs , b.periode 
-                            FROM inventory a , cogs b 
-                            where a.description = b.description
-                            and b.periode = '".$period."'";
-                            $result = $conn->query($sql);
-                            echo "<strong>Period : </strong>"; echo $period;
-                            while($row = $result->fetch_assoc()) {                           
-                        ?>
-                      
+                              $result = $conn->query($sql);
+                              while($row = $result->fetch_assoc()) {
+                            ?>
+
                         <tr>
-                          <td><?php echo $row["item_code"]?></td>
-                          <td><?php echo $row["description"]?></td>
-                          <td><?php echo $row["cogs"]?></td>
+                          <td><?php echo $row["description"] ?></td>
+                          <td><?php echo number_format($row["item_cost"]) ?></td>
+                          <td><?php echo number_format($row["sales_price"]) ?></td>
+                          <td><?php echo date('d-m-Y', strtotime($row["periode"]));?></td>
                         </tr>
-                        
-                        <?php
-                        }
-                      }
-                        ?>
-                      
+
+                            <?php
+                              }
+                            ?>
+                            
                       </tbody>
                     </table>
-                 
                   </div>
                 </div>
-
-
-
-<!--                    <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
-                              <div class="form-group">
-                                <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
-                                <div class="col-md-4">
-                                    <input type="submit" name="Export" class="btn btn-success" value="Export to excel"/>
-                                </div>
-                              </div>                    
-                  </form> -->
-
               </div>
             </div>
           </div>
@@ -151,15 +128,12 @@ include("controller/doconnect.php");
     </div>
 
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../vendors/jquery/dist/jquery.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -173,41 +147,11 @@ include("controller/doconnect.php");
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-    <script src="../vendors/jszip/dist/jszip.min.js"></script>
-    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-
-    <!-- gauge.js -->
-    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="../vendors/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="../vendors/Flot/jquery.flot.js"></script>
-    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="../vendors/Flot/jquery.flot.time.js"></script>
-    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="../vendors/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <!-- jQuery custom content scroller -->
-    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+     
 
   </body>
 </html>

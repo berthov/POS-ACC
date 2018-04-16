@@ -2,6 +2,7 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
+include("query/find_ledger.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,7 +172,7 @@ include("controller/doconnect.php");
                               <div class="table-responsive" >
                                 <table class="table" id="myTable">
                                   <tr>
-                                    <th>Item Code</th>
+                                    <th>#</th>
                                     <th>Item Description</th>
                                     <th>UOM</th>
                                     <th>Quantity</th>
@@ -179,8 +180,24 @@ include("controller/doconnect.php");
                                     <th></th>
                                   </tr>
                                   <tr>
-                                    <td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>
-                                    <td><input type="text" class="form-control" id="description" name="description[]"  required="required"></td>
+                                    <td><input type="hidden" name="counter[]" id="counter">#</td>
+                                    <td>                                   
+                                      <select class="form-control" id="inventory_item_id" name="inventory_item_id[]" required="required">
+                                      <?php
+
+                                        $sql = "SELECT description , id 
+                                        FROM inventory 
+                                        where ledger_id = '".$ledger_new."'";
+                                        $result = $conn->query($sql);
+                                        $a = 0;
+                                        while($row = $result->fetch_assoc()) {
+                                      ?>
+                                      <option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option>
+                                      <?php
+                                        }
+                                      ?>
+                                      </select>
+                                    </td>
                                     <td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td>
                                     <td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>
                                     <td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>
@@ -308,8 +325,13 @@ function myCreateFunction() {
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
     var cell6 = row.insertCell(5);  
-    cell1.innerHTML = '<td><input type="text" class="form-control" id="item_code" name="item_code[]" required="required"></td>';
-    cell2.innerHTML = '<td><input type="text" class="form-control" id="description" name="description[]" required="required"></td>';
+    cell1.innerHTML = '<td><input type="hidden" name="counter[]" id="counter">#</td>';
+    cell2.innerHTML = '<td><select class="form-control" id="inventory_item_id" name="inventory_item_id[]" required="required"><?php $sql = "SELECT description , id FROM inventory 
+                                        where ledger_id = '".$ledger_new."'";
+                                        $result = $conn->query($sql);
+                                        $a = 0;
+                                        while($row = $result->fetch_assoc()) {
+                                      ?><option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option><?php } ?></select></td>';
     cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td>';
     cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
     cell5.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>';

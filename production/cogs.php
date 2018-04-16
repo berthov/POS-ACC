@@ -65,7 +65,7 @@ include("query/find_ledger.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="form-horizontal form-label-left" action="controller/doaddcogs.php" novalidate>
+                    <form class="form-horizontal form-label-left" action="controller/doaddcogs.php" method="POST" novalidate>
 
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inventory_item_id">Item Name <span class="required">*</span>
@@ -105,7 +105,7 @@ include("query/find_ledger.php");
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Periode <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Valid From <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                         <fieldset>
@@ -149,20 +149,34 @@ include("query/find_ledger.php");
                       <tbody>           
   
                             <?php
-                              $sql = "SELECT c.item_cost , i.description FROM cogs c , inventory i
+                              $sql = "SELECT c.item_cost , 
+                              i.description , 
+                              c.sales_price,
+                              c.periode 
+                              FROM cogs c, 
+                              inventory i
                               where 
                               c.inventory_item_id = i.id
                               and c.ledger_id = i.ledger_id
-                              and c.ledger_id = '".$ledger_new."'";
+                              and c.ledger_id = '".$ledger_new."'
+                              and c.item_cost_id = (select 
+                                max(c_1.item_cost_id)
+                                From
+                                cogs c_1
+                                where
+                                c_1.inventory_item_id = c.inventory_item_id
+                                and c_1.ledger_id = c.ledger_id)
+                              ";
+
                               $result = $conn->query($sql);
                               while($row = $result->fetch_assoc()) {
                             ?>
 
                         <tr>
                           <td><?php echo $row["description"] ?></td>
-                          <td><?php echo $row["item_cost"] ?></td>
-                          <td>c</td>
-                          <td>d</td>
+                          <td><?php echo number_format($row["item_cost"]) ?></td>
+                          <td><?php echo number_format($row["sales_price"]) ?></td>
+                          <td><?php echo date('d-m-Y', strtotime($row["periode"]));?></td>
                         </tr>
 
                             <?php
