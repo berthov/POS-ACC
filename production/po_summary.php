@@ -2,6 +2,7 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
+include("query/find_ledger.php");
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +93,9 @@ include("controller/doconnect.php");
 
                          <?php
                             $sql = "SELECT *  
-                            FROM po_header_all";
+                            FROM po_header_all
+                            WHERE
+                            ledger_id = '".$ledger_new."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                      
                          ?>

@@ -57,7 +57,7 @@ include("query/find_ledger.php");
                       <form action="controller/doaddnewinvoice.php" method="POST" >
                         <?php
 
-                            $sql = "SELECT i.description , c.sales_price ,i.qty
+                            $sql = "SELECT i.id, i.description , c.sales_price ,i.qty
                             FROM inventory i,
                             cogs c
                             where
@@ -78,8 +78,8 @@ include("query/find_ledger.php");
                         ?>
                         <div class="col-md-3">
                           <div class="thumbnail" align="center">
-                            <p><input type="hidden" name="arr[]" value="<?php echo $row["description"]?>"><?php echo $row["description"]?></p>
-                            <p><input type="hidden" name="arr1[]" value="<?php echo $row["unit_price"]?>"><?php echo number_format($row["sales_price"]) ?></p>
+                            <p><input type="hidden" name="arr[]" value="<?php echo $row["id"]?>"><?php echo $row["description"]?></p>
+                            <p><input type="hidden" name="arr1[]" value="<?php echo $row["sales_price"]?>"><?php echo number_format($row["sales_price"]) ?></p>
                             <div class="caption">
                               <div class="input-group">
                                     <span class="input-group-btn">

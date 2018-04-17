@@ -2,6 +2,8 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
+include("query/find_ledger.php");
+
 $p_start_date = date('Y-m-d');
 $p_end_date = date('Y-m-d');
 if(isset($_REQUEST['reservation'])){
@@ -263,9 +265,12 @@ if(isset($_REQUEST['reservation'])){
 
                   <div class="col-md-12 col-sm-12 col-xs-6">
                     <?php
-                  $sql1 = "SELECT sum(qty) as qty , description
-                  FROM invoice 
-                  group by description
+                  $sql1 = "SELECT sum(inv.qty) as qty , i.description
+                  FROM invoice inv,
+                  inventory i
+                  where i.id = inv.inventory_item_id
+                  and i.ledger_id = '".$ledger_new."'
+                  group by i.description
                   order by qty desc
                   limit 4
                   ";

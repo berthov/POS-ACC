@@ -218,18 +218,18 @@
 	for($y = 0; $y < count($arr); $y++ ){
 		if ($quant[$y] > 0) {    
 
-	    	$sql2 = "SELECT * from inventory WHERE description = '".$arr[$y]."'";
+	    	$sql2 = "SELECT * from inventory WHERE id = '".$arr[$y]."'";
 	    	$result = mysqli_query($conn, $sql2);
 	    	while($row = $result->fetch_assoc()) {
 	    		if ($row["qty"] - $quant[$y] < 0 ){
 		    			header("Location:../media_gallery.php?err=2&item=$arr[$y]");
 	    		}
 	    		else{
-	    				$sql = "INSERT INTO invoice (description,unit_price,qty ,date,invoice_id,month,payment_method,created_by , created_date,last_update_by,last_update_date)
+	    				$sql = "INSERT INTO invoice (inventory_item_id,unit_price,qty ,date,invoice_id,month,payment_method,created_by , created_date,last_update_by,last_update_date)
 						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$payment_method."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
 						mysqli_query($conn, $sql);
 					
-		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE description = '".$arr[$y]."'";
+		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$arr[$y]."'";
 							if (mysqli_query($conn, $sql1)) {
 							   /* echo $y , "New row has been insert successfully <br>";*/
 							    /*header("Location:../media_gallery.php");*/

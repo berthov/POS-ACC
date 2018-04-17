@@ -81,7 +81,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                     outlet o
                     where
                     poh.outlets = o.name  
-                    and po_header_id = '".$po_header_id."'
+                    and poh.po_header_id = '".$po_header_id."'
                     ";
                     $result = $conn->query($sql);
                     while($row = $result->fetch_assoc()) {
@@ -158,9 +158,11 @@ $po_header_id = $_REQUEST['po_header_id'];
                             <?php
 
                             $sql = "SELECT *  
-                            FROM po_line_all pol
+                            FROM po_line_all pol,
+                            inventory i
                             where  
-                            po_header_id = '".$po_header_id."'
+                            pol.po_header_id = '".$po_header_id."'
+                            and i.id = pol.inventory_item_id
                             ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
