@@ -15,11 +15,6 @@ include("query/find_ledger.php");
 
     <title>Bonne Journée </title>
 
-        <!-- Toastr -->
-    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
-    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
-    <script src="../vendors/toastr/toastr.min.js"></script>
-
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -70,13 +65,13 @@ include("query/find_ledger.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form id="formcogs" class="form-horizontal form-label-left" action="controller/doaddcogs.php" method="POST" novalidate>
+                    <form class="form-horizontal form-label-left" action="controller/doaddadjustment_inv.php" method="POST" novalidate>
 
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inventory_item_id">Item Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="inventory_item_id" id="inventory_item_id" required="required">
+                            <select class="form-control" name="inventory_item_id" required="required">
                             
                             <?php
                               $sql = "SELECT description,id FROM inventory
@@ -96,27 +91,27 @@ include("query/find_ledger.php");
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">COGS <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">Quantity <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="cogs" name="cogs" required="required" min="0" max="99999999999" class="form-control col-md-7 col-xs-12" placeholder="0-99999999999">
+                          <input type="number" id="qty" name="qty" required="required" min="-9999999" max="99999999999" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">Sales Price <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="sales_price" name="sales_price" required="required" min="0" max="99999999999" class="form-control col-md-7 col-xs-12" placeholder="0-99999999999">
+                          <input id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Valid From <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Transaction Date <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                         <fieldset>
                           <div class="control-group">
                             <div class="controls">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="First Name" aria-describedby="inputSuccess2Status" name="single_cal2">
+                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Transaction Date" aria-describedby="inputSuccess2Status" name="transaction_date">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <span id="inputSuccess2Status" class="sr-only">(success)</span>
                             </div>
@@ -127,18 +122,18 @@ include("query/find_ledger.php");
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="reset" class="btn btn-primary">Cancel</button>
-                          <button id="submit" type="submit" class="btn btn-success">Submit</button>
+                          <button type="submit" class="btn btn-primary">Cancel</button>
+                          <button id="send" type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
+               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>History</h2>
+                    <h2>10 Last Transactions</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -146,31 +141,23 @@ include("query/find_ledger.php");
                       <thead>
                         <tr>
                           <th>Item Name</th>
-                          <th>COGS</th>
-                          <th>Sales Price</th>
+                          <th>Quantity</th>
                           <th>Transaction Date</th>
+                          <th>Description</th>
                         </tr>
                       </thead>
                       <tbody>           
   
                             <?php
-                              $sql = "SELECT c.item_cost , 
-                              i.description , 
-                              c.sales_price,
-                              c.periode 
-                              FROM cogs c, 
-                              inventory i
-                              where 
-                              c.inventory_item_id = i.id
-                              and c.ledger_id = i.ledger_id
-                              and c.ledger_id = '".$ledger_new."'
-                              and c.item_cost_id = (select 
-                                max(c_1.item_cost_id)
-                                From
-                                cogs c_1
-                                where
-                                c_1.inventory_item_id = c.inventory_item_id
-                                and c_1.ledger_id = c.ledger_id)
+                              $sql = "SELECT inv.description as item_name , mt.qty , mt.description , mt.transaction_date
+                              from inventory inv,
+                              material_transaction mt
+                              where
+                              inv.ledger_id = mt.ledger_id
+                              and inv.id = mt.inventory_item_id
+                              and inv.ledger_id = '".$ledger_new."'
+                              order by mt.transaction_id desc
+                              limit 10
                               ";
 
                               $result = $conn->query($sql);
@@ -178,10 +165,10 @@ include("query/find_ledger.php");
                             ?>
 
                         <tr>
-                          <td><?php echo $row["description"] ?></td>
-                          <td><?php echo number_format($row["item_cost"]) ?></td>
-                          <td><?php echo number_format($row["sales_price"]) ?></td>
-                          <td><?php echo date('d-m-Y', strtotime($row["periode"]));?></td>
+                          <td><?php echo $row["item_name"] ?></td>
+                          <td><?php echo $row["qty"] ?></td>
+                          <td><?php echo date('d-m-Y', strtotime($row["transaction_date"])) ?></td>
+                          <td><?php echo $row["description"];?></td>
                         </tr>
 
                             <?php
@@ -192,7 +179,7 @@ include("query/find_ledger.php");
                     </table>
                   </div>
                 </div>
-              </div>
+              </div> 
             </div>
           </div>
         </div>
@@ -230,8 +217,6 @@ include("query/find_ledger.php");
     <script src="../build/js/custom.min.js"></script>
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <script src="../production/common/error.js"></script>
 	 
 
   </body>

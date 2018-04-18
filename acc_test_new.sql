@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2018 at 11:52 AM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: Apr 18, 2018 at 07:15 PM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -118,7 +116,30 @@ INSERT INTO `cogs` (`item_cost_id`, `item_cost`, `periode`, `last_update_date`, 
 (11, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '38', '123', 15000),
 (12, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '36', '123', 15000),
 (13, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 15000),
-(14, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 15000);
+(14, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 15000),
+(15, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(16, 123, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(17, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(18, 1, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(19, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(20, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2),
+(21, 1500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1),
+(22, 1, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(23, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1),
+(24, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1),
+(25, 1500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2),
+(26, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2),
+(27, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1),
+(28, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(29, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0),
+(30, 1000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1500),
+(31, 20000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 25000),
+(32, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 25000),
+(33, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 20000),
+(34, 12500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 15000),
+(35, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0),
+(36, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0),
+(37, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0);
 
 -- --------------------------------------------------------
 
@@ -239,15 +260,15 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `unit_price`, `min`, `max`, `hpp`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `ledger_id`) VALUES
-(27, 'RMT-0000002', 'Mario Bros', 6, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(27, 'RMT-0000002', 'Mario Bros', 159, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (36, 'RMT-0000003', 'Eye case', 46, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
-(37, 'RMT-0000004', 'Blue Ceramic', 30, 100000, 3, 10, 50000, NULL, 'ben', NULL, '2018-04-17', '123'),
-(38, 'RMT-0000005', 'Pink Flower', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(37, 'RMT-0000004', 'Blue Ceramic', 7, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
+(38, 'RMT-0000005', 'Pink Flower', 9, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (39, 'RMT-0000006', 'Pineapple Case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
-(40, 'RMT-0000007', 'Black Flower', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(40, 'RMT-0000007', 'Black Flower', 3, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (41, 'RMT-0000008', 'Flower case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (42, 'RMT-0000009', 'Pug Case', 38, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
-(43, 'RMT-0000010', 'Simpsons', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(43, 'RMT-0000010', 'Simpsons', 1, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (44, 'RMT-0000011', 'Captain America', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (45, 'RMT-0000012', 'Nike', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (46, 'RMT-0000013', 'Starwars', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '1233');
@@ -325,7 +346,68 @@ INSERT INTO `invoice` (`unit_price`, `qty`, `date`, `invoice_line_id`, `invoice_
 (100000, 2, '2018-02-19 20:03:03', 996, '20180219200303', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27'),
 (100000, 4, '2018-02-19 20:03:03', 997, '20180219200303', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27'),
 (100000, 2, '2018-02-20 15:18:25', 998, '20180220151825', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27'),
-(15000, 1, '2018-04-17 16:39:20', 999, '20180417163920', 'April', 'Cash', 'ben', '2018-04-17', 'ben', '2018-04-17', '', '27');
+(15000, 1, '2018-04-17 16:39:20', 999, '20180417163920', 'April', 'Cash', 'ben', '2018-04-17', 'ben', '2018-04-17', '', '27'),
+(15000, 1, '2018-04-18 20:28:57', 1000, '20180418202857', 'April', 'Cash', 'ben', '2018-04-18', 'ben', '2018-04-18', '', '37'),
+(15000, 1, '2018-04-18 20:29:45', 1001, '20180418202945', 'April', 'Cash', 'ben', '2018-04-18', 'ben', '2018-04-18', '123', '37'),
+(15000, 1, '2018-04-18 20:30:59', 1002, '20180418203059', 'April', 'Cash', 'ben', '2018-04-18', 'ben', '2018-04-18', '123', '37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `material_transaction`
+--
+
+CREATE TABLE `material_transaction` (
+  `transaction_id` int(255) NOT NULL,
+  `inventory_item_id` int(20) NOT NULL,
+  `ledger_id` varchar(255) NOT NULL,
+  `qty` int(20) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `created_by` varchar(255) DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
+  `last_update_by` varchar(255) DEFAULT NULL,
+  `last_update_date` date DEFAULT NULL,
+  `transaction_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `material_transaction`
+--
+
+INSERT INTO `material_transaction` (`transaction_id`, `inventory_item_id`, `ledger_id`, `qty`, `description`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `transaction_date`, `type`) VALUES
+(1, 27, '123', 1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(2, 27, '123', -1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(3, 36, '123', 2, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(4, 42, '123', 23, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(5, 44, '123', 1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(6, 38, '123', 2, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(7, 37, '123', 3, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(8, 27, '123', 1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(9, 38, '123', 3, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(10, 38, '123', 2, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(11, 37, '123', 3, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(12, 27, '123', 1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(13, 27, '123', 10, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(14, 0, '123', 0, NULL, 'ben', '0000-00-00', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Penjualan'),
+(15, 0, '123', 0, NULL, 'ben', '0000-00-00', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Penjualan'),
+(16, 37, '123', -1, NULL, 'ben', '2018-04-18', 'ben', '2018-04-18', '2018-04-17 17:00:00', 'Penjualan'),
+(17, 27, '123', 1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(18, 40, '123', 1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(19, 40, '123', 2, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-18 17:00:00', 'Adjustment'),
+(20, 27, '123', 2, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-18 17:00:00', 'Adjustment'),
+(21, 27, '123', 13, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(22, 27, '123', 12, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(23, 27, '123', 14, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(24, 27, '123', 15, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(25, 27, '123', 16, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(26, 27, '123', 17, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(27, 27, '123', 18, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(28, 27, '123', 19, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(29, 27, '123', 20, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(30, 37, '123', 2, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(31, 43, '123', 1, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment'),
+(32, 38, '123', 2, '', 'ben', '2018-04-18', 'ben', '0000-00-00', '2018-04-17 17:00:00', 'Adjustment');
 
 -- --------------------------------------------------------
 
@@ -477,6 +559,12 @@ ALTER TABLE `invoice`
   ADD PRIMARY KEY (`invoice_line_id`);
 
 --
+-- Indexes for table `material_transaction`
+--
+ALTER TABLE `material_transaction`
+  ADD PRIMARY KEY (`transaction_id`);
+
+--
 -- Indexes for table `outlet`
 --
 ALTER TABLE `outlet`
@@ -503,56 +591,51 @@ ALTER TABLE `po_line_all`
 --
 ALTER TABLE `ap_check_all`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `ap_supplier_all`
 --
 ALTER TABLE `ap_supplier_all`
   MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `cogs`
 --
 ALTER TABLE `cogs`
-  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
+  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT for table `fmd_recipe_line`
 --
 ALTER TABLE `fmd_recipe_line`
   MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
-
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1000;
-
+  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1003;
+--
+-- AUTO_INCREMENT for table `material_transaction`
+--
+ALTER TABLE `material_transaction`
+  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
   MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
   MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

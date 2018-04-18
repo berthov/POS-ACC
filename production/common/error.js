@@ -159,4 +159,33 @@ $(document).ready(function() {
         }
     });
   });
+
+  $("#formcogs").submit(function(){
+    event.preventDefault();
+
+    var inventory_item_id=$("#inventory_item_id").val();
+    var cogs=$("#cogs").val();
+    var sales_price=$("#sales_price").val();
+    var single_cal2=$("#single_cal2").val();
+    
+    
+      $.ajax({
+        type:'post',
+        url:'controller/doaddcogs.php',
+        data:{
+            'cogs':cogs,
+            'sales_price':sales_price,
+            'inventory_item_id':inventory_item_id,
+            'single_cal2':single_cal2
+        },
+        success:function(response){
+          if(response=='At least COGS or Sales Price must be filled'){
+            toastr.error('At least COGS or Sales Price must be filled');                     
+          }
+          else{
+             window.location.href="../production/cogs.php";
+          }
+        }
+    });
+  });
 });

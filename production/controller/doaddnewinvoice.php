@@ -5,6 +5,9 @@
   include("doconnect.php");
   include("session.php");
 
+  $user_check = $_SESSION['login_user'];
+  include("../query/find_ledger.php");
+
 	$arr = $_REQUEST['arr'];
 	$arr1 = $_REQUEST['arr1'];	
 	$quant = $_REQUEST['quant'];
@@ -16,6 +19,7 @@
   $payment_method = $_POST['payment_method'];
   $created_date =  date("Y-m-d");
   $last_update_date =  date("Y-m-d");
+  $type = 'Penjualan';
 
 	$subtotal = 0;
 	for($x = 0; $x < count($arr); $x++ ){
@@ -218,16 +222,26 @@
 	for($y = 0; $y < count($arr); $y++ ){
 		if ($quant[$y] > 0) {    
 
-	    	$sql2 = "SELECT * from inventory WHERE id = '".$arr[$y]."'";
+	 
+      	$sql2 = "SELECT * from inventory WHERE id = '".$arr[$y]."'";
 	    	$result = mysqli_query($conn, $sql2);
+
 	    	while($row = $result->fetch_assoc()) {
 	    		if ($row["qty"] - $quant[$y] < 0 ){
 		    			header("Location:../media_gallery.php?err=2&item=$arr[$y]");
 	    		}
 	    		else{
-	    				$sql = "INSERT INTO invoice (inventory_item_id,unit_price,qty ,date,invoice_id,month,payment_method,created_by , created_date,last_update_by,last_update_date)
-						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$payment_method."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+
+            // insert transaction
+	    				$sql = "INSERT INTO invoice (inventory_item_id,unit_price,qty ,date,invoice_id,month,payment_method,created_by , created_date,last_update_by,last_update_date,ledger_id)
+						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$payment_method."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."')";
 						mysqli_query($conn, $sql);
+
+            // insert mutasi 
+              $sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type)
+            VALUES ('".$arr[$y]."', '".$ledger_new."','".$created_date."',('".$quant[$y]."' * -1 ),NULL,'".$user_check."','".$created_date."','".$user_check."','".$created_date."','".$type."')";
+            mysqli_query($conn, $sql);
+             
 					
 		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$arr[$y]."'";
 							if (mysqli_query($conn, $sql1)) {
