@@ -86,27 +86,11 @@ include("query/find_ledger.php");
                       <tbody>
                         <?php
 
-                            $sql = "SELECT 
-                              i.item_code, 
-                              i.description,
-                              i.qty,
-                              c.item_cost, 
-                              c.sales_price,
-                              i.min,
-                              i.max 
-                              FROM cogs c, 
+                            $sql = "SELECT *
+                              FROM 
                               inventory i
                               where 
-                              c.inventory_item_id = i.id
-                              and c.ledger_id = i.ledger_id
-                              and c.ledger_id = '".$ledger_new."'
-                              and c.item_cost_id = (select 
-                                max(c_1.item_cost_id)
-                                From
-                                cogs c_1
-                                where
-                                c_1.inventory_item_id = c.inventory_item_id
-                                and c_1.ledger_id = c.ledger_id)
+                              ledger_id = '".$ledger_new."'                              
                               ";
 
                             $result = $conn->query($sql);
@@ -117,7 +101,7 @@ include("query/find_ledger.php");
                           <td><?php echo $row["item_code"]?></td>
                           <td><?php echo $row["description"]?></td>
                           <td><?php echo $row["qty"]?></td>
-                          <td><?php echo $row["item_cost"]?></td>
+                          <td><?php echo $row["cogs"]?></td>
                           <td><?php echo $row["sales_price"]?></td>
                           <td><?php echo $row["min"]?></td>
                           <td><?php echo $row["max"]?></td>

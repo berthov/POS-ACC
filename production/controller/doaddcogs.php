@@ -41,8 +41,16 @@
 
 					$sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by,sales_price)
 				VALUES ('".$inventory_item_id."', '".$max_cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$sales_price."')";
-
 				 mysqli_query($conn, $sql);
+
+			    
+			    $update_cogs = "UPDATE inventory set cogs ='".$max_cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    mysqli_query($conn, $update_cogs);
+
+			    
+			    $update_sales_price = "UPDATE inventory set sales_price ='".$sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    mysqli_query($conn, $update_sales_price);
+
 
 				mysqli_close($conn);
 
@@ -75,6 +83,14 @@
 
 				mysqli_query($conn, $sql);
 
+
+			    $update_cogs = "UPDATE inventory set cogs ='".$cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    mysqli_query($conn, $update_cogs);
+
+			    
+			    $update_sales_price = "UPDATE inventory set sales_price ='".$max_sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    mysqli_query($conn, $update_sales_price);
+
 				mysqli_close($conn);
 
 				header("Location:../cogs.php");
@@ -85,6 +101,13 @@
 		 VALUES ('".$inventory_item_id."', '".$cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$sales_price."')";
 
 		 mysqli_query($conn, $sql);
+
+	    $update_cogs = "UPDATE inventory set cogs ='".$cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+	    mysqli_query($conn, $update_cogs);
+
+	    
+	    $update_sales_price = "UPDATE inventory set sales_price ='".$sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+	    mysqli_query($conn, $update_sales_price);
 		     
 		 mysqli_close($conn);
 

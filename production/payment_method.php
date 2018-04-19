@@ -1,12 +1,12 @@
-<?php
-session_start();
-include("controller/session.php");
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <?php
+session_start();
+include("controller/session.php");
 include("controller/doconnect.php");
+include("query/find_ledger.php");
+
+
 $p_start_date = date('Y-m-d');
 $p_end_date = date('Y-m-d');
 if(isset($_REQUEST['reservation'])){
@@ -100,6 +100,7 @@ if(isset($_REQUEST['reservation'])){
                             a.invoice_line_id = (select max(b.invoice_line_id)
                             from invoice b
                             where b.invoice_id = a.invoice_id)
+                            and ledger_id = '".$ledger_new."'
                             and a.payment_method = '".$cash."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
@@ -118,6 +119,7 @@ if(isset($_REQUEST['reservation'])){
                             FROM invoice a
                             where
                             a.payment_method = '".$cash."'
+                            and ledger_id = '".$ledger_new."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
                             $result1 = $conn->query($sql1);
@@ -140,6 +142,7 @@ if(isset($_REQUEST['reservation'])){
                             a.invoice_line_id = (select max(b.invoice_line_id)
                             from invoice b
                             where b.invoice_id = a.invoice_id)
+                            and ledger_id = '".$ledger_new."'
                             and a.payment_method = '".$Credit_Debit."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
@@ -158,6 +161,7 @@ if(isset($_REQUEST['reservation'])){
                             FROM invoice a
                             where
                             a.payment_method = '".$Credit_Debit."'
+                            and ledger_id = '".$ledger_new."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
                             $result1 = $conn->query($sql1);

@@ -1,12 +1,11 @@
-<?php
-session_start();
-include("controller/session.php");
-?>
-
 <!DOCTYPE html>
 
 <?php
+session_start();
 include("controller/doconnect.php");
+include("controller/session.php");
+include("query/find_ledger.php");
+
 $p_start_date = date('Y-m-d');
 $p_end_date = date('Y-m-d');
 if(isset($_REQUEST['reservation'])){
@@ -120,6 +119,7 @@ if(isset($_REQUEST['reservation'])){
                             FROM invoice a
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and ledger_id = '".$ledger_new."'
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -146,6 +146,7 @@ if(isset($_REQUEST['reservation'])){
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             and a.payment_method = '".$Discount."'
+                            and ledger_id = '".$ledger_new."'
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -174,6 +175,7 @@ if(isset($_REQUEST['reservation'])){
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             and a.payment_method = '".$refund."'
+                            and ledger_id = '".$ledger_new."'
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                                
@@ -197,6 +199,7 @@ if(isset($_REQUEST['reservation'])){
                             FROM invoice a
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and ledger_id = '".$ledger_new."'
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -216,10 +219,12 @@ if(isset($_REQUEST['reservation'])){
                           <td scope="row">Cost of Goods Sold (COGS)</td>
                           <td align="right">Rp.
                           <?php
-                            $sql1 = "SELECT sum(a.qty* b.hpp) as count
+                            $sql1 = "SELECT sum(a.qty * b.cogs) as count
                             FROM invoice a,
                             inventory b
-                            where a.description = b.description
+                            where a.inventory_item_id = b.id
+                            and a.ledger_id = b.ledger_id
+                            and a.ledger_id = '".$ledger_new."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
 
@@ -243,10 +248,12 @@ if(isset($_REQUEST['reservation'])){
                           <th scope="row">Gross Profit</th>
                           <td align="right"><b>Rp.
                            <?php
-                            $sql1 = "SELECT sum(a.qty* (a.unit_price-b.hpp)) as count
+                            $sql1 = "SELECT sum(a.qty* (a.unit_price-b.cogs)) as count
                             FROM invoice a,
                             inventory b
-                            where a.description = b.description
+                            where a.inventory_item_id = b.id
+                            and a.ledger_id = b.ledger_id
+                            and a.ledger_id = '".$ledger_new."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
 
