@@ -1,11 +1,11 @@
+<!DOCTYPE html>
 <?php
 session_start();
 include("controller/session.php");
-?>
-
-<!DOCTYPE html>
-<?php
 include("controller/doconnect.php");
+include("query/find_ledger.php");
+
+
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
 
@@ -105,6 +105,7 @@ if(isset($_REQUEST['reservation'])){
                           FROM invoice a 
                           where
                           date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                          and ledger_id = '".$ledger_new."'
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               
@@ -136,6 +137,7 @@ if(isset($_REQUEST['reservation'])){
                           FROM invoice a 
                           where
                           date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                          and ledger_id = '".$ledger_new."'
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               
@@ -163,6 +165,7 @@ if(isset($_REQUEST['reservation'])){
                           FROM invoice a 
                           where
                           date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                          and ledger_id = '".$ledger_new."'
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               

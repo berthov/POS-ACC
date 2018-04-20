@@ -81,6 +81,7 @@ if(isset($_REQUEST['reservation'])){
                   FROM invoice a 
                   where
                   (date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
+                  and a.ledger_id = '".$ledger_new."'
                   ";
                   $result = $conn->query($sql);
                   while($row = $result->fetch_assoc()) {
@@ -114,6 +115,7 @@ if(isset($_REQUEST['reservation'])){
                   FROM invoice a
                   where
                   (date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
+                  and a.ledger_id = '".$ledger_new."'
                   ";
                   $result1 = $conn->query($sql1);
                   while($row1 = $result1->fetch_assoc()) {
@@ -151,6 +153,7 @@ if(isset($_REQUEST['reservation'])){
                   and a.invoice_line_id = (select max(b.invoice_line_id)
                   from invoice b
                   where b.invoice_id = a.invoice_id)
+                  and a.ledger_id = '".$ledger_new."'
                   ";
                   $result1 = $conn->query($sql1);
                   while($row1 = $result1->fetch_assoc()) {
@@ -182,6 +185,8 @@ if(isset($_REQUEST['reservation'])){
                 <?php
                   $sql1 = "SELECT sum(qty) as count
                   FROM inventory 
+                  where
+                  ledger_id = '".$ledger_new."'
                   ";
                   $result1 = $conn->query($sql1);
                   while($row1 = $result1->fetch_assoc()) {
