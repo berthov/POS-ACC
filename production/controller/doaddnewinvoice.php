@@ -246,7 +246,7 @@
 		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$arr[$y]."'";
 							if (mysqli_query($conn, $sql1)) {
 							   /* echo $y , "New row has been insert successfully <br>";*/
-							    /*header("Location:../media_gallery.php");*/
+							    header("Location:../media_gallery.php");
 							} 
 							else {
 				 			   echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
