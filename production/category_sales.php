@@ -1,11 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
 <?php
 session_start();
 include("controller/session.php");
-?>
-
-<!DOCTYPE html>
-<?php
 include("controller/doconnect.php");
+include("query/find_ledger.php");
+
 $p_start_date = date('Y-m-d');
 $p_end_date = date('Y-m-d');
 if(isset($_REQUEST['reservation'])){
@@ -30,7 +30,8 @@ if(isset($_REQUEST['reservation'])){
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
@@ -120,12 +121,14 @@ if(isset($_REQUEST['reservation'])){
                         </tr>
 
                         <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as gross_sales , sum(a.qty) as qty , a.description , sum(b.hpp * a.qty) as cogs , sum(a.qty*a.unit_price) - sum(b.hpp * a.qty) as gross_profit 
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) as gross_sales , sum(a.qty) as qty , b.description , sum(b.cogs * a.qty) as cogs , sum(a.qty*a.unit_price) - sum(b.cogs * a.qty) as gross_profit 
                             FROM invoice a,
                             inventory b
-                            where a.description = b.description
+                            where a.inventory_item_id = b.id
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            group by a.description
+                            and a.ledger_id = '".$ledger_new."'
+                            and a.ledger_id = b.ledger_id
+                            group by b.description
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -147,11 +150,13 @@ if(isset($_REQUEST['reservation'])){
                              }
                           ?>
                           <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as gross_sales , sum(a.qty) as qty , sum(a.qty * b.hpp) as cogs , sum(a.qty*a.unit_price) - sum(b.hpp * a.qty) as gross_profit
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) as gross_sales , sum(a.qty) as qty , sum(a.qty * b.cogs) as cogs , sum(a.qty*a.unit_price) - sum(b.cogs * a.qty) as gross_profit
                             FROM invoice a,
                             inventory b
-                            where a.description = b.description
+                            where a.inventory_item_id = b.id
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and a.ledger_id = '".$ledger_new."'
+                            and a.ledger_id = b.ledger_id
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -195,6 +200,9 @@ if(isset($_REQUEST['reservation'])){
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->

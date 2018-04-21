@@ -4,6 +4,7 @@ include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,8 +13,8 @@ include("query/find_ledger.php");
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Bonne Journée!</title>
+	  
+    <title>Bonne Journée! </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +29,7 @@ include("query/find_ledger.php");
 
     <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-    
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
   </head>
@@ -36,7 +37,7 @@ include("query/find_ledger.php");
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-
+        
         <!-- Sidebar Menu -->
         <?php include("view/sidebar.php"); ?>
         <!-- End Of Sidebar  -->
@@ -44,93 +45,91 @@ include("query/find_ledger.php");
         <!-- Top Navigation -->
         <?php include("view/top_navigation.php"); ?>
         <!-- End Of Top Navigation -->
+        <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Users <small>Some examples to get you started</small></h3>
+                <h3>PO Listing</h3>
               </div>
-
             </div>
-
+            
             <div class="clearfix"></div>
 
             <div class="row">
-              <!-- YANG DI PAKE -->
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
                   <div class="x_title">
-                    <h2>Table example<small>Sub-Title</small></h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      
-                    </p>
-          
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+
+                    <!-- start project list -->
+                    <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Item Code</th>
-                          <th>Item Description</th>
-                          <th>Quantity</th>
-                          <th>COGS</th>
-                          <th>Sales Price</th>
-                          <th>Min</th>
-                          <th>Max</th>
+                          <th style="width: 1%">#</th>
+                          <th style="width: 20%">Invoice Number</th>
+                          <th>Invoice Date</th>
+                          <th>Due Date</th>
+                          <th>Customer Name</th>
+                          <th>Amount Discount</th>
+                          <th>Refund Status</th>
+                          <th>Outstanding Status</th>
                           <th style="width: 20%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php
 
-                            $sql = "SELECT *
-                              FROM 
-                              inventory i
-                              where 
-                              ledger_id = '".$ledger_new."'                              
-                              ";
-
+                         <?php
+                            $sql = "SELECT *  
+                            FROM invoice_header
+                            WHERE
+                            ledger_id = '".$ledger_new."'";
                             $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {
-                        ?>
-                      
+                            while($row = $result->fetch_assoc()) {                      
+                         ?>
+
                         <tr>
-                          <td><?php echo $row["item_code"]?></td>
-                          <td><?php echo $row["description"]?></td>
-                          <td><?php echo $row["qty"]?></td>
-                          <td><?php echo $row["cogs"]?></td>
-                          <td><?php echo $row["sales_price"]?></td>
-                          <td><?php echo $row["min"]?></td>
-                          <td><?php echo $row["max"]?></td>
-                          <td align="center">
-                            <a href="updateinventory.php?id=<?php echo $row["id"]?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="controller/deleteinventory.php?id=<?php echo $row["id"]?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                          <td>#</td>
+                          <td>
+                            <a><?php echo $row['invoice_number']; ?></a>
                           </td>
-                        </tr>
-                        
+                          <td>
+                            <?php echo $row['invoice_date']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['due_date']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['customer_name']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['discount_amount']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['refund_status']; ?>
+                          </td>
+                          <td>
+                            <a href="payment_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['outstanding_status']; ?></button></a>
+                          </td>
+                          <td>
+                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                          </td>
+                        </tr> 
+
                         <?php
-                        }
-                        ?>
-                      
+                          }        
+                        ?>  
+
                       </tbody>
                     </table>
-                 
+                    <!-- end project list -->
+
                   </div>
-                </div>
-
-
-
-                   <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
-                              <div class="form-group">
-                                <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
-                                <div class="col-md-4">
-                                    <input type="submit" name="Export" class="btn btn-success" value="Export to excel"/>
-                                </div>
-                              </div>                    
-                  </form>
               </div>
             </div>
           </div>
@@ -161,10 +160,17 @@ include("query/find_ledger.php");
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 
+    
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
+
+	
   </body>
 </html>
+
+
