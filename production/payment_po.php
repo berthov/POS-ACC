@@ -119,7 +119,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                       <div class="form-group">
                         <label class="col-md-2 col-sm-2 col-xs-12">Outsanding</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" placeholder="<?php include("query/po_outstanding.php"); ?>" name="due_date" disabled="disabled">
+                          <input type="text" class="form-control" placeholder="<?php include("query/po_outstanding.php"); ?>" name="outstanding" disabled="disabled">
                         </div>
                       </div>
 

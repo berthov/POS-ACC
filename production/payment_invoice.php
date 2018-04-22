@@ -49,7 +49,7 @@ $invoice_id = $_REQUEST['invoice_id'];
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>PO Status</h3>
+                <h3>Invoice Status</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -58,26 +58,30 @@ $invoice_id = $_REQUEST['invoice_id'];
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Purchase Order Header <small>Invoice Number : <?php echo $invoice_id; ?> </small></h2> 
+                    <h2>Invoice Header</h2> 
                     <div class="clearfix"></div>
                   </div>
-                  <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpayment.php">      
+                  <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpayment_invoice.php">      
                   <div class="x_content">
                     <br />                      
                   <?php
 
-                    $sql = "SELECT *
-                    FROM invoice_header
+                    $sql = "SELECT ih.invoice_number, ih.invoice_date , ih.customer_name , ih.due_date , ih.discount_amount , sum(i.qty*i.unit_price) as total
+                    FROM invoice_header ih,
+                    invoice i
                     where
-                    invoice_id = '".$invoice_id."'
+                    ih.invoice_id = '".$invoice_id."'
+                    and ih.invoice_id = i.invoice_id
+                    group by 
+                    ih.invoice_number, ih.invoice_date , ih.customer_name , ih.due_date , ih.discount_amount
                     ";
                     $result = $conn->query($sql);
                     while($row = $result->fetch_assoc()) {
                   ?>
                       <div class="form-group">
-                        <label class="col-md-2 col-sm-2 col-xs-12">Outlet</label>
+                        <label class="col-md-2 col-sm-2 col-xs-12">Invoice Number</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" name="outlets" placeholder="<?php echo $row["name"] ?>" disabled="disabled">
+                          <input type="text" class="form-control" name="invoice_number" placeholder="<?php echo $row["invoice_number"] ?>" disabled="disabled">
                         </div>
 
                         <label class="col-md-2 col-sm-2 col-xs-12">Invoice Date</label>
@@ -87,21 +91,9 @@ $invoice_id = $_REQUEST['invoice_id'];
                       </div>
 
                       <div class="form-group">
-                        <label class="col-md-2 col-sm-2 col-xs-12">Invoice Amount</label>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" name="invoice_amount" placeholder="<?php echo $row["amount"] ?>" disabled="disabled">
-                        </div>
-
-                        <label class="col-md-2 col-sm-2 col-xs-12">Discount Amount</label>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" placeholder="<?php echo $row["discount_amount"] ?>" name="discount_amount" disabled="disabled">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
                         <label class="col-md-2 col-sm-2 col-xs-12">Customer Name</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" name="Customer Name" placeholder="<?php echo $row["customer_name"] ?>" disabled="disabled">
+                          <input type="text" class="form-control" name="customer_name" placeholder="<?php echo $row["customer_name"] ?>" disabled="disabled">
                         </div>
 
                         <label class="col-md-2 col-sm-2 col-xs-12">Due Date</label>
@@ -111,9 +103,21 @@ $invoice_id = $_REQUEST['invoice_id'];
                       </div>
 
                       <div class="form-group">
+                        <label class="col-md-2 col-sm-2 col-xs-12">Invoice Amount</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" name="total" placeholder="<?php echo $row["total"] ?>" disabled="disabled">
+                        </div>
+
+                        <label class="col-md-2 col-sm-2 col-xs-12">Discount</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" placeholder="<?php echo $row["discount_amount"] ?>" name="discount_amount" disabled="disabled">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
                         <label class="col-md-2 col-sm-2 col-xs-12">Outsanding</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" placeholder="<?php include("query/po_outstanding.php"); ?>" name="due_date" disabled="disabled">
+                          <input type="text" class="form-control" placeholder="<?php include("query/invoice_outstanding.php"); ?>"    name="outstanding" disabled="disabled">
                         </div>
                       </div>
 
@@ -148,14 +152,14 @@ $invoice_id = $_REQUEST['invoice_id'];
                                   </thead>
 
                                   <tbody>
-                                  <!-- QUERY UNTUK PAYMENT DETAIL BERDASARKAN PO ID  -->
+                                  <!-- QUERY UNTUK PAYMENT DETAIL BERDASARKAN Invoice ID  -->
                                     <?php
                                     $sql_payment = 
                                     "SELECT * 
                                     FROM
-                                    AP_CHECK_ALL ACA
+                                    AR_CHECK_ALL ACA
                                     where
-                                    ACA.PO_HEADER_ID = '".$po_header_id."'
+                                    ACA.INVOICE_ID = '".$invoice_id."'
                                     ";
 
                                     $result_payment = $conn->query($sql_payment);
@@ -235,7 +239,7 @@ $invoice_id = $_REQUEST['invoice_id'];
                                       </div>
                                     </td>
                                     <td><input type="text" class="form-control" name="payment_amount"></td>
-                                    <td><input type="hidden" name="po_header_id" value="<?php echo $po_header_id; ?>"></td>
+                                    <td><input type="hidden" name="invoice_id" value="<?php echo $invoice_id; ?>"></td>
                                   </tr>
                                 </table>
                               </div>
