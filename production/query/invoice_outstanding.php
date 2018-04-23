@@ -1,11 +1,11 @@
 <?php
 
-
-$invoice_outstanding = "SELECT sum(i.qty * i.unit_price) - SUM(COALESCE(payment_amount,0))  as outstanding
-FROM invoice i
-LEFT JOIN ar_check_all aca ON i.invoice_id = aca.invoice_id
+$invoice_outstanding = "SELECT sum(i.qty * i.unit_price) - (SELECT SUM(PAYMENT_AMOUNT) FROM ar_check_all aca
+WHERE aca.invoice_id = i.invoice_id) as outstanding
+FROM
+invoice I
 WHERE
-I.invoice_id = '".$invoice_id."'
+i.invoice_id = '".$invoice_id."'
 ";
 
 $result_outstanding = $conn->query($invoice_outstanding);

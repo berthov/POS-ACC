@@ -5,7 +5,6 @@ include("controller/doconnect.php");
 
 $invoice_id = $_REQUEST['invoice_id'];
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +65,7 @@ $invoice_id = $_REQUEST['invoice_id'];
                     <br />                      
                   <?php
 
-                    $sql = "SELECT ih.invoice_number, ih.invoice_date , ih.customer_name , ih.due_date , ih.discount_amount , sum(i.qty*i.unit_price) as total
+                    $sql = "SELECT ih.invoice_number, ih.invoice_date , ih.customer_name , ih.due_date , ih.discount_amount ,ih.amount_due_remaining, sum(i.qty*i.unit_price) as total
                     FROM invoice_header ih,
                     invoice i
                     where
@@ -117,7 +116,7 @@ $invoice_id = $_REQUEST['invoice_id'];
                       <div class="form-group">
                         <label class="col-md-2 col-sm-2 col-xs-12">Outsanding</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" placeholder="<?php include("query/invoice_outstanding.php"); ?>"    name="outstanding" disabled="disabled">
+                          <input type="text" class="form-control" placeholder="<?php echo $row["amount_due_remaining"] ?>"    name="outstanding" disabled="disabled">
                         </div>
                       </div>
 

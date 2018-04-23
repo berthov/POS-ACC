@@ -1,9 +1,12 @@
 <?php
 
 
-$po_outstanding = "SELECT sum(pol.qty * pol.price) - SUM(COALESCE(payment_amount,0))  as outstanding
+$po_outstanding = "SELECT sum(pol.qty * pol.price) - 
+(select SUM(COALESCE(payment_amount,0)) 
+from ap_check_all aca
+where
+aca.po_header_id = pol.po_header_id) as outstanding
 FROM po_line_all pol
-LEFT JOIN ap_check_all aca ON aca.po_header_id = pol.po_header_id
 where
 pol.po_header_id = '".$po_header_id."'
 ";
@@ -14,3 +17,4 @@ echo $row_outstanding["outstanding"];
 }
 
 ?>
+

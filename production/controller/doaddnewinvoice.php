@@ -3,7 +3,6 @@
   session_start();
   date_default_timezone_set('Asia/Jakarta');      
   include("doconnect.php");
-  include("session.php");
 
   $user_check = $_SESSION['login_user'];
   include("../query/find_ledger.php");
@@ -263,7 +262,7 @@
 					// update stock
 		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$arr[$y]."'";
 
-							mysqli_query($conn, $sql1);
+						mysqli_query($conn, $sql1);
 
 		    		}	
 	    	}
@@ -271,5 +270,9 @@
 		
 	}
 
-		mysqli_close($conn);
+  // update amount_due_remaining
+  $sql_header = "UPDATE invoice_header ih set ih.amount_due_remaining = (select sum(unit_price*qty) from invoice i where i.invoice_id = ih.invoice_id) where ih.invoice_id = '".$invoice_id."'";
+  mysqli_query($conn, $sql_header);
+
+	mysqli_close($conn);
 ?>
