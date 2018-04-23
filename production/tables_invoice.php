@@ -3,9 +3,8 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
-$p_start_date = date('Y-m-d');
-$p_end_date = date('Y-m-d');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,8 +13,13 @@ $p_end_date = date('Y-m-d');
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Bonne Journée! </title>
 
-    <title>Bonne Journée!</title>
+        <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +42,7 @@ $p_end_date = date('Y-m-d');
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-
+        
         <!-- Sidebar Menu -->
         <?php include("view/sidebar.php"); ?>
         <!-- End Of Sidebar  -->
@@ -46,89 +50,90 @@ $p_end_date = date('Y-m-d');
         <!-- Top Navigation -->
         <?php include("view/top_navigation.php"); ?>
         <!-- End Of Top Navigation -->
+        <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Users <small>Some examples to get you started</small></h3>
+                <h3>PO Listing</h3>
               </div>
-
             </div>
-
+            
             <div class="clearfix"></div>
 
             <div class="row">
-              <!-- YANG DI PAKE -->
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
                   <div class="x_title">
-                    <h2>Table example<small>Sub-Title</small></h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-          
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <!-- start project list -->
+                    <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Invoice Number</th>
-                          <th>Item Description</th>
-                          <th>Quantity</th>
-                          <th>Unit Price</th>
+                          <th style="width: 1%">#</th>
+                          <th style="width: 20%">Invoice Number</th>
                           <th>Invoice Date</th>
-                          <th>Payment Method</th>
-                          <!-- Belum butuh -->
-                          <!-- <th style="width: 20%">#Edit</th> -->
+                          <th>Due Date</th>
+                          <th>Customer Name</th>
+                          <th>Amount Discount</th>
+                          <th>Refund Status</th>
+                          <th>Outstanding Status</th>
+                          <th style="width: 20%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php
 
-                            $sql = "SELECT a.invoice_id , i.description , a.qty,a.unit_price , a.date , a.payment_method
-                            FROM invoice a,
-                            inventory i
-                            where
-                            a.inventory_item_id = i.id
-                            and a.ledger_id = i.ledger_id
-                            and a.ledger_id = '".$ledger_new."'
-                            order by a.invoice_id";
+                         <?php
+                            $sql = "SELECT *  
+                            FROM invoice_header
+                            WHERE
+                            ledger_id = '".$ledger_new."'";
                             $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {
-                        ?>
-                      
+                            while($row = $result->fetch_assoc()) {                      
+                         ?>
+
                         <tr>
-                          <td><?php echo $row["invoice_id"]?></td>
-                          <td><?php echo $row["description"]?></td>
-                          <td><?php echo $row["qty"]?></td>
-                          <td><?php echo $row["unit_price"]?></td>
-                          <td><?php echo $row["date"]?></td>
-                          <td><?php echo $row["payment_method"]?></td>
-                          <!-- Belum butuh -->
-                          <!-- <td align="center">
-                            <a href="invoice.html" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
-                          </td> -->
-                        </tr>
-                        
+                          <td>#</td>
+                          <td>
+                            <a><?php echo $row['invoice_number']; ?></a>
+                          </td>
+                          <td>
+                            <?php echo $row['invoice_date']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['due_date']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['customer_name']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['discount_amount']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['refund_status']; ?>
+                          </td>
+                          <td>
+                            <a href="payment_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['outstanding_status']; ?></button></a>
+                          </td>
+                          <td>
+                            <a href="template_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                            <a href="controller/refund_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i> Refund </a>
+                          </td>
+                        </tr> 
+
                         <?php
-                        }
-                        ?>
-                      
+                          }        
+                        ?>  
+
                       </tbody>
                     </table>
-                 
+                    <!-- end project list -->
+
                   </div>
-                </div>
-                 <form class="form-horizontal" action="controller/export_index_csv.php?p_start_date=<?=$p_start_date?>&p_end_date=<?=$p_end_date?>" method="post" name="export_excel" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
-                    <div class="col-md-4">
-                        <input type="submit" name="export_table_invoice" class="btn btn-success" value="Export to excel"/>
-                    </div>
-                  </div>                    
-                </form>
               </div>
             </div>
           </div>
@@ -159,11 +164,19 @@ $p_end_date = date('Y-m-d');
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 
+    
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
+    <script src="../production/common/error.js"></script>
+
+
+  
   </body>
 </html>
+
+

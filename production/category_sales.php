@@ -106,7 +106,7 @@ if(isset($_REQUEST['reservation'])){
                   </div>
 
                   <div class="x_content">
-                    <table class="table ">
+                    <table class="table">
                       <tbody>
                         <tr>
                           <th>Category</th>
@@ -117,11 +117,10 @@ if(isset($_REQUEST['reservation'])){
                           <th>Net Sales</th>
                           <th>COGS</th>
                           <th>Gross Profit</th>
-                          <th>Gross Margin</th>
                         </tr>
 
                         <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as gross_sales , sum(a.qty) as qty , b.description , sum(b.cogs * a.qty) as cogs , sum(a.qty*a.unit_price) - sum(b.cogs * a.qty) as gross_profit 
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(a.tax_amount) as gross_sales , sum(a.qty*a.unit_price) + sum(a.tax_amount) as net_sales , sum(a.qty) as qty , b.description , sum(a.cogs * a.qty) as cogs , sum(a.qty*a.unit_price) - sum(a.cogs * a.qty) as gross_profit 
                             FROM invoice a,
                             inventory b
                             where a.inventory_item_id = b.id
@@ -140,17 +139,16 @@ if(isset($_REQUEST['reservation'])){
                           <td>Rp.<?php echo number_format($row1['gross_sales']);?></td>
                           <td>0</td>
                           <td>0</td>
-                          <td>Rp.<?php echo number_format($row1['gross_sales']);?></td>
+                          <td>Rp.<?php echo number_format($row1['net_sales']);?></td>
                           <td>Rp.<?php echo number_format($row1['cogs']);?></td>
                           <td>Rp.<?php echo number_format($row1['gross_profit']);?></td>
-                          <td>Rp.100.000</td>
                         </tr>
 
                         <?php
                              }
                           ?>
                           <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as gross_sales , sum(a.qty) as qty , sum(a.qty * b.cogs) as cogs , sum(a.qty*a.unit_price) - sum(b.cogs * a.qty) as gross_profit
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(a.tax_amount) as gross_sales , sum(a.qty) as qty , sum(a.qty * a.cogs) as cogs , sum(a.qty*a.unit_price) - sum(a.cogs * a.qty) as gross_profit
                             FROM invoice a,
                             inventory b
                             where a.inventory_item_id = b.id
@@ -163,7 +161,7 @@ if(isset($_REQUEST['reservation'])){
                               ?>
 
                         <tr>
-                          <th>Casing</th>
+                          <th>Total</th>
                           <th><?php echo $row1['qty'];?></th>
                           <th>Rp.<?php echo number_format($row1['gross_sales']);?></th>
                           <th>0</th>
@@ -171,7 +169,6 @@ if(isset($_REQUEST['reservation'])){
                           <th>Rp.<?php echo number_format($row1['gross_sales']);?></th>
                           <th>Rp.<?php echo number_format($row1['cogs']);?></th>
                           <th>Rp.<?php echo number_format($row1['gross_profit']);?></th>
-                          <th>Rp.100.000</th>
                         </tr>
 
                         <?php

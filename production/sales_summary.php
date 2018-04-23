@@ -18,7 +18,6 @@ if(isset($_REQUEST['reservation'])){
 }
 
 
-
 ?>
 
 
@@ -102,10 +101,14 @@ if(isset($_REQUEST['reservation'])){
                           <td align="right">Rp.
                           <?php
                           $sql = "SELECT sum(a.unit_price*a.qty) as amount  
-                          FROM invoice a 
+                          FROM invoice a,
+                          invoice_header ih 
                           where
-                          date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ledger_id = '".$ledger_new."'
+                          ih.refund_status not in ('Yes')
+                          and date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                          and a.ledger_id = '".$ledger_new."'
+                          and a.invoice_id = ih.invoice_id
+                          and a.ledger_id = ih.ledger_id
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               
@@ -129,6 +132,7 @@ if(isset($_REQUEST['reservation'])){
                           where
                           date_format(a.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                           and ledger_id = '".$ledger_new."'
+                          and a.refund_status not in ('Yes')
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               
@@ -153,10 +157,14 @@ if(isset($_REQUEST['reservation'])){
                           <td align="right"><b>Rp.
                           <?php
                           $sql = "SELECT sum(a.unit_price*a.qty) as amount  
-                          FROM invoice a 
+                          FROM invoice a ,
+                          invoice_header ih
                           where
                           date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ledger_id = '".$ledger_new."'
+                          and ih.ledger_id = '".$ledger_new."'
+                          and ih.ledger_id = a.ledger_id
+                          and ih.invoice_id = a.invoice_id
+                          and ih.refund_status not in ('Yes')
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               
@@ -176,10 +184,14 @@ if(isset($_REQUEST['reservation'])){
                           <td scope="row">Tax</td>
                           <td align="right">Rp.<?php
                           $sql = "SELECT sum(a.tax_amount) as amount  
-                          FROM invoice a 
+                          FROM invoice a,
+                          invoice_header ih
                           where
                           date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ledger_id = '".$ledger_new."'
+                          and ih.ledger_id = '".$ledger_new."'
+                          and ih.ledger_id = a.ledger_id
+                          and ih.invoice_id = a.invoice_id
+                          and ih.refund_status not in ('Yes')
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               
@@ -200,10 +212,14 @@ if(isset($_REQUEST['reservation'])){
                           <td align="right"><b>Rp.
                           <?php
                           $sql = "SELECT sum(a.unit_price*a.qty) + sum(tax_amount) as amount  
-                          FROM invoice a 
+                          FROM invoice a ,
+                          invoice_header ih
                           where
                           date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ledger_id = '".$ledger_new."'
+                          and ih.ledger_id = '".$ledger_new."'
+                          and ih.ledger_id = a.ledger_id
+                          and ih.invoice_id = a.invoice_id
+                          and ih.refund_status not in ('Yes')
                           ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               

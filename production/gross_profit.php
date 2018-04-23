@@ -116,10 +116,14 @@ if(isset($_REQUEST['reservation'])){
                           <td align="right">Rp.
                            <?php
                             $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
-                            FROM invoice a
+                            FROM invoice a,
+                            invoice_header ih
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            and ledger_id = '".$ledger_new."'
+                            and ih.ledger_id = '".$ledger_new."'
+                            and ih.ledger_id = a.ledger_id
+                            and ih.invoice_id = a.invoice_id
+                            and ih.refund_status not in ('Yes')
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -141,8 +145,9 @@ if(isset($_REQUEST['reservation'])){
                            <?php
                            $Discount = "Discount";
 
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
-                            FROM invoice a
+                            $sql1 = "SELECT sum(ih.amount as count
+                            FROM 
+                            invoice_header ih
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             and a.payment_method = '".$Discount."'
