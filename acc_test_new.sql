@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 02:55 AM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Apr 23, 2018 at 12:10 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -116,17 +118,8 @@ CREATE TABLE `ar_check_all` (
 --
 
 INSERT INTO `ar_check_all` (`payment_id`, `invoice_id`, `payment_number`, `payment_date`, `payment_type`, `payment_amount`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
-(12, '20180421173817', '123456', '2018-04-22', 'Cash', 111, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(13, '20180421173817', 'a', '2018-04-22', 'Cash', -1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(14, '20180421173817', 'asd', '2018-04-22', 'Cash', 1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(15, '20180421173817', 'a', '2018-04-22', 'Cash', -1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(16, '20180421173817', 'a', '2018-04-22', 'Cash', 1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(17, '20180421173817', 'asd', '2018-04-22', 'Cash', -1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(18, '20180421173817', 'asd', '2018-04-22', 'Cash', 1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(19, '20180421173817', 'asdsad', '2018-04-22', 'Cash', -1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(20, '20180421173817', 'asd', '2018-04-22', 'Cash', 1, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(21, '20180422231143', 'asd', '2018-04-22', 'Cash', 111, 'ben', '2018-04-22', 'ben', '2018-04-22'),
-(22, '20180422234328', 'asd', '2018-04-22', 'Cash', 246, 'ben', '2018-04-22', 'ben', '2018-04-22');
+(30, '20180423165114', 'Dari Toko', '2018-04-23', 'Cash', 49500, 'ben', '2018-04-23', 'ben', '2018-04-23'),
+(31, '20180423170429', 'Dari Toko', '2018-04-23', 'Cash', 18700, 'ben', '2018-04-23', 'ben', '2018-04-23');
 
 -- --------------------------------------------------------
 
@@ -195,7 +188,16 @@ INSERT INTO `cogs` (`item_cost_id`, `item_cost`, `periode`, `last_update_date`, 
 (40, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 123),
 (41, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 123),
 (42, 111, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 111),
-(43, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '36', '123', 123);
+(43, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '36', '123', 123),
+(44, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '36', '123', 15000),
+(45, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '36', '123', 15000),
+(46, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 15000),
+(47, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '37', '123', 15000),
+(48, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '45', '123', 15000),
+(49, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '38', '123', 15000),
+(50, 11000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 15000),
+(51, 12000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '37', '123', 15000),
+(52, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 17000);
 
 -- --------------------------------------------------------
 
@@ -316,17 +318,17 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `sales_price`, `min`, `max`, `cogs`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `ledger_id`) VALUES
-(27, 'RMT-0000002', 'Mario Bros', 153, 111, 3, 10, 111, NULL, 'ben', NULL, '2018-04-22', '123'),
-(36, 'RMT-0000003', 'Eye case', 44, 123, 3, 10, 123, NULL, 'ben', NULL, '2018-04-22', '123'),
-(37, 'RMT-0000004', 'Blue Ceramic', 0, 100000, 3, 10, 50000, NULL, 'ben', NULL, '2018-04-21', '123'),
-(38, 'RMT-0000005', 'Pink Flower', 0, 100000, 3, 10, 50000, NULL, 'ben', NULL, '2018-04-21', '123'),
+(27, 'RMT-0000002', 'Mario Bros', 145, 17000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-23', '123'),
+(36, 'RMT-0000003', 'Eye case', 36, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-23', '123'),
+(37, 'RMT-0000004', 'Blue Ceramic', 98, 15000, 3, 10, 12000, NULL, 'ben', NULL, '2018-04-23', '123'),
+(38, 'RMT-0000005', 'Pink Flower', 48, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-23', '123'),
 (39, 'RMT-0000006', 'Pineapple Case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (40, 'RMT-0000007', 'Black Flower', 3, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (41, 'RMT-0000008', 'Flower case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (42, 'RMT-0000009', 'Pug Case', 38, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (43, 'RMT-0000010', 'Simpsons', 1, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (44, 'RMT-0000011', 'Captain America', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
-(45, 'RMT-0000012', 'Nike', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
+(45, 'RMT-0000012', 'Nike', 43, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-23', '123'),
 (46, 'RMT-0000013', 'Starwars', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '1233');
 
 -- --------------------------------------------------------
@@ -350,80 +352,19 @@ CREATE TABLE `invoice` (
   `ledger_id` varchar(255) NOT NULL,
   `inventory_item_id` varchar(255) NOT NULL,
   `tax_code` float DEFAULT NULL,
-  `tax_amount` float DEFAULT NULL
+  `tax_amount` float DEFAULT NULL,
+  `cogs` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice`
 --
 
-INSERT INTO `invoice` (`unit_price`, `qty`, `date`, `invoice_line_id`, `invoice_id`, `month`, `payment_method`, `last_update_by`, `last_update_date`, `created_by`, `created_date`, `ledger_id`, `inventory_item_id`, `tax_code`, `tax_amount`) VALUES
-(100000, 123, '2017-08-14 00:00:00', 1, '1', 'August', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 32, '2017-09-07 00:00:00', 2, '2', 'September', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 52, '2017-11-20 00:00:00', 3, '3', 'November', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 41, '2017-12-20 00:00:00', 4, '4', 'December', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 94, '2018-01-20 00:00:00', 7, '7', 'January', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 8, '2018-02-05 21:14:41', 958, '20180205211441', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:08:25', 959, '20180206090825', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:14:05', 960, '20180206091405', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:14:56', 961, '20180206091456', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:17:09', 962, '20180206091709', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:21:03', 963, '20180206092103', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:22:04', 964, '20180206092204', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:22:04', 965, '20180206092204', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:23:31', 966, '20180206092331', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:24:34', 967, '20180206092434', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 3, '2018-02-06 09:25:44', 968, '20180206092544', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 3, '2018-02-06 09:29:01', 969, '20180206092901', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:29:55', 970, '20180206092955', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 3, '2018-02-06 09:29:55', 971, '20180206092955', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 09:31:22', 972, '20180206093122', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 6, '2018-02-06 09:31:22', 973, '20180206093122', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 3, '2018-02-06 13:13:02', 974, '20180206131302', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 13:13:02', 975, '20180206131302', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 2, '2018-02-06 22:09:16', 976, '20180206220916', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 22:09:16', 977, '20180206220916', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 2, '2018-02-06 22:09:16', 978, '20180206220916', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 6, '2018-02-06 22:31:35', 979, '20180206223135', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 22:31:35', 980, '20180206223135', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-06 22:31:35', 981, '20180206223135', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-08 19:50:34', 982, '20180208195034', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 2, '2018-02-08 20:55:24', 983, '20180208205524', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 25, '2018-02-08 21:46:34', 984, '20180208214634', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 2, '2018-02-08 21:46:52', 985, '20180208214652', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 20, '2018-02-08 21:47:07', 986, '20180208214707', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-09 15:50:44', 987, '20180209155044', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-12 21:03:40', 988, '20180212210340', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 2, '2018-02-12 21:23:27', 989, '20180212212327', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-14 18:15:10', 990, '20180214181510', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-14 18:15:22', 991, '20180214181522', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-14 18:18:58', 992, '20180214181858', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-15 23:25:55', 993, '20180215232555', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-16 11:45:10', 994, '20180216114510', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 1, '2018-02-19 17:12:36', 995, '20180219171236', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 2, '2018-02-19 20:03:03', 996, '20180219200303', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 4, '2018-02-19 20:03:03', 997, '20180219200303', 'February', 'Cash', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(100000, 2, '2018-02-20 15:18:25', 998, '20180220151825', 'February', 'Debit/Credit', NULL, NULL, NULL, NULL, '123', '27', NULL, NULL),
-(15000, 1, '2018-04-17 16:39:20', 999, '20180417163920', 'April', 'Cash', 'ben', '2018-04-17', 'ben', '2018-04-17', '', '27', NULL, NULL),
-(15000, 1, '2018-04-18 20:28:57', 1000, '20180418202857', 'April', 'Cash', 'ben', '2018-04-18', 'ben', '2018-04-18', '', '37', NULL, NULL),
-(15000, 1, '2018-04-18 20:29:45', 1001, '20180418202945', 'April', 'Cash', 'ben', '2018-04-18', 'ben', '2018-04-18', '123', '37', NULL, NULL),
-(15000, 1, '2018-04-18 20:30:59', 1002, '20180418203059', 'April', 'Cash', 'ben', '2018-04-18', 'ben', '2018-04-18', '123', '37', 0.1, NULL),
-(15000, 2, '2018-04-21 16:07:46', 1003, '20180421160746', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '37', 0.1, 0),
-(15000, 1, '2018-04-21 16:09:03', 1004, '20180421160903', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 1500),
-(15000, 2, '2018-04-21 16:10:28', 1005, '20180421161028', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 3000),
-(15000, 1, '2018-04-21 16:40:56', 1006, '20180421164056', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 1500),
-(15000, 1, '2018-04-21 16:42:25', 1007, '20180421164225', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 1500),
-(15000, 1, '2018-04-21 16:44:35', 1008, '20180421164435', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 1500),
-(15000, 1, '2018-04-21 16:46:24', 1009, '20180421164624', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 1500),
-(15000, 1, '2018-04-21 16:47:10', 1010, '20180421164710', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 1500),
-(15000, 1, '2018-04-21 16:49:14', 1011, '20180421164914', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '38', 0.1, 1500),
-(111, 1, '2018-04-21 16:49:14', 1012, '20180421164914', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '27', 0.1, 11.1),
-(111, 1, '2018-04-21 16:51:31', 1013, '20180421165131', 'April', 'Cash', 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '27', 0.1, 11.1),
-(111, 1, '2018-04-21 17:38:17', 1014, '20180421173817', 'April', NULL, 'ben', '2018-04-21', 'ben', '2018-04-21', '123', '27', 0.1, 11.1),
-(111, 1, '2018-04-22 23:08:27', 1015, '20180422230827', 'April', NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '123', '27', 0.1, 11.1),
-(111, 1, '2018-04-22 23:10:01', 1016, '20180422231001', 'April', NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '123', '27', 0.1, 11.1),
-(111, 1, '2018-04-22 23:11:43', 1017, '20180422231143', 'April', NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '123', '27', 0.1, 11.1),
-(123, 2, '2018-04-22 23:43:28', 1018, '20180422234328', 'April', NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '123', '36', 0.1, 24.6);
+INSERT INTO `invoice` (`unit_price`, `qty`, `date`, `invoice_line_id`, `invoice_id`, `month`, `payment_method`, `last_update_by`, `last_update_date`, `created_by`, `created_date`, `ledger_id`, `inventory_item_id`, `tax_code`, `tax_amount`, `cogs`) VALUES
+(15000, 1, '2018-04-23 16:51:14', 1041, '20180423165114', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '36', 0.1, 1500, 10000),
+(15000, 1, '2018-04-23 16:51:14', 1042, '20180423165114', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '45', 0.1, 1500, 10000),
+(15000, 1, '2018-04-23 16:51:14', 1043, '20180423165114', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 1500, 11000),
+(17000, 1, '2018-04-23 17:04:29', 1044, '20180423170429', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 1700, 10000);
 
 -- --------------------------------------------------------
 
@@ -454,12 +395,8 @@ CREATE TABLE `invoice_header` (
 --
 
 INSERT INTO `invoice_header` (`invoice_id`, `invoice_number`, `invoice_date`, `due_date`, `ledger_id`, `discount_amount`, `refund_status`, `outstanding_status`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `payment_method`, `customer_name`, `amount_due_remaining`) VALUES
-('20180421165131', '20180421165131', '2018-04-21', '2018-04-21', '123', 0, 'No', 'Open', 'ben', '2018-04-21', 'ben', '2018-04-21', '', '0', 0),
-('20180421173817', '20180421173817', '2018-04-21', '2018-04-21', '123', 0, 'No', 'Paid', 'ben', '2018-04-21', 'ben', '2018-04-21', 'Cash', 'Yohanes', 0),
-('20180422230827', '20180422230827', '2018-04-22', '2018-04-22', '123', 0, 'No', 'Open', 'ben', '2018-04-22', 'ben', '2018-04-22', 'Cash', 'Yohanes', NULL),
-('20180422231001', '20180422231001', '2018-04-22', '2018-04-22', '123', 0, 'No', 'Open', 'ben', '2018-04-22', 'ben', '2018-04-22', 'Cash', 'Yohanes', NULL),
-('20180422231143', '20180422231143', '2018-04-22', '2018-04-22', '123', 0, 'No', 'Paid', 'ben', '2018-04-22', 'ben', '2018-04-22', 'Cash', 'Yohanes', 0),
-('20180422234328', '20180422234328', '2018-04-22', '2018-04-22', '123', 0, 'No', 'Paid', 'ben', '2018-04-22', 'ben', '2018-04-22', 'Cash', 'Yohanes', 0);
+('20180423165114', '20180423165114', '2018-04-23', '2018-04-23', '123', 0, 'No', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0),
+('20180423170429', '20180423170429', '2018-04-23', '2018-04-23', '123', 0, 'No', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0);
 
 -- --------------------------------------------------------
 
@@ -539,7 +476,36 @@ INSERT INTO `material_transaction` (`transaction_id`, `inventory_item_id`, `ledg
 (51, 27, '123', -1, NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '2018-04-21 17:00:00', 'Penjualan'),
 (52, 27, '123', -1, NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '2018-04-21 17:00:00', 'Penjualan'),
 (53, 27, '123', -1, NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '2018-04-21 17:00:00', 'Penjualan'),
-(54, 36, '123', -2, NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '2018-04-21 17:00:00', 'Penjualan');
+(54, 36, '123', -2, NULL, 'ben', '2018-04-22', 'ben', '2018-04-22', '2018-04-21 17:00:00', 'Penjualan'),
+(55, 27, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(56, 27, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(57, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(58, 27, '123', -2, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(59, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(60, 37, '123', 100, '', 'ben', '2018-04-23', 'ben', '0000-00-00', '2018-04-22 17:00:00', 'Adjustment'),
+(61, 38, '123', 50, '', 'ben', '2018-04-23', 'ben', '0000-00-00', '2018-04-22 17:00:00', 'Adjustment'),
+(62, 45, '123', 50, '', 'ben', '2018-04-23', 'ben', '0000-00-00', '2018-04-22 17:00:00', 'Adjustment'),
+(63, 37, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(64, 38, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(65, 45, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(66, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(67, 27, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(68, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(69, 45, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(70, 38, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(71, 27, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(72, 37, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(73, 45, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(74, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(75, 45, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(76, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(77, 45, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(78, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(79, 45, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(80, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(81, 45, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(82, 27, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
+(83, 27, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan');
 
 -- --------------------------------------------------------
 
@@ -735,56 +701,68 @@ ALTER TABLE `po_line_all`
 --
 ALTER TABLE `ap_check_all`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
 --
 -- AUTO_INCREMENT for table `ap_supplier_all`
 --
 ALTER TABLE `ap_supplier_all`
   MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `ar_check_all`
 --
 ALTER TABLE `ar_check_all`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
 --
 -- AUTO_INCREMENT for table `cogs`
 --
 ALTER TABLE `cogs`
-  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `fmd_recipe_line`
 --
 ALTER TABLE `fmd_recipe_line`
   MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1019;
+  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1045;
+
 --
 -- AUTO_INCREMENT for table `material_transaction`
 --
 ALTER TABLE `material_transaction`
-  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
   MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
   MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

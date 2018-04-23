@@ -123,7 +123,26 @@ if(isset($_REQUEST['reservation'])){
                         </tr>
                         <tr>
                           <td scope="row">Discount</td>
-                          <td align="right">Rp.0</td>
+                          <td align="right">Rp.<?php
+                          $sql = "SELECT sum(discount_amount) as amount  
+                          FROM invoice_header a 
+                          where
+                          date_format(a.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                          and ledger_id = '".$ledger_new."'
+                          ";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {                                                               
+                             
+                              if($row['amount'] > 0 ) {
+                                // echo $row1['amount'];
+                                echo number_format($row['amount']);
+
+                              }
+                              else{
+                                echo "0";
+                              }
+                          }
+                          ?></td>
                         </tr>
                         <tr>
                           <td scope="row">refund</td>
@@ -155,13 +174,32 @@ if(isset($_REQUEST['reservation'])){
                         </tr>
                         <tr>
                           <td scope="row">Tax</td>
-                          <td align="right">Rp.0</td>
+                          <td align="right">Rp.<?php
+                          $sql = "SELECT sum(a.tax_amount) as amount  
+                          FROM invoice a 
+                          where
+                          date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                          and ledger_id = '".$ledger_new."'
+                          ";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {                                                               
+                             
+                              if($row['amount'] > 0 ) {
+                                // echo $row1['amount'];
+                                echo number_format($row['amount']);
+
+                              }
+                              else{
+                                echo "0";
+                              }
+                          }
+                          ?></td>
                         </tr>
                         <tr>
                           <th scope="row">Total Collected</th>
                           <td align="right"><b>Rp.
                           <?php
-                          $sql = "SELECT sum(a.unit_price*a.qty) as amount  
+                          $sql = "SELECT sum(a.unit_price*a.qty) + sum(tax_amount) as amount  
                           FROM invoice a 
                           where
                           date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'

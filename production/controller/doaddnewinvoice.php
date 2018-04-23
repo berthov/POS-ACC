@@ -24,6 +24,7 @@
   $discount = 0;
   $outstanding_status = 'Open';
   $refund_status = 'No';
+  $due_date = date("y-m-d H:i:s");
   //ini sementara dulu. tunggu form tax yang dari page media_gallery.php 
   $tax_code = 0.1;
   $customer_name = 'Yohanes';
@@ -244,14 +245,16 @@
 	    	$result = mysqli_query($conn, $sql2);
 
 	    	while($row = $result->fetch_assoc()) {
+          $cogs[$y] = $row["cogs"];
+
 	    		if ($row["qty"] - $quant[$y] < 0 ){
 		    			header("Location:../media_gallery.php?err=2&item=$arr[$y]");
 	    		}
 	    		else{
 
             // insert line invoice transaction
-	    				$sql = "INSERT INTO invoice (inventory_item_id,unit_price,qty ,date,invoice_id,month,created_by , created_date,last_update_by,last_update_date,ledger_id,tax_code , tax_amount)
-						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."','".$tax_code."','".$tax_code."' * '".$arr1[$y]."' * '".$quant[$y]."')";
+	    				$sql = "INSERT INTO invoice (inventory_item_id,unit_price,qty ,date,invoice_id,month,created_by , created_date,last_update_by,last_update_date,ledger_id,tax_code , tax_amount , cogs)
+						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."','".$tax_code."','".$tax_code."' * '".$arr1[$y]."' * '".$quant[$y]."' , '".$cogs[$y]."' )";
 						mysqli_query($conn, $sql);
 
             // insert mutasi 
@@ -270,9 +273,25 @@
 		
 	}
 
-  // update amount_due_remaining
-  $sql_header = "UPDATE invoice_header ih set ih.amount_due_remaining = (select sum(unit_price*qty) from invoice i where i.invoice_id = ih.invoice_id) where ih.invoice_id = '".$invoice_id."'";
-  mysqli_query($conn, $sql_header);
+    
+    // insert payment kalau due datenya gak di centang.
+    if ($due_date === $today) {
+
+      $sql = "INSERT INTO ar_check_all (invoice_id, payment_number,payment_date,payment_type,payment_amount,created_by , created_date,last_update_by,last_update_date)
+      VALUES ('".$invoice_id."', 'Dari Toko' , '".$today."' , '".$payment_method."' , (SELECT sum(a.qty*a.unit_price) + sum(tax_amount) FROM invoice a where a.invoice_id = '".$invoice_id."' and a.ledger_id = '".$ledger_new."'  ),'".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+      mysqli_query($conn, $sql);
+
+      // update amount_due_original
+      $sql_header = "UPDATE invoice_header set amount_due_remaining =  0 , outstanding_status = 'Paid' where invoice_id = '".$invoice_id."'";
+      mysqli_query($conn, $sql_header);
+
+    }else{
+
+    // update amount_due_remaining
+    $sql_header = "UPDATE invoice_header ih set ih.amount_due_remaining = (select sum(unit_price*qty) + sum(tax_amount) from invoice i where i.invoice_id = ih.invoice_id) where ih.invoice_id = '".$invoice_id."'";
+    mysqli_query($conn, $sql_header);
+    
+    }
 
 	mysqli_close($conn);
 ?>

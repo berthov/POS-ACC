@@ -115,7 +115,7 @@ if(isset($_REQUEST['reservation'])){
                           <td scope="row">Gross Sales</td>
                           <td align="right">Rp.
                            <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as count
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
                             FROM invoice a
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
@@ -141,7 +141,7 @@ if(isset($_REQUEST['reservation'])){
                            <?php
                            $Discount = "Discount";
 
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as count
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
                             FROM invoice a
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
@@ -195,7 +195,7 @@ if(isset($_REQUEST['reservation'])){
                           <th scope="row">Net Sales</th>
                           <td align="right"><b>Rp.
                          <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as count
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
                             FROM invoice a
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
@@ -219,7 +219,7 @@ if(isset($_REQUEST['reservation'])){
                           <td scope="row">Cost of Goods Sold (COGS)</td>
                           <td align="right">Rp.
                           <?php
-                            $sql1 = "SELECT sum(a.qty * b.cogs) as count
+                            $sql1 = "SELECT sum(a.qty * a.cogs) as count
                             FROM invoice a,
                             inventory b
                             where a.inventory_item_id = b.id
@@ -248,7 +248,7 @@ if(isset($_REQUEST['reservation'])){
                           <th scope="row">Gross Profit</th>
                           <td align="right"><b>Rp.
                            <?php
-                            $sql1 = "SELECT sum(a.qty* (a.unit_price-b.cogs)) as count
+                            $sql1 = "SELECT (sum(a.qty*a.unit_price) + sum(tax_amount)) - sum(a.qty*a.cogs)  as count
                             FROM invoice a,
                             inventory b
                             where a.inventory_item_id = b.id

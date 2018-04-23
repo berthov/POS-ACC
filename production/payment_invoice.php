@@ -65,7 +65,7 @@ $invoice_id = $_REQUEST['invoice_id'];
                     <br />                      
                   <?php
 
-                    $sql = "SELECT ih.invoice_number, ih.invoice_date , ih.customer_name , ih.due_date , ih.discount_amount ,ih.amount_due_remaining, sum(i.qty*i.unit_price) as total
+                    $sql = "SELECT ih.invoice_number, ih.invoice_date , ih.customer_name , ih.due_date , ih.discount_amount ,ih.amount_due_remaining, round(sum(i.qty*i.unit_price) + sum(i.qty*i.unit_price*i.tax_code),0) as total
                     FROM invoice_header ih,
                     invoice i
                     where

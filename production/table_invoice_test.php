@@ -115,7 +115,7 @@ include("query/find_ledger.php");
                             <a href="payment_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['outstanding_status']; ?></button></a>
                           </td>
                           <td>
-                            <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                            <a href="template_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
                             <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                             <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                           </td>

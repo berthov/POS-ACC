@@ -95,14 +95,11 @@ if(isset($_REQUEST['reservation'])){
                              $cash = "Cash";
 
                             $sql1 = "SELECT count(a.invoice_id) as count
-                            FROM invoice a
+                            FROM invoice_header a
                             where
-                            a.invoice_line_id = (select max(b.invoice_line_id)
-                            from invoice b
-                            where b.invoice_id = a.invoice_id)
-                            and a.ledger_id = '".$ledger_new."'
+                            a.ledger_id = '".$ledger_new."'
                             and a.payment_method = '".$cash."'
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and date_format(a.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -115,10 +112,12 @@ if(isset($_REQUEST['reservation'])){
 
                             $cash = "Cash";
 
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as count
-                            FROM invoice a
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
+                            FROM invoice a,
+                            invoice_header ih
                             where
-                            a.payment_method = '".$cash."'
+                            ih.invoice_id = a.invoice_id
+                            and ih.payment_method = '".$cash."'
                             and a.ledger_id = '".$ledger_new."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
@@ -137,14 +136,11 @@ if(isset($_REQUEST['reservation'])){
                             $Credit_Debit = "Debit/Credit";
 
                             $sql1 = "SELECT count(a.invoice_id) as count
-                            FROM invoice a
+                            FROM invoice_header a
                             where
-                            a.invoice_line_id = (select max(b.invoice_line_id)
-                            from invoice b
-                            where b.invoice_id = a.invoice_id)
-                            and a.ledger_id = '".$ledger_new."'
+                            a.ledger_id = '".$ledger_new."'
                             and a.payment_method = '".$Credit_Debit."'
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and date_format(a.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -157,10 +153,12 @@ if(isset($_REQUEST['reservation'])){
 
                             $Credit_Debit = "Debit/Credit";
 
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as count
-                            FROM invoice a
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
+                            FROM invoice a,
+                            invoice_header ih
                             where
-                            a.payment_method = '".$Credit_Debit."'
+                            ih.invoice_id = a.invoice_id
+                            and ih.payment_method = '".$Credit_Debit."'
                             and a.ledger_id = '".$ledger_new."'
                             and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
@@ -175,12 +173,9 @@ if(isset($_REQUEST['reservation'])){
                           <td align="center"><b>
                             <?php
                             $sql1 = "SELECT count(a.invoice_id) as count
-                            FROM invoice a
+                            FROM invoice_header a
                             where
-                            a.invoice_line_id = (select max(b.invoice_line_id)
-                            from invoice b
-                            where b.invoice_id = a.invoice_id)
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            date_format(a.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             and a.ledger_id = '".$ledger_new."'
                             ";
                             $result1 = $conn->query($sql1);
@@ -191,7 +186,7 @@ if(isset($_REQUEST['reservation'])){
                           </b></td>
                           <td align="right"><b>Rp.
                             <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as count
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
                             FROM invoice a
                             where
                             date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
