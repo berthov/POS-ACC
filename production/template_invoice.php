@@ -221,10 +221,26 @@ $user_check = $_SESSION['login_user'];
                                 <?php
 
                                 $sql = "SELECT 
-                                sum(i.qty* i.unit_price) as sub_total , 
+                                sum(i.qty* i.unit_price) -
+                                (
+                                select sum(ih_1.discount_amount)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.invoice_id = i.invoice_id
+                                and ih_1.refund_status not in ('Yes')) as sub_total , 
                                 i.tax_code,
-                                sum(i.tax_amount) as tax_amount,
-                                sum(i.qty* i.unit_price) + sum(i.tax_amount) as total 
+                                sum(i.tax_amount) -
+                                (select sum(ih_1.discount_amount*ih_1.tax_code)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.invoice_id = i.invoice_id
+                                and ih_1.refund_status not in ('Yes')) as tax_amount,
+                                (
+                                select sum(ih_1.discount_amount)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.invoice_id = i.invoice_id
+                                and ih_1.refund_status not in ('Yes')) discount_amount
                                 FROM invoice i,
                                 inventory inv
                                 where  
@@ -240,16 +256,20 @@ $user_check = $_SESSION['login_user'];
                                 ?>
 
                                 <tr>
-                                  <th style="width:50%">Subtotal:</th>
+                                  <th>Discount :</th>
+                                  <td>Rp <?php  echo number_format($row['discount_amount']); ?></td>
+                                </tr>
+                                <tr>
+                                  <th style="width:50%">Subtotal :</th>
                                   <td>Rp.<?php  echo number_format($row['sub_total']); ?></td>
                                 </tr>
                                 <tr>
-                                  <th>Tax (<?php  echo ($row['tax_code'])*100; ?>%)</th>
+                                  <th>Tax (<?php  echo ($row['tax_code'])*100; ?>%) :</th>
                                   <td>Rp <?php  echo number_format($row['tax_amount']); ?></td>
                                 </tr>
                                 <tr>
-                                  <th>Total:</th>
-                                  <td>Rp <?php  echo number_format($row['total']); ?></td>
+                                  <th>Total :</th>
+                                  <td>Rp <?php  echo number_format($row['sub_total'] + $row['tax_amount']); ?></td>
                                 </tr>
 
                                 <?php

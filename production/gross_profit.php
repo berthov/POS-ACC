@@ -6,14 +6,14 @@ include("controller/doconnect.php");
 include("controller/session.php");
 include("query/find_ledger.php");
 
-$p_start_date = date('Y-m-d');
-$p_end_date = date('Y-m-d');
+$start_date = date('Y-m-d');
+$end_date = date('Y-m-d');
 if(isset($_REQUEST['reservation'])){
-  $p_start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 1,10))) ;
+  $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 1,10))) ;
 }
 
 if(isset($_REQUEST['reservation'])){
-  $p_end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
+  $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
 ?>
 
@@ -114,169 +114,32 @@ if(isset($_REQUEST['reservation'])){
                         <tr>
                           <td scope="row">Gross Sales</td>
                           <td align="right">Rp.
-                           <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
-                            FROM invoice a,
-                            invoice_header ih
-                            where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            and ih.ledger_id = '".$ledger_new."'
-                            and ih.ledger_id = a.ledger_id
-                            and ih.invoice_id = a.invoice_id
-                            and ih.refund_status not in ('Yes')
-                            ";
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {                                                               
-                              // echo number_format($row1['count']);
-                              if($row1['count'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row1['count']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></td>
+                          <?php include("query/gross_sales.php"); ?></td>
                         </tr>
                         <tr>
                           <td scope="row">Discount</td>
                           <td align="right">Rp.
-                           <?php
-                           $Discount = "Discount";
-
-                            $sql1 = "SELECT sum(ih.amount as count
-                            FROM 
-                            invoice_header ih
-                            where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            and a.payment_method = '".$Discount."'
-                            and ledger_id = '".$ledger_new."'
-                            ";
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {                                                               
-                              // echo number_format($row1['count']);
-                              if($row1['count'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row1['count']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?>
-                            
-                          </td>
+                          <?php include("query/discount.php"); ?></td>
                         </tr>
                         <tr>
                           <td scope="row">refund</td>
                           <td align="right">Rp.
-                                                     <?php
-                           $refund = "refund";
-
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) as count
-                            FROM invoice a
-                            where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            and a.payment_method = '".$refund."'
-                            and ledger_id = '".$ledger_new."'
-                            ";
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {                                                                
-                              // echo number_format($row1['count']);
-                            if($row1['count'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row1['count']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></td>
+                          <?php include("query/refund.php"); ?></td>
                         </tr>
                         <tr>
                           <th scope="row">Net Sales</th>
                           <td align="right"><b>Rp.
-                         <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
-                            FROM invoice a
-                            where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            and ledger_id = '".$ledger_new."'
-                            ";
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {                                                               
-                              // echo number_format($row1['count']);
-                              if($row1['count'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row1['count']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></b></td>
+                          <?php include("query/net_sales.php"); ?></b></td>
                         </tr>
                         <tr>
                           <td scope="row">Cost of Goods Sold (COGS)</td>
                           <td align="right">Rp.
-                          <?php
-                            $sql1 = "SELECT sum(a.qty * a.cogs) as count
-                            FROM invoice a,
-                            inventory b
-                            where a.inventory_item_id = b.id
-                            and a.ledger_id = b.ledger_id
-                            and a.ledger_id = '".$ledger_new."'
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            ";
-
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {                                                               
-                              // echo number_format($row1['count']);
-                              if($row1['count'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row1['count']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?>
-                            
-                          </td>
+                          <?php include("query/cogs.php"); ?></td>
                         </tr>
                         <tr>
                           <th scope="row">Gross Profit</th>
                           <td align="right"><b>Rp.
-                           <?php
-                            $sql1 = "SELECT (sum(a.qty*a.unit_price) + sum(tax_amount)) - sum(a.qty*a.cogs)  as count
-                            FROM invoice a,
-                            inventory b
-                            where a.inventory_item_id = b.id
-                            and a.ledger_id = b.ledger_id
-                            and a.ledger_id = '".$ledger_new."'
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            ";
-
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {                                                               
-                              // echo number_format($row1['count']);
-                              if($row1['count'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row1['count']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?>
-                            
-                          </b></td>
+                          <?php include("query/gross_profit.php"); ?></b></td> 
                         </tr>
                       </tbody>
                     </table>

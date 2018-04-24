@@ -32,7 +32,7 @@
 
 		    // insert ke mutasi
 		    $sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type)
-		    VALUES ('".$row['inventory_item_id']."', '".$row['ledger_id']."','".$created_date."','".$row['qty']."','".$description."','".$user_check."','".$created."','".$user_check."','".$created."','Refund')";
+		    VALUES ('".$row['inventory_item_id']."', '".$row['ledger_id']."','".$created."','".$row['qty']."','".$description."','".$user_check."','".$created."','".$user_check."','".$created."','Refund')";
 	    	mysqli_query($conn, $sql);
 
 	    	// update qty onhand

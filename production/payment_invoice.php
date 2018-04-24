@@ -102,7 +102,7 @@ $invoice_id = $_REQUEST['invoice_id'];
                       </div>
 
                       <div class="form-group">
-                        <label class="col-md-2 col-sm-2 col-xs-12">Invoice Amount</label>
+                        <label class="col-md-2 col-sm-2 col-xs-12">Invoice Amount + Tax</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
                           <input type="text" class="form-control" name="total" placeholder="<?php echo $row["total"] ?>" disabled="disabled">
                         </div>

@@ -99,141 +99,32 @@ if(isset($_REQUEST['reservation'])){
                         <tr>
                           <td scope="row">Gross Sales</td>
                           <td align="right">Rp.
-                          <?php
-                          $sql = "SELECT sum(a.unit_price*a.qty) as amount  
-                          FROM invoice a,
-                          invoice_header ih 
-                          where
-                          ih.refund_status not in ('Yes')
-                          and date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and a.ledger_id = '".$ledger_new."'
-                          and a.invoice_id = ih.invoice_id
-                          and a.ledger_id = ih.ledger_id
-                          ";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {                                                               
-                             
-                              if($row['amount'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row['amount']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></td>
+                          <?php include("query/gross_sales.php"); ?></td>
                         </tr>
                         <tr>
                           <td scope="row">Discount</td>
-                          <td align="right">Rp.<?php
-                          $sql = "SELECT sum(discount_amount) as amount  
-                          FROM invoice_header a 
-                          where
-                          date_format(a.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ledger_id = '".$ledger_new."'
-                          and a.refund_status not in ('Yes')
-                          ";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {                                                               
-                             
-                              if($row['amount'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row['amount']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></td>
+                          <td align="right">Rp.
+                          <?php include("query/discount.php"); ?></td>
                         </tr>
                         <tr>
                           <td scope="row">refund</td>
-                          <td align="right">Rp.0</td>
+                          <td align="right">Rp.
+                          <?php include("query/refund.php"); ?></td>
                         </tr>
                         <tr>
                           <th scope="row">Net Sales</th>
                           <td align="right"><b>Rp.
-                          <?php
-                          $sql = "SELECT sum(a.unit_price*a.qty) as amount  
-                          FROM invoice a ,
-                          invoice_header ih
-                          where
-                          date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ih.ledger_id = '".$ledger_new."'
-                          and ih.ledger_id = a.ledger_id
-                          and ih.invoice_id = a.invoice_id
-                          and ih.refund_status not in ('Yes')
-                          ";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {                                                               
-                             
-                              if($row['amount'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row['amount']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></b></td>
+                          <?php include("query/net_sales.php"); ?></b></td>
                         </tr>
                         <tr>
                           <td scope="row">Tax</td>
-                          <td align="right">Rp.<?php
-                          $sql = "SELECT sum(a.tax_amount) as amount  
-                          FROM invoice a,
-                          invoice_header ih
-                          where
-                          date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ih.ledger_id = '".$ledger_new."'
-                          and ih.ledger_id = a.ledger_id
-                          and ih.invoice_id = a.invoice_id
-                          and ih.refund_status not in ('Yes')
-                          ";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {                                                               
-                             
-                              if($row['amount'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row['amount']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></td>
+                          <td align="right">Rp.
+                          <?php include("query/tax.php"); ?></td>
                         </tr>
                         <tr>
                           <th scope="row">Total Collected</th>
                           <td align="right"><b>Rp.
-                          <?php
-                          $sql = "SELECT sum(a.unit_price*a.qty) + sum(tax_amount) as amount  
-                          FROM invoice a ,
-                          invoice_header ih
-                          where
-                          date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                          and ih.ledger_id = '".$ledger_new."'
-                          and ih.ledger_id = a.ledger_id
-                          and ih.invoice_id = a.invoice_id
-                          and ih.refund_status not in ('Yes')
-                          ";
-                            $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {                                                               
-                             
-                              if($row['amount'] > 0 ) {
-                                // echo $row1['amount'];
-                                echo number_format($row['amount']);
-
-                              }
-                              else{
-                                echo "0";
-                              }
-                          }
-                          ?></b></td>
+                          <?php include("query/total_collected.php"); ?></b></td>
                         </tr>
                       </tbody>
                     </table>

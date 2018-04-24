@@ -91,14 +91,14 @@ if(isset($_REQUEST['reservation'])){
                           <td align="left">Cash</td>
                           <td align="center">
                             <?php
-
-                             $cash = "Cash";
-
-                            $sql1 = "SELECT count(a.invoice_id) as count
-                            FROM invoice_header a
+                            $sql1 = "SELECT count(aca.payment_id) as count
+                            FROM invoice_header a,
+                            ar_check_all aca
                             where
                             a.ledger_id = '".$ledger_new."'
-                            and a.payment_method = '".$cash."'
+                            and aca.invoice_id = a.invoice_id
+                            and aca.payment_type = 'Cash'
+                            and a.refund_status not in  ('Yes')
                             and date_format(a.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
                             $result1 = $conn->query($sql1);
@@ -108,19 +108,39 @@ if(isset($_REQUEST['reservation'])){
                           ?>
                           </td>
                           <td align="right">Rp.
-                                                      <?php
-
-                            $cash = "Cash";
-
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
-                            FROM invoice a,
-                            invoice_header ih
-                            where
-                            ih.invoice_id = a.invoice_id
-                            and ih.payment_method = '".$cash."'
-                            and a.ledger_id = '".$ledger_new."'
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            ";
+                           <?php
+                              $sql1 = "SELECT sum(a.unit_price*a.qty) -   
+                                (select sum(ih_1.discount_amount)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.ledger_id = ih.ledger_id
+                                and ih_1.refund_status not in ('Yes')) + 
+                                (
+                                SELECT sum(a.tax_amount) -
+                                (select sum(ih_1.discount_amount*ih_1.tax_code)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.ledger_id = ih.ledger_id
+                                and ih_1.refund_status not in ('Yes')) as count  
+                                FROM invoice a,
+                                invoice_header ih
+                                where
+                                date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                                and ih.ledger_id = '".$ledger_new."'
+                                and ih.ledger_id = a.ledger_id
+                                and ih.invoice_id = a.invoice_id
+                                and ih.refund_status not in ('Yes')
+                                )as count
+                                FROM invoice a ,
+                                invoice_header ih
+                                where
+                                date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                                and ih.ledger_id = '".$ledger_new."'
+                                and ih.ledger_id = a.ledger_id
+                                and ih.invoice_id = a.invoice_id
+                                and ih.payment_method = 'Cash'
+                                and ih.refund_status not in ('Yes')
+                                ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
                               echo number_format($row1['count']);
@@ -135,11 +155,14 @@ if(isset($_REQUEST['reservation'])){
                             <?php
                             $Credit_Debit = "Debit/Credit";
 
-                            $sql1 = "SELECT count(a.invoice_id) as count
-                            FROM invoice_header a
+                            $sql1 = "SELECT count(aca.payment_id) as count
+                            FROM invoice_header a,
+                            ar_check_all aca
                             where
                             a.ledger_id = '".$ledger_new."'
-                            and a.payment_method = '".$Credit_Debit."'
+                            and aca.invoice_id = a.invoice_id
+                            and a.payment_method = 'Debit/Credit'
+                            and a.refund_status not in  ('Yes')
                             and date_format(a.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
                             $result1 = $conn->query($sql1);
@@ -153,15 +176,38 @@ if(isset($_REQUEST['reservation'])){
 
                             $Credit_Debit = "Debit/Credit";
 
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
-                            FROM invoice a,
-                            invoice_header ih
-                            where
-                            ih.invoice_id = a.invoice_id
-                            and ih.payment_method = '".$Credit_Debit."'
-                            and a.ledger_id = '".$ledger_new."'
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            ";
+                              $sql1 = "SELECT sum(a.unit_price*a.qty) -   
+                                (select sum(ih_1.discount_amount)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.ledger_id = ih.ledger_id
+                                and ih_1.refund_status not in ('Yes')) + 
+                                (
+                                SELECT sum(a.tax_amount) -
+                                (select sum(ih_1.discount_amount*ih_1.tax_code)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.ledger_id = ih.ledger_id
+                                and ih_1.refund_status not in ('Yes')) as count  
+                                FROM invoice a,
+                                invoice_header ih
+                                where
+                                date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                                and ih.ledger_id = '".$ledger_new."'
+                                and ih.ledger_id = a.ledger_id
+                                and ih.invoice_id = a.invoice_id
+                                and ih.refund_status not in ('Yes')
+                                )as count
+                                FROM invoice a ,
+                                invoice_header ih
+                                where
+                                date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                                and ih.ledger_id = '".$ledger_new."'
+                                and ih.ledger_id = a.ledger_id
+                                and ih.invoice_id = a.invoice_id
+                                and ih.payment_method = 'Debit/Credit'
+                                and ih.refund_status not in ('Yes')
+                                ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
                               echo number_format($row1['count']);
@@ -172,11 +218,14 @@ if(isset($_REQUEST['reservation'])){
                           <td align="left"><b>Total</b></td>
                           <td align="center"><b>
                             <?php
-                            $sql1 = "SELECT count(a.invoice_id) as count
-                            FROM invoice_header a
+                            $sql1 = "SELECT count(aca.payment_id) as count
+                            FROM invoice_header a,
+                            ar_check_all aca
                             where
-                            date_format(a.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            and a.ledger_id = '".$ledger_new."'
+                            a.ledger_id = '".$ledger_new."'
+                            and aca.invoice_id = a.invoice_id
+                            and a.refund_status not in  ('Yes')
+                            and date_format(a.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -186,12 +235,37 @@ if(isset($_REQUEST['reservation'])){
                           </b></td>
                           <td align="right"><b>Rp.
                             <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(tax_amount) as count
-                            FROM invoice a
-                            where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
-                            and a.ledger_id = '".$ledger_new."'
-                            ";
+                              $sql1 = "SELECT sum(a.unit_price*a.qty) -   
+                                (select sum(ih_1.discount_amount)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.ledger_id = ih.ledger_id
+                                and ih_1.refund_status not in ('Yes')) + 
+                                (
+                                SELECT sum(a.tax_amount) -
+                                (select sum(ih_1.discount_amount*ih_1.tax_code)
+                                from invoice_header ih_1
+                                where 
+                                ih_1.ledger_id = ih.ledger_id
+                                and ih_1.refund_status not in ('Yes')) as count  
+                                FROM invoice a,
+                                invoice_header ih
+                                where
+                                date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                                and ih.ledger_id = '".$ledger_new."'
+                                and ih.ledger_id = a.ledger_id
+                                and ih.invoice_id = a.invoice_id
+                                and ih.refund_status not in ('Yes')
+                                )as count
+                                FROM invoice a ,
+                                invoice_header ih
+                                where
+                                date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                                and ih.ledger_id = '".$ledger_new."'
+                                and ih.ledger_id = a.ledger_id
+                                and ih.invoice_id = a.invoice_id
+                                and ih.refund_status not in ('Yes')
+                                ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
                               echo number_format($row1['count']);

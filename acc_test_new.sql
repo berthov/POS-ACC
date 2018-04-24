@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 04:47 PM
+-- Generation Time: Apr 24, 2018 at 06:16 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -116,12 +116,10 @@ CREATE TABLE `ar_check_all` (
 --
 
 INSERT INTO `ar_check_all` (`payment_id`, `invoice_id`, `payment_number`, `payment_date`, `payment_type`, `payment_amount`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
-(30, '20180423165114', 'Dari Toko', '2018-04-23', 'Cash', 49500, 'ben', '2018-04-23', 'ben', '2018-04-23'),
-(31, '20180423170429', 'Dari Toko', '2018-04-23', 'Cash', 18700, 'ben', '2018-04-23', 'ben', '2018-04-23'),
-(32, '20180423192509', 'Dari Toko', '2018-04-23', 'Cash', 18700, 'ben', '2018-04-23', 'ben', '2018-04-23'),
-(33, '20180423192641', 'Dari Toko', '2018-04-23', 'Cash', 18700, 'ben', '2018-04-23', 'ben', '2018-04-23'),
-(34, '20180423192854', 'Dari Toko', '2018-04-23', 'Cash', 35200, 'ben', '2018-04-23', 'ben', '2018-04-23'),
-(35, '20180423192907', 'Dari Toko', '2018-04-23', 'Cash', 56100, 'ben', '2018-04-23', 'ben', '2018-04-23');
+(44, '20180424211608', 'Dari Toko', '2018-04-24', 'Cash', 27000, 'ben', '2018-04-24', 'ben', '2018-04-24'),
+(45, '20180424212114', 'Dari Toko', '2018-04-24', 'Cash', 28000, 'ben', '2018-04-24', 'ben', '2018-04-24'),
+(46, '20180424212300', 'Dari Toko', '2018-04-24', 'Cash', 26000, 'ben', '2018-04-24', 'ben', '2018-04-24'),
+(47, '20180424212616', 'Dari Toko', '2018-04-24', 'Debit/Credit', 27500, 'ben', '2018-04-24', 'ben', '2018-04-24');
 
 -- --------------------------------------------------------
 
@@ -320,17 +318,17 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `sales_price`, `min`, `max`, `cogs`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `ledger_id`) VALUES
-(27, 'RMT-0000002', 'Mario Bros', 10, 17000, 3, 10, 10000, NULL, 'ben', NULL, '0000-00-00', '123'),
-(36, 'RMT-0000003', 'Eye case', 10, 15000, 3, 10, 10000, NULL, 'ben', NULL, '0000-00-00', '123'),
-(37, 'RMT-0000004', 'Blue Ceramic', 98, 15000, 3, 10, 12000, NULL, 'ben', NULL, '2018-04-23', '123'),
-(38, 'RMT-0000005', 'Pink Flower', 48, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-23', '123'),
+(27, 'RMT-0000002', 'Mario Bros', 8, 17000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-24', '123'),
+(36, 'RMT-0000003', 'Eye case', 1, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-24', '123'),
+(37, 'RMT-0000004', 'Blue Ceramic', 95, 15000, 3, 10, 12000, NULL, 'ben', NULL, '2018-04-24', '123'),
+(38, 'RMT-0000005', 'Pink Flower', 45, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-24', '123'),
 (39, 'RMT-0000006', 'Pineapple Case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (40, 'RMT-0000007', 'Black Flower', 3, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (41, 'RMT-0000008', 'Flower case', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (42, 'RMT-0000009', 'Pug Case', 38, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
 (43, 'RMT-0000010', 'Simpsons', 1, 100000, 3, 10, 50000, NULL, 'ben', NULL, '0000-00-00', '123'),
 (44, 'RMT-0000011', 'Captain America', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '123'),
-(45, 'RMT-0000012', 'Nike', 43, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-23', '123'),
+(45, 'RMT-0000012', 'Nike', 1, 15000, 3, 10, 10000, NULL, 'ben', NULL, '2018-04-24', '123'),
 (46, 'RMT-0000013', 'Starwars', 0, 100000, 3, 10, 50000, NULL, '', NULL, NULL, '1233');
 
 -- --------------------------------------------------------
@@ -363,15 +361,14 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`unit_price`, `qty`, `date`, `invoice_line_id`, `invoice_id`, `month`, `payment_method`, `last_update_by`, `last_update_date`, `created_by`, `created_date`, `ledger_id`, `inventory_item_id`, `tax_code`, `tax_amount`, `cogs`) VALUES
-(15000, 1, '2018-04-23 16:51:14', 1041, '20180423165114', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '36', 0.1, 1500, 10000),
-(15000, 1, '2018-04-23 16:51:14', 1042, '20180423165114', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '45', 0.1, 1500, 10000),
-(15000, 1, '2018-04-23 16:51:14', 1043, '20180423165114', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 1500, 11000),
-(17000, 1, '2018-04-23 17:04:29', 1044, '20180423170429', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 1700, 10000),
-(17000, 1, '2018-04-23 19:25:09', 1045, '20180423192509', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 1700, 10000),
-(17000, 1, '2018-04-23 19:26:41', 1046, '20180423192641', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 1700, 10000),
-(15000, 1, '2018-04-23 19:28:54', 1047, '20180423192854', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '36', 0.1, 1500, 10000),
-(17000, 1, '2018-04-23 19:28:54', 1048, '20180423192854', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 1700, 10000),
-(17000, 3, '2018-04-23 19:29:07', 1049, '20180423192907', 'April', NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '123', '27', 0.1, 5100, 10000);
+(15000, 1, '2018-04-24 21:16:08', 1070, '20180424211608', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '36', 0.1, 1500, 10000),
+(15000, 1, '2018-04-24 21:16:08', 1071, '20180424211608', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '45', 0.1, 1500, 10000),
+(15000, 1, '2018-04-24 21:21:14', 1072, '20180424212114', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '36', 0.1, 1500, 10000),
+(15000, 1, '2018-04-24 21:21:14', 1073, '20180424212114', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '45', 0.1, 1500, 10000),
+(15000, 1, '2018-04-24 21:23:00', 1074, '20180424212300', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '36', 0.1, 1500, 10000),
+(15000, 1, '2018-04-24 21:23:00', 1075, '20180424212300', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '45', 0.1, 1500, 10000),
+(15000, 1, '2018-04-24 21:26:16', 1076, '20180424212616', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '36', 0.1, 1500, 10000),
+(15000, 1, '2018-04-24 21:26:16', 1077, '20180424212616', 'April', NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '123', '45', 0.1, 1500, 10000);
 
 -- --------------------------------------------------------
 
@@ -394,20 +391,19 @@ CREATE TABLE `invoice_header` (
   `last_update_date` date DEFAULT NULL,
   `payment_method` varchar(255) NOT NULL,
   `customer_name` varchar(255) NOT NULL,
-  `amount_due_remaining` int(11) DEFAULT NULL
+  `amount_due_remaining` int(11) DEFAULT NULL,
+  `tax_code` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice_header`
 --
 
-INSERT INTO `invoice_header` (`invoice_id`, `invoice_number`, `invoice_date`, `due_date`, `ledger_id`, `discount_amount`, `refund_status`, `outstanding_status`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `payment_method`, `customer_name`, `amount_due_remaining`) VALUES
-('20180423165114', '20180423165114', '2018-04-23', '2018-04-23', '123', 0, 'Yes', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0),
-('20180423170429', '20180423170429', '2018-04-23', '2018-04-23', '123', 0, 'Yes', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0),
-('20180423192509', '20180423192509', '2018-04-23', '2018-04-23', '123', 0, 'Yes', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0),
-('20180423192641', '20180423192641', '2018-04-23', '2018-04-23', '123', 0, 'Yes', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0),
-('20180423192854', '20180423192854', '2018-04-23', '2018-04-23', '123', 0, 'Yes', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0),
-('20180423192907', '20180423192907', '2018-04-23', '2018-04-23', '123', 0, 'Yes', 'Paid', 'ben', '2018-04-23', 'ben', '2018-04-23', 'Cash', 'Yohanes', 0);
+INSERT INTO `invoice_header` (`invoice_id`, `invoice_number`, `invoice_date`, `due_date`, `ledger_id`, `discount_amount`, `refund_status`, `outstanding_status`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `payment_method`, `customer_name`, `amount_due_remaining`, `tax_code`) VALUES
+('20180424211608', '20180424211608', '2018-04-24', '2018-04-24', '123', 5000, 'No', 'Paid', 'ben', '2018-04-24', 'ben', '2018-04-24', 'Cash', 'Yohanes', 0, 0.1),
+('20180424212114', '20180424212114', '2018-04-24', '2018-04-24', '123', 5000, 'No', 'Paid', 'ben', '2018-04-24', 'ben', '2018-04-24', 'Cash', 'Yohanes', 0, 0.1),
+('20180424212300', '20180424212300', '2018-04-24', '2018-04-24', '123', 5000, 'No', 'Paid', 'ben', '2018-04-24', 'ben', '2018-04-24', 'Cash', 'Yohanes', 0, 0.1),
+('20180424212616', '20180424212616', '2018-04-24', '2018-04-24', '123', 5000, 'No', 'Paid', 'ben', '2018-04-24', 'ben', '2018-04-24', 'Debit/Credit', 'Yohanes', 0, 0.1);
 
 -- --------------------------------------------------------
 
@@ -434,14 +430,21 @@ CREATE TABLE `material_transaction` (
 --
 
 INSERT INTO `material_transaction` (`transaction_id`, `inventory_item_id`, `ledger_id`, `qty`, `description`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `transaction_date`, `type`) VALUES
-(101, 27, '123', 10, '', 'ben', '2018-04-23', 'ben', '0000-00-00', '2018-04-22 17:00:00', 'Adjustment'),
-(102, 36, '123', 10, '', 'ben', '2018-04-23', 'ben', '0000-00-00', '2018-04-22 17:00:00', 'Adjustment'),
-(103, 36, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
-(104, 27, '123', -1, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
-(105, 36, '123', 1, 'Refund Invoice:20180423192854', 'ben', '2018-04-23', 'ben', '2018-04-23', '0000-00-00 00:00:00', 'Refund'),
-(106, 27, '123', 1, 'Refund Invoice:20180423192854', 'ben', '2018-04-23', 'ben', '2018-04-23', '0000-00-00 00:00:00', 'Refund'),
-(107, 27, '123', -3, NULL, 'ben', '2018-04-23', 'ben', '2018-04-23', '2018-04-22 17:00:00', 'Penjualan'),
-(108, 27, '123', 3, 'Refund Invoice:20180423192907', 'ben', '2018-04-23', 'ben', '2018-04-23', '0000-00-00 00:00:00', 'Refund');
+(125, 36, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(126, 45, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(127, 38, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(128, 37, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(129, 27, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(130, 45, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(131, 36, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(132, 36, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(133, 45, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(134, 36, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(135, 45, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(136, 36, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(137, 45, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(138, 36, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan'),
+(139, 45, '123', -1, NULL, 'ben', '2018-04-24', 'ben', '2018-04-24', '2018-04-23 17:00:00', 'Penjualan');
 
 -- --------------------------------------------------------
 
@@ -646,7 +649,7 @@ ALTER TABLE `ap_supplier_all`
 -- AUTO_INCREMENT for table `ar_check_all`
 --
 ALTER TABLE `ar_check_all`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `cogs`
 --
@@ -671,12 +674,12 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1050;
+  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1078;
 --
 -- AUTO_INCREMENT for table `material_transaction`
 --
 ALTER TABLE `material_transaction`
-  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 --
 -- AUTO_INCREMENT for table `outlet`
 --

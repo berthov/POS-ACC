@@ -21,7 +21,7 @@
   $type = 'Penjualan';
   
   // ini variable tambahan buat nanti
-  $discount = 0;
+  $discount = 5000;
   $outstanding_status = 'Open';
   $refund_status = 'No';
   $due_date = date("y-m-d H:i:s");
@@ -232,8 +232,8 @@
 
 // HEADER
     // insert header invoice transaction
-    $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name)
-    VALUES ('".$invoice_id."','".$invoice_id."' , '".$today."' , '".$today."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."')";
+    $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name,tax_code)
+    VALUES ('".$invoice_id."','".$invoice_id."' , '".$today."' , '".$today."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."','".$tax_code."')";
     mysqli_query($conn, $sql_header);
 
 // LINE
@@ -278,7 +278,7 @@
     if ($due_date === $today) {
 
       $sql = "INSERT INTO ar_check_all (invoice_id, payment_number,payment_date,payment_type,payment_amount,created_by , created_date,last_update_by,last_update_date)
-      VALUES ('".$invoice_id."', 'Dari Toko' , '".$today."' , '".$payment_method."' , (SELECT sum(a.qty*a.unit_price) + sum(tax_amount) FROM invoice a where a.invoice_id = '".$invoice_id."' and a.ledger_id = '".$ledger_new."'  ),'".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+      VALUES ('".$invoice_id."', 'Dari Toko' , '".$today."' , '".$payment_method."' , (SELECT (sum(a.qty*a.unit_price) - '".$discount."' ) + (sum(tax_amount) - ('".$discount."' * '".$tax_code."') ) FROM invoice a where a.invoice_id = '".$invoice_id."' and a.ledger_id = '".$ledger_new."'  ) ,'".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
       mysqli_query($conn, $sql);
 
       // update amount_due_original
@@ -288,7 +288,7 @@
     }else{
 
     // update amount_due_remaining
-    $sql_header = "UPDATE invoice_header ih set ih.amount_due_remaining = (select sum(unit_price*qty) + sum(tax_amount) from invoice i where i.invoice_id = ih.invoice_id) where ih.invoice_id = '".$invoice_id."'";
+    $sql_header = "UPDATE invoice_header ih set ih.amount_due_remaining = (select (sum(unit_price*qty) - '".$discount."') + (sum(tax_amount) - ('".$discount."' * '".$tax_code."')) from invoice i where i.invoice_id = ih.invoice_id) where ih.invoice_id = '".$invoice_id."'";
     mysqli_query($conn, $sql_header);
     
     }

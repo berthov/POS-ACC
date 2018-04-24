@@ -112,21 +112,28 @@ if(isset($_REQUEST['reservation'])){
                           <th>Category</th>
                           <th>Item Sold</th>
                           <th>Gross Sales</th>
-                          <th>Discount</th>
-                          <th>Refund</th>
-                          <th>Net Sales</th>
                           <th>COGS</th>
                           <th>Gross Profit</th>
                         </tr>
 
                         <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(a.tax_amount) as gross_sales , sum(a.qty*a.unit_price) + sum(a.tax_amount) as net_sales , sum(a.qty) as qty , b.description , sum(a.cogs * a.qty) as cogs , sum(a.qty*a.unit_price) - sum(a.cogs * a.qty) as gross_profit 
+                            $sql1 = "SELECT 
+                            sum(a.qty*a.unit_price) as gross_sales , 
+                            sum(a.qty*a.unit_price) as net_sales , 
+                            sum(a.qty) as qty , 
+                            b.description , 
+                            sum(a.cogs * a.qty) as cogs , 
+                            sum(a.qty*a.unit_price)- sum(a.cogs * a.qty) as gross_profit 
                             FROM invoice a,
-                            inventory b
+                            inventory b,
+                            invoice_header ih
                             where a.inventory_item_id = b.id
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and date_format(ih.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             and a.ledger_id = '".$ledger_new."'
                             and a.ledger_id = b.ledger_id
+                            and ih.invoice_id = a.invoice_id
+                            and ih.refund_status NOT IN ('Yes')
+                            and ih.ledger_id = a.ledger_id
                             group by b.description
                             ";
                             $result1 = $conn->query($sql1);
@@ -137,9 +144,6 @@ if(isset($_REQUEST['reservation'])){
                           <td><?php echo $row1['description'];?></td>
                           <td><?php echo $row1['qty'];?></td>
                           <td>Rp.<?php echo number_format($row1['gross_sales']);?></td>
-                          <td>0</td>
-                          <td>0</td>
-                          <td>Rp.<?php echo number_format($row1['net_sales']);?></td>
                           <td>Rp.<?php echo number_format($row1['cogs']);?></td>
                           <td>Rp.<?php echo number_format($row1['gross_profit']);?></td>
                         </tr>
@@ -148,13 +152,20 @@ if(isset($_REQUEST['reservation'])){
                              }
                           ?>
                           <?php
-                            $sql1 = "SELECT sum(a.qty*a.unit_price) + sum(a.tax_amount) as gross_sales , sum(a.qty) as qty , sum(a.qty * a.cogs) as cogs , sum(a.qty*a.unit_price) - sum(a.cogs * a.qty) as gross_profit
+                            $sql1 = "SELECT sum(a.qty*a.unit_price) as gross_sales , 
+                            sum(a.qty) as qty , 
+                            sum(a.qty * a.cogs) as cogs , 
+                            sum(a.qty*a.unit_price)- sum(a.cogs * a.qty) as gross_profit
                             FROM invoice a,
-                            inventory b
+                            inventory b,
+                            invoice_header ih
                             where a.inventory_item_id = b.id
-                            and date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and date_format(ih.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
                             and a.ledger_id = '".$ledger_new."'
                             and a.ledger_id = b.ledger_id
+                            and ih.invoice_id = a.invoice_id
+                            and ih.ledger_id = a.ledger_id
+                            and ih.refund_status not in  ('Yes')
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
@@ -163,9 +174,6 @@ if(isset($_REQUEST['reservation'])){
                         <tr>
                           <th>Total</th>
                           <th><?php echo $row1['qty'];?></th>
-                          <th>Rp.<?php echo number_format($row1['gross_sales']);?></th>
-                          <th>0</th>
-                          <th>0</th>
                           <th>Rp.<?php echo number_format($row1['gross_sales']);?></th>
                           <th>Rp.<?php echo number_format($row1['cogs']);?></th>
                           <th>Rp.<?php echo number_format($row1['gross_profit']);?></th>

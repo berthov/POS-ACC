@@ -4,14 +4,14 @@ include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
 
-$p_start_date = date('Y-m-d');
-$p_end_date = date('Y-m-d');
+$start_date = date('Y-m-d');
+$end_date = date('Y-m-d');
 if(isset($_REQUEST['reservation'])){
-  $p_start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 1,10))) ;
+  $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 1,10))) ;
 }
 
 if(isset($_REQUEST['reservation'])){
-  $p_end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
+  $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
 
 ?>
@@ -76,65 +76,31 @@ if(isset($_REQUEST['reservation'])){
 
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Gross Sales</span>
-              <div class="count">Rp.<?php
-                  $sql = "SELECT sum(a.unit_price*a.qty) as amount  
-                  FROM invoice a 
-                  where
-                  (date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
-                  and a.ledger_id = '".$ledger_new."'
-                  ";
-                  $result = $conn->query($sql);
-                  while($row = $result->fetch_assoc()) {
-                                    
-                  if($row['amount'] > 0 ) {
-                    // echo $row1['amount'];
-                    echo number_format($row['amount']);
-                  }
-                  else{
-                    echo "0";
-                  }
-                }
-              ?>
+              <div class="count">Rp.
+                <?php include("query/gross_sales.php") ?>
               </div>
-              <span class="count_bottom"><a href="ar_list_summary.php?p_start_date=<?=$p_start_date?>&p_end_date=<?=$p_end_date?>">
-                <?php 
-                
+              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$p_end_date?>">
+                <?php                 
                 if (isset($_REQUEST['reservation'])){
-                       echo $p_start_date; echo " - "; echo $p_end_date;
+                       echo $start_date; echo " - "; echo $end_date;
                     }
                     else{
                       echo "Detail";
                     }
-                ?> </a>
+                ?> 
+                </a>
                 </span>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-clock-o"></i> Net Sales</span>
-               <div class="count">Rp.<?php
-                  $sql1 = "SELECT sum(unit_price*qty) as amount 
-                  FROM invoice a
-                  where
-                  (date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
-                  and a.ledger_id = '".$ledger_new."'
-                  ";
-                  $result1 = $conn->query($sql1);
-                  while($row1 = $result1->fetch_assoc()) {
-                                    
-                  if($row1['amount'] > 0 ) {
-                    // echo $row1['amount'];
-                    echo number_format($row1['amount']);
-                  }
-                  else{
-                    echo "0";
-                  }
-                }
-              ?>
+               <div class="count">Rp.
+                <?php include("query/net_sales.php"); ?>
               </div>
               <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span> -->
-              <span class="count_bottom"><a href="net_sales_summary.php?p_start_date=<?=$p_start_date?>&p_end_date=<?=$p_end_date?>">
+              <span class="count_bottom"><a href="net_sales_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>">
                 <?php 
                 if (isset($_REQUEST['reservation'])){
-                       echo $p_start_date; echo " - "; echo $p_end_date;
+                       echo $start_date; echo " - "; echo $end_date;
                     }
                     else{
                       echo "Detail";
@@ -146,14 +112,12 @@ if(isset($_REQUEST['reservation'])){
               <span class="count_top"><i class="fa fa-user"></i> Number Of Transactions</span>
               <div class="count">
               <?php
-                  $sql1 = "SELECT count(a.invoice_id) as count
-                  FROM invoice a
+                  $sql1 = "SELECT count(ih.invoice_id) as count
+                  FROM invoice_header ih
                   where
-                  (date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
-                  and a.invoice_line_id = (select max(b.invoice_line_id)
-                  from invoice b
-                  where b.invoice_id = a.invoice_id)
-                  and a.ledger_id = '".$ledger_new."'
+                  date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                  and ih.refund_status not in ('Yes')
+                  and ih.ledger_id = '".$ledger_new."'
                   ";
                   $result1 = $conn->query($sql1);
                   while($row1 = $result1->fetch_assoc()) {
@@ -167,10 +131,10 @@ if(isset($_REQUEST['reservation'])){
                 }
               ?>
               </div>
-              <span class="count_bottom"><a href="ar_list_summary.php?p_start_date=<?=$p_start_date?>&p_end_date=<?=$p_end_date?>">
+              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>">
                 <?php 
                 if (isset($_REQUEST['reservation'])){
-                       echo $p_start_date; echo " - "; echo $p_end_date;
+                       echo $start_date; echo " - "; echo $end_date;
                     }
                     else{
                       echo "Detail";
@@ -211,7 +175,7 @@ if(isset($_REQUEST['reservation'])){
                 <div class="control-group" >
                   <div class="controls" >
                     <div class="input-prepend input-group">
-                      <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right"         value="<?php if ($p_start_date = "" and $p_end_date =""){
+                      <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right"         value="<?php if ($start_date = "" and $end_date =""){
                         echo date('m-d-Y'); echo" - "; date('m-d-Y');
                       } ?>" />
                       <span class="add-on input-group-addon">
@@ -274,6 +238,7 @@ if(isset($_REQUEST['reservation'])){
                   FROM invoice inv,
                   inventory i
                   where i.id = inv.inventory_item_id
+                  and i.ledger_id = inv.ledger_id
                   and i.ledger_id = '".$ledger_new."'
                   group by i.description
                   order by qty desc
@@ -365,10 +330,14 @@ if(isset($_REQUEST['reservation'])){
 
         <?php
 
-        $query = "SELECT distinct date_format(date,'%M') as month
-                  FROM invoice 
-                  where month IS NOT NULL
-                  and date_format(date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
+        $query = "SELECT distinct date_format(ih.invoice_date,'%M') as month
+                  FROM invoice_header ih ,
+                  invoice i
+                  where i.month IS NOT NULL
+                  and ih.invoice_id = i.invoice_id
+                  and ih.ledger_id = i.ledger_id
+                  and ih.ledger_id = '".$ledger_new."'
+                  and date_format(ih.invoice_date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
                   order by date asc
                   /*where
                   date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
@@ -392,12 +361,17 @@ if(isset($_REQUEST['reservation'])){
 
                 <?php
 
-                  $query = "SELECT sum(qty*unit_price) as amount , month
-                  FROM invoice 
-                  where month IS NOT NULL
-                  and date_format(date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
-                  group by month
-                  order by date 
+                  $query = "SELECT sum(i.qty*i.unit_price)  as amount , i.month
+                  FROM invoice i,
+                  invoice_header ih
+                  where i.month IS NOT NULL
+                  and ih.invoice_id = i.invoice_id
+                  and ih.ledger_id = i.ledger_id
+                  and ih.ledger_id = '".$ledger_new."'
+                  and ih.refund_status not in ('Yes')
+                  and date_format(ih.invoice_date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
+                  group by i.month
+                  order by i.date 
                   /*where
                   date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
                   ";
