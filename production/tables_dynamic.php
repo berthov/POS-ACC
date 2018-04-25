@@ -123,11 +123,11 @@ include("query/find_ledger.php");
 
 
 
-                   <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+                   <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="inventory" enctype="multipart/form-data">
                               <div class="form-group">
                                 <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
                                 <div class="col-md-4">
-                                    <input type="submit" name="Export" class="btn btn-success" value="Export to excel"/>
+                                    <input type="submit" name="inventory" class="btn btn-success" value="Export to excel"/>
                                 </div>
                               </div>                    
                   </form>

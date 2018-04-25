@@ -1,6 +1,6 @@
 <?php
 
-  $sql = "SELECT sum(a.unit_price*a.qty) + sum(tax_amount) as amount  
+  $sql = "SELECT sum(a.unit_price*a.qty) as amount  
   FROM invoice a ,
   invoice_header ih
   where

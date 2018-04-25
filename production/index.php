@@ -79,7 +79,7 @@ if(isset($_REQUEST['reservation'])){
               <div class="count">Rp.
                 <?php include("query/gross_sales.php") ?>
               </div>
-              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$p_end_date?>">
+              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>">
                 <?php                 
                 if (isset($_REQUEST['reservation'])){
                        echo $start_date; echo " - "; echo $end_date;
@@ -116,7 +116,6 @@ if(isset($_REQUEST['reservation'])){
                   FROM invoice_header ih
                   where
                   date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                  and ih.refund_status not in ('Yes')
                   and ih.ledger_id = '".$ledger_new."'
                   ";
                   $result1 = $conn->query($sql1);
@@ -368,7 +367,6 @@ if(isset($_REQUEST['reservation'])){
                   and ih.invoice_id = i.invoice_id
                   and ih.ledger_id = i.ledger_id
                   and ih.ledger_id = '".$ledger_new."'
-                  and ih.refund_status not in ('Yes')
                   and date_format(ih.invoice_date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
                   group by i.month
                   order by i.date 

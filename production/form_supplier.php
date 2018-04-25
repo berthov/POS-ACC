@@ -108,7 +108,7 @@ include("controller/session.php");
                   </div>
                 </div>
                 <div class="x_panel">
-                  <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+                  <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="upload_excel" enctype="multipart/form-data">
                      <fieldset>
                               <!-- Form Name -->
                               <legend>MASS ADD CSV </legend>

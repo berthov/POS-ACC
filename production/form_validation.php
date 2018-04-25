@@ -127,7 +127,7 @@ include("controller/session.php");
                   </div>
                 </div>
                 <div class="x_panel">
-                  <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+                  <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="upload_excel" enctype="multipart/form-data">
                      <fieldset>
                               <!-- Form Name -->
                               <legend>MASS ADD CSV </legend>
@@ -144,7 +144,7 @@ include("controller/session.php");
                               <div class="form-group">
                                   <label class="col-md-4 control-label" for="singlebutton">Import data</label>
                                   <div class="col-md-4">
-                                      <button type="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+                                      <button type="submit" name="Import_inventory" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
                                   </div>
                               </div>
        

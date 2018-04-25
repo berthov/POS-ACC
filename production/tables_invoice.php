@@ -132,9 +132,18 @@ include("query/find_ledger.php");
                       </tbody>
                     </table>
                     <!-- end project list -->
-
                   </div>
               </div>
+                <div class="col-md-12 col-sm-12 col-xs-12"> 
+                  <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="inventory" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
+                      <div class="col-md-4">
+                          <input type="submit" name="export_table_invoice" class="btn btn-success" value="Export to excel"/>
+                      </div>
+                    </div>                    
+                  </form>
+                </div>
             </div>
           </div>
         </div>

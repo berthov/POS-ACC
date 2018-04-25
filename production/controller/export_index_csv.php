@@ -1,20 +1,115 @@
 <?php
-
+session_start();
 include("doconnect.php");
-$p_start_date= $_REQUEST['p_start_date']; 
-$p_end_date= $_REQUEST['p_end_date']; 
+include("session.php");
+include("../query/find_ledger.php");
+
+if(isset($_REQUEST['start_date'])){
+  $start_date= $_REQUEST['start_date']; 
+}
+
+if(isset($_REQUEST['end_date'])){
+  $end_date= $_REQUEST['end_date']; 
+}
+
+$created_date =  date("Y-m-d");
+$last_update_date =  date("Y-m-d");
+
+// IMPORT
+// form_validation.php
+ if(isset($_POST["Import_inventory"])){
+    
+    $filename=$_FILES["file"]["tmp_name"];    
 
 
+     if($_FILES["file"]["size"] > 0)
+     {
+        $file = fopen($filename, "r");
+          while (($getData = fgetcsv($file, 10000, ";")) !== FALSE)
+           {
+
+
+             $sql = "INSERT into inventory (item_code, description,qty,sales_price,min,max,cogs, created_by , created_date,last_update_by,last_update_date,ledger_id) 
+                   values ('".$getData[1]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$getData[6]."','".$getData[7]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."')";
+                   $result = mysqli_query($conn, $sql);
+        if(!isset($result))
+        {
+          echo "<script type=\"text/javascript\">
+              alert(\"Invalid File:Please Upload CSV File.\");
+              window.history.back();
+              </script>";   
+        }
+        else {
+            header("Location:../table_dynamic.php");
+        }
+           }
+      
+           fclose($file); 
+     }
+  } 
+
+// form_supplier.php
+   if(isset($_POST["Import_supplier"])){
+    
+    $filename=$_FILES["file"]["tmp_name"];    
+
+
+     if($_FILES["file"]["size"] > 0)
+     {
+        $file = fopen($filename, "r");
+          while (($getData = fgetcsv($file, 10000, ";")) !== FALSE)
+           {
+
+
+             $sql = "INSERT into ap_supplier_all (supplier_name, supplier_site,supplier_type,status,tax , created_by , created_date,last_update_by,last_update_date) 
+                   values ('".$getData[1]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+                   $result = mysqli_query($conn, $sql);
+        if(!isset($result))
+        {
+          echo "<script type=\"text/javascript\">
+              alert(\"Invalid File:Please Upload CSV File.\");
+              window.history.back();
+              </script>";   
+        }
+        else {
+            header("Location:../upload_csv.php?");
+        }
+           }
+      
+           fclose($file); 
+     }
+  } 
+
+// EXPORT
+  // ar_list_summary.php
 if(isset($_POST["ar_list_summary"])){
 		 
       header('Content-Type: text/csv; charset=utf-8');  
-      header('Content-Disposition: attachment; filename=Gross Profit List Detail.csv');  
+      header('Content-Disposition: attachment; filename=Gross Sales List Detail.csv');  
       $output = fopen("php://output", "w");  
-      fputcsv($output, array('Invoice Number', 'Description', 'Qty', 'Unit Price','Invoice Date','Payment Method'));  
-      $query = "SELECT quote(invoice_id) , description,qty,unit_price,date,payment_method FROM invoice
-        		where
-                (date_format(date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
-                order by invoice_id";  
+      fputcsv($output, array('Invoice Number', 'Invoice Date', 'Due Date', 'Customer Name','Payment Method','Invoice Amount','Refund'));  
+      $query = "SELECT quote(ih.invoice_number),
+                            ih.invoice_date,
+                            ih.due_date,
+                            ih.customer_name,
+                            ih.payment_method,
+                            invoice_line.total,
+                            ih.refund_status
+                            FROM invoice_header ih
+                            ,(
+                            SELECT sum(i.unit_price*i.qty) as total, sum(i.tax_amount) as tax , i.invoice_id
+                            From invoice i
+                            WHERE
+                            date_format(i.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            and i.ledger_id = '".$ledger_new."'
+                            group by
+                            i.invoice_id
+                            ) invoice_line
+                            WHERE
+                            ih.ledger_id = '".$ledger_new."'
+                            and ih.invoice_id = invoice_line.invoice_id
+                            and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            ";  
       $result = mysqli_query($conn, $query);  
       while($row = mysqli_fetch_assoc($result))  
       {  
@@ -23,17 +118,36 @@ if(isset($_POST["ar_list_summary"])){
       fclose($output);  
  } 
 
+// net_sales_summary.php
  if(isset($_POST["net_sales_detail"])){
 		 
       header('Content-Type: text/csv; charset=utf-8');  
       header('Content-Disposition: attachment; filename=Net Sales Detail.csv');  
       $output = fopen("php://output", "w");  
-      fputcsv($output, array('Invoice Number', 'Invoice Amount', 'Discount', 'Refund','Total'));  
-      $query = "SELECT quote(invoice_id) , sum(qty*unit_price),'0','0',sum(qty*unit_price) FROM invoice
-        		where
-                (date_format(date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')
-                group by invoice_id
-                order by invoice_id";  
+      fputcsv($output, array('Invoice Number', 'Invoice Date', 'Customer Name', 'Payment Method','Discount','Invoice Amount','Net Sales','Refund'));  
+      $query =  "SELECT quote(ih.invoice_number),
+                            ih.invoice_date,
+                            ih.customer_name,
+                            ih.payment_method,
+                            ih.discount_amount,
+                            invoice_line.total,
+                            invoice_line.total - ih.discount_amount, 
+                            ih.refund_status
+                            FROM invoice_header ih
+                            ,(
+                            SELECT sum(i.unit_price*i.qty) as total, sum(i.tax_amount) as tax , i.invoice_id
+                            From invoice i
+                            WHERE
+                            date_format(i.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            and i.ledger_id = '".$ledger_new."'
+                            group by
+                            i.invoice_id
+                            ) invoice_line
+                            WHERE
+                            ih.ledger_id = '".$ledger_new."'
+                            and ih.invoice_id = invoice_line.invoice_id
+                            and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            ";
       $result = mysqli_query($conn, $query);  
       while($row = mysqli_fetch_assoc($result))  
       {  
@@ -42,19 +156,120 @@ if(isset($_POST["ar_list_summary"])){
       fclose($output);  
  }
 
-if(isset($_POST["export_table_invoice"])){
+// table_invoice.php
+  if(isset($_POST["export_table_invoice"])){
+       
+        header('Content-Type: text/csv; charset=utf-8');  
+        header('Content-Disposition: attachment; filename=All Invoice.csv');  
+        $output = fopen("php://output", "w");  
+        fputcsv($output, array('Invoice Number','Invoice Date', 'Due Date','Customer Name', 'Discount','Payment Method', 'Refund','Tax','Outstanding Status'));  
+        $query = "SELECT 
+                  invoice_number,
+                  invoice_date,
+                  due_date,
+                  customer_name,
+                  discount_amount,
+                  payment_method,
+                  refund_status,
+                  tax_code,
+                  outstanding_status
+                  FROM invoice_header
+                  WHERE
+                  ledger_id = '".$ledger_new."'
+                  order by invoice_date asc";
+        $result = mysqli_query($conn, $query);  
+        while($row = mysqli_fetch_assoc($result))  
+        {  
+             fputcsv($output, $row);  
+        }  
+        fclose($output);  
+   } 
+
+// table_dynamic.php
+if(isset($_POST["inventory"])){
      
       header('Content-Type: text/csv; charset=utf-8');  
-      header('Content-Disposition: attachment; filename=Table_invoice.csv');  
+      header('Content-Disposition: attachment; filename=Inventory.csv');  
       $output = fopen("php://output", "w");  
-      fputcsv($output, array('Invoice Number','Description', 'Unit Price','Qty', 'Date','Month','Payment Method', 'Last Update By','Last Update Date','Created By','Created Date'));  
-      $query = "SELECT QUOTE(invoice_id),description,unit_price,qty,date,month,payment_method,last_update_by,last_update_date,created_by,created_date from invoice ORDER BY date desc";  
+      fputcsv($output, array('Item Code', 'Description', 'Quantity', 'COGS','Sales Price','MIN','MAX'));  
+      $query = "SELECT 
+                item_code,
+                description,
+                qty,
+                cogs,
+                sales_price,
+                min,
+                max
+                FROM 
+                inventory i
+                where 
+                ledger_id = '".$ledger_new."'  
+                order by 
+                description                            
+                ";
       $result = mysqli_query($conn, $query);  
       while($row = mysqli_fetch_assoc($result))  
       {  
            fputcsv($output, $row);  
       }  
       fclose($output);  
- } 
+  }
+
+// table_cogs.php
+if(isset($_POST["export_table_cogs"])){
+     
+      header('Content-Type: text/csv; charset=utf-8');  
+      header('Content-Disposition: attachment; filename=Table COGS.csv');  
+      $output = fopen("php://output", "w");  
+      fputcsv($output, array('Item Name', 'COGS', 'Sales Price', 'Transaction Date'));  
+      $query = "SELECT 
+                i.description , 
+                c.item_cost,
+                c.sales_price,
+                c.periode 
+                FROM cogs c, 
+                inventory i
+                where 
+                c.inventory_item_id = i.id
+                and c.ledger_id = i.ledger_id
+                and c.ledger_id = '".$ledger_new."'
+                and c.item_cost_id = (select 
+                  max(c_1.item_cost_id)
+                  From
+                  cogs c_1
+                  where
+                  c_1.inventory_item_id = c.inventory_item_id
+                  and c_1.ledger_id = c.ledger_id)
+                order by i.description
+                ";
+      $result = mysqli_query($conn, $query);  
+      while($row = mysqli_fetch_assoc($result))  
+      {  
+           fputcsv($output, $row);  
+      }  
+      fclose($output);  
+  }
+
+// table_supplier.php
+if(isset($_POST["export_table_supplier"])){
+     
+      header('Content-Type: text/csv; charset=utf-8');  
+      header('Content-Disposition: attachment; filename=Table COGS.csv');  
+      $output = fopen("php://output", "w");  
+      fputcsv($output, array('Supplier Name', 'Supplier Site', 'Supplier Type', 'Tax'));  
+      $query = "SELECT supplier_name,
+                supplier_site,
+                supplier_type,
+                tax
+                FROM ap_supplier_all
+                where
+                ledger_id = '".$ledger_new."'";
+      $result = mysqli_query($conn, $query);  
+      while($row = mysqli_fetch_assoc($result))  
+      {  
+           fputcsv($output, $row);  
+      }  
+      fclose($output);  
+  }
 
  ?>

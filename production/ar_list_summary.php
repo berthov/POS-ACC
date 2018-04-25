@@ -2,8 +2,11 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
-$p_start_date= $_REQUEST['p_start_date']; 
-$p_end_date= $_REQUEST['p_end_date']; 
+include("query/find_ledger.php");
+
+$start_date= $_REQUEST['start_date']; 
+$end_date= $_REQUEST['end_date'];
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +68,7 @@ $p_end_date= $_REQUEST['p_end_date'];
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h4>Filtered From <?php echo $p_start_date;?> To <?php echo $p_end_date;?></h4>
+                    <h4>Filtered From <?php echo date('d-M-Y', strtotime($start_date));?> To <?php echo date('d-M-Y', strtotime($end_date));?></h4>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -73,47 +76,85 @@ $p_end_date= $_REQUEST['p_end_date'];
                       
                     </p>
           
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                       <thead>
                         <tr>
                           <th>Invoice Number</th>
-                          <th>Item Description</th>
-                          <th>Quantity</th>
-                          <th>Unit Price</th>
                           <th>Invoice Date</th>
+                          <th>Due Date</th>
+                          <th>Customer Name</th>
                           <th>Payment Method</th>
-                          <!-- Belum butuh -->
-                          <!-- <th style="width: 20%">#Edit</th> -->
+                          <!-- <th>Discount</th> -->
+                          <th>Invoice Amount</th>
+                          <!-- <th>Tax</th> -->
+                          <th>Refund</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <?php
 
-                            $sql = "SELECT * FROM invoice
-                            where
-                            (date_format(date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."')";
+                         <?php
+                            $sql = "SELECT ih.invoice_number,
+                            ih.invoice_date,
+                            ih.due_date,
+                            ih.customer_name,
+                            ih.discount_amount, 
+                            ih.payment_method,
+                            ih.refund_status,
+                            invoice_line.total, 
+                            invoice_line.tax
+                            FROM invoice_header ih
+                            ,(
+                            SELECT sum(i.unit_price*i.qty) as total, sum(i.tax_amount) as tax , i.invoice_id
+                            From invoice i
+                            WHERE
+                            date_format(i.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            and i.ledger_id = '".$ledger_new."'
+                            group by
+                            i.invoice_id
+                            ) invoice_line
+                            WHERE
+                            ih.ledger_id = '".$ledger_new."'
+                            and ih.invoice_id = invoice_line.invoice_id
+                            and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            ";
                             $result = $conn->query($sql);
-                            while($row = $result->fetch_assoc()) {
-                        ?>
-                      
+                            while($row = $result->fetch_assoc()) {                      
+                         ?>
+
                         <tr>
-                          <td><?php echo $row["invoice_id"]?></td>
-                          <td><?php echo $row["description"]?></td>
-                          <td><?php echo $row["qty"]?></td>
-                          <td><?php echo number_format($row["unit_price"])?></td>
-                          <td><?php echo $row["date"]?></td>
-                          <td><?php echo $row["payment_method"]?></td>
-                          <!-- Belum butuh -->
-                          <!-- <td align="center">
-                            <a href="invoice.html" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                          <td>
+                            <?php echo $row['invoice_number']; ?>
+                          </td>
+                          <td>
+                            <?php echo date('d-M-Y', strtotime($row['invoice_date'])) ?>
+                          </td>
+                          <td>
+                            <?php echo date('d-M-Y', strtotime($row['due_date'])) ?>
+                          </td>
+                          <td>
+                            <?php echo $row['customer_name']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['payment_method']; ?>
+                          </td>
+<!--                           <td>
+                            <?php echo $row['discount_amount']; ?>
                           </td> -->
-                        </tr>
-                        
+                          <td>
+                            <?php echo number_format($row['total']); ?>
+                          </td>
+                          <!-- <td>
+                            <?php echo number_format($row['tax']); ?>
+                          </td> -->
+                          <td>
+                            <?php echo $row['refund_status']; ?>
+                          </td>
+                        </tr> 
+
                         <?php
-                        }
-                        ?>
-                      
+                          }        
+                        ?>  
+
                       </tbody>
                     </table>
                  
@@ -122,15 +163,14 @@ $p_end_date= $_REQUEST['p_end_date'];
 
 
 
-                   <form class="form-horizontal" action="controller/export_index_csv.php?p_start_date=<?=$p_start_date?>&p_end_date=<?=$p_end_date?>" method="post" name="upload_excel" enctype="multipart/form-data">
-                              <div class="form-group">
-                                <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
-                                <div class="col-md-4">
-                                    <input type="submit" name="ar_list_summary" class="btn btn-success" value="Export to excel"/>
-                                </div>
-                              </div>                    
-                  </form>
-
+                 <form class="form-horizontal" action="controller/export_index_csv.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>" method="post" name="ar_list_summary" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
+                    <div class="col-md-4">
+                        <input type="submit" name="ar_list_summary" class="btn btn-success" value="Export to excel"/>
+                    </div>
+                  </div>                    
+                </form>
               </div>
             </div>
           </div>

@@ -79,7 +79,7 @@ if(isset($_REQUEST['reservation'])){
                   </div>
                   <div class="x_content">
                     Gross Profit
-                    To report gross profit accurately per category, please make sure all items have a COGS.
+                    To report gross profit accurately per category (Excluded Discount), please make sure all items have a COGS.
                   </div>
                 </div>
                 <div class="x_panel">

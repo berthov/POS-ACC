@@ -3,8 +3,7 @@
   FROM invoice a,
   invoice_header ih 
   where
-  ih.refund_status not in ('Yes')
-  and date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+  date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
   and a.ledger_id = '".$ledger_new."'
   and a.invoice_id = ih.invoice_id
   and a.ledger_id = ih.ledger_id
