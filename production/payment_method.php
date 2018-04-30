@@ -58,11 +58,11 @@ if(isset($_REQUEST['reservation'])){
               <div class="col-md-10 col-sm-10 col-xs-12">
                 <div class="x_panel">
                  <div class="row x_title"> 
-                   <div class="col-md-4">
+                   <div class="col-md-4 col-xs-12">
                       <h2>Payment Method</h2>
                       <div class="clearfix"></div>
                     </div>
-                   <div class="col-md-12">
+                   <div class="col-md-12 col-xs-12">
                           <form class="form-horizontal">
                             <fieldset>
                               <div class="control-group" >

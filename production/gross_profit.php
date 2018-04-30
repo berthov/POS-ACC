@@ -84,11 +84,11 @@ if(isset($_REQUEST['reservation'])){
                 </div>
                 <div class="x_panel">
                  <div class="row x_title"> 
-                   <div class="col-md-4">
-                      <h2>Sales Summary</h2>
+                   <div class="col-md-4 col-xs-12">
+                      <h2>Gross Summary</h2>
                       <div class="clearfix"></div>
                     </div>
-                   <div class="col-md-12">
+                   <div class="col-md-12 col-xs-12">
                           <form class="form-horizontal" action="gross_profit.php" method="post">
                             <fieldset>
                               <div class="control-group" >

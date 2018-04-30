@@ -50,7 +50,7 @@ include("query/find_ledger.php");
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_content">
                     <div class="row">
@@ -76,7 +76,7 @@ include("query/find_ledger.php");
                             $a = 0;
                             while($row = $result->fetch_assoc()) {
                         ?>
-                        <div class="col-md-3">
+                        <div class="col-md-4 col-xs-6 col-lg-2">
                           <div class="thumbnail" align="center">
                             <p><input type="hidden" name="arr[]" value="<?php echo $row["id"]?>"><?php echo $row["description"]?></p>
                             <p><input type="hidden" name="arr1[]" value="<?php echo $row["sales_price"]?>"><?php echo number_format($row["sales_price"]) ?></p>
@@ -106,7 +106,7 @@ include("query/find_ledger.php");
                         $a ++;
                         }
                         ?>
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12">
                           <br>
                         </div>
                         <div class="clearfix"></div>

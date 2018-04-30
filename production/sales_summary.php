@@ -64,12 +64,12 @@ if(isset($_REQUEST['reservation'])){
                 <div class="x_panel">
                  <div class="row x_title"> 
                                             
-                   <div class="col-md-4">
+                   <div class="col-md-4 col-xs-12">
                       <h2>Sales Summary</h2>
                       <div class="clearfix"></div>
                     </div>
                     <!-- Date Picker -->
-                   <div class="col-md-12">
+                   <div class="col-md-12 col-xs-12">
                     <!--INI GK JELAS PARAMETERNYA  -->
                     <!-- kalo gw pake onchange kgak mau di click pas udah milih tanggal -->
                       <form class="form-horizontal" action="sales_summary.php" method="post">
