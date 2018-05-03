@@ -47,13 +47,13 @@
                           where
                           ih.ledger_id = '".$ledger_new."'
                           and ih.outstanding_status not like 'Paid'
-                          and datediff(date_format(sysdate(),'%Y-%m-%d'),due_date) <= 4) as description
+                          and datediff(date_format(sysdate(),'%Y-%m-%d'),due_date) <= 4) as count
                           FROM DUAL
                           ";
 
                         $result = $conn->query($sql);
                         while($row = $result->fetch_assoc()) {
-                        echo $row['description']
+                        echo $row['count'];
                         }
                     ?>
                     
