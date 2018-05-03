@@ -1,8 +1,3 @@
-<?php
-include("controller/session.php");
-include("controller/doconnect.php");
-?>
-
 <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
@@ -32,58 +27,79 @@ include("controller/doconnect.php");
 <!-- INI UNTUK NOTIFICATION NANTI PAKE QUERY AJA -->
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <i class="fa fa-bell-o"></i>
+                    <span class="badge bg-green">
+                    
+                    <?php
+
+                        $sql = "SELECT 
+                          (SELECT
+                          COUNT(description) as description
+                          FROM 
+                          inventory i
+                          where 
+                          ledger_id = '".$ledger_new."'
+                          and qty <= min 
+                          ) +
+                          (SELECT 
+                          COUNT(invoice_number)
+                          from invoice_header ih
+                          where
+                          ih.ledger_id = '".$ledger_new."'
+                          and ih.outstanding_status not like 'Paid'
+                          and datediff(date_format(sysdate(),'%Y-%m-%d'),due_date) <= 4) as description
+                          FROM DUAL
+                          ";
+
+                        $result = $conn->query($sql);
+                        while($row = $result->fetch_assoc()) {
+                        echo $row['description']
+                        }
+                    ?>
+                    
+
+                    </span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    
+                    <?php
+                        $sql = "SELECT concat('Item Description : ',description) as description
+                          FROM 
+                          inventory i
+                          where 
+                          ledger_id = '".$ledger_new."'
+                          and qty <= min 
+                          UNION All
+                          select concat('Invoice Number : ',invoice_number)
+                          from invoice_header ih
+                          where
+                          ih.ledger_id = '".$ledger_new."'
+                          and ih.outstanding_status not like 'Paid'
+                          and datediff(date_format(sysdate(),'%Y-%m-%d'),due_date) <= 4
+                          ";
+
+                        $result = $conn->query($sql);
+                        while($row = $result->fetch_assoc()) {
+                    ?>
+                    
                     <li>
                       <a>
                         <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
                         <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
+                          <span><?php echo ($user_check); ?></span>
                         </span>
                         <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                          <h6><b><?php echo $row['description'];?></b></h6>
                         </span>
                       </a>
                     </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
-                        <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
-                        <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
-                        <span>
-                          <span>Bernard Thoven</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
+                    
+                    <?php
+                    
+                    }
+                    
+                    ?>
+
                     <li>
                       <div class="text-center">
                         <a href="tables.html">

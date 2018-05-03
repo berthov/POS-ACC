@@ -141,23 +141,13 @@ echo "string";
 
                 echo "<br>";
 
-                            $cash = "Cash";
-
-                            $sql1 = "SELECT count(a.invoice_id) as count
-                            FROM invoice a
-                            where
-                            a.invoice_line_id = (select max(b.invoice_line_id)
-                            from invoice b
-                            where b.invoice_id = a.invoice_id)
-                            and a.payment_method = '".$cash."'
+                            $sql1 = "select datediff(date_format(sysdate(),'%Y-%m-%d'),'2018-05-01') as dess
+                            from dual
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
-                              echo $row1['count'];
+                              echo $row1['dess'];
                           }
-
-echo "<br>";
-                          echo date("mdhs"). "" ."asd";
 
 
 ?>
