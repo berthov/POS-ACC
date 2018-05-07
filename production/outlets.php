@@ -18,6 +18,11 @@ include("query/find_ledger.php");
 
     <title>Bonne Journée </title>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -45,8 +50,8 @@ include("query/find_ledger.php");
 
   <body class="nav-md">
         
-      <div class="main_container">
-        <!-- jQuery -->
+    <div class="main_container">
+    <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -63,7 +68,7 @@ include("query/find_ledger.php");
     <!-- Custom Theme Scripts -->
     <!-- <script src="../build/js/custom.min.js"></script> -->
      <!-- Change Status -->
-    <script src="../production/controller/changeOutletStatus.js"></script>
+    <script src="../production/controller/changeStatus.js"></script>
 
     <!-- Switchery -->
     <script src="../vendors/switchery/dist/switchery.min.js"></script>
@@ -155,11 +160,10 @@ include("query/find_ledger.php");
                           <td><?php echo $row1['province'];?></td>
                           <td><?php echo $row1['staff'];?></td>
                           <td>
-                              <input type="checkbox" class="changeStatus" checked data-value=<?php echo $row1['status'];?> data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-id=<?php echo $row1['outlet_id']; ?>>                          
+                              <input type="checkbox" class="changeOutletStatus" checked data-value=<?php echo $row1['status'];?> data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-id=<?php echo $row1['outlet_id']; ?>>                          
                           </td>
                            <script type="text/javascript">
-                            var checked;
-                            $('.changeStatus').each(function(){
+                            $('.changeOutletStatus').each(function(){
                               var dataStatus = $(this).data('value');
                               if(dataStatus == "Inactive"){
                                 $(this).removeAttr("checked");

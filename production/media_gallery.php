@@ -98,6 +98,8 @@ include("query/find_ledger.php");
                             <?php
                             if ($row["qty"] == 0){
                               echo '<i style="color:red";>Insufficient Quantity</i>';
+                            } else {
+                              echo '<i style="color:green";> ' . $row["qty"] . ' item(s) available</i>';
                             }
                             ?>
                           </div>
