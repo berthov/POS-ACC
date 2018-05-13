@@ -1,10 +1,14 @@
 <?php
 session_start();
 include("controller/session.php");
+?>
+
+<!DOCTYPE html>
+<?php
 include("controller/doconnect.php");
 include("query/find_ledger.php");
 ?>
-<!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,6 +19,11 @@ include("query/find_ledger.php");
 
     <title>Gentelella Alela! | </title>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -24,6 +33,14 @@ include("query/find_ledger.php");
     
     <!-- Custom styling plus plugins -->
     <link href="../build/css/custom.css" rel="stylesheet">
+    <!-- Change Status -->
+    <script src="../production/controller/changeStatus.js"></script>
+
+    <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
+  
+    <link href="../vendors/switchery/bootstrap_toggle/2.2.2/bootstrap_toggle.min.css" rel="stylesheet">
+    <script src="../vendors/switchery/bootstrap_toggle/2.2.2/bootstrap_toggle.min.js"></script>
   </head>
 
   <body class="nav-md">
@@ -54,7 +71,7 @@ include("query/find_ledger.php");
                 <div class="x_panel">
                   <div class="x_content">
                     <div class="row">
-                      <form action="controller/doaddnewinvoice.php" method="POST" >
+                      <form id="formInvoice" action="controller/doaddnewinvoice.php" method="POST" >
                         <?php
 
                             $sql = "SELECT i.id, i.description , c.sales_price ,i.qty
@@ -76,6 +93,7 @@ include("query/find_ledger.php");
                             $a = 0;
                             while($row = $result->fetch_assoc()) {
                         ?>
+
                         <div class="col-md-4 col-xs-6 col-lg-2">
                           <div class="thumbnail" align="center">
                             <p><input type="hidden" name="arr[]" value="<?php echo $row["id"]?>"><?php echo $row["description"]?></p>
@@ -87,7 +105,7 @@ include("query/find_ledger.php");
                                           <span class="glyphicon glyphicon-minus"></span>
                                         </button>
                                     </span>
-                                    <input type="text" name="quant[<?php echo $a ?>]" class="form-control input-number" value="0" min="0" max="<?php echo $row["qty"] ?>">
+                                    <input type="text" name="quant[<?php echo $a ?>]" data-description="<?php echo $row["description"]?>" class="form-control input-number" value="0" min="0" max="<?php echo $row["qty"] ?>">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[<?php echo $a ?>]">
                                             <span class="glyphicon glyphicon-plus"></span>
@@ -114,41 +132,78 @@ include("query/find_ledger.php");
                         <div class="clearfix"></div>
                         <!-- <button type="submit" name="submit" value="Insert" class="btn btn-round btn-primary" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button> -->
 
-                        <button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button>
+                        <button type="button" class="btn btn-round btn-primary" data-target=".bs-example-modal-sm" data-toggle="modal" onclick="validateValue();" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button>
+                        
                         <!--Modal -->
-                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-                          <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
+                          <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                              <div class="modal-content">
 
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                                </button>
-                                <h4 class="modal-title" id="myModalLabel2">Payment Method</h4>
-                              </div>
-                              <div class="modal-body">
-                               
-                        <div class="form-group">
-                          <select class="form-control" name="payment_method">
-                            <option value="Cash">Cash</option>
-                            <option value="Debit/Credit">Debit/Credit</option>
-                            <option value="Voucher">Voucher</option>
-                            <option>Option Three</option>
-                          </select>
-                        </div>
-                                <!-- <div class="md-form form-sm">
-                                    <input type="text" id="payment_method" class="form-control" name="payment_method">
-                              
-                                </div> -->
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel2">Your Order</h4>
+                                  </div>
+                                  
+                                  <div class="modal-body description">
+                                    <div class="form-group">
+                                    </div>
+                                  </div>
+
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel2">Discount & Tax</h4>
+                                  </div>
+
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <div>
+                                        <label class="col-sm-4">Discount</label>
+                                        <div class="col-sm-6">
+                                          <input type="text" ="discount" name="discount" required/>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <div>
+                                        <label class="col-sm-4">Tax</label>
+                                        <div class="col-sm-6">
+                                          <td>
+                                              <input type="checkbox" class="tax" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" >                          
+
+                                          </td>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <p></p>
+
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel2">Payment Method</h4>
+                                  </div>
+
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <select class="form-control" name="payment_method" id="payment_method">
+                                        <option value="Cash">Cash</option>
+                                        <option value="Debit/Credit">Debit/Credit</option>
+                                        <option value="Voucher">Voucher</option>
+                                        <option>Option Three</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                  </div>
 
                               </div>
-
                             </div>
                           </div>
-                        </div>
                         <!--Modal -->
                       </form>
                     </div>
@@ -177,81 +232,8 @@ include("query/find_ledger.php");
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-    <script type="text/javascript">
-      //plugin bootstrap minus and plus
-//http://jsfiddle.net/laelitenetwork/puJ6G/
-$('.btn-number').click(function(e){
-    e.preventDefault();
-    
-    fieldName = $(this).attr('data-field');
-    type      = $(this).attr('data-type');
-    var input = $("input[name='"+fieldName+"']");
-    var currentVal = parseInt(input.val());
-    if (!isNaN(currentVal)) {
-        if(type == 'minus') {
-            
-            if(currentVal > input.attr('min')) {
-                input.val(currentVal - 1).change();
-            } 
-            if(parseInt(input.val()) == input.attr('min')) {
-                $(this).attr('disabled', true);
-            }
+    <script src="../production/controller/media_gallery.js"></script>
 
-        } else if(type == 'plus') {
-
-            if(currentVal < input.attr('max')) {
-                input.val(currentVal + 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('max')) {
-                $(this).attr('disabled', true);
-            }
-
-        }
-    } else {
-        input.val(0);
-    }
-});
-$('.input-number').focusin(function(){
-   $(this).data('oldValue', $(this).val());
-});
-$('.input-number').change(function() {
     
-    minValue =  parseInt($(this).attr('min'));
-    maxValue =  parseInt($(this).attr('max'));
-    valueCurrent = parseInt($(this).val());
-    
-    name = $(this).attr('name');
-    if(valueCurrent >= minValue) {
-        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the minimum value was reached');
-        $(this).val($(this).data('oldValue'));
-    }
-    if(valueCurrent <= maxValue) {
-        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the maximum value was reached');
-        $(this).val($(this).data('oldValue'));
-    }
-    
-    
-});
-$(".input-number").keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-             // Allow: Ctrl+A
-            (e.keyCode == 65 && e.ctrlKey === true) || 
-             // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-    });
-
-    </script>
   </body>
 </html>

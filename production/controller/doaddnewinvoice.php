@@ -38,13 +38,13 @@
 		}
     }
 	                  
-	if ($subtotal <= 0 ){
+	/*if ($subtotal <= 0 ){
 	echo 	"<script>
 		  			alert('Please Input Quantity');
     				window.history.back();
     		</script>";
     	}
-    	else{
+    	else{*/
 ?>
 
 <!--  <table>
@@ -123,7 +123,7 @@
                             <?php echo $arr[$x]; ?><br>
                             <?php
                         		}
-	                        }
+	                         
 	                        ?>
 
                           </div>
