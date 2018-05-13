@@ -159,7 +159,7 @@ include("query/find_ledger.php");
                                       <div>
                                         <label class="col-sm-4">Discount</label>
                                         <div class="col-sm-6">
-                                          <input type="text" ="discount" name="discount" required/>
+                                          <input type="text" class="discount" name="discount" required/>
                                         </div>
                                       </div>
                                     </div>
