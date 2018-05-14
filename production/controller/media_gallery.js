@@ -152,9 +152,10 @@ $(".input-number").keydown(function (e) {
     }
 });
 
-// $(document).ready(function(){
-//     $("#button1").click(function(){
-//         $("#div1").toggle();
-//     });
-// });
+$(document).ready(function(){
+    $("#div1").hide();
+    $("#button1").on("click", function(){
+        $("#div1, #div2").toggle();
+    });
+});
 

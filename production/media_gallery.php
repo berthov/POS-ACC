@@ -285,16 +285,5 @@ include("query/find_ledger.php");
     <script src="../production/controller/media_gallery.js"></script>
 
 
-<script>
-
-$(document).ready(function(){
-    $("#div1").hide();
-    $("#button1").on("click", function(){
-        $("#div1, #div2").toggle();
-    });
-});
-
-</script>
-
   </body>
 </html>
