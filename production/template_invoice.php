@@ -6,6 +6,8 @@ include("controller/doconnect.php");
 $invoice_id = $_REQUEST['invoice_id'];
 $user_check = $_SESSION['login_user'];
 
+include ("query/find_ledger.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

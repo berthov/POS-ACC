@@ -89,14 +89,7 @@ include("query/find_ledger.php");
                           <input type="number" id="qty" name="qty" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
-<!--                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">COGS <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="cogs" name="cogs" required="required" min="0.00000001" max="999999999999999" class="form-control col-md-7 col-xs-12" placeholder="0.00000001-999999999999999">
-                        </div>
-                      </div>
-                      <div class="item form-group">
+                      <!-- <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="unit_price">Unit Price <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -115,6 +108,31 @@ include("query/find_ledger.php");
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="number" id="min" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Category 
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <select name="category" id="category" onchange="showfield(this.options[this.selectedIndex].value)" class="form-control col-md-7 col-xs-12">
+                          <option value="uncategorized">Select Or Add Category</option>
+                          
+                           <?php
+                            $sql = "SELECT distinct category 
+                            FROM inventory
+                            where ledger_id = '".$ledger_new."'
+                            ";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                              <option value="<?php echo $row["category"] ?>"> <?php echo $row["category"] ?></option>
+                          <?php
+                            }
+                          ?>
+
+                          <option value="Other">Add Category</option>
+                          </select>
+                          <div id="div1"></div>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -147,9 +165,8 @@ include("query/find_ledger.php");
                                   <div class="col-md-4">
                                       <button type="submit" name="Import_inventory" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
                                   </div>
-                              </div>
-       
-                    </fieldset>
+                              </div>      
+                       </fieldset>
                  </form>
                 </div>
               </div>
@@ -176,7 +193,17 @@ include("query/find_ledger.php");
         <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script src="../production/common/error.js"></script>
+    <!-- <script src="../production/common/error.js"></script> -->
+
+
+    <script type="text/javascript">
+    function showfield(name){
+      if(name=='Other')document.getElementById('div1').innerHTML='<input type="text" name="category" id="category" class="form-control col-md-7 col-xs-12" />';
+      else document.getElementById('div1').innerHTML='';
+    }
+    </script>
+
+
 
   </body>
 </html>

@@ -118,10 +118,11 @@ if(isset($_REQUEST['reservation'])){
 
                         <?php
                             $sql1 = "SELECT 
+                            b.category,
                             sum(a.qty*a.unit_price) as gross_sales , 
                             sum(a.qty*a.unit_price) as net_sales , 
                             sum(a.qty) as qty , 
-                            b.description , 
+                            -- b.description , 
                             sum(a.cogs * a.qty) as cogs , 
                             sum(a.qty*a.unit_price)- sum(a.cogs * a.qty) as gross_profit 
                             FROM invoice a,
@@ -134,14 +135,15 @@ if(isset($_REQUEST['reservation'])){
                             and ih.invoice_id = a.invoice_id
                             and ih.refund_status NOT IN ('Yes')
                             and ih.ledger_id = a.ledger_id
-                            group by b.description
+                            group by 
+                            b.category
                             ";
                             $result1 = $conn->query($sql1);
                             while($row1 = $result1->fetch_assoc()) {                                                               
                               ?>
 
                         <tr>
-                          <td><?php echo $row1['description'];?></td>
+                          <td><?php echo $row1['category'];?></td>
                           <td><?php echo $row1['qty'];?></td>
                           <td>Rp.<?php echo number_format($row1['gross_sales']);?></td>
                           <td>Rp.<?php echo number_format($row1['cogs']);?></td>

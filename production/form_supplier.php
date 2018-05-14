@@ -108,31 +108,30 @@ include("query/find_ledger.php");
                     </form>
                   </div>
                 </div>
-                <div class="x_panel">
-                  <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="upload_excel" enctype="multipart/form-data">
-                     <fieldset>
+                <!-- <div class="x_panel">
+                  <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+                     <fieldset> -->
                               <!-- Form Name -->
-                              <legend>MASS ADD CSV </legend>
+                              <!-- <legend>MASS ADD CSV </legend> -->
        
                               <!-- File Button -->
-                              <div class="form-group">
+                           <!--    <div class="form-group">
                                   <label class="col-md-4 control-label " for="filebutton">Select File</label>
                                   <div class="col-md-4">
                                       <input type="file" name="file" id="file" class="input-large">
                                   </div>
                               </div>
-       
+        -->
                               <!-- Button -->
-                              <div class="form-group">
+                      <!--         <div class="form-group">
                                   <label class="col-md-4 control-label" for="singlebutton">Import data</label>
                                   <div class="col-md-4">
-                                      <button type="submit" id="submit" name="Import_supplier" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+                                      <button type="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
                                   </div>
-                              </div>
-       
-                    </fieldset>
+                              </div>      
+                       </fieldset>
                  </form>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

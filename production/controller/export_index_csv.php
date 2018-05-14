@@ -29,8 +29,8 @@ $last_update_date =  date("Y-m-d");
            {
 
 
-             $sql = "INSERT into inventory (item_code, description,qty,sales_price,min,max,cogs, created_by , created_date,last_update_by,last_update_date,ledger_id) 
-                   values ('".$getData[1]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$getData[6]."','".$getData[7]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."')";
+             $sql = "INSERT into inventory (item_code, description,qty,sales_price,min,max,cogs,status,category,created_by,last_update_by,created_date,last_update_date,ledger_id) 
+                   values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$getData[6]."','".$getData[7]."','".$getData[8]."','".$user_check."','".$user_check."','".$created_date."','".$last_update_date."','".$ledger_new."')";
                    $result = mysqli_query($conn, $sql);
         if(!isset($result))
         {
@@ -40,7 +40,7 @@ $last_update_date =  date("Y-m-d");
               </script>";   
         }
         else {
-            header("Location:../table_dynamic.php");
+            header("Location:../tables_dynamic.php");
         }
            }
       
@@ -61,8 +61,8 @@ $last_update_date =  date("Y-m-d");
            {
 
 
-             $sql = "INSERT into ap_supplier_all (supplier_name, supplier_site,supplier_type,status,tax , created_by , created_date,last_update_by,last_update_date) 
-                   values ('".$getData[1]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+             $sql = "INSERT into ap_supplier_all (supplier_name, supplier_site,supplier_type,status,tax) 
+                   values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."')";
                    $result = mysqli_query($conn, $sql);
         if(!isset($result))
         {
@@ -72,7 +72,7 @@ $last_update_date =  date("Y-m-d");
               </script>";   
         }
         else {
-            header("Location:../upload_csv.php?");
+            header("Location:../form_supplier.php");
         }
            }
       
@@ -191,7 +191,7 @@ if(isset($_POST["inventory"])){
       header('Content-Type: text/csv; charset=utf-8');  
       header('Content-Disposition: attachment; filename=Inventory.csv');  
       $output = fopen("php://output", "w");  
-      fputcsv($output, array('Item Code', 'Description', 'Quantity', 'COGS','Sales Price','MIN','MAX'));  
+      fputcsv($output, array('Item Code', 'Description', 'Quantity', 'COGS','Sales Price','MIN','MAX','Status','Category'));  
       $query = "SELECT 
                 item_code,
                 description,
@@ -199,7 +199,9 @@ if(isset($_POST["inventory"])){
                 cogs,
                 sales_price,
                 min,
-                max
+                max,
+                status,
+                category
                 FROM 
                 inventory i
                 where 

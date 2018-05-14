@@ -6,13 +6,12 @@
 	$id = $_REQUEST['id'];
 	$item_code = $_REQUEST['item_code'];	
 	$description = $_REQUEST['description'];
-	$qty = $_REQUEST['qty'];
-	$unit_price = $_REQUEST['unit_price'];
 	$min = $_REQUEST['min'];
 	$max = $_REQUEST['max'];
+	$category = $_REQUEST['category'];
 	$last_update_date =  date("Y-m-d");
 
-	if($item_code=="" || $description=="" || $qty=="" || $unit_price=="" || $min=="" || $max==""){
+	if($item_code=="" || $description=="" || $min=="" || $max==""){
 		echo "
 			<script>
 		  			alert('All fields must be filled');
@@ -23,20 +22,6 @@
 		echo "
 			<script>
 		  			alert('Item Code must be under 21 Character');
-    				window.history.back();
-    		</script>";
-	}
-	else if (is_numeric($qty) == 0) {
-		echo "
-			<script>
-		  			alert('Quantity must be a number');
-    				window.history.back();
-    		</script>";
-	}
-	else if (is_numeric($unit_price == 0)) {
-		echo "
-			<script>
-		  			alert('Unit price must be a number');
     				window.history.back();
     		</script>";
 	}
@@ -56,7 +41,7 @@
 	}
 	else{
 		
-		$sql = "UPDATE INVENTORY SET item_code= '".$item_code."', description = '".$description."',qty = '".$qty."',unit_price = '".$unit_price."',min='".$min."',max='".$max."' ,last_update_by = '".$user_check."'  ,last_update_date = '".$last_update_date."' where ID = '".$id."'";
+		$sql = "UPDATE INVENTORY SET item_code= '".$item_code."', description = '".$description."',min='".$min."',max='".$max."' ,last_update_by = '".$user_check."'  ,last_update_date = '".$last_update_date."' , category = '".$category."' where ID = '".$id."'";
 		
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";

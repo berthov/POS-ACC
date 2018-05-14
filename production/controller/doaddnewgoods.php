@@ -14,7 +14,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 	// $unit_price = $_REQUEST['unit_price'];
 	$min = $_REQUEST['min'];
 	$max = $_REQUEST['max'];
-	// $cogs = $_REQUEST['cogs'];
+	$category = $_REQUEST['category'];
+	// $category = 'Uncategorized';
 	$created_date =  date("Y-m-d");	
 	$last_update_date =  date("Y-m-d");
 
@@ -31,8 +32,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		}
 		else{
 
-		$sql = "INSERT INTO inventory (item_code, description,qty,min,max,created_by , created_date,last_update_by,last_update_date,ledger_id)
-		VALUES ('".$item_code."', '".$description."','".$qty."' ,'".$min."' , '".$max."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."')";
+			// echo $category;
+			
+		$sql = "INSERT INTO inventory (item_code, description,qty,min,max,created_by , created_date,last_update_by,last_update_date,ledger_id,status,category)
+		VALUES ('".$item_code."', '".$description."','".$qty."' ,'".$min."' , '".$max."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."','Active','".$category."')";
 
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";
@@ -42,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		mysqli_close($conn);
 
-		header("Location:../form_validation.php");
+		// header("Location:../form_validation.php");
 
 
 	}

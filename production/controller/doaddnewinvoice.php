@@ -21,15 +21,15 @@
   $type = 'Penjualan';
   
   // ini variable tambahan buat nanti
-  $discount = 5000;
+  $discount = $_REQUEST['discount'];
   $outstanding_status = 'Open';
   $refund_status = 'No';
   $due_date = date("y-m-d H:i:s");
   //ini sementara dulu. tunggu form tax yang dari page media_gallery.php 
-  $tax_code = 0.1;
-  $customer_name = 'Yohanes';
-  // harusnya pake yang ini $tax_code = $_REQUEST['tax_code'];
-
+  $tax_code = $_REQUEST['tax_code'];
+  $customer_name = $_REQUEST['customer_name'];
+   
+ 
 
 	$subtotal = 0;
 	for($x = 0; $x < count($arr); $x++ ){

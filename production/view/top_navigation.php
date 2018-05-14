@@ -40,6 +40,7 @@
                           where 
                           ledger_id = '".$ledger_new."'
                           and qty <= min 
+                          and status = 'Active'
                           ) +
                           (SELECT 
                           COUNT(invoice_number)
@@ -63,12 +64,13 @@
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     
                     <?php
-                        $sql = "SELECT concat('Item Description : ',description) as description
+                        $sql = "SELECT concat(description, ' : Quantity below Minimum') as description
                           FROM 
                           inventory i
                           where 
                           ledger_id = '".$ledger_new."'
                           and qty <= min 
+                          and status = 'Active'
                           UNION All
                           select concat('Invoice Number : ',invoice_number)
                           from invoice_header ih
@@ -76,6 +78,7 @@
                           ih.ledger_id = '".$ledger_new."'
                           and ih.outstanding_status not like 'Paid'
                           and datediff(date_format(sysdate(),'%Y-%m-%d'),due_date) <= 4
+                          LIMIT 5
                           ";
 
                         $result = $conn->query($sql);
