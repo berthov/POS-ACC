@@ -105,7 +105,7 @@ include("query/find_ledger.php");
                                           <span class="glyphicon glyphicon-minus"></span>
                                         </button>
                                     </span>
-                                    <input type="text" name="quant[<?php echo $a ?>]" data-description="<?php echo $row["description"]?>" class="form-control input-number" value="0" min="0" max="<?php echo $row["qty"] ?>">
+                                    <input type="text" name="quant[<?php echo $a ?>]" data-description="<?php echo $row["description"]?>" data-price=<?php echo ($row["sales_price"]) ?> class="form-control input-number" value="0" min="0" max="<?php echo $row["qty"] ?>">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[<?php echo $a ?>]">
                                             <span class="glyphicon glyphicon-plus"></span>
@@ -145,10 +145,17 @@ include("query/find_ledger.php");
                                     <h4 class="modal-title" id="myModalLabel2">Your Order</h4>
                                   </div>
                                   
-                                  <div class="modal-body description">
-                                    <div class="form-group">
-                                    </div>
+                                  <div class="modal-body" style="display:flex;">
+                                    <div class="form-group description" style="flex:4;"></div>
+                                    <div class="form-group quantity" style="width:10px; flex:1; text-align:center;"></div>
+                                    <div class="form-group itemprice" style="width:10px; flex:1; text-align:right;"></div>
                                   </div>
+                                  
+                                  <div class="modal-body" style="display:flex;">
+                                    <div class="form-group" style="flex:5; align:right">Total before Discount & Tax</div>
+                                    <div class="form-group total" style="width:10px; flex:1; text-align:right;"></div>
+                                  </div>
+
 
                                   <div class="modal-header">
                                     <h4 class="modal-title" id="myModalLabel2">Discount & Tax</h4>

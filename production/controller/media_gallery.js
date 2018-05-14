@@ -4,40 +4,72 @@ function validateValue() {
   var quantity;
   var flag = 0;
   var description=[];
+  var itemquantity=[];
   var desc ;
+  var pricePerItem=[];
+  var multiply;
+  var sum = 0;
+  
   var $table = $( "<table></table>" );
+  var $table1 = $( "<table></table>" );
+  var $table2 = $( "<table></table>" );
+  var $table3 = $( "<table></table>" );
 
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
     eachquantity = this.value;
-    
     if(eachquantity != "0" ){
       flag++;
       description.push($(this).attr('data-description'));
-      console.log(description);
-      console.log(eachquantity);
+      pricePerItem.push($(this).attr('data-price'));
+      itemquantity.push(+eachquantity);
+
     }  
+
   })
+  multiply = itemquantity.map(function(x, index) {
+    var curMult = x * pricePerItem[index];
+    sum += curMult;
+    return curMult;
+  });
+
   if(flag == "0" ){
     $('.btn-primary').removeAttr('data-target','.bs-example-modal-sm');
     toastr.error('Please Input Value!'); 
   }else{
     for ( var i = 0; i < description.length; i++ ) {
         var desc = description[i];
-        var $line = $( "<tr></tr>" );
-        $line.append( $( "<td></td>" ).html(desc) );
-        $table.append( $line );
-
+        var quant = itemquantity[i];
+        var price = multiply[i];
+        var $column = $( "<tr></tr>" );
+        var $column1 = $( "<tr></tr>" );
+        var $column2 = $( "<tr></tr>" );
+        $column.append( $( "<td></td>" ).html(desc) );
+        $column1.append( $( "<td></td>" ).html(quant) );
+        $column2.append( $( "<td></td>" ).html(price) );
+        $table.append( $column );
+        $table1.append( $column1 );
+        $table2.append( $column2 );
     }
     $('.btn-primary').attr('data-target','.bs-example-modal-sm');
     $table.appendTo( $( ".description" ) );
+    $table1.appendTo( $( ".quantity" ) );
+    $table2.appendTo( $( ".itemprice" ) );
+    var $column3 = $( "<tr></tr>" );
+    $column3.append( $( "<td></td>" ).html(sum) );
+    $table3.append( $column3 );
+    $table3.appendTo( $( ".total" ) );
 
     flag = 0;
   }
 
-$('body').on('hidden.bs.modal', '.modal', function () {
-    $(".description").empty();
-});
+  $('body').on('hidden.bs.modal', '.modal', function () {
+      $(".description").empty();
+      $(".quantity").empty();
+      $(".itemprice").empty();
+      $(".total").empty();
+      sum = 0;
+  });
   
 }
 
