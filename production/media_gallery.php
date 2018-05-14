@@ -166,7 +166,7 @@ include("query/find_ledger.php");
                                       <div>
                                         <label class="col-sm-4">Discount</label>
                                         <div class="col-sm-6">
-                                          <input type="text" class="discount" name="discount" required/>
+                                          <input type="text" class="discount" name="discount" />
                                         </div>
                                       </div>
                                     </div>
@@ -178,7 +178,7 @@ include("query/find_ledger.php");
                                         <label class="col-sm-4">Tax</label>
                                         <div class="col-sm-6">
                                           <td>
-                                              <input type="checkbox" class="tax" checked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" >                          
+                                              <input type="checkbox" class="tax" unchecked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" name="tax_code" data-on-value="0.1" data-off-value="0">                          
 
                                           </td>
                                         </div>
@@ -186,6 +186,46 @@ include("query/find_ledger.php");
                                     </div>
                                   </div>
 
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <div>
+                                        <label class="col-sm-4">Customer Name</label>
+                                        <div class="col-sm-6">
+                                          <input type="text" class="customer_name" name="customer_name" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <p></p>
+                                  
+                                  <!-- yang ini -->
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Due Date</h4>
+                                  </div>
+
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                       <button type="button" id="button1" class="btn btn-primary" >Due Date</button>
+                                    </div>
+                                    <div id="div1" >
+                                
+                                    <fieldset>
+                                      <div class="control-group">
+                                        <div class="controls">
+                                          <div class="xdisplay_inputx">
+                                            <input type="text" class="form-control" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="due_date">
+                                            <span id="inputSuccess2Status3" class="sr-only">(success)
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </fieldset>
+
+                                    </div>
+                                  </div>
+                                  <!--  -->
+                                  
                                   <p></p>
 
                                   <div class="modal-header">
@@ -241,6 +281,15 @@ include("query/find_ledger.php");
 
     <script src="../production/controller/media_gallery.js"></script>
 
-    
+
+<script>
+$(document).ready(function(){
+    $("#button1").click(function(){
+        $("#div1").toggle();
+    });
+});
+
+</script>
+
   </body>
 </html>

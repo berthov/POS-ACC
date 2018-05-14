@@ -144,12 +144,13 @@ include("query/find_ledger.php");
                           <th>Quantity</th>
                           <th>Transaction Date</th>
                           <th>Description</th>
+                          <th>Type</th>
                         </tr>
                       </thead>
                       <tbody>           
   
                             <?php
-                              $sql = "SELECT inv.description as item_name , mt.qty , mt.description , mt.transaction_date
+                              $sql = "SELECT inv.description as item_name , mt.qty , mt.description , mt.transaction_date,mt.type
                               from inventory inv,
                               material_transaction mt
                               where
@@ -169,6 +170,7 @@ include("query/find_ledger.php");
                           <td><?php echo $row["qty"] ?></td>
                           <td><?php echo date('d-m-Y', strtotime($row["transaction_date"])) ?></td>
                           <td><?php echo $row["description"];?></td>
+                          <td><?php echo $row["type"];?></td>
                         </tr>
 
                             <?php

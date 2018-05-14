@@ -151,3 +151,10 @@ $(".input-number").keydown(function (e) {
         e.preventDefault();
     }
 });
+
+// $(document).ready(function(){
+//     $("#button1").click(function(){
+//         $("#div1").toggle();
+//     });
+// });
+
