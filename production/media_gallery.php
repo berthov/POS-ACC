@@ -275,6 +275,9 @@ include("query/find_ledger.php");
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
@@ -283,9 +286,11 @@ include("query/find_ledger.php");
 
 
 <script>
+
 $(document).ready(function(){
-    $("#button1").click(function(){
-        $("#div1").toggle();
+    $("#div1").hide();
+    $("#button1").on("click", function(){
+        $("#div1, #div2").toggle();
     });
 });
 
