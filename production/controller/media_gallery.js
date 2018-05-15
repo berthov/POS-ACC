@@ -9,11 +9,14 @@ function validateValue() {
   var pricePerItem=[];
   var multiply;
   var sum = 0;
+  var subtotal;
   
   var $table = $( "<table></table>" );
   var $table1 = $( "<table></table>" );
   var $table2 = $( "<table></table>" );
   var $table3 = $( "<table></table>" );
+  var $tableSubtotal = $( "<table></table>" );
+  var discount = $('.discount').val();
 
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
@@ -23,7 +26,6 @@ function validateValue() {
       description.push($(this).attr('data-description'));
       pricePerItem.push($(this).attr('data-price'));
       itemquantity.push(+eachquantity);
-
     }  
 
   })
@@ -61,13 +63,39 @@ function validateValue() {
     $table3.appendTo( $( ".total" ) );
 
     flag = 0;
+
+    if(discount == ''){
+      $(".disc").empty();  
+      $tableSubtotal.empty();
+      subtotal = sum;
+      var $columnSubtotal = $( "<tr></tr>" );
+      $columnSubtotal.append( $( "<td></td>" ).html(subtotal) );
+      $tableSubtotal.append( $columnSubtotal );
+      $tableSubtotal.appendTo( $( ".disc" ) );
+    } 
   }
+
+  $('.discount').on('input', function() {
+    $(".disc").empty();  
+    $tableSubtotal.empty();
+    var subtotal = sum;
+    var discount = $('.discount').val();
+
+    subtotal = sum - discount;
+    
+    var $columnSubtotal = $( "<tr></tr>" );
+    $columnSubtotal.append( $( "<td></td>" ).html(subtotal) );
+    $tableSubtotal.append( $columnSubtotal );
+    $tableSubtotal.appendTo( $( ".disc" ) );
+  });
 
   $('body').on('hidden.bs.modal', '.modal', function () {
       $(".description").empty();
       $(".quantity").empty();
       $(".itemprice").empty();
       $(".total").empty();
+      $(".disc").empty();   
+      $(this).find("input,textarea,select").val('').end();
       sum = 0;
   });
   
@@ -151,11 +179,3 @@ $(".input-number").keydown(function (e) {
         e.preventDefault();
     }
 });
-
-$(document).ready(function(){
-    $("#div1").hide();
-    $("#button1").on("click", function(){
-        $("#div1, #div2").toggle();
-    });
-});
-

@@ -145,15 +145,20 @@ include("query/find_ledger.php");
                                     <h4 class="modal-title" id="myModalLabel2">Your Order</h4>
                                   </div>
                                   
-                                  <div class="modal-body" style="display:flex;">
+                                  <div class="modal-body" style="display:flex; word-wrap: break-word;">
                                     <div class="form-group description" style="flex:4;"></div>
-                                    <div class="form-group quantity" style="width:10px; flex:1; text-align:center;"></div>
-                                    <div class="form-group itemprice" style="width:10px; flex:1; text-align:right;"></div>
+                                    <div class="form-group quantity" style="width:10px; flex:3; text-align:center;"></div>
+                                    <div class="form-group itemprice" style="width:10px; flex:3; text-align:right;"></div>
                                   </div>
                                   
-                                  <div class="modal-body" style="display:flex;">
-                                    <div class="form-group" style="flex:5; align:right">Total before Discount & Tax</div>
-                                    <div class="form-group total" style="width:10px; flex:1; text-align:right;"></div>
+                                  <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                    <div class="form-group" style="flex:7; align:right">Total before Discount & Tax</div>
+                                    <div class="form-group total" style="width:10px; flex:3; text-align:right;"></div>
+                                  </div>
+
+                                  <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                    <div class="form-group" style="flex:7; align:right">Subtotal</div>
+                                    <div class="form-group disc" style="width:10px; flex:3; text-align:right;"></div>
                                   </div>
 
 
@@ -166,7 +171,7 @@ include("query/find_ledger.php");
                                       <div>
                                         <label class="col-sm-4">Discount</label>
                                         <div class="col-sm-6">
-                                          <input type="text" class="discount" name="discount" />
+                                          <input type="number" class="discount" name="discount" />
                                         </div>
                                       </div>
                                     </div>
@@ -185,6 +190,8 @@ include("query/find_ledger.php");
                                       </div>
                                     </div>
                                   </div>
+
+                                  <p></p>
 
                                   <div class="modal-body">
                                     <div class="form-group">
