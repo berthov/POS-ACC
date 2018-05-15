@@ -151,3 +151,27 @@ echo "string";
 
 
 ?>
+
+
+<form class="form-horizontal" action="controller/functions.php" method="POST" enctype="multipart/form-data">
+                     <fieldset>
+                              <!-- Form Name -->
+                              <legend>MASS ADD CSV </legend>
+       
+                              <!-- File Button -->
+                              <div class="form-group">
+                                  <label class="col-md-4 control-label" for="filebutton">Select File</label>
+                                  <div class="col-md-4">
+                                      <input type="file" name="file" class="input-large">
+                                  </div>
+                              </div>
+       
+                              <!-- Button -->
+                              <div class="form-group">
+                                  <label class="col-md-4 control-label" for="singlebutton">Import data</label>
+                                  <div class="col-md-4">
+                                      <button type="submit" name="Import" value="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+                                  </div>
+                              </div>      
+                       </fieldset>
+                 </form>

@@ -68,7 +68,9 @@ include("query/find_ledger.php");
                           
                             <?php
                             $sql = "SELECT * 
-                            FROM outlet";
+                            FROM outlet
+                            where
+                            ledger_id = '".$ledger_new."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                           ?>
@@ -102,7 +104,8 @@ include("query/find_ledger.php");
                             <?php
                             $sql = "SELECT * 
                             FROM ap_supplier_all
-                            where status = 'Active'";
+                            where status = 'Active'
+                            and ledger_id = '".$ledger_new."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                           ?>

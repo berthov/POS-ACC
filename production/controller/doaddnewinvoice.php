@@ -24,12 +24,11 @@
   $discount = $_REQUEST['discount'];
   $outstanding_status = 'Open';
   $refund_status = 'No';
-  $due_date = date("y-m-d H:i:s");
+  $due_date = date('Y-m-d', strtotime($_REQUEST['due_date']));
   //ini sementara dulu. tunggu form tax yang dari page media_gallery.php 
   $tax_code = $_REQUEST['tax_code'];
   $customer_name = $_REQUEST['customer_name'];
    
- 
 
 	$subtotal = 0;
 	for($x = 0; $x < count($arr); $x++ ){
@@ -233,7 +232,7 @@
 // HEADER
     // insert header invoice transaction
     $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name,tax_code)
-    VALUES ('".$invoice_id."','".$invoice_id."' , '".$today."' , '".$today."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."','".$tax_code."')";
+    VALUES ('".$invoice_id."','".$invoice_id."' , '".$today."' , '".$due_date."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."','".$tax_code."')";
     mysqli_query($conn, $sql_header);
 
 // LINE

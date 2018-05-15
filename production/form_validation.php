@@ -193,7 +193,7 @@ include("query/find_ledger.php");
         <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <!-- <script src="../production/common/error.js"></script> -->
+    <script src="../production/common/error.js"></script>
 
 
     <script type="text/javascript">

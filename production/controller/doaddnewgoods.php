@@ -31,8 +31,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		    }
 		}
 		else{
-
-			// echo $category;
 			
 		$sql = "INSERT INTO inventory (item_code, description,qty,min,max,created_by , created_date,last_update_by,last_update_date,ledger_id,status,category)
 		VALUES ('".$item_code."', '".$description."','".$qty."' ,'".$min."' , '".$max."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."','Active','".$category."')";

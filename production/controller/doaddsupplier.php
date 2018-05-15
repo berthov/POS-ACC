@@ -4,6 +4,8 @@
 	include("session.php");
 	include ("../query/find_ledger.php");
 
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+
 	$supplier_name = $_REQUEST['supplier_name'];	
 	$supplier_site = $_REQUEST['supplier_site'];
 	$supplier_type = $_REQUEST['supplier_type'];
@@ -12,14 +14,14 @@
 	$created_date =  date("Y-m-d");
 	$last_update_date =  date("Y-m-d");
 
+	$check_supplier = "SELECT * FROM ap_supplier_all WHERE ledger_id = '".$ledger_new."' and supplier_name = '".$supplier_name."' ";
+	$result = mysqli_query($conn,$check_supplier);
+	$existing = mysqli_fetch_assoc($result);
 
-
-	if (is_numeric($tax) == 0) {
-		echo "
-			<script>
-		  			alert('Tax must be a number');
-    				window.history.back();
-    		</script>";
+	if ($existing) { 
+     if ($existing['supplier_name'] === $supplier_name) {
+	      echo 'Supplier already exist';
+	    }
 	}
 	else{
 		
@@ -36,5 +38,6 @@
 
 		header("Location:../form_supplier.php");
 	}
+}
 
 ?>

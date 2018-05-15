@@ -136,8 +136,7 @@ $(document).ready(function() {
     var qty=$("#qty").val();
     var min=$("#min").val();
     var max=$("#max").val();
-
-
+    var category=$("#category").val();
     
       $.ajax({
         type:'post',
@@ -147,7 +146,8 @@ $(document).ready(function() {
             'description':description,
             'qty':qty,
             'min':min,
-            'max':max
+            'max':max,
+            'category':category
         },
         success:function(response){
           if(response=='Item already exist'){
@@ -188,4 +188,34 @@ $(document).ready(function() {
         }
     });
   });
+
+  $("#formsupplier").submit(function(){
+    event.preventDefault();
+
+    var supplier_name=$("#supplier_name").val();
+    var supplier_site=$("#supplier_site").val();
+    var supplier_type=$("#supplier_type").val();
+    var tax=$("#tax").val();
+    
+    
+      $.ajax({
+        type:'post',
+        url:'controller/doaddsupplier.php',
+        data:{
+            'supplier_name':supplier_name,
+            'supplier_site':supplier_site,
+            'supplier_type':supplier_type,
+            'tax':tax
+        },
+        success:function(response){
+          if(response=='Supplier already exist'){
+            toastr.error('Supplier already exist');                     
+          }
+          else{
+             window.location.href="../production/form_supplier.php";
+          }
+        }
+    });
+  });
+
 });

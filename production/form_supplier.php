@@ -15,6 +15,11 @@ include("query/find_ledger.php");
 
     <title>Bonne Journée </title>
 
+        <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+    
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -58,7 +63,7 @@ include("query/find_ledger.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="form-horizontal form-label-left" action="controller/doaddsupplier.php" novalidate>
+                    <form id="formsupplier" class="form-horizontal form-label-left" method="post" action="controller/doaddsupplier.php" novalidate>
 
                       <span class="section">Supplier Info</span>
 
@@ -102,36 +107,36 @@ include("query/find_ledger.php");
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
                           <button type="submit" class="btn btn-primary">Cancel</button>
-                          <button id="send" type="submit" class="btn btn-success">Submit</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
                     </form>
                   </div>
                 </div>
-                <!-- <div class="x_panel">
-                  <form class="form-horizontal" action="controller/functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
-                     <fieldset> -->
+                <div class="x_panel">
+                  <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="upload_excel" enctype="multipart/form-data">
+                     <fieldset>
                               <!-- Form Name -->
-                              <!-- <legend>MASS ADD CSV </legend> -->
+                              <legend>MASS ADD CSV </legend>
        
                               <!-- File Button -->
-                           <!--    <div class="form-group">
+                              <div class="form-group">
                                   <label class="col-md-4 control-label " for="filebutton">Select File</label>
                                   <div class="col-md-4">
                                       <input type="file" name="file" id="file" class="input-large">
                                   </div>
                               </div>
-        -->
+       
                               <!-- Button -->
-                      <!--         <div class="form-group">
+                              <div class="form-group">
                                   <label class="col-md-4 control-label" for="singlebutton">Import data</label>
                                   <div class="col-md-4">
-                                      <button type="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+                                      <button type="submit" name="Import_supplier" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
                                   </div>
                               </div>      
                        </fieldset>
                  </form>
-                </div> -->
+                </div>
               </div>
             </div>
           </div>
@@ -150,17 +155,12 @@ include("query/find_ledger.php");
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- validator -->
-    <script src="../vendors/validator/validator.js"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-	
-
+	   
+    <script src="../production/common/error.js"></script>
 
 
   </body>
