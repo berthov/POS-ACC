@@ -30,7 +30,9 @@ include("query/find_ledger.php");
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    
+    <!-- Switchery -->
+    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+
     <!-- Custom styling plus plugins -->
     <link href="../build/css/custom.css" rel="stylesheet">
     <!-- Change Status -->
@@ -169,8 +171,8 @@ include("query/find_ledger.php");
                                   <div class="modal-body">
                                     <div class="form-group">
                                       <div>
-                                        <label class="col-sm-4">Discount</label>
-                                        <div class="col-sm-6">
+                                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Discount</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                           <input type="number" class="discount" name="discount" />
                                         </div>
                                       </div>
@@ -180,11 +182,10 @@ include("query/find_ledger.php");
                                   <div class="modal-body">
                                     <div class="form-group">
                                       <div>
-                                        <label class="col-sm-4">Tax</label>
-                                        <div class="col-sm-6">
+                                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Tax</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                           <td>
-                                              <input type="checkbox" class="tax" unchecked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" name="tax_code" data-on-value="0.1" data-off-value="0">                          
-
+                                              <input type="checkbox" class="tax" unchecked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" name="tax_code" value="0.1">                          
                                           </td>
                                         </div>
                                       </div>
@@ -196,8 +197,8 @@ include("query/find_ledger.php");
                                   <div class="modal-body">
                                     <div class="form-group">
                                       <div>
-                                        <label class="col-sm-4">Customer Name</label>
-                                        <div class="col-sm-6">
+                                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Customer Name</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                           <input type="text" class="customer_name" name="customer_name" />
                                         </div>
                                       </div>
@@ -205,33 +206,27 @@ include("query/find_ledger.php");
                                   </div>
 
                                   <p></p>
-                                  
-                                  <!-- yang ini -->
-                                  <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Due Date</h4>
-                                  </div>
 
                                   <div class="modal-body">
                                     <div class="form-group">
-                                       <button type="button" id="button1" class="btn btn-primary" >Due Date</button>
-                                    </div>
-                                    <div id="div1" >
-                                
-                                    <fieldset>
-                                      <div class="control-group">
-                                        <div class="controls">
-                                          <div class="xdisplay_inputx">
-                                            <input type="text" class="form-control" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="due_date">
-                                            <span id="inputSuccess2Status3" class="sr-only">(success)
-                                            </span>
-                                          </div>
+                                      <div>
+                                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Due Date</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                          <fieldset>
+                                            <div class="control-group">
+                                              <div class="controls">
+                                                <div class="xdisplay_inputx">
+                                                  <input type="text" class="form-control" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="due_date" style="width: 171px; height: 27px;">
+                                                  <span id="inputSuccess2Status3" class="sr-only">(success)
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </fieldset>                             
                                         </div>
                                       </div>
-                                    </fieldset>
-
                                     </div>
                                   </div>
-                                  <!--  -->
                                   
                                   <p></p>
 
@@ -245,7 +240,6 @@ include("query/find_ledger.php");
                                         <option value="Cash">Cash</option>
                                         <option value="Debit/Credit">Debit/Credit</option>
                                         <option value="Voucher">Voucher</option>
-                                        <option>Option Three</option>
                                       </select>
                                     </div>
                                   </div>
@@ -288,6 +282,8 @@ include("query/find_ledger.php");
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
 
     <script src="../production/controller/media_gallery.js"></script>
 

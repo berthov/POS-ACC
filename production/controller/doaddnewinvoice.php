@@ -11,7 +11,7 @@
 	$arr1 = $_REQUEST['arr1'];	
 	$quant = $_REQUEST['quant'];
 	$invoice_id =  date("YmdHis");
-	$today =  date("y-m-d H:i:s");
+	$today =  date("Y-m-d");
 	$time = date("H:i:s");
   $month = date("F");
   // $payment_method = $_REQUEST['payment_method'];
@@ -30,13 +30,20 @@
   $customer_name = $_REQUEST['customer_name'];
    
 
-	$subtotal = 0;
-	for($x = 0; $x < count($arr); $x++ ){
-		if($quant[$x] > 0){	
-		$subtotal	+= $arr1[$x];						     	
-		}
-    }
+	// $subtotal = 0;
+	// for($x = 0; $x < count($arr); $x++ ){
+	// 	if($quant[$x] > 0){	
+	// 	$subtotal	+= $arr1[$x];						     	
+	// 	}
+ //    }
 	                  
+    $check_outlet = 
+    "SELECT o.* FROM employee e, outlet o WHERE e.ledger_id = '".$ledger_new."' and e.name = '".$user_check."' 
+    and e.outlet_id = o.name and o.status = 'Active'";
+    $result_outlet = mysqli_query($conn,$check_outlet);
+    $existing_outlet = mysqli_fetch_assoc($result_outlet);
+
+
 	/*if ($subtotal <= 0 ){
 	echo 	"<script>
 		  			alert('Please Input Quantity');
@@ -99,8 +106,8 @@
                     <div class="row">
                       <div class="col-md-4 "></div>
                       <div class="col-md-4">
-                        <p align="center">CaseNation.Indo</p>
-                        <p align="center">Jln. Marina Raya Ruko Exclusive</p>
+                        <p align="center"><?php echo $existing_outlet['name']; ?></p>
+                        <p align="center"><?php echo $existing_outlet['address']; echo ","; echo $existing_outlet['city']; echo "<br>"; echo $existing_outlet['province']; ?></p>
                         <div class="row">
                           <div class="col-md-6 ">
                             <?php echo $today; ?><br>
@@ -114,61 +121,65 @@
                           <hr style="margin-top: 2px;">
                           <div class="col-md-4 " style="text-align: left;">
                           	
-                          	<?php
-								for($x = 0; $x < count($arr); $x++ ){
-									if($quant[$x] > 0){							     	
-							?>
+                        	<?php
+            								for($x = 0; $x < count($arr); $x++ ){
 
-                            <?php echo $arr[$x]; ?><br>
-                            <?php
-                        		}
-	                         
-	                        ?>
+                              $check_item = "SELECT * FROM inventory WHERE ledger_id = '".$ledger_new."' and id = '".$arr[$x]."' ";
+                              $result_item = mysqli_query($conn,$check_item);
+                              $existing_item = mysqli_fetch_assoc($result_item);
+
+            									if($quant[$x] > 0){							     	
+                                echo $existing_item['description'];  echo'<br>';
+                              }
+                      	   	}
+                          ?>
 
                           </div>
                           <div class="col-md-4 " style="text-align: right;">
 
                           	<?php
-								for($x = 0; $x < count($arr); $x++ ){
-									if($quant[$x] > 0){							     	
-							?>
+              								for($x = 0; $x < count($arr); $x++ ){
+              									if($quant[$x] > 0){							     	
+                                  echo $quant[$x]; echo "x"; echo '<br>'; 
+                            		}
+    	                        }
 
-                            <?php echo $quant[$x]; ?>x<br>
-                            <?php
-                        		}
-	                        }
 	                        ?>
                           </div>
                           <div class="col-md-4 pull-right" style="text-align: left;">
                           	
                           	<?php
-								for($x = 0; $x < count($arr); $x++ ){
-									if($quant[$x] > 0){							     	
-							?>
-
-                            Rp.<?php echo $arr1[$x] * $quant[$x] ; ?><br>
-                            <?php
-                        		}
-	                        }
-	                        ?>
+              								for($x = 0; $x < count($arr); $x++ ){
+              									if($quant[$x] > 0){							     	
+              							     echo "Rp."; echo number_format($arr1[$x] * $quant[$x]); echo '<br>'; 
+                            		}
+    	                        }
+  	                        ?>
 
                           </div>
                           <div class="clearfix"></div>
                           <hr style="margin-top: 2px;">
                           <div class="col-md-6">
-                          <p>Subtotal</p>
+                          <p>
+                            Discount<br>
+                            Subtotal<br>
+                            Tax</p>
                           </div>
                           <div class="col-md-6 pull-right" style="text-align: right;">
 
                           <?php
-                          		$subtotal = 0;
-								for($x = 0; $x < count($arr); $x++ ){
-									if($quant[$x] > 0){	
-									$subtotal	+= $arr1[$x] * $quant[$x];						     	
-								}
-	                        }
-	                        echo "Rp."; echo $subtotal; echo "<br>";
-	                        ?>
+                        		$subtotal = 0;
+            								for($x = 0; $x < count($arr); $x++ ){
+            									if($quant[$x] > 0){	
+            									$subtotal	+= $arr1[$x] * $quant[$x];						     	
+              								}
+  	                        }
+                          
+                          echo "Rp."; echo $discount; echo "<br>";
+	                        echo "Rp."; echo number_format($subtotal - $discount); echo "<br>";
+                          echo "Rp."; echo number_format($tax_code * ($subtotal - $discount)); echo "<br>";
+	                        
+                          ?>
 
                           </div>
                           <div class="clearfix"></div>
@@ -178,14 +189,15 @@
                           </div>
                           <div class="col-md-6 pull-right" style="text-align: right;">
                           <h4 style="margin-top: -10px;"><b>
+                          
                           <?php
-                          		$subtotal = 0;
-								for($x = 0; $x < count($arr); $x++ ){
-									if($quant[$x] > 0){	
-									$subtotal	+= $arr1[$x] * $quant[$x];						     	
-								}
-	                        }
-	                        echo "Rp."; echo $subtotal; echo "<br>";
+                        		$subtotal = 0;
+            								for($x = 0; $x < count($arr); $x++ ){
+            									if($quant[$x] > 0){	
+            									$subtotal	+= $arr1[$x] * $quant[$x];						     	
+              								}
+  	                        }
+	                        echo "Rp."; echo number_format(($subtotal - $discount) + ($tax_code * ($subtotal - $discount))) ; echo "<br>";
 	                        ?>
 
 	                    </b></h4>
@@ -202,9 +214,6 @@
 </html>
 
 
-            <?php
-        }
-        ?>
 
 
 
@@ -225,7 +234,7 @@
         document.location.href = '../media_gallery.php';
     }
       document.getElementById("demo").innerHTML = printDiv('printableArea'); 
-    </script>
+</script>
 
 <?php
 
