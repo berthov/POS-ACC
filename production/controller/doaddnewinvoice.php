@@ -19,7 +19,8 @@
   $created_date =  date("Y-m-d");
   $last_update_date =  date("Y-m-d");
   $type = 'Penjualan';
-  
+  $invoice_number = date("His");
+
   // ini variable tambahan buat nanti
   $discount = $_REQUEST['discount'];
   $outstanding_status = 'Open';
@@ -247,7 +248,7 @@
 // HEADER
     // insert header invoice transaction
     $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name,tax_code)
-    VALUES ('".$invoice_id."','".$invoice_id."' , '".$today."' , '".$due_date."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."','".$tax_code."')";
+    VALUES ('".$invoice_id."','".$invoice_number."' , '".$today."' , '".$due_date."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."','".$tax_code."')";
     mysqli_query($conn, $sql_header);
 
 // LINE

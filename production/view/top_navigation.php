@@ -105,7 +105,7 @@
 
                     <li>
                       <div class="text-center">
-                        <a href="tables.html">
+                      <a data-target=".bs-example-modal-sm1" data-toggle="modal" >
                           <strong>See All Alerts</strong>
                           <i class="fa fa-angle-right"></i>
                         </a>
@@ -116,5 +116,62 @@
               </ul>
             </nav>
           </div>
+        
+          <!--Modal -->
+          <div id="modal" class="modal fade bs-example-modal-sm1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel2">All Alert</h4>
+                  </div>
+
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <div>
+                    
+                    <?php
+                        $sql = "SELECT concat(description, ' : Quantity below Minimum') as description
+                          FROM 
+                          inventory i
+                          where 
+                          ledger_id = '".$ledger_new."'
+                          and qty <= min 
+                          and status = 'Active'
+                          UNION All
+                          select concat('Invoice Number : ',invoice_number)
+                          from invoice_header ih
+                          where
+                          ih.ledger_id = '".$ledger_new."'
+                          and ih.outstanding_status not like 'Paid'
+                          and datediff(date_format(sysdate(),'%Y-%m-%d'),due_date) <= 4
+                          LIMIT 5
+                          ";
+
+                        $result = $conn->query($sql);
+                        while($row = $result->fetch_assoc()) {
+                    ?>
+                    
+                      <div class="text-right">
+                        
+                          <h6><b><?php echo $row['description'];?></b></h6>
+                        
+                      </div>
+                    
+                    <?php
+                    
+                    }
+                    
+                    ?>
+                      
+                      </div>
+                    </div>
+                  </div>
+                  <p></p>
+              </div>
+            </div>
+          </div>
+        <!--Modal -->
+
         </div>
 <!-- /top navigation -->
