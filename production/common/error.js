@@ -218,4 +218,33 @@ $(document).ready(function() {
     });
   });
 
+$("#adjustment").submit(function(){
+    event.preventDefault();
+
+    var inventory_item_id=$("#inventory_item_id").val();
+    var qty=$("#qty").val();
+    var description=$("#description").val();
+    var single_cal2=$("#single_cal2").val();
+    
+    
+      $.ajax({
+        type:'post',
+        url:'controller/doaddadjustment_inv.php',
+        data:{
+            'inventory_item_id':inventory_item_id,
+            'qty':qty,
+            'description':description,
+            'single_cal2':single_cal2
+        },
+        success:function(response){
+          if(response=='Quantity must be filled'){
+            toastr.error('Quantity must be filled');                     
+          }
+          else{
+             window.location.href="../production/adjustment_inventory.php";
+          }
+        }
+    });
+  });
+
 });

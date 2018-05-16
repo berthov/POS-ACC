@@ -8,15 +8,21 @@
 	$inventory_item_id = $_REQUEST['inventory_item_id'];	
 	$qty = $_REQUEST['qty'];
 	$description = $_REQUEST['description'];
-	$transaction_date = date('Y-m-d H:i:s', strtotime($_REQUEST['transaction_date']));
+	$single_cal2 = date('Y-m-d H:i:s', strtotime($_REQUEST['single_cal2']));
 	$type = 'Adjustment';
 	$created = date("Y-m-d H:i:s");
 
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
-			
+		
+			if ($qty === '') {
+			echo "Quantity must be filled";
+			}
+			else{
+
+
 		$sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type)
-		VALUES ('".$inventory_item_id."', '".$ledger_new."','".$transaction_date."','".$qty."','".$description."','".$user_check."','".$created."','".$user_check."','".$user_check."','".$type."')";
+		VALUES ('".$inventory_item_id."', '".$ledger_new."','".$single_cal2."','".$qty."','".$description."','".$user_check."','".$created."','".$user_check."','".$user_check."','".$type."')";
 
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";
@@ -33,6 +39,6 @@
 		mysqli_close($conn);
 
 		header("Location:../adjustment_inventory.php");
-	
+	}
 }
 ?>

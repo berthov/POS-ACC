@@ -15,6 +15,11 @@ include("query/find_ledger.php");
 
     <title>Bonne Journée </title>
 
+        <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -65,13 +70,13 @@ include("query/find_ledger.php");
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="form-horizontal form-label-left" action="controller/doaddadjustment_inv.php" method="POST" novalidate>
+                    <form id="adjustment" class="form-horizontal form-label-left" action="controller/doaddadjustment_inv.php" method="POST" >
 
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inventory_item_id">Item Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="form-control" name="inventory_item_id" required="required">
+                            <select class="form-control" id="inventory_item_id" name="inventory_item_id" required="required">
                             
                             <?php
                               $sql = "SELECT description,id FROM inventory
@@ -94,14 +99,14 @@ include("query/find_ledger.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cogs">Quantity <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="qty" name="qty" required="required" min="-9999999" max="99999999999" class="form-control col-md-7 col-xs-12">
+                          <input type="number" id="qty" name="qty" min="0" max="99999999999" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="description" name="description" required="required" class="form-control col-md-7 col-xs-12">
+                          <input id="description" name="description" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="item form-group">
@@ -111,7 +116,7 @@ include("query/find_ledger.php");
                         <fieldset>
                           <div class="control-group">
                             <div class="controls">
-                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Transaction Date" aria-describedby="inputSuccess2Status" name="transaction_date">
+                                <input type="text" class="form-control has-feedback-left" id="single_cal2" placeholder="Transaction Date" aria-describedby="inputSuccess2Status" name="single_cal2">
                                 <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                 <span id="inputSuccess2Status" class="sr-only">(success)</span>
                             </div>
@@ -220,6 +225,8 @@ include("query/find_ledger.php");
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	 
+       <script src="../production/common/error.js"></script>
+
 
   </body>
 </html>
