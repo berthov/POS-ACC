@@ -1,3 +1,10 @@
+$(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+});
+
 function validateValue() {
 
   var eachquantity;
@@ -10,13 +17,15 @@ function validateValue() {
   var multiply;
   var sum = 0;
   var subtotal;
+  var total;
   
   var $table = $( "<table></table>" );
   var $table1 = $( "<table></table>" );
   var $table2 = $( "<table></table>" );
   var $table3 = $( "<table></table>" );
   var $tableSubtotal = $( "<table></table>" );
-  var discount = $('.discount').val();
+  var $tableTotal = $( "<table></table>" );
+  var discount;
 
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
@@ -35,24 +44,28 @@ function validateValue() {
     return curMult;
   });
 
+  $(".afterTax").empty();
+  $tableTotal.empty();
+
   if(flag == "0" ){
     $('.btn-primary').removeAttr('data-target','.bs-example-modal-sm');
     toastr.error('Please Input Value!'); 
   }else{
     for ( var i = 0; i < description.length; i++ ) {
-        var desc = description[i];
-        var quant = itemquantity[i];
-        var price = multiply[i];
-        var $column = $( "<tr></tr>" );
-        var $column1 = $( "<tr></tr>" );
-        var $column2 = $( "<tr></tr>" );
-        $column.append( $( "<td></td>" ).html(desc) );
-        $column1.append( $( "<td></td>" ).html(quant) );
-        $column2.append( $( "<td></td>" ).html(price) );
-        $table.append( $column );
-        $table1.append( $column1 );
-        $table2.append( $column2 );
+      var desc = description[i];
+      var quant = itemquantity[i];
+      var price = multiply[i];
+      var $column = $( "<tr></tr>" );
+      var $column1 = $( "<tr></tr>" );
+      var $column2 = $( "<tr></tr>" );
+      $column.append( $( "<td></td>" ).html(desc) );
+      $column1.append( $( "<td></td>" ).html(quant) );
+      $column2.append( $( "<td></td>" ).html(price) );
+      $table.append( $column );
+      $table1.append( $column1 );
+      $table2.append( $column2 );
     }
+
     $('.btn-primary').attr('data-target','.bs-example-modal-sm');
     $table.appendTo( $( ".description" ) );
     $table1.appendTo( $( ".quantity" ) );
@@ -75,14 +88,18 @@ function validateValue() {
     } 
   }
 
-  $('.discount').on('input', function() {
+  $(".discount, .tax_code").on('input', function() {
     $(".disc").empty();  
-    $tableSubtotal.empty();
+    $tableSubtotal.empty(); 
+    var discount = 0;
+
     var subtotal = sum;
-    var discount = $('.discount').val();
+    discount = $('.discount').val();
 
     if(discount>sum){
       toastr.error("Discount is greater than price!");
+      $(".afterTax").empty();  
+      $tableTotal.empty();
     }else{
       subtotal = sum - discount;
     
@@ -90,22 +107,50 @@ function validateValue() {
       $columnSubtotal.append( $( "<td></td>" ).html(subtotal) );
       $tableSubtotal.append( $columnSubtotal );
       $tableSubtotal.appendTo( $( ".disc" ) );
-    }
 
-    
+        var tax = $('.tax_code').val();
+
+        if(tax == "Yes"){
+          $(".afterTax").empty();
+          $tableTotal.empty();
+
+          total = 0;
+          total = subtotal*110/100;
+
+          var $columnTotal = $( "<tr></tr>" );
+          $columnTotal.append( $( "<td></td>" ).html(total) );
+          $tableTotal.append( $columnTotal );
+          $tableTotal.appendTo( $( ".afterTax" ) );
+
+        } else {
+          $(".afterTax").empty();
+          $tableTotal.empty();
+
+          total = 0;
+          total = subtotal;
+
+          var $columnTotal = $( "<tr></tr>" );
+          $columnTotal.append( $( "<td></td>" ).html(total) );
+          $tableTotal.append( $columnTotal );
+          $tableTotal.appendTo( $( ".afterTax" ) );
+        }
+    }
   });
+
+}
 
   $('body').on('hidden.bs.modal', '.modal', function () {
       $(".description").empty();
       $(".quantity").empty();
       $(".itemprice").empty();
       $(".total").empty();
-      $(".disc").empty();   
+      $(".disc").empty();
+      $(".total").empty();
+      $(".discount, .tax_code").unbind();
       $(this).find("input,textarea,select").val('').end();
       sum = 0;
   });
-  
-}
+
 
 $(".modal").on("bs-example-modal-sm", function(){
     $(".modal-body").html("");

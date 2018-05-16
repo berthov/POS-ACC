@@ -163,6 +163,10 @@ include("query/find_ledger.php");
                                     <div class="form-group disc" style="width:10px; flex:3; text-align:right;"></div>
                                   </div>
 
+                                  <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                    <div class="form-group" style="flex:7; align:right">Total</div>
+                                    <div class="form-group afterTax" style="width:10px; flex:3; text-align:right;"></div>
+                                  </div>
 
                                   <div class="modal-header">
                                     <h4 class="modal-title" id="myModalLabel2">Discount & Tax</h4>
@@ -184,9 +188,11 @@ include("query/find_ledger.php");
                                       <div>
                                         <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Tax</label>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                          <td>
-                                              <input type="checkbox" class="tax" unchecked data-toggle="toggle" data-on="Yes" data-off="No" data-onstyle="success" data-offstyle="danger" name="tax_code" value="0.1">                          
-                                          </td>
+                                          <select class="form-control tax_code" name="tax_code" id="tax_code">
+                                            <option value="" disabled selected>Select Tax</option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                          </select>
                                         </div>
                                       </div>
                                     </div>
