@@ -7,7 +7,7 @@ include("controller/session.php");
 <!DOCTYPE html>
 <?php
 include("controller/doconnect.php");
-include("common/modaldelete.html");
+include("common/modal.html");
 include("query/find_ledger.php");
 
 ?>

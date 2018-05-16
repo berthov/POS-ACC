@@ -1,3 +1,7 @@
+<?php
+include("common/modal.html");
+?>
+
 <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
@@ -117,61 +121,6 @@
             </nav>
           </div>
         
-          <!--Modal -->
-          <div id="modal" class="modal fade bs-example-modal-sm1" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-
-                  <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel2">All Alert</h4>
-                  </div>
-
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <div>
-                    
-                    <?php
-                        $sql = "SELECT concat(description, ' : Quantity below Minimum') as description
-                          FROM 
-                          inventory i
-                          where 
-                          ledger_id = '".$ledger_new."'
-                          and qty <= min 
-                          and status = 'Active'
-                          UNION All
-                          select concat('Invoice Number : ',invoice_number)
-                          from invoice_header ih
-                          where
-                          ih.ledger_id = '".$ledger_new."'
-                          and ih.outstanding_status not like 'Paid'
-                          and datediff(date_format(sysdate(),'%Y-%m-%d'),due_date) <= 4
-                          LIMIT 5
-                          ";
-
-                        $result = $conn->query($sql);
-                        while($row = $result->fetch_assoc()) {
-                    ?>
-                    
-                      <div class="text-right">
-                        
-                          <h6><b><?php echo $row['description'];?></b></h6>
-                        
-                      </div>
-                    
-                    <?php
-                    
-                    }
-                    
-                    ?>
-                      
-                      </div>
-                    </div>
-                  </div>
-                  <p></p>
-              </div>
-            </div>
-          </div>
-        <!--Modal -->
-
+          
         </div>
 <!-- /top navigation -->
