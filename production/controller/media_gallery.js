@@ -81,12 +81,18 @@ function validateValue() {
     var subtotal = sum;
     var discount = $('.discount').val();
 
-    subtotal = sum - discount;
+    if(discount>sum){
+      toastr.error("Discount is greater than price!");
+    }else{
+      subtotal = sum - discount;
     
-    var $columnSubtotal = $( "<tr></tr>" );
-    $columnSubtotal.append( $( "<td></td>" ).html(subtotal) );
-    $tableSubtotal.append( $columnSubtotal );
-    $tableSubtotal.appendTo( $( ".disc" ) );
+      var $columnSubtotal = $( "<tr></tr>" );
+      $columnSubtotal.append( $( "<td></td>" ).html(subtotal) );
+      $tableSubtotal.append( $columnSubtotal );
+      $tableSubtotal.appendTo( $( ".disc" ) );
+    }
+
+    
   });
 
   $('body').on('hidden.bs.modal', '.modal', function () {
