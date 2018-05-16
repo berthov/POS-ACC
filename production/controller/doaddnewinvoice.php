@@ -26,7 +26,13 @@
   $refund_status = 'No';
   $due_date = date('Y-m-d', strtotime($_REQUEST['due_date']));
   //ini sementara dulu. tunggu form tax yang dari page media_gallery.php 
-  $tax_code = $_REQUEST['tax_code'];
+  if (empty($_REQUEST['tax_code'])) {
+    $tax_code = 0;
+  }
+  else{
+    $tax_code = $_REQUEST['tax_code'];
+  }
+
   $customer_name = $_REQUEST['customer_name'];
    
 
