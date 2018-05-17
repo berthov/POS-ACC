@@ -3,6 +3,7 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
+// include("common/modal.html");
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +122,10 @@ include("query/find_ledger.php");
                           </td>
                           <td>
                             <a href="template_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="controller/refund_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-danger btn-xs"><i class="fa fa-pencil"></i> Refund </a>
+
+                            <button data-toggle="modal" data-target="#modalrefund" type="button" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund 
+                            </button>
+
                           </td>
                         </tr> 
 
@@ -181,11 +185,9 @@ include("query/find_ledger.php");
     <script src="../build/js/custom.min.js"></script>
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script src="../production/common/error.js"></script>
-
+    <script src="../production/controller/refund.js"></script>
 
   
   </body>
 </html>
-
 

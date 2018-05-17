@@ -5,14 +5,16 @@
 	$user_check = $_SESSION['login_user'];
 
 
-	$invoice_id = $_REQUEST['invoice_id'];	
+	$invoice_id = $_POST['id'];	
+	// $invoice_id = $_REQUEST['invoice_id'];
 	$created = date("Y-m-d");
-	$description = 'Refund Invoice:'.$invoice_id;
 
 			
 	$check_refund = "SELECT * FROM invoice_header WHERE invoice_id = '".$invoice_id."'";
 	$result = mysqli_query($conn,$check_refund);
 	$existing_result = mysqli_fetch_assoc($result);
+
+	$description = 'Refund Invoice:'.$existing_result['invoice_number'];
 
 	if ($existing_result) {
 		if ($existing_result['refund_status'] === 'Yes') {
@@ -36,11 +38,10 @@
 	    	mysqli_query($conn, $sql);
 
 	    	// update qty onhand
-    		$sql_onhand = "UPDATE inventory SET qty= (select sum(qty) from material_transaction where inventory_item_id = '".$row['inventory_item_id']."') , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$row['inventory_item_id']."'";
+    		$sql_onhand = "UPDATE inventory SET qty= (select sum(qty) from material_transaction where inventory_item_id = '".$row['inventory_item_id']."') , last_update_date= '".$created."' ,last_update_by= '".$user_check."' WHERE id = '".$row['inventory_item_id']."'";
 			mysqli_query($conn, $sql_onhand);
 
-			header("Location:../tables_invoice.php");			    
-		    
+    		// header("Location:../tables_invoice.php");
 		    }
 
 		}
