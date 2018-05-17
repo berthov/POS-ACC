@@ -3,6 +3,7 @@
 session_start();
 include("doconnect.php");
 include("session.php");	
+include("../query/find_ledger.php");
 	
 $counter = $_REQUEST['counter'];
 $inventory_item_id = $_REQUEST['inventory_item_id'];	
@@ -23,92 +24,26 @@ $created_date =  date("Y-m-d");
 $last_update_date =  date("Y-m-d");	
 
 
-
-?>
-
-<!--  <table>
-	<tr>
-		<td>Outlet</td>
-		<td>PO Date</td>
-		<td>Supplier</td>
-		<td>Ship To</td>
-		<td>due date</td>
-	</tr>
-	<tr>
-		<td>
-			<?php echo $outlets; ?>
-		</td>
-		<td>
-			<?php echo $po_date; ?>
-		</td>
-		<td>
-			<?php echo $supplier; ?>
-		</td>
-		<td>
-			<?php echo $ship_to; ?>
-		</td>
-		<td>
-			<?php echo $due_date; ?>
-		</td>
-	</tr>
-
-
-</table> 
-
- <table>
-	<tr>
-		<td>Description</td>
-		<td>Unit Price</td>
-		<td>UOM</td>
-		<td>Qty</td>
-		<td>Price</td>
-	</tr>
-		<?php
-	
-			for($x = 0; $x < count($item_code); $x++ ){
-			     	
-		?>
-	<tr>
-		<td>
-			<?php echo $item_code[$x]; ?>
-		</td>
-		<td>
-			<?php echo $description[$x]; ?>
-		</td>
-		<td>
-			<?php echo $uom[$x]; ?>
-		</td>
-		<td>
-			<?php echo $qty[$x]; ?>
-		</td>
-		<td>
-			<?php echo $price[$x]; ?>
-		</td>
-		<?php
-		}
-		?>
-	</tr>
-
-</table> 
- -->
-
-<?php
-
 if (isset($_REQUEST['po_date'])) {
   
-    // PO HEADER
-  $sql_header = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier,ship_to,outlets,po_description,due_date,status,created_by , created_date,last_update_by,last_update_date)
-  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."','".$po_description."','".$due_date."','".$status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
+// PO HEADER
+  $sql_header = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier,ship_to,outlets,po_description,due_date,status,created_by , created_date,last_update_by,last_update_date,ledger_id)
+  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."','".$po_description."','".$due_date."','".$status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."')";
   mysqli_query($conn, $sql_header);
 
 // PO LINE
-  for($y = 0; $y < count($counter); $y++ ){
+  for($y = 0; $y < count($inventory_item_id); $y++ ){
     $sql_line = "INSERT INTO PO_LINE_ALL (po_header_id,uom ,qty,price,inventory_item_id,created_by , created_date,last_update_by,last_update_date)
     VALUES ('".$po_header_id."','".$uom[$y]."' , '".$qty[$y]."' , '".$price[$y]."','".$inventory_item_id[$y]."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."')";
     mysqli_query($conn, $sql_line);
       }
 
-      header("Location:../form_po.php");
+// update amount_due_remaining
+  $sql_header = "UPDATE PO_HEADER_ALL poh set poh.amount_due_remaining = (select sum(price*qty) from PO_LINE_ALL POL where poh.po_header_id = pol.po_header_id) where poh.po_header_id = '".$po_header_id."'";
+  mysqli_query($conn, $sql_header);
+
+
+  header("Location:../form_po.php");
 }
 
 ?>

@@ -3,7 +3,6 @@
 
 $po_amount = "SELECT sum(pol.qty * pol.price)  as amount
 FROM po_line_all pol
-LEFT JOIN ap_check_all aca ON aca.po_header_id = pol.po_header_id
 where
 pol.po_header_id = '".$po_header_id."'
 ";

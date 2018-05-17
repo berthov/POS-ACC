@@ -239,7 +239,7 @@ include ("query/find_ledger.php");
                                         </select>
                                       </div>
                                     </td>
-                                    <td><input type="text" class="form-control" name="payment_amount"></td>
+                                    <td><input type="number" class="form-control" name="payment_amount" min="0"></td>
                                     <td><input type="hidden" name="invoice_id" value="<?php echo $invoice_id; ?>"></td>
                                   </tr>
                                 </table>

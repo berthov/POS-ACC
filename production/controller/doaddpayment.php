@@ -23,6 +23,31 @@
 		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 		}
 
+	// update outstanding
+	$sql_header = "UPDATE po_header_all set amount_due_remaining =  amount_due_remaining - '".$payment_amount."' where po_header_id = '".$po_header_id."'";
+	mysqli_query($conn, $sql_header);
+
+
+	$check_outstanding = "SELECT * FROM po_header_all WHERE po_header_id = '".$po_header_id."' ";
+	$result = mysqli_query($conn,$check_outstanding);
+	$status = mysqli_fetch_assoc($result);
+
+
+	// update status kalau amount due remaining sudah 0
+	if ($status) { 
+     if ($status['amount_due_remaining'] == 0) {
+	
+			$sql_header_status = "UPDATE po_header_all set status = 'Paid'  where po_header_id = '".$po_header_id."'";
+			mysqli_query($conn, $sql_header_status);
+	
+	    }
+	    else{
+
+			$sql_header_status = "UPDATE po_header_all set status = 'Open'  where po_header_id = '".$po_header_id."'";
+			mysqli_query($conn, $sql_header_status);
+	    }
+	}
+
 		mysqli_close($conn);
 
 		header("Location:../payment_po.php?po_header_id=$po_header_id");

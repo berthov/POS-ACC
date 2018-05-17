@@ -2,6 +2,7 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
+include("query/find_ledger.php");
 
 $po_header_id = $_REQUEST['po_header_id'];
 
@@ -66,13 +67,12 @@ $po_header_id = $_REQUEST['po_header_id'];
                     <br />                      
                   <?php
 
-                    $sql = "SELECT o.name , poh.po_date , poh.supplier , poh.ship_to , poh.due_date , poh.po_description ,pol.qty , pol.price
+                    $sql = "SELECT o.name , poh.po_date , poh.supplier , poh.ship_to , poh.due_date , poh.po_description 
                     FROM po_header_all poh,
-                    outlet o,
-                    po_line_all pol
+                    outlet o
                     where
                     poh.outlets = o.name  
-                    and poh.po_header_id = pol.po_header_id
+                    and poh.ledger_id = '".$ledger_new."'
                     and poh.po_header_id = '".$po_header_id."'
                     ";
                     $result = $conn->query($sql);
@@ -247,7 +247,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                                         </select>
                                       </div>
                                     </td>
-                                    <td><input type="text" class="form-control" name="payment_amount"></td>
+                                    <td><input type="number" class="form-control" name="payment_amount" min="0" max=<?php include("query/po_outstanding.php"); ?>></td>
                                     <td><input type="hidden" name="po_header_id" value="<?php echo $po_header_id; ?>"></td>
                                   </tr>
                                 </table>

@@ -26,7 +26,7 @@
   $outstanding_status = 'Open';
   $refund_status = 'No';
   $due_date = date('Y-m-d', strtotime($_REQUEST['due_date']));
-  //ini sementara dulu. tunggu form tax yang dari page media_gallery.php 
+
   if (empty($_REQUEST['tax_code']) || $_REQUEST['tax_code'] ==='No' ) {
     $tax_code = 0;
   }
@@ -36,14 +36,6 @@
 
   $customer_name = $_REQUEST['customer_name'];
    
-
-	// $subtotal = 0;
-	// for($x = 0; $x < count($arr); $x++ ){
-	// 	if($quant[$x] > 0){	
-	// 	$subtotal	+= $arr1[$x];						     	
-	// 	}
- //    }
-	                  
     $check_outlet = 
     "SELECT o.* FROM employee e, outlet o WHERE e.ledger_id = '".$ledger_new."' and e.name = '".$user_check."' 
     and e.outlet_id = o.name and o.status = 'Active'";
@@ -51,42 +43,8 @@
     $existing_outlet = mysqli_fetch_assoc($result_outlet);
 
 
-	/*if ($subtotal <= 0 ){
-	echo 	"<script>
-		  			alert('Please Input Quantity');
-    				window.history.back();
-    		</script>";
-    	}
-    	else{*/
 ?>
 
-<!--  <table>
-	<tr>
-		<td>Description</td>
-		<td>Unit Price</td>
-		<td>Qty</td>
-	</tr>
-		<?php
-	
-			for($x = 0; $x < count($arr); $x++ ){
-			     	
-		?>
-	<tr>
-		<td>
-			<?php echo $arr[$x]; ?>
-		</td>
-		<td>
-			<?php echo $arr1[$x]; ?>
-		</td>
-		<td>
-			<?php echo $quant[$x]; ?>
-		</td>
-		<?php
-		}
-		?>
-	</tr>
-
-</table> --> 
 <html>
     <style type="text/css" media="print">
       @media print {
@@ -207,7 +165,7 @@
 	                        echo "Rp."; echo number_format(($subtotal - $discount) + ($tax_code * ($subtotal - $discount))) ; echo "<br>";
 	                        ?>
 
-	                    </b></h4>
+	                        </b></h4>
                           </div>
                         </div>
                       </div>
@@ -245,6 +203,7 @@
 
 <?php
 
+
 // HEADER
     // insert header invoice transaction
     $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name,tax_code)
@@ -263,7 +222,7 @@
           $cogs[$y] = $row["cogs"];
 
 	    		if ($row["qty"] - $quant[$y] < 0 ){
-		    			header("Location:../media_gallery.php?err=2&item=$arr[$y]");
+		    			header("Location:../media_gallery.php");
 	    		}
 	    		else{
 
@@ -281,7 +240,7 @@
 		    			$sql1 = "UPDATE inventory SET qty= qty - '".$quant[$y]."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$arr[$y]."'";
 
 						mysqli_query($conn, $sql1);
-
+   
 		    		}	
 	    	}
 		}
