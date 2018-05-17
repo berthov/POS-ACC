@@ -14,17 +14,31 @@
 	$today =  date("Y-m-d");
 	$time = date("H:i:s"); 
   $month = date("F");
-  $payment_method = $_REQUEST['payment_method'];
   $created_date =  date("Y-m-d");
   $last_update_date =  date("Y-m-d");
   $type = 'Penjualan';
   $invoice_number = date("His");
 
   // ini variable tambahan buat nanti
-  $discount = $_REQUEST['discount'];
+
   $outstanding_status = 'Open';
   $refund_status = 'No';
   $due_date = date('Y-m-d', strtotime($_REQUEST['due_date']));
+
+if ( empty($_REQUEST['payment_method'])) {
+    $payment_method = 'Cash';  
+}
+else{
+    $payment_method = $_REQUEST['payment_method'];
+
+}
+
+if ( empty($_REQUEST['discount']) ) {
+    $discount = 0;
+  }
+  else{
+      $discount = $_REQUEST['discount'];
+  }
 
   if (empty($_REQUEST['tax_code']) || $_REQUEST['tax_code'] ==='No' ) {
     $tax_code = 0;
