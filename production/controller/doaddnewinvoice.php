@@ -12,7 +12,7 @@
 	$quant = $_REQUEST['quant'];
 	$invoice_id =  date("YmdHis");
 	$today =  date("Y-m-d");
-	$time = date("H:i:s");
+	$time = date("H:i:s"); 
   $month = date("F");
   $payment_method = $_REQUEST['payment_method'];
   $created_date =  date("Y-m-d");

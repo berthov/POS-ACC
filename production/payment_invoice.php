@@ -122,11 +122,7 @@ include ("query/find_ledger.php");
                         </div>
                       </div>
 
-                      <?php 
                       
-                      }
-                      
-                      ?>
 
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -239,7 +235,7 @@ include ("query/find_ledger.php");
                                         </select>
                                       </div>
                                     </td>
-                                    <td><input type="number" class="form-control" name="payment_amount" min="0"></td>
+                                    <td><input type="number" class="form-control" name="payment_amount" min="0" max=<?php echo $row["amount_due_remaining"] ?>></td>
                                     <td><input type="hidden" name="invoice_id" value="<?php echo $invoice_id; ?>"></td>
                                   </tr>
                                 </table>
@@ -259,6 +255,10 @@ include ("query/find_ledger.php");
 						              <button class="btn btn-primary" type="reset">Reset</button>
                           <button type="submit" class="btn btn-success">Submit</button>
                         </div>
+
+                        <?php             
+                      }          
+                      ?>
                       </div>
                     </form>
                   </div>
