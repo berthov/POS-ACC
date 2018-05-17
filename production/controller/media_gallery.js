@@ -75,6 +75,18 @@ function validateValue() {
     $table3.append( $column3 );
     $table3.appendTo( $( ".total" ) );
 
+    subtotal = sum;
+    var $columnSubtotal = $( "<tr></tr>" );
+    $columnSubtotal.append( $( "<td></td>" ).html(subtotal) );
+    $tableSubtotal.append( $columnSubtotal );
+    $tableSubtotal.appendTo( $( ".disc" ) );
+
+    total = subtotal;
+    var $columnTotal = $( "<tr></tr>" );
+    $columnTotal.append( $( "<td></td>" ).html(total) );
+    $tableTotal.append( $columnTotal );
+    $tableTotal.appendTo( $( ".afterTax" ) );
+
     flag = 0;
 
     if(discount == ''){
@@ -100,7 +112,9 @@ function validateValue() {
       toastr.error("Discount is greater than price!");
       $(".afterTax").empty();  
       $tableTotal.empty();
+      var btn = document.getElementById("submitModal"); btn.disabled = true;
     }else{
+      var btn = document.getElementById("submitModal"); btn.disabled = false;
       subtotal = sum - discount;
     
       var $columnSubtotal = $( "<tr></tr>" );
