@@ -252,7 +252,7 @@ include("query/find_ledger.php");
                                   
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <button id="submitModal" type="submit" class="btn btn-primary">Save changes</button>
                                   </div>
 
                               </div>
