@@ -14,8 +14,7 @@
 	$today =  date("Y-m-d");
 	$time = date("H:i:s");
   $month = date("F");
-  // $payment_method = $_REQUEST['payment_method'];
-  $payment_method = $_POST['payment_method'];
+  $payment_method = $_REQUEST['payment_method'];
   $created_date =  date("Y-m-d");
   $last_update_date =  date("Y-m-d");
   $type = 'Penjualan';
