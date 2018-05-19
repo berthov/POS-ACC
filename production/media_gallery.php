@@ -76,21 +76,11 @@ include("query/find_ledger.php");
                       <form id="formInvoice" action="controller/doaddnewinvoice.php" method="POST" >
                         <?php
 
-                            $sql = "SELECT i.id, i.description , c.sales_price ,i.qty
-                            FROM inventory i,
-                            cogs c
+                            $sql = "SELECT i.id, i.description , i.sales_price ,i.qty
+                            FROM inventory i
                             where
-                            c.inventory_item_id = i.id
-                              and c.ledger_id = i.ledger_id
-                              and c.ledger_id = '".$ledger_new."'
-                              and c.item_cost_id = (select 
-                                max(c_1.item_cost_id)
-                                From
-                                cogs c_1
-                                where
-                                c_1.inventory_item_id = c.inventory_item_id
-                                and c_1.ledger_id = c.ledger_id)
-                                ";
+                            i.ledger_id = '".$ledger_new."'
+                            order by i.description";
                             $result = $conn->query($sql);
                             $a = 0;
                             while($row = $result->fetch_assoc()) {

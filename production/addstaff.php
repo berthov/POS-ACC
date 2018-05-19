@@ -101,7 +101,7 @@ include("query/find_ledger.php");
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
 <!--                         <input type="text" class="form-control" id="outlet" placeholder="Outlet" required ="required" name="outlet">
                         <span class="fa fa-phone form-control-feedback right" aria-hidden="true" required ="required"></span> -->
-                          <select class="form-control" name="outlet" id="outletstaff">
+                          <select class="form-control" name="outlet" id="outletstaff" required="required">
                               <option value="" disabled selected>Select Outlet</option>
                           
                             <?php
