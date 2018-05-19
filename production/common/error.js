@@ -156,7 +156,7 @@ $(document).ready(function() {
         },
         success:function(response){
           if(response=='Item already exist'){
-            alert('Item Already Exist');
+            toastr.error('Item Already Exist');
           }
           else{
              window.location.href="../production/form_validation.php";
