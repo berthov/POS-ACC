@@ -11,7 +11,7 @@
 	$arr1 = $_REQUEST['arr1'];	
 	$quant = $_REQUEST['quant'];
 	$invoice_id =  date("YmdHis");
-	$today =  date("Y-m-d");
+	$today =  date('Y-m-d', strtotime($_REQUEST['invoice_date']));
 	$time = date("H:i:s"); 
   $month = date("F");
   $created_date =  date("Y-m-d");
