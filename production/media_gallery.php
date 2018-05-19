@@ -134,7 +134,7 @@ include("query/find_ledger.php");
                         <div class="clearfix"></div>
                         <!-- <button type="submit" name="submit" value="Insert" class="btn btn-round btn-primary" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button> -->
 
-                        <button type="button" class="btn btn-round btn-primary" data-target=".bs-example-modal-sm" data-toggle="modal" onclick="validateValue();" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button>
+                        <button id="toSummary" type="button" class="btn btn-round btn-primary" data-target=".bs-example-modal-sm" data-toggle="modal" onclick="validateValue();" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button>
                         
                         <!--Modal -->
                           <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
