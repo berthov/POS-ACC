@@ -29,7 +29,7 @@ function validateValue() {
 
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
-    eachquantity = this.value;
+    eachquantity = parseInt(this.value);
     if(eachquantity != "0" ){
       flag++;
       description.push($(this).attr('data-description'));
@@ -208,7 +208,7 @@ $('.input-number').focusin(function(){
 	$(this).data('oldValue', $(this).val());
 });
 
-$('.input-number').on('input' ,function() {
+$('.input-number').on('input', function() {
       
 	minValue =  parseInt($(this).attr('min'));
 	maxValue =  parseInt($(this).attr('max'));
@@ -218,17 +218,18 @@ $('.input-number').on('input' ,function() {
 	if(valueCurrent >= minValue) {
 			 $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
 	} else {
-      toastr.error('Please Input Value!');
-      //$(this).val($(this).data('oldValue'));
+      toastr.error('Sorry, the minimum value was reached');
+      $(this).val($(this).data('oldValue'));
       valueCurrent = 0;
 	}
 	if(valueCurrent <= maxValue) {
      	$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
   	} else {
       toastr.error('Sorry, the maximum value was reached');
-      $(this).val($(this).data(''));
-      valueCurrent = 0;
+      $(this).val($(this).data('oldValue'));
   	}
+
+  valueCurrent = 0;
 });
 
 $(".input-number").keydown(function (e) {
