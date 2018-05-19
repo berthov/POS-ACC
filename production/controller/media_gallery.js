@@ -37,26 +37,6 @@ function validateValue() {
       itemquantity.push(+eachquantity);
     }  
 
-    minValue =  parseInt($(this).attr('min'));
-    maxValue =  parseInt($(this).attr('max'));
-    valueCurrent = parseInt($(this).val());
-    
-    name = $(this).attr('name');
-    if(valueCurrent >= minValue) {
-         $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        $(this).val($(this).data('oldValue'));
-        valueCurrent = 0;
-        flag = 2;
-    }
-    if(valueCurrent <= maxValue) {
-        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-      } else {
-        $(this).val($(this).data('oldValue'));
-        valueCurrent = 0;
-        flag = 3;
-      }
-
   })
   multiply = itemquantity.map(function(x, index) {
     var curMult = x * pricePerItem[index];
@@ -67,17 +47,10 @@ function validateValue() {
   $(".afterTax").empty();
   $tableTotal.empty();
 
-
-
-  if(flag == "0" || flag == "2"){
+  if(flag == "0" ){
     $('.btn-primary').removeAttr('data-target','.bs-example-modal-sm');
     toastr.error('Please Input Value!'); 
-  } else if(flag == "3"){
-    $('.btn-primary').removeAttr('data-target','.bs-example-modal-sm');
-    toastr.error('Sorry, the maximum value was reached');
-  }
-
-  else{
+  }else{
     for ( var i = 0; i < description.length; i++ ) {
       var desc = description[i];
       var quant = itemquantity[i];
@@ -233,6 +206,27 @@ $('.btn-number').click(function(e){
 
 $('.input-number').focusin(function(){
 	$(this).data('oldValue', $(this).val());
+});
+
+$('.input-number').change(function() {
+      
+	minValue =  parseInt($(this).attr('min'));
+	maxValue =  parseInt($(this).attr('max'));
+	valueCurrent = parseInt($(this).val());
+  
+	name = $(this).attr('name');
+	if(valueCurrent >= minValue) {
+			 $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+	} else {
+      alert('Sorry, the minimum value was reached');
+      $(this).val($(this).data('oldValue'));
+	}
+	if(valueCurrent <= maxValue) {
+     	$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+  	} else {
+      alert('Sorry, the maximum value was reached');
+      $(this).val($(this).data('oldValue'));
+  	}
 });
 
 $(".input-number").keydown(function (e) {
