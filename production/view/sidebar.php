@@ -50,7 +50,7 @@ include("controller/doconnect.php");
               <li><a href="form_po.php">Purchase Order Form</a></li>
               <li><a href="form_supplier.php">Form Supplier</a></li>
               <li><a href="recipe.php">Form Recipe</a></li>
-              <li><a href="calculate_cogs.php">Cost of Goods Sold (COGS)</a></li>
+              <!-- <li><a href="calculate_cogs.php">Cost of Goods Sold (COGS)</a></li> -->
               <li><a href="adjustment_inventory.php">Adjustment Inventory</a></li>
             </ul>
           </li>

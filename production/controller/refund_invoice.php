@@ -5,8 +5,9 @@
 	$user_check = $_SESSION['login_user'];
 
 
-	$invoice_id = $_POST['id'];	
-	// $invoice_id = $_REQUEST['invoice_id'];
+		
+	$invoice_id = $_REQUEST['invoice_id'];
+	// $invoice_id = $_POST['invoice_id'];
 	$created = date("Y-m-d");
 
 			
@@ -18,7 +19,12 @@
 
 	if ($existing_result) {
 		if ($existing_result['refund_status'] === 'Yes') {
-			echo "Invoice already Refunded";
+			// echo "Invoice already Refunded";
+			echo "
+			<script>
+	  			alert('Invoice Already Refunded');
+				window.history.back();
+    		</script>";
 		}
 		else{
 	
@@ -41,7 +47,7 @@
     		$sql_onhand = "UPDATE inventory SET qty= (select sum(qty) from material_transaction where inventory_item_id = '".$row['inventory_item_id']."') , last_update_date= '".$created."' ,last_update_by= '".$user_check."' WHERE id = '".$row['inventory_item_id']."'";
 			mysqli_query($conn, $sql_onhand);
 
-    		// header("Location:../tables_invoice.php");
+    		header("Location:../tables_invoice.php");
 		    }
 
 		}

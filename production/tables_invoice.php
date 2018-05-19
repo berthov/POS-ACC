@@ -3,7 +3,7 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
-// include("common/modal.html");
+include("common/modal.html");
 ?>
 
 <!DOCTYPE html>
@@ -121,21 +121,28 @@ include("query/find_ledger.php");
                             <a href="payment_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['outstanding_status']; ?></button></a>
                           </td>
                           <td>
-                            <a href="template_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                            <a href="template_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-primary btn-xs" ><i class="fa fa-folder"></i> View </a>
 
-                            <button data-toggle="modal" data-target="#modalrefund" type="button" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund 
+
+                            <!-- <a id="ahref1" href="controller/refund_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund </a> -->
+
+
+                            <button data-toggle="modal" type="button" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund 
                             </button>
-
                           </td>
                         </tr> 
 
+
+ 
                         <?php
                           }        
                         ?>  
 
                       </tbody>
+
                     </table>
                     <!-- end project list -->
+
                   </div>
               </div>
                 <div class="col-md-12 col-sm-12 col-xs-12"> 
