@@ -3,7 +3,7 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
-include("common/modal.html");
+include("common/modal_refund.php");
 ?>
 
 <!DOCTYPE html>
