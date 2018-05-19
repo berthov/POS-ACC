@@ -25,7 +25,7 @@ if(isset($_REQUEST['reservation'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bonne Journée </title>
+    <title>Bonne Journée! </title>
 
     <!-- Toastr -->
     <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
@@ -184,11 +184,7 @@ if(isset($_REQUEST['reservation'])){
                   </div>
                 </div>
               </fieldset>
-             </div>
-             <div class="col-md-2">
-              <input type="submit" name="submit"  class="btn btn-round btn-primary "/>
-            </div>
-          
+             </div>      
           </form>
           </div>
 
@@ -203,23 +199,7 @@ if(isset($_REQUEST['reservation'])){
                     <h3>Monthly Gross Sales <small>Graph title sub-title</small></h3>
                   </div>
                   <div class="col-md-6">
-                    
-<!--                     <form class="form-horizontal">
-                          <fieldset>
-                            <div class="control-group" >
-                              <div class="controls" >
-                                <div class="input-prepend input-group">
-                                  <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right" value="01/01/2016 - 01/25/2016" />
-                                  <span class="add-on input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </fieldset>
-                          <input type="submit" name="submit"  class="btn btn-round btn-primary pull-right"/>
-                        </form>
-                  </div> -->
+                 
                 </div>
 
                 <div class="col-md-9 col-sm-9 col-xs-12">
@@ -320,6 +300,13 @@ if(isset($_REQUEST['reservation'])){
 
 	
     <script type="text/javascript">
+
+  
+    $(document).ready(function(){
+      $("#reservation").on("change", function() {
+        this.form.submit();
+      });
+    });
 
     var ctxL = document.getElementById("lineChart1").getContext('2d');
     var myLineChart1 = new Chart(ctxL, {

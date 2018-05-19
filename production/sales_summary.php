@@ -29,7 +29,7 @@ if(isset($_REQUEST['reservation'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bonne Journée </title>
+    <title>Bonne Journée! </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -162,20 +162,9 @@ if(isset($_REQUEST['reservation'])){
     <script type="text/javascript">
   
     $(document).ready(function(){
-      /*$("#reservation").on("change paste keyup", function() {
-             var x = document.getElementById("reservation").value;
-             var y = document.getElementById("reservation").value;
-             var start_date = x.substr(1,10) ;
-             var end_date = x.substr(14,10) ;
-
-            document.getElementById("demo").innerHTML = start_date;
-            document.getElementById("demo1").innerHTML = end_date;
-
-            });*/
-
-              $("#reservation").on("change", function() {
-                this.form.submit();
-              });
+      $("#reservation").on("change", function() {
+        this.form.submit();
+      });
     });
     </script>
   </body>

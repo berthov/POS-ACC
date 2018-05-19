@@ -19,7 +19,7 @@ include("query/find_ledger.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bonne Journée </title>
+    <title>Bonne Journée! </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -47,6 +47,11 @@ include("query/find_ledger.php");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Delete Staff -->
+    <script src="../production/controller/deleteStaff.js"></script>
   </head>
 
   <body class="nav-md">
@@ -152,8 +157,6 @@ include("query/find_ledger.php");
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -175,8 +178,7 @@ include("query/find_ledger.php");
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <!-- Delete Staff -->
-    <script src="../production/controller/deleteStaff.js"></script>
+
     
   </body>
 </html>

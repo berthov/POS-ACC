@@ -24,7 +24,7 @@ if(isset($_REQUEST['reservation'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Bonne Journée </title>
+    <title>Bonne Journée! </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -114,7 +114,8 @@ if(isset($_REQUEST['reservation'])){
                                 from invoice_header ih_1
                                 where 
                                 ih_1.ledger_id = ih.ledger_id
-                                and ih_1.refund_status not in ('Yes')) + 
+                                and ih_1.refund_status not in ('Yes')) 
+                                + 
                                 (
                                 SELECT sum(a.tax_amount) -
                                 (select sum(ih_1.discount_amount*ih_1.tax_code)

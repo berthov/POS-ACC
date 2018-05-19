@@ -3,10 +3,12 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
-include("common/modal_refund.php");
 ?>
 
 <!DOCTYPE html>
+<?php
+include("common/modal.html");
+?>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -38,6 +40,11 @@ include("common/modal_refund.php");
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+
+    <script src="../production/controller/refund.js"></script>
   </head>
 
   <body class="nav-md">
@@ -127,8 +134,8 @@ include("common/modal_refund.php");
                             <!-- <a id="ahref1" href="controller/refund_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund </a> -->
 
 
-                            <button data-toggle="modal" type="button" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund 
-                            </button>
+                            <button data-toggle="modal" type="button" data-target="#modalRefund"  class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund 
+                            </button> 
                           </td>
                         </tr> 
 
@@ -166,8 +173,6 @@ include("common/modal_refund.php");
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Datatables -->
@@ -191,9 +196,6 @@ include("common/modal_refund.php");
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-
-    <script src="../production/controller/refund.js"></script>
-
   
   </body>
 </html>
