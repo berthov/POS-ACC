@@ -14,11 +14,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 	// $unit_price = $_REQUEST['unit_price'];
 	$min = $_REQUEST['min'];
 	$max = $_REQUEST['max'];
-	$category = $_REQUEST['category'];
-	$other_category = $_REQUEST['other_category'];
 	$created_date =  date("Y-m-d");	
 	$last_update_date =  date("Y-m-d");
 
+	if ($_REQUEST['category'] == 'Other') {
+		$category = $_REQUEST['other_category'];
+	}else{
+		$category = $_REQUEST['category'];
+	}
 
 		$check_item = "SELECT * FROM inventory WHERE ledger_id = '".$ledger_new."' and item_code = '".$item_code."' ";
 		$result_item = mysqli_query($conn,$check_item);
