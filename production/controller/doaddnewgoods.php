@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 	$min = $_REQUEST['min'];
 	$max = $_REQUEST['max'];
 	$category = $_REQUEST['category'];
-	// $category = 'Uncategorized';
+	$other_category = $_REQUEST['other_category'];
 	$created_date =  date("Y-m-d");	
 	$last_update_date =  date("Y-m-d");
 
@@ -43,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		mysqli_close($conn);
 
-		// header("Location:../form_validation.php");
+		header("Location:../form_validation.php");
 
 
 	}

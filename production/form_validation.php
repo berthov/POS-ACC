@@ -31,6 +31,9 @@ include("query/find_ledger.php");
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../production/common/error.js"></script>
 
   </head>
 
@@ -114,7 +117,7 @@ include("query/find_ledger.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Category 
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select name="category" id="category" onchange="showfield(this.options[this.selectedIndex].value)" class="form-control col-md-7 col-xs-12">
+                          <select name="category" id="category" onchange="showfield(this.options[this.selectedIndex].value)" class="form-control col-md-7 col-xs-12 category">
                           <option value="uncategorized">Select Or Add Category</option>
                           
                            <?php
@@ -130,7 +133,7 @@ include("query/find_ledger.php");
                             }
                           ?>
 
-                          <option value="Other">Add Category</option>
+                          <option value="Other" name="Other">Add Category</option>
                           </select>
                           <div id="div1"></div>
                         </div>
@@ -181,8 +184,6 @@ include("query/find_ledger.php");
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.js"></script>
     <!-- FastClick -->
@@ -193,13 +194,14 @@ include("query/find_ledger.php");
         <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    <script src="../production/common/error.js"></script>
-
 
     <script type="text/javascript">
     function showfield(name){
-      if(name=='Other')document.getElementById('div1').innerHTML='<input type="text" name="category" id="category" class="form-control col-md-7 col-xs-12" />';
-      else document.getElementById('div1').innerHTML='';
+      if(name=='Other'){
+        document.getElementById('div1').innerHTML='<input type="text" name="category" id="otherCategory" class="form-control col-md-7 col-xs-12 category" />';
+      } else {
+        document.getElementById('div1').innerHTML='';
+      }
     }
     </script>
 

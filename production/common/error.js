@@ -136,8 +136,15 @@ $(document).ready(function() {
     var qty=$("#qty").val();
     var min=$("#min").val();
     var max=$("#max").val();
-    var category=$("#category").val();
-    
+    var category=$(".category").val();
+    var other_category= $("#otherCategory").val();
+
+    if(!other_category){
+      other_category = category;
+    }
+
+    alert(other_category);
+
       $.ajax({
         type:'post',
         url:'controller/doaddnewgoods.php',
@@ -147,11 +154,12 @@ $(document).ready(function() {
             'qty':qty,
             'min':min,
             'max':max,
-            'category':category
+            'category':category,
+            'other_category':other_category
         },
         success:function(response){
           if(response=='Item already exist'){
-            toastr.error('Item already exist');
+            toastr.error('Item Already Exist');
           }
           else{
              window.location.href="../production/form_validation.php";
