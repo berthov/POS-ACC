@@ -195,13 +195,27 @@ $('.btn-number').click(function(e){
               input.val(currentVal + 1).change();
           }
           if(parseInt(input.val()) == input.attr('max')) {
-              $(this).attr('disabled', true);
-          }
+            $(this).attr('disabled', true);
+          } 
 
       }
   } else {
       input.val(0);
   }
+});
+
+$('.input-number').on('change', function() {
+  var currentVal = $('.input-number').val();
+  maxValue = $('.input-number').attr('max');
+  minValue = $('.input-number').attr('min');
+
+  if(currentVal < maxValue){
+    $('.btn-number').attr('disabled', false);
+  }
+  if(currentVal > minValue){
+    $('.btn-number').attr('disabled', false);
+  }
+  
 });
 
 $('.input-number').focusin(function(){
