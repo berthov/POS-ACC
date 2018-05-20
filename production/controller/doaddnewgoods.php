@@ -27,11 +27,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		if ($existing_item) { 
 	     if ($existing_item['item_code'] === $item_code) {
-		      echo 'Item already exist';
-		      /*echo ' <script type="text/javascript">
+		      //echo 'Item already exist';
+		      echo ' <script type="text/javascript">
 		      alert("Item Already Exist"); 
 		      window.history.back();
-		      </script>';*/
+		      </script>';
 		    }
 		}
 		else{
