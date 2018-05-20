@@ -36,7 +36,7 @@
 	    	mysqli_query($conn, $sql);
 
 	    	// update qty onhand
-    		$sql_onhand = "UPDATE inventory SET qty = qty + '".$row['qty']."' , last_update_date= '".$created."' ,last_update_by= '".$user_check."' WHERE id = '".$row['inventory_item_id']."'";
+    		$sql_onhand = "UPDATE inventory SET qty= (select sum(qty) from material_transaction where inventory_item_id = '".$row['inventory_item_id']."') , last_update_date= '".$created."' ,last_update_by= '".$user_check."' WHERE id = '".$row['inventory_item_id']."'";
 			mysqli_query($conn, $sql_onhand);
 
 			echo "success";

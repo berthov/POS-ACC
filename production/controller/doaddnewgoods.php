@@ -27,11 +27,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		if ($existing_item) { 
 	     if ($existing_item['item_code'] === $item_code) {
-		      //echo 'Item already exist';
-		      echo ' <script type="text/javascript">
-		      alert("Item Already Exist"); 
-		      window.history.back();
-		      </script>';
+		      echo 'Item already exist';
 		    }
 		}
 		else{
@@ -47,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 		mysqli_close($conn);
 
-		header("Location:../form_validation.php");
+		// header("Location:../form_validation.php");
 
 
 	}

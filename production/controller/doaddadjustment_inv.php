@@ -32,7 +32,7 @@
 
 
 		/*update on hand quantity*/
-		$sql_onhand = "UPDATE inventory SET qty= qty + '".$qty."' , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$inventory_item_id."'";
+		$sql_onhand = "UPDATE inventory SET qty= (select sum(qty) from material_transaction where inventory_item_id = '".$inventory_item_id."') , last_update_date= '".$last_update_date."' ,last_update_by= '".$user_check."' WHERE id = '".$inventory_item_id."'";
 		
 		mysqli_query($conn, $sql_onhand);
 
