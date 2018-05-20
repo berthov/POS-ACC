@@ -143,8 +143,6 @@ $(document).ready(function() {
       other_category = category;
     }
 
-    alert(other_category);
-
       $.ajax({
         type:'post',
         url:'controller/doaddnewgoods.php',
