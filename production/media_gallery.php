@@ -180,7 +180,7 @@ include("query/find_ledger.php");
                                       <div>
                                         <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Tax</label>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                          <select class="form-control tax_code" name="tax_code" id="tax_code" style="width: 142px; height: 30px;">
+                                          <select class="form-control tax_code" name="tax_code" id="tax_code" style="width: 171px; height: 30px;">
                                             <option value="" disabled selected>Select Tax</option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
@@ -205,6 +205,30 @@ include("query/find_ledger.php");
 
                                   <p></p>
 
+
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <div>
+                                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Invoice Date</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                          <fieldset>
+                                            <div class="control-group">
+                                              <div class="controls">
+                                                <div class="xdisplay_inputx">
+                                                  <input type="text" class="form-control" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="invoice_date" style="width: 171px; height: 27px;">
+                                                  <span id="inputSuccess2Status3" class="sr-only">(success)
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </fieldset>                             
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <p></p>
+                                  
                                   <div class="modal-body">
                                     <div class="form-group">
                                       <div>
@@ -214,7 +238,7 @@ include("query/find_ledger.php");
                                             <div class="control-group">
                                               <div class="controls">
                                                 <div class="xdisplay_inputx">
-                                                  <input type="text" class="form-control" id="single_cal2" placeholder="Date" aria-describedby="inputSuccess2Status3" name="due_date" style="width: 142px; height: 27px;">
+                                                  <input type="text" class="form-control" id="single_cal2" placeholder="Date" aria-describedby="inputSuccess2Status3" name="due_date" style="width: 171px; height: 27px;">
                                                   <span id="inputSuccess2Status3" class="sr-only">(success)
                                                   </span>
                                                 </div>

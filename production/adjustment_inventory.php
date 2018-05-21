@@ -73,7 +73,7 @@ include("query/find_ledger.php");
                     <form id="adjustment" class="form-horizontal form-label-left" action="controller/doaddadjustment_inv.php" method="POST" >
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inventory_item_id">Item Name <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="inventory_item_id">Item Description <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <select class="form-control" id="inventory_item_id" name="inventory_item_id" required="required">
