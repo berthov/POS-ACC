@@ -117,46 +117,25 @@ if(isset($_REQUEST['reservation'])){
                           <th>Real</th>
                         </tr>
                         <tr>
-                          <td scope="row">Gross Sales</td>
-                          <td align="left">Rp.
-                          <?php include("query/gross_sales.php"); ?></td>
-                          <td align="left">Rp.
-                          <?php include("query/gross_sales.php"); ?></td>
-                        </tr>
-                        <tr>
-                          <td scope="row">Discount</td>
-                          <td align="left">Rp.
-                          <?php include("query/discount.php"); ?></td>
-                          <td align="left">Rp.
-                          <?php include("query/discount.php"); ?></td>
-                        </tr>
-                        <tr>
-                          <td scope="row">refund</td>
-                          <td align="left">Rp.
-                          <?php include("query/refund.php"); ?></td>
-                          <td align="left">Rp.
-                          <?php include("query/refund.php"); ?></td>
-                        </tr>
-                        <tr>
                           <th scope="row">Net Sales</th>
                           <td align="left"><b>Rp.
                           <?php include("query/net_sales.php"); ?></b></td>
                           <td align="left"><b>Rp.
-                          <?php include("query/net_sales.php"); ?></b></td>
+                          <?php include("query/plan_net_sales.php"); ?></b></td>
                         </tr>
                         <tr>
                           <td scope="row">Cost of Goods Sold (COGS)</td>
                           <td align="left">Rp.
                           <?php include("query/cogs.php"); ?></td>
                           <td align="left">Rp.
-                          <?php include("query/cogs.php"); ?></td>
+                          <?php include("query/plan_cogs.php"); ?></td>
                         </tr>
                         <tr>
                           <th scope="row">Gross Profit</th>
                           <td align="left"><b>Rp.
                           <?php include("query/gross_profit.php"); ?></b></td> 
                           <td align="left"><b>Rp.
-                          <?php include("query/gross_profit.php"); ?></b></td>
+                          <?php include("query/plan_gross_profit.php"); ?></b></td>
                         </tr>
                       </tbody>
                     </table>
