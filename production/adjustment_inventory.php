@@ -163,7 +163,6 @@ include("query/find_ledger.php");
                               and inv.id = mt.inventory_item_id
                               and inv.ledger_id = '".$ledger_new."'
                               order by mt.transaction_id desc
-                              limit 10
                               ";
 
                               $result = $conn->query($sql);

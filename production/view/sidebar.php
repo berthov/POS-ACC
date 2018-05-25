@@ -47,8 +47,8 @@ include("controller/doconnect.php");
               <li><a href="form_validation.php">Master Item Form</a></li>
               <li><a href="cogs.php">Cost of Goods Sold (COGS) Manual</a></li>
               <!-- <li><a href="form.html">Invoice Form</a></li> -->
-              <li><a href="form_po.php">Purchase Order Form</a></li>
-              <li><a href="form_supplier.php">Form Supplier</a></li>
+              <!-- <li><a href="form_po.php">Purchase Order Form</a></li> -->
+              <!-- <li><a href="form_supplier.php">Form Supplier</a></li> -->
               <!-- <li><a href="recipe.php">Form Recipe</a></li> -->
               <!-- <li><a href="calculate_cogs.php">Cost of Goods Sold (COGS)</a></li> -->
               <li><a href="adjustment_inventory.php">Adjustment Inventory</a></li>
@@ -66,7 +66,7 @@ include("controller/doconnect.php");
               <li><a href="tables_dynamic.php">Table Inventory</a></li>
               <li><a href="tables_invoice.php">Table Invoice</a></li>
               <li><a href="table_cogs.php">Table COGS</a></li>
-              <li><a href="po_summary.php">Table PO</a></li>   
+              <!-- <li><a href="po_summary.php">Table PO</a></li>    -->
               <!-- <li><a href="table_supplier.php">Table Supplier</a></li>              -->
             </ul>
           </li>
