@@ -107,47 +107,65 @@ echo "string";
 
                 }*/
 
-                $query = "SELECT distinct date_format(date,'%M') as month , date_format(date,'%m') as a , date_format(sysdate(),'%m')  as b , DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m') as c
-                  FROM invoice 
-                  where month IS NOT NULL
-                  and date_format(date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
-                  order by date 
-                  /*where
-                  date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
-                  ";
-                $data=mysqli_query($conn,$query);   
-                while($row=mysqli_fetch_array($data)){                   
-                    echo "\"";echo $row['month'] ; echo "\"" ;echo ",";
-                    // echo "\"";echo $row['a'] ; echo "\"" ;echo ",";
-                    // echo "\"";echo $row['c'] ; echo "\"" ;echo ",";
+                // $query = "SELECT distinct date_format(date,'%M') as month , date_format(date,'%m') as a , date_format(sysdate(),'%m')  as b , DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m') as c
+                //   FROM invoice 
+                //   where month IS NOT NULL
+                //   and date_format(date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
+                //   order by date 
+                //   /*where
+                //   date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
+                //   ";
+                // $data=mysqli_query($conn,$query);   
+                // while($row=mysqli_fetch_array($data)){                   
+                //     echo "\"";echo $row['month'] ; echo "\"" ;echo ",";
+                //     // echo "\"";echo $row['a'] ; echo "\"" ;echo ",";
+                //     // echo "\"";echo $row['c'] ; echo "\"" ;echo ",";
                     
-                }
+                // }
 
-                echo "<br>";
+                // echo "<br>";
 
-                $query = "SELECT sum(qty*unit_price) as amount , month
-                  FROM invoice 
-                  where month IS NOT NULL
-                  group by month
-                  order by date 
-                  limit 6
-                  /*where
-                  date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
+                // $query = "SELECT sum(qty*unit_price) as amount , month
+                //   FROM invoice 
+                //   where month IS NOT NULL
+                //   group by month
+                //   order by date 
+                //   limit 6
+                //   /*where
+                //   date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
+                //   ";
+                // $data=mysqli_query($conn,$query);   
+                // while($row=mysqli_fetch_array($data)){                   
+                //     echo $row['amount']  ;echo ",";                    
+                // }
+
+                // echo "<br>";
+
+                //             $sql1 = "select datediff(date_format(sysdate(),'%Y-%m-%d'),'2018-05-01') as dess
+                //             from dual
+                //             ";
+                //             $result1 = $conn->query($sql1);
+                //             while($row1 = $result1->fetch_assoc()) {                                                               
+                //               echo $row1['dess'];
+                //           }
+
+
+                  $query = "
+                  SELECT sum(i.qty*i.unit_price)  as amount , 
+                  date_format(ih.invoice_date,'%Y%m')
+                  FROM invoice i,
+                  invoice_header ih
+                  where i.month IS NOT NULL
+                  and ih.invoice_id = i.invoice_id
+                  and ih.ledger_id = i.ledger_id
+                  -- and date_format(ih.invoice_date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
+                  group by date_format(ih.invoice_date,'%Y%m')
+                  order by date_format(ih.invoice_date,'%Y%m') 
                   ";
                 $data=mysqli_query($conn,$query);   
                 while($row=mysqli_fetch_array($data)){                   
                     echo $row['amount']  ;echo ",";                    
                 }
-
-                echo "<br>";
-
-                            $sql1 = "select datediff(date_format(sysdate(),'%Y-%m-%d'),'2018-05-01') as dess
-                            from dual
-                            ";
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {                                                               
-                              echo $row1['dess'];
-                          }
 
 
 ?>

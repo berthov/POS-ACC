@@ -117,10 +117,10 @@ include ("query/find_ledger.php");
                           To :
                           <address>
                                           <strong><?php  echo $row['customer_name']; ?></strong>
-                                          <br><?php  echo $row['address']; ?>
+                                          <!-- <br><?php  echo $row['address']; ?>
                                           <br><?php  echo $row['city']; ?>
                                           <br><?php  echo $row['province']; ?>
-                                          <br><?php  echo $row['email']; ?>
+                                          <br><?php  echo $row['email']; ?> -->
                           </address>
                         </div>
                         <!-- /.col -->

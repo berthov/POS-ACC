@@ -317,14 +317,11 @@ if(isset($_REQUEST['reservation'])){
         <?php
 
         $query = "SELECT distinct date_format(ih.invoice_date,'%M') as month
-                  FROM invoice_header ih ,
-                  invoice i
-                  where i.month IS NOT NULL
-                  and ih.invoice_id = i.invoice_id
-                  and ih.ledger_id = i.ledger_id
-                  and ih.ledger_id = '".$ledger_new."'
+                  FROM invoice_header ih 
+                  where 
+                  ih.ledger_id = '".$ledger_new."'
                   and date_format(ih.invoice_date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
-                  order by date asc
+                  order by date_format(ih.invoice_date,'%m') asc
                   /*where
                   date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
                   ";
@@ -347,7 +344,7 @@ if(isset($_REQUEST['reservation'])){
 
                 <?php
 
-                  $query = "SELECT sum(i.qty*i.unit_price)  as amount , i.month
+                  $query = "SELECT sum(i.qty*i.unit_price)  as amount , date_format(ih.invoice_date,'%m%Y')
                   FROM invoice i,
                   invoice_header ih
                   where i.month IS NOT NULL
@@ -355,10 +352,8 @@ if(isset($_REQUEST['reservation'])){
                   and ih.ledger_id = i.ledger_id
                   and ih.ledger_id = '".$ledger_new."'
                   and date_format(ih.invoice_date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
-                  group by i.month
-                  order by i.date 
-                  /*where
-                  date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
+                  group by date_format(ih.invoice_date,'%m%Y')
+                  order by date_format(ih.invoice_date,'%m%Y')
                   ";
                 $data=mysqli_query($conn,$query);   
                 while($row=mysqli_fetch_array($data)){                   
