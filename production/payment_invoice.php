@@ -164,7 +164,7 @@ include ("query/find_ledger.php");
 
                                     ?>
                                   
-                                    <tr">
+                                    <tr>
                                       <td>#</td>
                                       <td><?php echo $row_payment["payment_number"] ?></td>
                                       <td><?php echo date('d-M-Y', strtotime($row_payment["payment_date"])); ?></td>
