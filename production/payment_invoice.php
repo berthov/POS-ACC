@@ -154,9 +154,9 @@ include ("query/find_ledger.php");
                                     $sql_payment = 
                                     "SELECT * 
                                     FROM
-                                    AR_CHECK_ALL ACA
+                                    ar_check_all aca
                                     where
-                                    ACA.INVOICE_ID = '".$invoice_id."'
+                                    aca.invoice_id = '".$invoice_id."'
                                     ";
 
                                     $result_payment = $conn->query($sql_payment);
