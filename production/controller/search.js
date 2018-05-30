@@ -9,14 +9,16 @@ $('.searchDiv').on('input', function(){
         search = div[i].getElementsByTagName("search")[0];
         if(filter == " "){
             $(this).val($(this).data('oldValue'));
-        }
-        if (search.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            div[i].style.display = "";
-            div[i].closest('.parentSearch').style.position = ""    
         } else {
-            div[i].style.display = "none";
-            div[i].closest('.parentSearch').style.position = "absolute";
+            if (search.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                div[i].style.display = "";
+                div[i].closest('.parentSearch').style.position = ""    
+            } else {
+                div[i].style.display = "none";
+                div[i].closest('.parentSearch').style.position = "absolute";
+            }
         }
+        
     }
 
 })
