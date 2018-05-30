@@ -140,6 +140,16 @@ if(isset($_REQUEST['reservation'])){
                   </div>
                   </form>
                 </div>
+                <div class="col-md-12 col-sm-12 col-xs-12"> 
+                  <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="outstanding_sales" enctype="multipart/form-data">
+                    <div class="form-group">
+                      <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
+                      <div class="col-md-4">
+                          <input type="submit" name="outstanding_sales" class="btn btn-success" value="Export to excel"/>
+                      </div>
+                    </div>                    
+                  </form>
+                </div>
               </div>
             </div>
           </div>

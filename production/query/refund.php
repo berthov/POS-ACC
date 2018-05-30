@@ -1,6 +1,9 @@
 <?php
 
-  $sql = "SELECT sum(a.unit_price*a.qty) as amount  
+if ($p_outlet === '') {
+
+  $sql = "SELECT 
+  sum(a.unit_price*a.qty) as amount  
   FROM invoice a ,
   invoice_header ih
   where
@@ -10,6 +13,20 @@
   and ih.invoice_id = a.invoice_id
   and ih.refund_status in ('Yes')
   ";
+}
+else{
+  $sql = "SELECT
+  sum(a.unit_price*a.qty) as amount  
+  FROM invoice a ,
+  invoice_header ih
+  where
+  date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+  and ih.ledger_id = '".$ledger_new."'
+  and ih.outlet_id = '".$p_outlet."'
+  and ih.ledger_id = a.ledger_id
+  and ih.invoice_id = a.invoice_id
+  and ih.refund_status in ('Yes')";
+}
     $result = $conn->query($sql);
     while($row = $result->fetch_assoc()) {                                                               
      

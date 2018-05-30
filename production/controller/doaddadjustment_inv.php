@@ -21,8 +21,8 @@
 			else{
 
 
-		$sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type)
-		VALUES ('".$inventory_item_id."', '".$ledger_new."','".$single_cal2."','".$qty."','".$description."','".$user_check."','".$created."','".$user_check."','".$user_check."','".$type."')";
+		$sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type,outlet_id)
+		VALUES ('".$inventory_item_id."', '".$ledger_new."','".$single_cal2."','".$qty."','".$description."','".$user_check."','".$created."','".$user_check."','".$user_check."','".$type."','".$outlet_new."')";
 
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";

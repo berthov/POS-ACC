@@ -19,6 +19,8 @@
   $type = 'Penjualan';
   $invoice_number = date("His");
 
+
+
   // ini variable tambahan buat nanti
 
   $outstanding_status = 'Open';
@@ -219,8 +221,8 @@ if ( empty($_REQUEST['discount']) ) {
 
 // HEADER
     // insert header invoice transaction
-    $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name,tax_code)
-    VALUES ('".$invoice_id."','".$invoice_number."' , '".$today."' , '".$due_date."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."','".$tax_code."')";
+    $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name,tax_code,outlet_id)
+    VALUES ('".$invoice_id."','".$invoice_number."' , '".$today."' , '".$due_date."' , '".$ledger_new."', '".$discount."','".$refund_status."','".$outstanding_status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$payment_method."','".$customer_name."','".$tax_code."','".$outlet_new."')";
     mysqli_query($conn, $sql_header);
 
 // LINE
@@ -245,8 +247,8 @@ if ( empty($_REQUEST['discount']) ) {
 						mysqli_query($conn, $sql);
 
             // insert mutasi 
-              $sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type)
-            VALUES ('".$arr[$y]."', '".$ledger_new."','".$created_date."',('".$quant[$y]."' * -1 ),NULL,'".$user_check."','".$created_date."','".$user_check."','".$created_date."','".$type."')";
+              $sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type,outlet_id)
+            VALUES ('".$arr[$y]."', '".$ledger_new."','".$created_date."',('".$quant[$y]."' * -1 ),NULL,'".$user_check."','".$created_date."','".$user_check."','".$created_date."','".$type."','".$outlet_new."')";
             mysqli_query($conn, $sql);
              
 					// update stock

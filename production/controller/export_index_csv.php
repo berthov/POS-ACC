@@ -256,7 +256,7 @@ if(isset($_POST["export_table_cogs"])){
 if(isset($_POST["export_table_supplier"])){
      
       header('Content-Type: text/csv; charset=utf-8');  
-      header('Content-Disposition: attachment; filename=Table COGS.csv');  
+      header('Content-Disposition: attachment; filename=Supplier.csv');  
       $output = fopen("php://output", "w");  
       fputcsv($output, array('Supplier Name', 'Supplier Site', 'Supplier Type', 'Tax'));  
       $query = "SELECT supplier_name,
@@ -273,5 +273,64 @@ if(isset($_POST["export_table_supplier"])){
       }  
       fclose($output);  
   }
+
+
+// outstanding_sales.php
+if(isset($_POST["outstanding_sales"])){
+     
+      header('Content-Type: text/csv; charset=utf-8');  
+      header('Content-Disposition: attachment; filename=Monthly Oustanding Sales.csv');  
+      $output = fopen("php://output", "w");  
+      fputcsv($output, array('Period', 'Invoice Amount', 'Real', 'Outstanding'));  
+      $query = "SELECT date_format(ih.invoice_date,'%M-%y') as period,
+                        (
+                          select sum(i2.qty*i2.unit_price)
+                          from
+                          invoice i2,
+                          invoice_header ih2
+                          where 
+                          i2.invoice_id = ih2.invoice_id
+                          and ih2.ledger_id = ih.ledger_id
+                          and ih2.refund_status not in ('Yes')
+                          and date_format(ih.invoice_date,'%M-%y') = date_format(ih2.invoice_date,'%M-%y')
+                        )as invoice_amount,
+                        (
+                          select sum(aca.payment_amount)
+                          from
+                          ar_check_all aca,
+                          invoice_header ih1
+                          where 
+                          aca.invoice_id = ih1.invoice_id
+                          and ih.ledger_id = ih1.ledger_id
+                          and ih1.refund_status not in ('Yes')
+                          and date_format(ih.invoice_date,'%M-%y') = date_format(ih1.invoice_date,'%M-%y')
+                        )as amount,
+                        (
+                          select sum(ih3.amount_due_remaining)
+                          from
+                          invoice_header ih3
+                          where 
+                          ih3.ledger_id = ih.ledger_id
+                          and ih3.refund_status not in ('Yes')
+                          and date_format(ih.invoice_date,'%M-%y') = date_format(ih3.invoice_date,'%M-%y')
+                        )as outstanding
+                          FROM 
+                          invoice_header ih 
+                          where
+                          ih.ledger_id = '".$ledger_new."'
+                          and ih.refund_status not in ('Yes')
+                          group by 
+                          date_format(ih.invoice_date,'%M-%y')
+                          order by 
+                          date_format(ih.invoice_date,'%m%Y') asc
+                          limit 12
+                            ";  
+      $result = mysqli_query($conn, $query);  
+      while($row = mysqli_fetch_assoc($result))  
+      {  
+           fputcsv($output, $row);  
+      }  
+      fclose($output);  
+ } 
 
  ?>

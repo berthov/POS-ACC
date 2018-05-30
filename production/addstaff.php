@@ -105,14 +105,14 @@ include("query/find_ledger.php");
                               <option value="" disabled selected>Select Outlet</option>
                           
                             <?php
-                            $sql = "SELECT distinct a.name 
+                            $sql = "SELECT distinct a.name ,a.outlet_id
                             FROM outlet a, employee b
                             where a.ledger_id = b.ledger_id
                             and b.name = '".$_SESSION['login_user']."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                           ?>
-                              <option value="<?php echo $row["name"] ?>"> <?php echo $row["name"] ?></option>
+                              <option value="<?php echo $row["outlet_id"] ?>"> <?php echo $row["name"] ?></option>
                           <?php
                             }
                           ?>

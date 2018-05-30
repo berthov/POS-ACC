@@ -9,6 +9,7 @@ include("query/find_ledger.php");
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
 
+
 if(isset($_REQUEST['reservation'])){
   $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 1,10))) ;
 }
@@ -16,6 +17,14 @@ if(isset($_REQUEST['reservation'])){
 if(isset($_REQUEST['reservation'])){
   $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
+
+if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
+  $p_outlet = $_REQUEST['outlet_id'];
+}
+else{
+ $p_outlet = ''; 
+}
+
 
 
 ?>
@@ -64,15 +73,35 @@ if(isset($_REQUEST['reservation'])){
                 <div class="x_panel">
                  <div class="row x_title"> 
                                             
-                   <div class="col-md-4 col-xs-12">
+                   <div class="col-lg-12 col-md-12 col-xs-12">
                       <h2>Sales Summary</h2>
                       <div class="clearfix"></div>
+                    <br>
                     </div>
                     <!-- Date Picker -->
-                   <div class="col-md-12 col-xs-12">
-                    <!--INI GK JELAS PARAMETERNYA  -->
-                    <!-- kalo gw pake onchange kgak mau di click pas udah milih tanggal -->
-                      <form class="form-horizontal" action="sales_summary.php" method="post">
+                    <form class="form-horizontal" action="sales_summary.php" method="post">
+                      <div class="col-lg-3 col-md-3 col-xs-4">
+                        
+                        <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category">
+                          <option value="all">All Outlet</option>
+                          
+                           <?php
+                            $sql = "SELECT distinct outlet_id,name 
+                            FROM outlet
+                            where ledger_id = '".$ledger_new."'
+                            ";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                              <option value="<?php echo $row["outlet_id"] ?>"> <?php echo $row["name"] ?></option>
+                          <?php
+                            }
+                          ?>
+
+                          </select>
+                      </div>
+
+                      <div class="col-lg-9 col-md-9 col-xs-8">
                         <fieldset>
                           <div class="control-group" >
                             <div class="controls" >
@@ -85,7 +114,7 @@ if(isset($_REQUEST['reservation'])){
                             </div>
                           </div>
                         </fieldset>
-                    </div>
+                      </div>
 
                     <!-- kalo button nya gw ilangin loop trus dia -->
                    <!--  <div class="col-md-2">

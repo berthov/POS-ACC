@@ -27,7 +27,7 @@
 			}
 			else {
 					// RECIPE HEADER
-					$sql = "INSERT INTO fmd_recipe_header (recipe_id, recipe_name, ledger_id, created_by, last_update_by, created_date, last_update_date) VALUES ('$recipe_id', '$recipe_name', '$ledger_new', '$user_check', '$user_check', '$created', '$created')";
+					$sql = "INSERT INTO fmd_recipe_header (recipe_id, recipe_name, ledger_id, created_by, last_update_by, created_date, last_update_date,outlet_id) VALUES ('$recipe_id', '$recipe_name', '$ledger_new', '$user_check', '$user_check', '$created', '$created','".$outlet_new."')";
 	  				$result = mysqli_query($conn, $sql);
 
 	  				// RECIPE LINE

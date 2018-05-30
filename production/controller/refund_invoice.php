@@ -31,8 +31,8 @@
 		    while($row = $result->fetch_assoc()) {
 
 		    // insert ke mutasi
-		    $sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type)
-		    VALUES ('".$row['inventory_item_id']."', '".$row['ledger_id']."','".$created."','".$row['qty']."','".$description."','".$user_check."','".$created."','".$user_check."','".$created."','Refund')";
+		    $sql = "INSERT INTO material_transaction (inventory_item_id, ledger_id,transaction_date,qty,description,created_by , created_date , last_update_by,last_update_date,type,outlet_id)
+		    VALUES ('".$row['inventory_item_id']."', '".$row['ledger_id']."','".$created."','".$row['qty']."','".$description."','".$user_check."','".$created."','".$user_check."','".$created."','Refund','".$outlet_new."')";
 	    	mysqli_query($conn, $sql);
 
 	    	// update qty onhand

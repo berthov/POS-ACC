@@ -27,8 +27,8 @@ $last_update_date =  date("Y-m-d");
 if (isset($_REQUEST['po_date'])) {
   
 // PO HEADER
-  $sql_header = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier,ship_to,outlets,po_description,due_date,status,created_by , created_date,last_update_by,last_update_date,ledger_id)
-  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."','".$po_description."','".$due_date."','".$status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."')";
+  $sql_header = "INSERT INTO PO_HEADER_ALL (po_header_id,po_date,supplier,ship_to,outlets,po_description,due_date,status,created_by , created_date,last_update_by,last_update_date,ledger_id,outlet_id)
+  VALUES ('".$po_header_id."','".$po_date."' , '".$supplier."' , '".$ship_to."' , '".$outlets."','".$po_description."','".$due_date."','".$status."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."','".$outlet_new."')";
   mysqli_query($conn, $sql_header);
 
 // PO LINE

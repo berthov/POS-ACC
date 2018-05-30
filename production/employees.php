@@ -117,9 +117,12 @@ include("query/find_ledger.php");
                         <tbody>                    
                         <?php
 
-                            $sql1 = "SELECT distinct a.* FROM employee a
+                            $sql1 = "SELECT distinct o.name as outlet ,a.* 
+                            FROM employee a,
+                            outlet o
                             where a.ledger_id = '".$ledger_new."' 
                             and a.name not in ('".$user_check."')
+                            and a.outlet_id = o.outlet_id
                             order BY role,outlet_id asc
                             ";
                             $result1 = $conn->query($sql1);
@@ -130,7 +133,7 @@ include("query/find_ledger.php");
                           <td><?php echo $row1['role'];?></td>
                           <td><?php echo $row1['email'];?></td>
                           <td>Active</td>
-                          <td><?php echo $row1['outlet_id'];?></td>
+                          <td><?php echo $row1['outlet'];?></td>
                           <td align="right">
                             <button data-toggle="modal" data-remote="false" data-target="#modalDelete" type="button" class="btn btn-danger btndelete" data-id=<?php echo $row1['employee_id']; ?>>
                               <i class="fa fa-minus" aria-hidden="true"></i>

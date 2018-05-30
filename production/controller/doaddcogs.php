@@ -25,13 +25,15 @@
                     where 
                     c.ledger_id = '".$ledger_new."'
                     and c.inventory_item_id = '".$inventory_item_id."'
+                    and c.outlet_id = '".$outlet_new."'
                     and c.item_cost_id = (select 
                     max(c_1.item_cost_id)
                     From
                     cogs c_1
                     where
                     c_1.inventory_item_id = c.inventory_item_id
-                    and c_1.ledger_id = c.ledger_id)";
+                    and c_1.ledger_id = c.ledger_id
+                    and c_1.outlet_id = c.outlet_id)";
 
 		    		$result = mysqli_query($conn,$sql_1);
 					$return = mysqli_fetch_assoc($result);
@@ -39,8 +41,8 @@
 
 					// echo "cogs :"; echo $max_cogs;
 
-					$sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by,sales_price)
-				VALUES ('".$inventory_item_id."', '".$max_cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$sales_price."')";
+					$sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by,sales_price,outlet_id)
+				VALUES ('".$inventory_item_id."', '".$max_cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$sales_price."','".$outlet_new."')";
 				 mysqli_query($conn, $sql);
 
 			    
@@ -64,13 +66,15 @@
                     where 
                     c.ledger_id = '".$ledger_new."'
                     and c.inventory_item_id = '".$inventory_item_id."'
+                    and c.outlet_id = '".$outlet_new."'
                     and c.item_cost_id = (select 
                     max(c_1.item_cost_id)
                     From
                     cogs c_1
                     where
                     c_1.inventory_item_id = c.inventory_item_id
-                    and c_1.ledger_id = c.ledger_id)";
+                    and c_1.ledger_id = c.ledger_id
+                    and c_1.outlet_id = c.outlet_id)";
 
 		    		$result = mysqli_query($conn,$sql_2);
 					$return = mysqli_fetch_assoc($result);
@@ -78,8 +82,8 @@
 
 					// echo "sales :"; echo $max_sales_price;
 
-					$sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by,sales_price)
-				VALUES ('".$inventory_item_id."', '".$cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$max_sales_price."')";
+					$sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by,sales_price,outlet_id)
+				VALUES ('".$inventory_item_id."', '".$cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$max_sales_price."','".$outlet_new."')";
 
 				mysqli_query($conn, $sql);
 
@@ -97,8 +101,8 @@
 
 			}
 			else{
-		 $sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by,sales_price)
-		 VALUES ('".$inventory_item_id."', '".$cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$sales_price."')";
+		 $sql = "INSERT INTO cogs (inventory_item_id, item_cost,periode,type,ledger_id,created_date , last_update_date , created_by , last_update_by,sales_price,outlet_id)
+		 VALUES ('".$inventory_item_id."', '".$cogs."','".$single_cal2."','".$type."','".$ledger_new."','".$created."','".$created."','".$user_check."','".$user_check."','".$sales_price."','".$outlet_new."')";
 
 		 mysqli_query($conn, $sql);
 

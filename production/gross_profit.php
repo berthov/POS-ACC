@@ -15,6 +15,14 @@ if(isset($_REQUEST['reservation'])){
 if(isset($_REQUEST['reservation'])){
   $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
+
+if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
+  $p_outlet = $_REQUEST['outlet_id'];
+}
+else{
+ $p_outlet = ''; 
+}
+
 ?>
 
 <html lang="en">
@@ -84,29 +92,50 @@ if(isset($_REQUEST['reservation'])){
                 </div>
                 <div class="x_panel">
                  <div class="row x_title"> 
-                   <div class="col-md-4 col-xs-12">
+                   <div class="col-lg-12 col-md-12 col-xs-12">
                       <h2>Gross Summary</h2>
                       <div class="clearfix"></div>
+                    <br>
                     </div>
-                   <div class="col-md-12 col-xs-12">
-                          <form class="form-horizontal" action="gross_profit.php" method="post">
-                            <fieldset>
-                              <div class="control-group" >
-                                <div class="controls" >
-                                  <div class="input-prepend input-group">
-                                    <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right" />
-                                    <span class="add-on input-group-addon">
-                                      <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                  </div>
-                                </div>
+                      <form class="form-horizontal" action="gross_profit.php" method="post">
+                      
+                      <div class="col-lg-3 col-md-3 col-xs-4">  
+                        <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category">
+                          <option value="all">All Outlet</option>
+                          
+                           <?php
+                            $sql = "SELECT distinct outlet_id,name 
+                            FROM outlet
+                            where ledger_id = '".$ledger_new."'
+                            ";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                          
+                              <option value="<?php echo $row["outlet_id"] ?>"> <?php echo $row["name"] ?></option>
+                          
+                          <?php
+                            }
+                          ?>
+
+                          </select>
+                      </div>
+
+                      <div class="col-lg-9 col-md-9 col-xs-8">
+                        <fieldset>
+                          <div class="control-group" >
+                            <div class="controls" >
+                              <div class="input-prepend input-group">
+                                <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right" />
+                                <span class="add-on input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
                               </div>
-                            </fieldset>
-                    </div>
-<!--                                         <div class="col-md-2">
-                      <input type="submit" name="submit"  class="btn btn-round btn-primary pull-right"/>
-                    </div> -->
-                  </div>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                 </div>
  
                   <div class="x_content">
                     <table class="table ">
