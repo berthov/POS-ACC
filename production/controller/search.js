@@ -7,6 +7,9 @@ $('.searchDiv').on('input', function(){
 
     for (i = 0; i < div.length; i++) {
         search = div[i].getElementsByTagName("search")[0];
+        if(filter == " "){
+            $(this).val($(this).data('oldValue'));
+        }
         if (search.innerHTML.toUpperCase().indexOf(filter) > -1) {
             div[i].style.display = "";
             div[i].closest('.parentSearch').style.position = ""    
