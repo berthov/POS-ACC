@@ -4256,3 +4256,212 @@ table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
     background-color: #ffff !important;
 }
 /** /bootstrap-datetimepicker **/
+
+#search-box {
+position: relative;
+width: 100%;
+margin: 0;
+margin-bottom: 10px;
+}
+
+#search-div 
+{
+height: 40px;
+border: 1px solid #ddd;
+-moz-border-radius: 5px;
+background-color: #fff;
+overflow: hidden;
+background-image: url('../images/search-icon.png');
+background-position: 5px 7px; 
+background-repeat: no-repeat;
+padding: 0px 0px 0px 25px;
+margin-bottom: 10px;
+margin-right: 5px;
+margin-top: 5px;
+width: 15%;
+float: right;
+}
+
+#search-text 
+{
+font-size: 14px;
+color: #ddd;
+border-width: 0;
+background: transparent;
+margin-bottom: 10px;
+}
+
+#search-box input[type="text"]
+{
+width: 90%;
+padding: 11px 0 12px 1em;
+color: #333;
+outline: none;
+}
+
+@media only screen and (max-width:320px)  { 
+    #search-box {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    }
+
+    #search-div 
+    {
+    height: 40px;
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+    background-image: url('../images/search-icon.png');
+    background-position: 5px 7px; 
+    background-repeat: no-repeat;
+    padding: 0px 0px 0px 25px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 97%;
+    }
+
+    #search-text 
+    {
+    font-size: 14px;
+    color: #ddd;
+    border-width: 0;
+    background: transparent;
+    margin-bottom: 10px;
+    }
+
+    #search-box input[type="text"]
+    {
+    width: 90%;
+    padding: 11px 0 12px 1em;
+    color: #333;
+    outline: none;
+}/* smartphones, iPhone, portrait 480x320 phones */ }
+@media only screen and (max-width:481px)  { 
+    #search-box {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    }
+
+    #search-div 
+    {
+    height: 40px;
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+    background-image: url('../images/search-icon.png');
+    background-position: 5px 7px; 
+    background-repeat: no-repeat;
+    padding: 0px 0px 0px 25px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 97%;
+    }
+
+    #search-text 
+    {
+    font-size: 14px;
+    color: #ddd;
+    border-width: 0;
+    background: transparent;
+    margin-bottom: 10px;
+    }
+
+    #search-box input[type="text"]
+    {
+    width: 90%;
+    padding: 11px 0 12px 1em;
+    color: #333;
+    outline: none;/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media only screen and (max-width:641px)  { 
+    #search-box {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    }
+
+    #search-div 
+    {
+    height: 40px;
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+    background-image: url('../images/search-icon.png');
+    background-position: 5px 7px; 
+    background-repeat: no-repeat;
+    padding: 0px 0px 0px 25px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 97%;
+    }
+
+    #search-text 
+    {
+    font-size: 14px;
+    color: #ddd;
+    border-width: 0;
+    background: transparent;
+    margin-bottom: 10px;
+    }
+
+    #search-box input[type="text"]
+    {
+    width: 90%;
+    padding: 11px 0 12px 1em;
+    color: #333;
+    outline: none;/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media only screen and (max-width:961px) {
+    #search-box {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    }
+
+    #search-div 
+    {
+    height: 40px;
+    border: 1px solid #ddd;
+    -moz-border-radius: 5px;
+    background-color: #fff;
+    overflow: hidden;
+    background-image: url('../images/search-icon.png');
+    background-position: 5px 7px; 
+    background-repeat: no-repeat;
+    padding: 0px 0px 0px 25px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 97%;
+    }
+
+    #search-text 
+    {
+    font-size: 14px;
+    color: #ddd;
+    border-width: 0;
+    background: transparent;
+    margin-bottom: 10px;
+    }
+
+    #search-box input[type="text"]
+    {
+    width: 90%;
+    padding: 11px 0 12px 1em;
+    color: #333;
+    outline: none;
+}

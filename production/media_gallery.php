@@ -71,6 +71,12 @@ include("query/find_ledger.php");
             <div class="row">
               <div class="col-md-12 col-xs-12">
                 <div class="x_panel">
+                  <div id="search-box" >
+                    <div id="search-div">
+                      <input id="search-text" class="searchDiv" placeholder="Search Item" type="text" />
+                    </div>
+                  </div>
+                  
                   <div class="x_content">
                     <div class="row">
                       <form id="formInvoice" action="controller/doaddnewinvoice.php" method="POST" >
@@ -88,9 +94,9 @@ include("query/find_ledger.php");
                             while($row = $result->fetch_assoc()) {
                         ?>
 
-                        <div class="col-md-4 col-xs-6 col-lg-2">
+                        <div class="col-md-4 col-xs-6 col-lg-2 parentSearch">
                           <div class="thumbnail" align="center">
-                            <p><input type="hidden" name="arr[]" value="<?php echo $row["id"]?>"><?php echo $row["description"]?></p>
+                            <p><input type="hidden" name="arr[]" value="<?php echo $row["id"]?>"><search><?php echo $row["description"]?></search></p>
                             <p><input type="hidden" name="arr1[]" value="<?php echo $row["sales_price"]?>"><?php echo number_format($row["sales_price"]) ?></p>
                             <div class="caption">
                               <div class="input-group">
@@ -309,6 +315,7 @@ include("query/find_ledger.php");
 
     <script src="../production/controller/media_gallery.js"></script>
 
+    <script src="../production/controller/search.js"></script>
 
   </body>
 </html>
