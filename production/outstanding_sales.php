@@ -15,6 +15,13 @@ if(isset($_REQUEST['reservation'])){
 if(isset($_REQUEST['reservation'])){
   $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
+
+if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
+  $p_outlet = $_REQUEST['outlet_id'];
+}
+else{
+ $p_outlet = ''; 
+}
 ?>
 
 <html lang="en">
@@ -58,14 +65,14 @@ if(isset($_REQUEST['reservation'])){
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                  <div class="row x_title"> 
-                   <div class="col-md-4 col-xs-12">
+                   <div class="col-lg-12 col-md-12 col-xs-12">
                       <h2>Outstanding Sales Each Month</h2>
                       <div class="clearfix"></div>
                     </div>
                   </div>
  
                   <div class="x_content">
-                    <table class="table ">
+                    <table class="table">
                       <tbody>
                         <tr>
                           <th>Period</th>

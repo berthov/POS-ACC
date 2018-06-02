@@ -88,7 +88,7 @@ else{
                            <?php
                             $sql = "SELECT distinct outlet_id,name 
                             FROM outlet
-                            where ledger_id = '".$ledger_new."'
+                            where ledger_id = '".$ledger_new."' 
                             ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {

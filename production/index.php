@@ -14,6 +14,13 @@ if(isset($_REQUEST['reservation'])){
   $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
 }
 
+if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
+  $p_outlet = $_REQUEST['outlet_id'];
+}
+else{
+ $p_outlet = ''; 
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -167,9 +174,31 @@ if(isset($_REQUEST['reservation'])){
               <!-- <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span> -->
               <span class="count_bottom">As Of Today</span>
             </div>
-          
+
+            <!-- SELECT OUTLET  -->
+            <div class="col-lg-3 col-md-3 col-xs-4">
+              
+              <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category">
+                <option value="all">All Outlet</option>
+                
+                 <?php
+                  $sql = "SELECT distinct outlet_id,name 
+                  FROM outlet
+                  where ledger_id = '".$ledger_new."'
+                  ";
+                  $result = $conn->query($sql);
+                  while($row = $result->fetch_assoc()) {
+                ?>
+                    <option value="<?php echo $row["outlet_id"] ?>"> <?php echo $row["name"] ?></option>
+                <?php
+                  }
+                ?>
+
+                </select>
+            </div>
+
           <!-- DATE PICKER -->
-             <div class="col-md-10">
+             <div class="col-lg-9 col-md-9 col-xs-8">
               <fieldset>
                 <div class="control-group" >
                   <div class="controls" >

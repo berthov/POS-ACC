@@ -13,7 +13,7 @@ if ($p_outlet === '') {
   and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'";
 }
 else{
-  $sql="SELECT
+  $sql1="SELECT
   sum(a.qty * a.cogs) as count
   FROM invoice a,
   invoice_header ih
