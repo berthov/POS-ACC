@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2018 at 01:19 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: Jun 03, 2018 at 05:03 AM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -92,9 +90,9 @@ CREATE TABLE `ar_check_all` (
 --
 
 INSERT INTO `ar_check_all` (`payment_id`, `invoice_id`, `payment_number`, `payment_date`, `payment_type`, `payment_amount`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
-(267, '20180529235545', 'Dari Toko', '2018-05-29', 'Cash', 100000, 'ben', '2018-05-29', 'ben', '2018-05-29'),
-(268, '20180529235657', 'Dari Toko', '2018-05-29', 'Cash', 100000, 'yoha', '2018-05-29', 'yoha', '2018-05-29'),
-(269, '20180529235731', 'Dari Toko', '2018-05-29', 'Cash', 100000, 'yoha', '2018-05-29', 'yoha', '2018-05-29');
+(271, '20180602091854', 'Dari Toko', '2018-06-02', 'Cash', 200000, 'ben', '2018-06-02', 'ben', '2018-06-02'),
+(272, '20180602091917', 'Dari Toko', '2018-06-02', 'Cash', 100000, 'yoha', '2018-06-02', 'yoha', '2018-06-02'),
+(273, '20180602100005', 'Dari Toko', '2018-06-02', 'Debit/Credit', 200000, 'yoha', '2018-06-02', 'yoha', '2018-06-02');
 
 -- --------------------------------------------------------
 
@@ -312,7 +310,7 @@ INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `sales_price`,
 (39, 'RMT-0000006', 'Pineapple Case', 0, 100000, 0, 10, 50000, NULL, '', NULL, NULL, '123', 'Inactive', 'uncategorized', '1'),
 (40, 'RMT-0000007', 'Black Flower', 3, 20000, 0, 10, 0, NULL, 'ben', NULL, '2018-05-19', '123', 'Inactive', 'uncategorized', '1'),
 (41, 'RMT-0000008', 'Flower case', 0, 100000, 0, 10, 50000, NULL, '', NULL, NULL, '123', 'Inactive', 'uncategorized', '1'),
-(42, 'RMT-0000009', 'Pug Case', 17, 100000, 0, 10, 50000, NULL, 'yoha', NULL, '2018-05-29', '123', 'Active', 'uncategorized', '1'),
+(42, 'RMT-0000009', 'Pug Case', 10, 100000, 0, 10, 50000, NULL, 'yoha', NULL, '2018-06-02', '123', 'Active', 'uncategorized', '1'),
 (43, 'RMT-0000010', 'Simpsons', 0, 100000, 0, 10, 50000, NULL, 'ben', NULL, '2018-05-25', '123', 'Active', 'uncategorized', '1'),
 (44, 'RMT-0000011', 'Captain America', 0, 100000, 0, 10, 50000, NULL, '', NULL, NULL, '123', 'Inactive', 'uncategorized', '1'),
 (45, 'RMT-0000012', 'Nike', 0, 15000, 0, 10, 10000, NULL, 'ben', NULL, '2018-04-24', '123', 'Inactive', 'uncategorized', '1'),
@@ -373,9 +371,9 @@ CREATE TABLE `invoice` (
 --
 
 INSERT INTO `invoice` (`unit_price`, `qty`, `date`, `invoice_line_id`, `invoice_id`, `month`, `payment_method`, `last_update_by`, `last_update_date`, `created_by`, `created_date`, `ledger_id`, `inventory_item_id`, `tax_code`, `tax_amount`, `cogs`) VALUES
-(100000, 1, '2018-05-29 00:00:00', 1329, '20180529235545', 'May', NULL, 'ben', '2018-05-29', 'ben', '2018-05-29', '123', '42', 0, 0, 50000),
-(100000, 1, '2018-05-29 00:00:00', 1330, '20180529235657', 'May', NULL, 'yoha', '2018-05-29', 'yoha', '2018-05-29', '123', '42', 0, 0, 50000),
-(100000, 1, '2018-05-29 00:00:00', 1331, '20180529235731', 'May', NULL, 'yoha', '2018-05-29', 'yoha', '2018-05-29', '123', '42', 0, 0, 50000);
+(100000, 2, '2018-06-02 00:00:00', 1333, '20180602091854', 'June', NULL, 'ben', '2018-06-02', 'ben', '2018-06-02', '123', '42', 0, 0, 50000),
+(100000, 1, '2018-06-02 00:00:00', 1334, '20180602091917', 'June', NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '123', '42', 0, 0, 50000),
+(100000, 2, '2018-06-02 00:00:00', 1335, '20180602100005', 'June', NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '123', '42', 0, 0, 50000);
 
 -- --------------------------------------------------------
 
@@ -408,9 +406,9 @@ CREATE TABLE `invoice_header` (
 --
 
 INSERT INTO `invoice_header` (`invoice_id`, `invoice_number`, `invoice_date`, `due_date`, `ledger_id`, `discount_amount`, `refund_status`, `outstanding_status`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `payment_method`, `customer_name`, `amount_due_remaining`, `tax_code`, `outlet_id`) VALUES
-('20180529235545', '235545', '2018-05-29', '2018-05-29', '123', 0, 'No', 'Paid', 'ben', '2018-05-29', 'ben', '2018-05-29', 'Cash', '', 0, 0, '1'),
-('20180529235657', '235657', '2018-05-29', '2018-05-29', '123', 0, 'No', 'Paid', 'yoha', '2018-05-29', 'yoha', '2018-05-29', 'Cash', '', 0, 0, '8'),
-('20180529235731', '235731', '2018-05-29', '2018-05-29', '123', 0, 'No', 'Paid', 'yoha', '2018-05-29', 'yoha', '2018-05-29', 'Cash', '', 0, 0, '8');
+('20180602091854', '091854', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'ben', '2018-06-02', 'ben', '2018-06-02', 'Cash', '', 0, 0, '1'),
+('20180602091917', '091917', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'yoha', '2018-06-02', 'yoha', '2018-06-02', 'Cash', '', 0, 0, '8'),
+('20180602100005', '100005', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'yoha', '2018-06-02', 'yoha', '2018-06-02', 'Debit/Credit', '', 0, 0, '8');
 
 -- --------------------------------------------------------
 
@@ -460,7 +458,11 @@ INSERT INTO `material_transaction` (`transaction_id`, `inventory_item_id`, `ledg
 (486, 42, '123', -2, NULL, 'ben', '2018-05-29', 'ben', '2018-05-29', '2018-05-28 17:00:00', 'Penjualan', '1'),
 (487, 42, '123', -1, NULL, 'ben', '2018-05-29', 'ben', '2018-05-29', '2018-05-28 17:00:00', 'Penjualan', '1'),
 (488, 42, '123', -1, NULL, 'yoha', '2018-05-29', 'yoha', '2018-05-29', '2018-05-28 17:00:00', 'Penjualan', '8'),
-(489, 42, '123', -1, NULL, 'yoha', '2018-05-29', 'yoha', '2018-05-29', '2018-05-28 17:00:00', 'Penjualan', '8');
+(489, 42, '123', -1, NULL, 'yoha', '2018-05-29', 'yoha', '2018-05-29', '2018-05-28 17:00:00', 'Penjualan', '8'),
+(490, 42, '123', -2, NULL, 'ben', '2018-06-02', 'ben', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', ''),
+(491, 42, '123', -2, NULL, 'ben', '2018-06-02', 'ben', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', '1'),
+(492, 42, '123', -1, NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', '8'),
+(493, 42, '123', -2, NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', '8');
 
 -- --------------------------------------------------------
 
@@ -656,68 +658,56 @@ ALTER TABLE `po_line_all`
 --
 ALTER TABLE `ap_check_all`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `ap_supplier_all`
 --
 ALTER TABLE `ap_supplier_all`
   MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `ar_check_all`
 --
 ALTER TABLE `ar_check_all`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
-
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=274;
 --
 -- AUTO_INCREMENT for table `cogs`
 --
 ALTER TABLE `cogs`
   MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
-
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
 --
 -- AUTO_INCREMENT for table `fmd_recipe_line`
 --
 ALTER TABLE `fmd_recipe_line`
   MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
-
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
-
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1332;
-
+  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1336;
 --
 -- AUTO_INCREMENT for table `material_transaction`
 --
 ALTER TABLE `material_transaction`
-  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=490;
-
+  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
   MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
   MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -69,6 +69,28 @@ else{
                       <h2>Outstanding Sales Each Month</h2>
                       <div class="clearfix"></div>
                     </div>
+                    <form class="form-horizontal" action="outstanding_sales.php" method="post">
+
+                    <div class="col-lg-3 col-md-3 col-xs-4">
+                        
+                        <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category">
+                          <option value="all">All Outlet</option>
+                          
+                           <?php
+                            $sql = "SELECT distinct outlet_id,name 
+                            FROM outlet
+                            where ledger_id = '".$ledger_new."' 
+                            ";
+                            $result = $conn->query($sql);
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                              <option value="<?php echo $row["outlet_id"] ?>"> <?php echo $row["name"] ?></option>
+                          <?php
+                            }
+                          ?>
+
+                          </select>
+                      </div>
                   </div>
  
                   <div class="x_content">
@@ -82,49 +104,7 @@ else{
                         </tr>
 
                         <?php
-                          $sql = "SELECT date_format(ih.invoice_date,'%M-%y') as period,
-                        (
-                          select sum(aca.payment_amount)
-                          from
-                          ar_check_all aca,
-                          invoice_header ih1
-                          where 
-                          aca.invoice_id = ih1.invoice_id
-                          and ih.ledger_id = ih1.ledger_id
-                          and ih1.refund_status not in ('Yes')
-                          and date_format(ih.invoice_date,'%M-%y') = date_format(ih1.invoice_date,'%M-%y')
-                        )as amount,
-                        (
-                          select sum(i2.qty*i2.unit_price)
-                          from
-                          invoice i2,
-                          invoice_header ih2
-                          where 
-                          i2.invoice_id = ih2.invoice_id
-                          and ih2.ledger_id = ih.ledger_id
-                          and ih2.refund_status not in ('Yes')
-                          and date_format(ih.invoice_date,'%M-%y') = date_format(ih2.invoice_date,'%M-%y')
-                        )as invoice_amount,
-                        (
-                          select sum(ih3.amount_due_remaining)
-                          from
-                          invoice_header ih3
-                          where 
-                          ih3.ledger_id = ih.ledger_id
-                          and ih3.refund_status not in ('Yes')
-                          and date_format(ih.invoice_date,'%M-%y') = date_format(ih3.invoice_date,'%M-%y')
-                        )as outstanding
-                          FROM 
-                          invoice_header ih 
-                          where
-                          ih.ledger_id = '".$ledger_new."'
-                          and ih.refund_status not in ('Yes')
-                          group by 
-                          date_format(ih.invoice_date,'%M-%y')
-                          order by 
-                          date_format(ih.invoice_date,'%m%Y') asc
-                          limit 12
-                          ";
+                            include("query/outstanding_sales.php");
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                                                               
 
@@ -180,6 +160,14 @@ else{
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 	
+    <script type="text/javascript">
+  
+    $(document).ready(function(){
+              $("#category").on("change", function() {
+                this.form.submit();
+              });
+    });
+    </script>
 
   </body>
 </html>

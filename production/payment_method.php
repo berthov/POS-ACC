@@ -146,23 +146,22 @@ else{
 
                            include("query/total_value_payment_method.php");
 
-                            $result1 = $conn->query($sql1);
-                            while($row1 = $result1->fetch_assoc()) {    
+                            $result1 = mysqli_query($conn,$sql1);
+                            $value1 = mysqli_fetch_assoc($result1);
+
+
                         ?>
 
                         <tr>
                           <td align="left"><strong>Total</strong></td>
-                          <td align="center">
-                            <?php echo $row1["count"] ?>
+                          <td align="center"><strong>
+                            <?php echo $value1["count"] ?></strong>
                           </td>
-                          <td align="right">Rp.
-                            <?php echo number_format($row1["value"]); ?>
+                          <td align="right"><strong>Rp.
+                            <?php echo number_format($value1["value"]); ?></strong>
                           </td>
                         </tr>
 
-                        <?php
-                          }
-                        ?>
                       </tbody>
                     </table>
                   </div>
