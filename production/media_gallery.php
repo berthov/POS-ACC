@@ -271,7 +271,25 @@ include("query/find_ledger.php");
                                       </select>
                                     </div>
                                   </div>
+
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                      <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Description</label>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                          <textarea type="textarea" class="description" name="description" style="max-width: 169px;"></textarea>
+                                        </div>
+                                    </div>
+                                  </div>
                                   
+                                  <p></p>
+
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                    </div>
+                                  </div>
+
+                                  <p></p>
+
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button id="submitModal" type="submit" class="btn btn-primary">Save changes</button>

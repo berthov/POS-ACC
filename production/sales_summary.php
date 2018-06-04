@@ -12,10 +12,12 @@ $end_date = date('Y-m-d');
 
 if(isset($_REQUEST['reservation'])){
   $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 0,10))) ;
+  $reservation = $_REQUEST['reservation'];
 }
 
 if(isset($_REQUEST['reservation'])){
   $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 13,10))) ;
+  $reservation = $_REQUEST['reservation'];
 }
 
 if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
@@ -101,25 +103,9 @@ else{
                           </select>
                       </div>
 
-                      <div class="col-lg-9 col-md-9 col-xs-8">
-                        <fieldset>
-                          <div class="control-group" >
-                            <div class="controls" >
-                              <div class="input-prepend input-group">
-                                <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control pull-right"  />
-                                <span class="add-on input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </fieldset>
-                      </div>
-
-                    <!-- kalo button nya gw ilangin loop trus dia -->
-                   <!--  <div class="col-md-2">
-                      <input type="submit" name="submit"  class="btn btn-round btn-primary pull-right"/>
-                    </div> -->
+                      <!-- Datepicker -->
+                      <?php include("view/datepicker.php"); ?>
+                      <!-- End Of Datepicker  -->
                     </div>
  
                   <div class="x_content">
