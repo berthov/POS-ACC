@@ -9,11 +9,11 @@ include("query/find_ledger.php");
 $p_start_date = date('Y-m-d');
 $p_end_date = date('Y-m-d');
 if(isset($_REQUEST['reservation'])){
-  $p_start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 1,10))) ;
+  $p_start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 0,10))) ;
 }
 
 if(isset($_REQUEST['reservation'])){
-  $p_end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 14,10))) ;
+  $p_end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 13,10))) ;
 }
 
 if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
