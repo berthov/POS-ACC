@@ -9,7 +9,7 @@ if ($p_outlet === '') {
 	inventory b,
 	invoice_header ih
 	where a.inventory_item_id = b.id
-	and date_format(ih.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+	and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
 	and a.ledger_id = '".$ledger_new."'
 	and a.ledger_id = b.ledger_id
 	and ih.invoice_id = a.invoice_id
@@ -28,7 +28,7 @@ else
 	inventory b,
 	invoice_header ih
 	where a.inventory_item_id = b.id
-	and date_format(ih.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+	and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
 	and a.ledger_id = '".$ledger_new."'
 	and a.ledger_id = b.ledger_id
 	and ih.invoice_id = a.invoice_id

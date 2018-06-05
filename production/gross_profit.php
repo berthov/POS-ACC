@@ -8,6 +8,7 @@ include("query/find_ledger.php");
 
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
+
 if(isset($_REQUEST['reservation'])){
   $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 0,10))) ;
   $reservation = $_REQUEST['reservation'];
@@ -122,19 +123,17 @@ else{
 
                           </select>
                       </div>
-
                       <!-- Datepicker -->
                       <?php include("view/datepicker.php"); ?>
                       <!-- End Of Datepicker  -->
                  </div>
- 
                   <div class="x_content">
                     <table class="table ">
                       <tbody>
                         <tr>
                           <td scope="row">Gross Sales</td>
                           <td align="right">Rp.
-                          <?php include("query/gross_sales.php"); ?></td>
+                          <?php include("query/gross_sales.php");?></td>
                         </tr>
                         <tr>
                           <td scope="row">Discount</td>

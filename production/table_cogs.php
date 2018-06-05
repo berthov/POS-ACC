@@ -69,22 +69,27 @@ include("query/find_ledger.php");
                           <th>Item Name</th>
                           <th>COGS</th>
                           <th>Sales Price</th>
+                          <th>Outlet</th>
                           <th>Transaction Date</th>
                         </tr>
                       </thead>
                       <tbody>           
   
                             <?php
-                              $sql = "SELECT c.item_cost , 
-                              i.description , 
-                              c.sales_price,
-                              c.periode 
+                              $sql = "SELECT i.cogs, 
+                              i.description, 
+                              i.sales_price,
+                              c.periode,
+                              o.name
                               FROM cogs c, 
-                              inventory i
+                              inventory i,
+                              outlet o 
                               where 
                               c.inventory_item_id = i.id
                               and c.ledger_id = i.ledger_id
                               and c.ledger_id = '".$ledger_new."'
+                              and o.ledger_id = i.ledger_id
+                              and o.outlet_id = i.outlet_id
                               and c.item_cost_id = (select 
                                 max(c_1.item_cost_id)
                                 From
@@ -100,8 +105,9 @@ include("query/find_ledger.php");
 
                         <tr>
                           <td><?php echo $row["description"] ?></td>
-                          <td><?php echo number_format($row["item_cost"]) ?></td>
+                          <td><?php echo number_format($row["cogs"]) ?></td>
                           <td><?php echo number_format($row["sales_price"]) ?></td>
+                          <td><?php echo $row["name"]?></td>
                           <td><?php echo date('d-m-Y', strtotime($row["periode"]));?></td>
                         </tr>
 

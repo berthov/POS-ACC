@@ -162,20 +162,24 @@ if(isset($_POST["ar_list_summary"])){
         header('Content-Type: text/csv; charset=utf-8');  
         header('Content-Disposition: attachment; filename=All Invoice.csv');  
         $output = fopen("php://output", "w");  
-        fputcsv($output, array('Invoice Number','Invoice Date', 'Due Date','Customer Name', 'Discount','Payment Method', 'Refund','Tax','Outstanding Status'));  
+        fputcsv($output, array('Invoice Number','Invoice Date', 'Due Date','Customer Name', 'Discount','Payment Method', 'Refund','Tax','Outstanding Status','Outlet'));  
         $query = "SELECT 
-                  invoice_number,
-                  invoice_date,
-                  due_date,
-                  customer_name,
-                  discount_amount,
-                  payment_method,
-                  refund_status,
-                  tax_code,
-                  outstanding_status
-                  FROM invoice_header
+                  ih.invoice_number,
+                  ih.invoice_date,
+                  ih.due_date,
+                  ih.customer_name,
+                  ih.discount_amount,
+                  ih.payment_method,
+                  ih.refund_status,
+                  ih.tax_code,
+                  ih.outstanding_status,
+                  o.name
+                  FROM invoice_header ih,
+                  outlet o
                   WHERE
-                  ledger_id = '".$ledger_new."'
+                  ih.ledger_id = '".$ledger_new."'
+                  and ih.ledger_id = o.ledger_id
+                  and ih.outlet_id = o.outlet_id
                   order by invoice_date asc";
         $result = mysqli_query($conn, $query);  
         while($row = mysqli_fetch_assoc($result))  
@@ -191,23 +195,27 @@ if(isset($_POST["inventory"])){
       header('Content-Type: text/csv; charset=utf-8');  
       header('Content-Disposition: attachment; filename=Inventory.csv');  
       $output = fopen("php://output", "w");  
-      fputcsv($output, array('Item Code', 'Description', 'Quantity', 'COGS','Sales Price','MIN','MAX','Status','Category'));  
+      fputcsv($output, array('Item Code', 'Description', 'Quantity', 'COGS','Sales Price','MIN','MAX','Status','Category','Outlet'));  
       $query = "SELECT 
-                item_code,
-                description,
-                qty,
-                cogs,
-                sales_price,
-                min,
-                max,
-                status,
-                category
+                i.item_code,
+                i.description,
+                i.qty,
+                i.cogs,
+                i.sales_price,
+                i.min,
+                i.max,
+                i.status,
+                i.category,
+                o.name
                 FROM 
-                inventory i
+                inventory i,
+                outlet o
                 where 
-                ledger_id = '".$ledger_new."'  
+                i.ledger_id = '".$ledger_new."'
+                and o.ledger_id = i.ledger_id                              
+                and o.outlet_id = i.outlet_id  
                 order by 
-                description                            
+                i.description                            
                 ";
       $result = mysqli_query($conn, $query);  
       while($row = mysqli_fetch_assoc($result))  

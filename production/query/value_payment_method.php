@@ -24,7 +24,7 @@ if ($p_outlet === '') {
                             FROM invoice a_1,
                             invoice_header ih
                             where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                             and ih.ledger_id = '".$ledger_new."'
                             and ih.ledger_id = a_1.ledger_id
                             and ih.invoice_id = a_1.invoice_id
@@ -33,7 +33,7 @@ if ($p_outlet === '') {
                             FROM invoice a ,
                             invoice_header ih
                             where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                             and ih.ledger_id = '".$ledger_new."'
                             and ih.ledger_id = a.ledger_id
                             and ih.invoice_id = a.invoice_id
@@ -46,7 +46,7 @@ if ($p_outlet === '') {
                             aa.ledger_id = '".$ledger_new."'
                             and aca.invoice_id = aa.invoice_id
                             and aa.refund_status not in  ('Yes')
-                            and date_format(aa.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and date_format(aa.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                             group by
                             aa.payment_method
                             ";
@@ -77,7 +77,7 @@ else{
                             FROM invoice a_1,
                             invoice_header ih
                             where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                             and ih.ledger_id = '".$ledger_new."'
                             and ih.ledger_id = a_1.ledger_id
                             and ih.invoice_id = a_1.invoice_id
@@ -87,7 +87,7 @@ else{
                             FROM invoice a ,
                             invoice_header ih
                             where
-                            date_format(a.date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            date_format(a.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                             and ih.ledger_id = '".$ledger_new."'
                             and ih.ledger_id = a.ledger_id
                             and ih.invoice_id = a.invoice_id
@@ -102,7 +102,7 @@ else{
                             and aca.invoice_id = aa.invoice_id
                             and aa.refund_status not in  ('Yes')
                             and aa.outlet_id = '".$p_outlet."'
-                            and date_format(aa.invoice_date,'%Y-%m-%d') between '".$p_start_date."' and '".$p_end_date."'
+                            and date_format(aa.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                             group by
                             aa.payment_method
                             ";

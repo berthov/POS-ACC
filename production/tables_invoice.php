@@ -89,6 +89,7 @@ include("common/modal.html");
                           <th>Customer Name</th>
                           <th>Amount Discount</th>
                           <th>Refund Status</th>
+                          <th>Outlet</th>
                           <th>Outstanding Status</th>
                           <th style="width: 20%">#Edit</th>
                         </tr>
@@ -96,10 +97,13 @@ include("common/modal.html");
                       <tbody>
 
                          <?php
-                            $sql = "SELECT *  
-                            FROM invoice_header
+                            $sql = "SELECT ih.*,o.name
+                            FROM invoice_header ih,
+                            outlet o
                             WHERE
-                            ledger_id = '".$ledger_new."'";
+                            ih.ledger_id = '".$ledger_new."'
+                            and o.ledger_id = ih.ledger_id                              
+                            and o.outlet_id = ih.outlet_id";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                      
                          ?>
@@ -123,6 +127,9 @@ include("common/modal.html");
                           </td>
                           <td>
                             <?php echo $row['refund_status']; ?>
+                          </td>
+                          <td>
+                            <?php echo $row['name']; ?>
                           </td>
                           <td>
                             <a href="payment_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['outstanding_status']; ?></button></a>

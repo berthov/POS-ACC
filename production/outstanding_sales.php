@@ -74,6 +74,7 @@ else{
                     <div class="col-lg-3 col-md-3 col-xs-4">
                         
                         <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category">
+                          <option value="" disabled selected >Select Outlet</option>
                           <option value="all">All Outlet</option>
                           
                            <?php

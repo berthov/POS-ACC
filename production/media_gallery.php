@@ -175,7 +175,7 @@ include("query/find_ledger.php");
                                       <div>
                                         <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Discount</label>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                          <input type="number" class="discount" name="discount" min="0" />
+                                          <input type="number" class="discount" name="discount" min="0" style="width: 171px; height: 30px;"/>
                                         </div>
                                       </div>
                                     </div>
@@ -203,7 +203,7 @@ include("query/find_ledger.php");
                                       <div>
                                         <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Customer Name</label>
                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                          <input type="text" class="customer_name" name="customer_name" />
+                                          <input type="text" class="customer_name" name="customer_name" style="width: 171px; height: 30px;" />
                                         </div>
                                       </div>
                                     </div>

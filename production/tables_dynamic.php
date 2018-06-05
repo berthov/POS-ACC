@@ -90,7 +90,7 @@ include("query/find_ledger.php");
                       
                     </p>
           
-                    <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                    <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                       <thead>
                         <tr>
                           <th>Item Code</th>
@@ -100,6 +100,7 @@ include("query/find_ledger.php");
                           <th>Sales Price</th>
                           <th>Min</th>
                           <th>Max</th>
+                          <th>Outlet</th>
                           <th>#Edit</th>
                           <th>Status</th>
                         </tr>
@@ -107,11 +108,14 @@ include("query/find_ledger.php");
                       <tbody>
                         <?php
 
-                            $sql = "SELECT *
+                            $sql = "SELECT i.* , o.name
                               FROM 
-                              inventory i
+                              inventory i,
+                              outlet o
                               where 
-                              ledger_id = '".$ledger_new."'                              
+                              i.ledger_id = '".$ledger_new."'
+                              and o.ledger_id = i.ledger_id                              
+                              and o.outlet_id = i.outlet_id
                               ";
 
                             $result = $conn->query($sql);
@@ -126,6 +130,7 @@ include("query/find_ledger.php");
                           <td><?php echo $row["sales_price"]?></td>
                           <td><?php echo $row["min"]?></td>
                           <td><?php echo $row["max"]?></td>
+                          <td><?php echo $row["name"]?></td>
                           <td>
                             <a href="updateinventory.php?id=<?php echo $row["id"]?>" class="btn btn-info"><i class="fa fa-pencil"></i> Edit </a>
                             <!-- <a href="controller/deleteinventory.php?id=<?php echo $row["id"]?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>-->                          
