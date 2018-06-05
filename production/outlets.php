@@ -38,7 +38,7 @@ include("query/find_ledger.php");
     <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-        <!-- jQuery custom content scroller -->
+    <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
     <!-- Switchery -->
@@ -133,6 +133,7 @@ include("query/find_ledger.php");
                           <th>City</th>
                           <th>Province</th>
                           <th>Staff</th>
+                          <th>Edit Outlet</th>
                           <th>Status</th>
                         </tr>
                       </thead>
@@ -159,6 +160,9 @@ include("query/find_ledger.php");
                           <td><?php echo $row1['city'];?></td>
                           <td><?php echo $row1['province'];?></td>
                           <td><?php echo $row1['staff'];?></td>
+                          <td>
+                            <a href="updateoutlet.php?id=<?php echo $row1["outlet_id"]?>" class="btn btn-info"><i class="fa fa-pencil"></i> Edit </a>                          
+                          </td>
                           <td>
                               <input type="checkbox" class="changeOutletStatus" checked data-value=<?php echo $row1['status'];?> data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-id=<?php echo $row1['outlet_id']; ?>>                          
                           </td>
@@ -207,6 +211,17 @@ include("query/find_ledger.php");
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+
+    <?php
+      if($_SESSION['outletUpdated'] == true){
+      ?>
+      <script>
+        toastr.success('Outlet Updated');
+      </script>
+      <?php
+        $_SESSION['outletUpdated'] = false;
+      }
+    ?>
 
   </body>
 </html>

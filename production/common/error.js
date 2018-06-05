@@ -100,6 +100,41 @@ $(document).ready(function() {
     });
   });
 
+  $("#formUpdateOutlet").submit(function(){
+    event.preventDefault();
+
+    var outlet_id = $("#outlet_id").val();
+    var outlet_name=$("#outlet_name").val();
+    var address=$("#address").val();
+    var phone=$("#phone").val();
+    var city=$("#city").val();
+    var province=$("#province").val();
+    var postal_code=$("#postal_code").val();
+    var email=$("#email").val();
+
+      $.ajax({
+        type:'post',
+        url:'controller/doupdateoutlet.php',
+        data:{
+          'outlet_id':outlet_id,
+          'outlet_name':outlet_name,
+          'address':address,
+          'phone':phone,
+          'city':city,
+          'province':province,
+          'postal_code':postal_code,
+          'email':email
+        },
+        success:function(response){
+          if (response=='ok'){
+            window.location.href="../production/outlets.php";
+          } else {
+            toastr.error('error');
+          }
+        }
+    });
+  });
+
     $("#formregisterrecipe").submit(function(){
     event.preventDefault();
 
