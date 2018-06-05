@@ -6,7 +6,17 @@ include("query/find_ledger.php");
 
 $start_date= $_REQUEST['start_date']; 
 $end_date= $_REQUEST['end_date'];
- 
+
+if (empty($_REQUEST['outlet_id'])) {
+  $outlet_id = null;
+  var_dump($outlet_id);
+}
+else{
+$outlet_id = $_REQUEST['outlet_id'];
+  var_dump($outlet_id);
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,30 +103,60 @@ $end_date= $_REQUEST['end_date'];
                       <tbody>
 
                          <?php
-                            $sql = "SELECT ih.invoice_number,
+                            // $sql = "SELECT ih.invoice_number,
+                            // ih.invoice_date,
+                            // ih.due_date,
+                            // ih.customer_name,
+                            // ih.discount_amount, 
+                            // ih.payment_method,
+                            // ih.refund_status,
+                            // invoice_line.total, 
+                            // invoice_line.tax
+                            // FROM invoice_header ih
+                            // ,(
+                            // SELECT sum(i.unit_price*i.qty) as total, sum(i.tax_amount) as tax , i.invoice_id
+                            // From invoice i
+                            // WHERE
+                            // date_format(i.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            // and i.ledger_id = '".$ledger_new."'
+                            // group by
+                            // i.invoice_id
+                            // ) invoice_line
+                            // WHERE
+                            // ih.ledger_id = '".$ledger_new."'
+                            // and ih.invoice_id = invoice_line.invoice_id
+                            // and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            // ";
+
+                            $sql = "SELECT 
+                            ih.invoice_number,
+                            ih.invoice_date,
+                            ih.due_date, 
+                            '".$outlet_id."' as customer_name,
+                            ih.discount_amount, 
+                            ih.payment_method,
+                            ih.refund_status,
+                            sum(i.unit_price*i.qty) as total,
+                            sum(i.tax_amount) as tax
+                            ,ih.outlet_id
+                            FROM invoice_header ih,
+                            invoice i
+                            WHERE
+                            ih.ledger_id = '".$ledger_new."'
+                            and (ih.outlet_id = '".$outlet_id."' or  ('".$outlet_id."' is not null ) ) 
+                            and ih.invoice_id = i.invoice_id
+                            and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            group by 
+                            ih.invoice_number,
                             ih.invoice_date,
                             ih.due_date,
                             ih.customer_name,
                             ih.discount_amount, 
                             ih.payment_method,
-                            ih.refund_status,
-                            invoice_line.total, 
-                            invoice_line.tax
-                            FROM invoice_header ih
-                            ,(
-                            SELECT sum(i.unit_price*i.qty) as total, sum(i.tax_amount) as tax , i.invoice_id
-                            From invoice i
-                            WHERE
-                            date_format(i.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                            and i.ledger_id = '".$ledger_new."'
-                            group by
-                            i.invoice_id
-                            ) invoice_line
-                            WHERE
-                            ih.ledger_id = '".$ledger_new."'
-                            and ih.invoice_id = invoice_line.invoice_id
-                            and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            ih.refund_status
+                            ,ih.outlet_id
                             ";
+
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                      
                          ?>
@@ -147,7 +187,7 @@ $end_date= $_REQUEST['end_date'];
                             <?php echo number_format($row['tax']); ?>
                           </td> -->
                           <td>
-                            <?php echo $row['refund_status']; ?>
+                            <?php echo $row['refund_status']; echo $row['outlet_id']; ?>
                           </td>
                         </tr> 
 

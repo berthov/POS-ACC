@@ -84,8 +84,9 @@ include ("query/find_ledger.php");
                     outlet o
                     where
                     e.name = ih.created_by
-                    and e.outlet_id = o.name
+                    and e.outlet_id = o.outlet_id
                     and e.ledger_id = o.ledger_id
+                    and ih.outlet_id = o.outlet_id
                     and ih.invoice_id = '".$invoice_id."'
                     ";
                     $result = $conn->query($sql);
@@ -182,8 +183,6 @@ include ("query/find_ledger.php");
                                 <td><?php  echo $row['qty']; ?></td>
                                 <td><?php  echo $row['item_code']; ?></td>
                                 <td><?php  echo $row['description']; ?></td>
-                                <!-- <td>El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson
-                                </td> -->
                                 <td><?php  echo $row['unit_price']; ?></td>
                                 <td><?php  echo ($row['qty'] * $row['unit_price'] ); ?></td>
                               </tr>
@@ -204,14 +203,18 @@ include ("query/find_ledger.php");
                       <div class="row">
                         <!-- accepted payments column -->
                         <div class="col-lg-6 col-md-6 col-xs-6">
-<!--                           <p class="lead">Payment Methods:</p>
-                          <img src="images/visa.png" alt="Visa">
-                          <img src="images/mastercard.png" alt="Mastercard">
-                          <img src="images/american-express.png" alt="American Express">
-                          <img src="images/paypal.png" alt="Paypal">
+                          <p class="lead"><div class="clearfix"></div></p>
                           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris
-                          </p> -->
+                            <?php
+
+                            $user_check_ledger = "SELECT description  FROM invoice_header WHERE invoice_id = '".$invoice_id."'"; 
+                            $result_ledger = mysqli_query($conn,$user_check_ledger);
+                            $existing_ledger = mysqli_fetch_assoc($result_ledger);
+
+                            echo $existing_ledger['description'];
+
+                            ?>
+                          </p>
                         </div>
                         <!-- /.col -->
                         <div class="col-lg-6 col-md-6 col-xs-6">

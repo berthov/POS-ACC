@@ -21,7 +21,7 @@ if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
   $p_outlet = $_REQUEST['outlet_id'];
 }
 else{
- $p_outlet = ''; 
+ $p_outlet = NULL; 
 }
 
 ?>
@@ -89,7 +89,7 @@ else{
               <div class="count">Rp.
                 <?php include("query/gross_sales.php") ?>
               </div>
-              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>">
+              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>&outlet_id=<?=$p_outlet?>">
                 <?php                 
                 if (isset($_REQUEST['reservation'])){
                        echo $start_date; echo " - "; echo $end_date;
@@ -107,7 +107,7 @@ else{
                 <?php include("query/net_sales.php"); ?>
               </div>
               <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span> -->
-              <span class="count_bottom"><a href="net_sales_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>">
+              <span class="count_bottom"><a href="net_sales_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>&outlet_id=<?=$p_outlet?>">
                 <?php 
                 if (isset($_REQUEST['reservation'])){
                        echo $start_date; echo " - "; echo $end_date;
