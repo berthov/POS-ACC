@@ -198,4 +198,16 @@ include("query/find_ledger.php");
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
   </body>
+
+  <?php
+    if($_SESSION['itemUpdated'] == true){
+    ?>
+    <script>
+      toastr.success('Item Updated');
+    </script>
+    <?php
+      $_SESSION['itemUpdated'] = false;
+    }
+  ?>
+  
 </html>

@@ -15,12 +15,31 @@ include("query/find_ledger.php");
 
     <title>Bonne Journée! </title>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+
+     <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-wysiwyg -->
+    <link href="../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+    <!-- Select2 -->
+    <link href="../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+    <!-- Switchery -->
+    <link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+    <!-- starrr -->
+    <link href="../vendors/starrr/dist/starrr.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
     
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -57,7 +76,7 @@ include("query/find_ledger.php");
                   </div>
                   <div class="x_content">
 
-                    <form class="form-horizontal form-label-left" action="controller/doupdategoods.php" novalidate>
+                    <form id="formUpdateInventory" class="form-horizontal form-label-left" action="controller/doupdategoods.php" method="post">
 
                       <span class="section">Master Item Info</span>
                       <?php
@@ -66,46 +85,46 @@ include("query/find_ledger.php");
                         $result = $conn->query($sql);
                         while($row = $result->fetch_assoc()) {
                       ?>  
-                      <input type="hidden" name="id" value="<?php echo $row["id"]?>">
+                      <input type="hidden" name="id" id="id" value="<?php echo $row["id"]?>">
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Item Name <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="item_code" class="form-control col-md-7 col-xs-12" data-suggestions="White, Green, Blue, Black, Brown" name="item_code" placeholder="ex.RMT-00000001" required="required" type="text" value="<?php echo $row["item_code"]?>" readonly>
+                          <input id="item_code" class="form-control col-md-7 col-xs-12" data-suggestions="White, Green, Blue, Black, Brown" name="item_code" placeholder="ex.RMT-00000001" required type="text" value="<?php echo $row["item_code"]?>" readonly>
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="description" name="description" required="required" class="form-control col-md-7 col-xs-12" placeholder="PRIMA UP 480 SL UK.20 LTR - JERIGEN MAKIN" value="<?php echo $row["description"]?>">
+                          <input id="description" name="description" required class="form-control col-md-7 col-xs-12" placeholder="PRIMA UP 480 SL UK.20 LTR - JERIGEN MAKIN" value="<?php echo $row["description"]?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="max">Max Threshold <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="minthreshold" name="max" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999" value="<?php echo $row["max"]?>">
+                          <input type="number" id="minthreshold" name="max" required min="0" max="99999" class="form-control col-md-7 col-xs-12" placeholder="1-9999" value="<?php echo $row["max"]?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Min Threshold <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="maxthreshold" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999" value="<?php echo $row["min"]?>">
+                          <input type="number" id="maxthreshold" name="min" required min="0" max="99999" class="form-control col-md-7 col-xs-12" placeholder="1-9999" value="<?php echo $row["min"]?>">
                         </div>
                       </div>
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category">Category <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="category" name="category" class="form-control col-md-7 col-xs-12"  value="<?php echo $row["category"]?>">
+                          <input type="text" id="category" name="category" class="form-control col-md-7 col-xs-12"  value="<?php echo $row["category"]?>" required >
                         </div>
                       </div> 
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancel</button>
+                          <a href="tables_dynamic.php" class="btn btn-primary">Cancel</a>
                           <button id="send" type="submit" class="btn btn-success">Submit</button>
                         </div>
                       </div>
@@ -135,11 +154,14 @@ include("query/find_ledger.php");
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- validator -->
+    <!-- validator 
     <script src="../vendors/validator/validator.js"></script>
+    -->
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+
+    <script src="../production/common/error.js"></script>
 	
   </body>
 </html>

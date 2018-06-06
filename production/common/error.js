@@ -129,7 +129,38 @@ $(document).ready(function() {
           if (response=='ok'){
             window.location.href="../production/outlets.php";
           } else {
-            toastr.error('error');
+            toastr.error('Update Failed');
+          }
+        }
+    });
+  });
+
+  $("#formUpdateInventory").submit(function(){
+    event.preventDefault();
+
+    var id = $("#id").val();
+    var item_code = $("#item_code").val();
+    var description=$("#description").val();
+    var min=$("#minthreshold").val();
+    var max=$("#maxthreshold").val();
+    var category=$("#category").val();
+
+      $.ajax({
+        type:'post',
+        url:'controller/doupdategoods.php',
+        data:{
+          'id':id,
+          'item_code':item_code,
+          'description':description,
+          'min':min,
+          'max':max,
+          'category':category
+        },
+        success:function(response){
+          if (response=='New record created successfully'){
+            window.location.href="../production/tables_dynamic.php";
+          } else {
+            toastr.error('Update Failed');
           }
         }
     });
