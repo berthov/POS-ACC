@@ -14,6 +14,7 @@ if(isset($_REQUEST['end_date'])){
 
 $created_date =  date("Y-m-d");
 $last_update_date =  date("Y-m-d");
+$p_outlet = $_REQUEST['p_outlet'];
 
 // IMPORT
 // form_validation.php
@@ -124,29 +125,59 @@ if(isset($_POST["ar_list_summary"])){
       header('Content-Type: text/csv; charset=utf-8');  
       header('Content-Disposition: attachment; filename=Net Sales Detail.csv');  
       $output = fopen("php://output", "w");  
-      fputcsv($output, array('Invoice Number', 'Invoice Date', 'Customer Name', 'Payment Method','Discount','Invoice Amount','Net Sales','Refund'));  
+      fputcsv($output, array('Invoice Number', 'Invoice Date','Due Date', 'Customer Name', 'Payment Method','Discount','Invoice Amount','Net Sales','Refund','Outlet Name'));  
       $query =  "SELECT quote(ih.invoice_number),
                             ih.invoice_date,
+                            ih.due_date,
                             ih.customer_name,
                             ih.payment_method,
-                            ih.discount_amount,
-                            invoice_line.total,
-                            invoice_line.total - ih.discount_amount, 
-                            ih.refund_status
-                            FROM invoice_header ih
-                            ,(
-                            SELECT sum(i.unit_price*i.qty) as total, sum(i.tax_amount) as tax , i.invoice_id
-                            From invoice i
-                            WHERE
-                            date_format(i.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                            and i.ledger_id = '".$ledger_new."'
-                            group by
-                            i.invoice_id
-                            ) invoice_line
+                            ih.discount_amount, 
+                            sum(i.unit_price*i.qty) as total,
+                            sum(i.unit_price*i.qty) - ih.discount_amount 
+                            - 
+                            COALESCE((SELECT sum(a2.qty * a2.unit_price)
+                            from invoice a2,
+                            invoice_header ih2
+                            where
+                            a2.invoice_id = ih2.invoice_id
+                            and ih2.ledger_id = '".$ledger_new."'
+                            and date_format(ih2.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            and ih2.refund_status = 'Yes'
+                            and (ih2.outlet_id = '".$p_outlet."' or  ('".$p_outlet."' = '' ) ) 
+                            and ih2.invoice_id = ih.invoice_id
+                            ),0)as netsales ,
+                            (SELECT sum(a2.qty * a2.unit_price)
+                            from invoice a2,
+                            invoice_header ih2
+                            where
+                            a2.invoice_id = ih2.invoice_id
+                            and ih2.ledger_id = '".$ledger_new."'
+                            and date_format(ih2.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            and ih2.refund_status = 'Yes'
+                            and (ih2.outlet_id = '".$p_outlet."' or  ('".$p_outlet."' = '' ) ) 
+                            and ih2.invoice_id = ih.invoice_id
+                            )
+                            as refund,
+                            o.name
+                            FROM invoice_header ih,
+                            invoice i,
+                            outlet o
                             WHERE
                             ih.ledger_id = '".$ledger_new."'
-                            and ih.invoice_id = invoice_line.invoice_id
+                            and ih.invoice_id = i.invoice_id
+                            and ih.outlet_id = o.outlet_id
+                            and ih.ledger_id = o.ledger_id
                             and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            group by 
+                            ih.invoice_number,
+                            ih.invoice_date,
+                            ih.due_date,
+                            ih.customer_name,
+                            ih.discount_amount, 
+                            ih.refund_status,
+                            ih.payment_method,
+                            ih.discount_amount * ih.tax_code,
+                            o.name
                             ";
       $result = mysqli_query($conn, $query);  
       while($row = mysqli_fetch_assoc($result))  

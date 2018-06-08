@@ -6,6 +6,9 @@ include("query/find_ledger.php");
 
 $start_date= $_REQUEST['start_date']; 
 $end_date= $_REQUEST['end_date']; 
+$p_outlet = $_REQUEST['outlet_id'];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,9 +86,8 @@ $end_date= $_REQUEST['end_date'];
                           <th>Discount</th>
                           <th>Invoice Amount</th>
                           <th>Net Sales</th>
-                          <!-- <th>Tax</th> -->
                           <th>Refund</th>
-                          <!-- <th>TOTAL</th> -->
+                          <th>Outlet</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -98,23 +100,41 @@ $end_date= $_REQUEST['end_date'];
                             ih.discount_amount, 
                             ih.refund_status,
                             ih.payment_method,
-                            ih.discount_amount * ih.tax_code as tax_1
-                            ,invoice_line.total, 
-                            invoice_line.tax
-                            FROM invoice_header ih
-                            ,(
-                            SELECT sum(i.unit_price*i.qty) as total, sum(i.tax_amount) as tax , i.invoice_id
-                            From invoice i
-                            WHERE
-                            date_format(i.date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
-                            and i.ledger_id = '".$ledger_new."'
-                            group by
-                            i.invoice_id
-                            ) invoice_line
+                            ih.discount_amount * ih.tax_code as tax_1,
+                            sum(i.unit_price*i.qty) as total, 
+                            sum(i.tax_amount) as tax,
+                            o.name,
+                            (SELECT sum(a2.qty * a2.unit_price)
+                            from invoice a2,
+                            invoice_header ih2
+                            where
+                            a2.invoice_id = ih2.invoice_id
+                            and ih2.ledger_id = '".$ledger_new."'
+                            and date_format(ih2.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            and ih2.refund_status = 'Yes'
+                            and (ih2.outlet_id = '".$p_outlet."' or  ('".$p_outlet."' = '' ) ) 
+                            and ih2.invoice_id = ih.invoice_id
+                            )
+                            as refund
+                            FROM invoice_header ih,
+                            invoice i,
+                            outlet o
                             WHERE
                             ih.ledger_id = '".$ledger_new."'
-                            and ih.invoice_id = invoice_line.invoice_id
+                            and ih.invoice_id = i.invoice_id
+                            and ih.outlet_id = o.outlet_id
+                            and ih.ledger_id = o.ledger_id
                             and date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
+                            group by 
+                            ih.invoice_number,
+                            ih.invoice_date,
+                            ih.due_date,
+                            ih.customer_name,
+                            ih.discount_amount, 
+                            ih.refund_status,
+                            ih.payment_method,
+                            ih.discount_amount * ih.tax_code,
+                            o.name
                             ";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                      
@@ -140,17 +160,14 @@ $end_date= $_REQUEST['end_date'];
                             <?php echo number_format($row['total']); ?>
                           </td>
                           <td>
-                            <?php echo number_format($row['total'] - $row['discount_amount']); ?>
+                            <?php echo number_format($row['total'] - $row['discount_amount'] - $row['refund']); ?>
                           </td>
-                          <!-- <td>
-                            <?php echo number_format($row['tax'] - $row['tax_1']); ?>
-                          </td> --> 
                           <td>
                             <?php echo $row['refund_status']; ?>
                           </td>
-                          <!-- <td>
-                            <?php echo number_format(($row['total'] - $row['discount_amount']) + ($row['tax'] - $row['tax_1'])); ?>
-                          </td> -->
+                          <td>
+                            <?php echo $row['name']; ?>
+                          </td> 
                         </tr> 
 
                         <?php
@@ -165,7 +182,7 @@ $end_date= $_REQUEST['end_date'];
 
 
 
-                   <form class="form-horizontal" action="controller/export_index_csv.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>" method="post" name="upload_excel" enctype="multipart/form-data">
+                   <form class="form-horizontal" action="controller/export_index_csv.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>&p_outlet=<?=$p_outlet?>" method="post" name="upload_excel" enctype="multipart/form-data">
                               <div class="form-group">
                                 <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
                                 <div class="col-md-4">

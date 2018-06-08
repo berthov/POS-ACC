@@ -21,7 +21,7 @@ if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
   $p_outlet = $_REQUEST['outlet_id'];
 }
 else{
- $p_outlet = NULL; 
+ $p_outlet = ''; 
 }
 
 ?>
