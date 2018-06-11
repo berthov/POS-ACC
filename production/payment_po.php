@@ -50,7 +50,7 @@ $po_header_id = $_REQUEST['po_header_id'];
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>PO Status</h3>
+                <h3>Invoice Status</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -59,7 +59,7 @@ $po_header_id = $_REQUEST['po_header_id'];
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Purchase Order Header <small>PO Number : <?php echo $po_header_id; ?> </small></h2> 
+                    <h2>Purchase Invoice Header <small>Invoice Number : <?php echo $po_header_id; ?> </small></h2> 
                     <div class="clearfix"></div>
                   </div>
                   <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpayment.php">      
@@ -67,7 +67,13 @@ $po_header_id = $_REQUEST['po_header_id'];
                     <br />                      
                   <?php
 
-                    $sql = "SELECT o.name , poh.po_date , poh.supplier , poh.ship_to , poh.due_date , poh.po_description 
+                    $sql = "SELECT o.name , 
+                    poh.po_date , 
+                    poh.supplier , 
+                    poh.ship_to , 
+                    poh.due_date , 
+                    poh.po_description , 
+                    poh.amount_due_remaining
                     FROM po_header_all poh,
                     outlet o
                     where
@@ -86,7 +92,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                           <input type="text" class="form-control" name="outlets" placeholder="<?php echo $row["name"] ?>" disabled="disabled">
                         </div>
 
-                        <label class="col-md-2 col-sm-2 col-xs-12">PO Date</label>
+                        <label class="col-md-2 col-sm-2 col-xs-12">Invoice Date</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
                           <input type="text" class="form-control" name="po_date" placeholder="<?php echo $row["po_date"] ?>" disabled="disabled">
                         </div>
@@ -105,7 +111,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                       </div>
 
                       <div class="form-group">
-                        <label class="col-md-2 col-sm-2 col-xs-12">PO Amount</label>
+                        <label class="col-md-2 col-sm-2 col-xs-12">Invoice Amount</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
                           <input type="text" class="form-control" name="supplier" placeholder="<?php include("query/po_amount.php"); ?>" disabled="disabled">
                         </div>
@@ -119,7 +125,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                       <div class="form-group">
                         <label class="col-md-2 col-sm-2 col-xs-12">Outsanding</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" placeholder="<?php include("query/po_outstanding.php"); ?>" name="outstanding" disabled="disabled">
+                          <input type="text" class="form-control" placeholder="<?php echo $row["amount_due_remaining"] ?>" name="outstanding" disabled="disabled">
                         </div>
                       </div>
 
@@ -247,7 +253,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                                         </select>
                                       </div>
                                     </td>
-                                    <td><input type="number" class="form-control" name="payment_amount" min="0" max=<?php include("query/po_outstanding.php"); ?>></td>
+                                    <td><input type="number" class="form-control" name="payment_amount" min="0" max=<?php echo $row["amount_due_remaining"] ?>></td>
                                     <td><input type="hidden" name="po_header_id" value="<?php echo $po_header_id; ?>"></td>
                                   </tr>
                                 </table>

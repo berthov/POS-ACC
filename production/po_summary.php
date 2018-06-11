@@ -52,7 +52,7 @@ include("query/find_ledger.php");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>PO Listing</h3>
+                <h3>AP Listing</h3>
               </div>
             </div>
             
@@ -70,10 +70,10 @@ include("query/find_ledger.php");
                       <thead>
                         <tr>
                           <th style="width: 1%">#</th>
-                          <th style="width: 20%">PO Number</th>
+                          <th style="width: 20%">Invoice Number</th>
                           <th>Description</th>
                           <th>Supplier</th>
-                          <th>PO Date</th>
+                          <th>Invoice Date</th>
                           <th>Due Date</th>
                           <th>Status</th>
                           <th style="width: 20%">#Edit</th>

@@ -46,7 +46,7 @@ include("query/find_ledger.php");
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Form PO</h3>
+                <h3>Form AP</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -55,7 +55,7 @@ include("query/find_ledger.php");
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Purchase Order Header</h2>
+                    <h2>Account Payable Header</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -150,7 +150,7 @@ include("query/find_ledger.php");
                       <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                           <div class="x_title">
-                            <h2><i class="fa fa-align-left"></i> Purchase Order Line <small>Sub-Title</small></h2>
+                            <h2><i class="fa fa-align-left"></i> Account Payable Line <small>Sub-Title</small></h2>
                             <div class="clearfix"></div>
                           </div>
                           <div class="x_content">
@@ -165,7 +165,7 @@ include("query/find_ledger.php");
                                   <tr>
                                     <th>#</th>
                                     <th>Item Description</th>
-                                    <th>UOM</th>
+                                    <!-- <th>UOM</th> -->
                                     <th>Quantity</th>
                                     <th>Price</th>
                                     <th></th>
@@ -189,7 +189,7 @@ include("query/find_ledger.php");
                                       ?>
                                       </select>
                                     </td>
-                                    <td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td>
+                                    <!-- <td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td> -->
                                     <td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>
                                     <td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>
                                     <td>
