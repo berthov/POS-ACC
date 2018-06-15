@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 	$supplier_name = $_REQUEST['supplier_name'];	
 	$supplier_site = $_REQUEST['supplier_site'];
 	$supplier_type = $_REQUEST['supplier_type'];
-	$tax = $_REQUEST['tax'];	
+	$tax = $_REQUEST['tax']/100;	
 	$status = 'Active';
 	$created_date =  date("Y-m-d");
 	$last_update_date =  date("Y-m-d");
