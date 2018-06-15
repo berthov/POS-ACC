@@ -342,4 +342,15 @@ include("query/find_ledger.php");
     <script src="../production/controller/search.js"></script>
 
   </body>
+
+    <?php
+      if($_SESSION['firstLogin'] == true){
+      ?>
+      <script>
+        toastr.success('You are logged in');
+      </script>
+      <?php
+        $_SESSION['firstLogin'] = false;
+      }
+    ?>
 </html>

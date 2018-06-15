@@ -44,7 +44,14 @@ $p_outlet = $_REQUEST['outlet_id'];
       <div class="main_container">
         
         <!-- Sidebar Menu -->
-        <?php include("view/sidebar.php"); ?>
+        <?php
+          if ($_SESSION['userRole'] == "Staff"){
+            session_destroy(); 
+            header("location: login.php"); 
+          } else if ($_SESSION['userRole'] == "Admin") {
+            include("view/sidebar.php");
+          }
+        ?>
         <!-- End Of Sidebar  -->
         
         <!-- Top Navigation -->
