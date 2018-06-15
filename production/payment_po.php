@@ -77,7 +77,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                     FROM po_header_all poh,
                     outlet o
                     where
-                    poh.outlets = o.name  
+                    poh.outlet_id = o.outlet_id  
                     and poh.ledger_id = '".$ledger_new."'
                     and poh.po_header_id = '".$po_header_id."'
                     ";

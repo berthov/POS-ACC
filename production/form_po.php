@@ -63,7 +63,7 @@ include("query/find_ledger.php");
                     <form class="form-horizontal form-label-left input_mask" method="POST" action="controller/doaddpo.php">
 
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback">
-                            <select class="form-control" name="outlets">
+                            <select class="form-control" name="outlets" required="required">
                               <option value="" disabled selected>Select Outlet</option>
                           
                             <?php
@@ -98,7 +98,7 @@ include("query/find_ledger.php");
 
       
                       <div class="col-md-5 col-sm-5 col-xs-12 form-group has-feedback"> 
-                        <select class="form-control" name="supplier">
+                        <select class="form-control" name="supplier" required="required">
                               <option value="" disabled selected>Select Supplier</option>
                           
                             <?php
@@ -109,7 +109,7 @@ include("query/find_ledger.php");
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                           ?>
-                              <option value="<?php echo $row["supplier_name"] ?>"> <?php echo $row["supplier_name"] ?></option>
+                              <option value="<?php echo $row["party_id"] ?>"> <?php echo $row["supplier_name"] ?></option>
                           <?php
                             }
                           ?>

@@ -75,6 +75,7 @@ include("query/find_ledger.php");
                           <th>Supplier</th>
                           <th>Invoice Date</th>
                           <th>Due Date</th>
+                          <th>Outlet</th>
                           <th>Status</th>
                           <th style="width: 20%">#Edit</th>
                         </tr>
@@ -82,10 +83,12 @@ include("query/find_ledger.php");
                       <tbody>
 
                          <?php
-                            $sql = "SELECT *  
-                            FROM po_header_all
+                            $sql = "SELECT o.name,poh.*  
+                            FROM po_header_all poh,
+                            outlet o
                             WHERE
-                            ledger_id = '".$ledger_new."'";
+                            poh.outlet_id = o.outlet_id
+                            and poh.ledger_id = '".$ledger_new."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {                      
                          ?>
@@ -108,11 +111,13 @@ include("query/find_ledger.php");
                             <?php echo $row['due_date']; ?>
                           </td>
                           <td>
+                            <?php echo $row['name']; ?>
+                          </td>
+                          <td>
                             <a href="payment_po.php?po_header_id=<?php echo $row["po_header_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['status']; ?></button></a>
                           </td>
                           <td>
                             <a href="template_po.php?po_header_id=<?php echo $row["po_header_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                             <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
                           </td>
                         </tr> 

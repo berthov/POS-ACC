@@ -103,7 +103,7 @@ include ("query/find_ledger.php");
                       </div>
                       <!-- info row -->
                       <div class="row invoice-info">
-                        <div class="col-lg-1 col-md-1 col-sm-1 invoice-col">
+                        <div class="col-lg-2 col-md-2 col-sm-2 invoice-col">
                           From :
                           <address>
                                           <strong><?php  echo $row['name']; ?></strong>
@@ -203,7 +203,7 @@ include ("query/find_ledger.php");
                       <div class="row">
                         <!-- accepted payments column -->
                         <div class="col-lg-6 col-md-6 col-xs-6">
-                          <p class="lead"><div class="clearfix"></div></p>
+                          <p class="lead">Additional Info :</p>
                           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                             <?php
 

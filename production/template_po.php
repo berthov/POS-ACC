@@ -55,7 +55,7 @@ $po_header_id = $_REQUEST['po_header_id'];
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Purchase Order </h3>
+                <h3>Purchase Invoice </h3>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ $po_header_id = $_REQUEST['po_header_id'];
               <div class="col-md-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>PO Design</h2>
+                    <h2>Template Design</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -78,9 +78,11 @@ $po_header_id = $_REQUEST['po_header_id'];
 
                     $sql = "SELECT *  
                     FROM po_header_all poh,
-                    outlet o
+                    outlet o,
+                    ap_supplier_all asa
                     where
-                    poh.outlets = o.name  
+                    poh.outlet_id = o.outlet_id  
+                    and asa.party_id = poh.supplier
                     and poh.po_header_id = '".$po_header_id."'
                     ";
                     $result = $conn->query($sql);
@@ -88,9 +90,9 @@ $po_header_id = $_REQUEST['po_header_id'];
                     $po_due = $row['due_date'];       
                     ?>
 
-                        <div class="col-xs-12 invoice-header">
+                        <div class="col-lg-12 col-md-12 col-xs-12 invoice-header">
                           <h1>
-                                          <i class="fa fa-globe"></i> Purchase Order.
+                                          <i class="fa fa-globe"></i> Purchase Invoice.
                                           <small class="pull-right">Date: <?php  echo $row['po_date']; ?></small>
                                       </h1>
                         </div>                        
@@ -98,10 +100,10 @@ $po_header_id = $_REQUEST['po_header_id'];
                       </div>
                       <!-- info row -->
                       <div class="row invoice-info">
-                        <div class="col-sm-4 invoice-col">
+                        <div class="col-lg-2 col-md-2 col-sm-2 invoice-col">
                           From
                           <address>
-                                          <strong><?php  echo $row['outlets']; ?></strong>
+                                          <strong><?php  echo $row['name']; ?></strong>
                                           <br><?php  echo $row['address']; ?>
                                           <br><?php  echo $row['city']; ?>
                                           <br><?php  echo $row['province']; ?>
@@ -109,24 +111,19 @@ $po_header_id = $_REQUEST['po_header_id'];
                           </address>
                         </div>
                         <!-- /.col -->
-                        <div class="col-sm-4 invoice-col">
+                        <div class="col-lg-1 col-md-1 col-sm-1 invoice-col">
                           To
                           <address>
-                                          <strong><?php  echo $row['supplier']; ?></strong>
-                                          <br><?php  echo $row['address']; ?>
-                                          <br><?php  echo $row['city']; ?>
-                                          <br><?php  echo $row['province']; ?>
-                                          <br><?php  echo $row['email']; ?>
+                                          <strong><?php  echo $row['supplier_name']; ?></strong>
+                                          <br><?php  echo $row['supplier_site']; ?>
                           </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
                           <br>
-                          <b>Order ID:</b> <?php  echo $row['po_header_id']; ?>
+                          <b>Invoice Number:</b> <?php  echo $row['po_header_id']; ?>
                           <br>
-                          <b>Payment Due:</b> <?php  echo $row['due_date']; ?>
-                          <br>
-                          <b>Description:</b> <?php  echo $row['po_description']; ?>
+                          <b>Invoice Due:</b> <?php  echo $row['due_date']; ?>
                         </div>
                         <!-- /.col -->
                       </div>
@@ -147,8 +144,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                               <tr>
                                 <th>Qty</th>
                                 <th>Item Code</th>
-                                <th>Item Name</th>
-                                <th style="width: 59%">Description</th>
+                                <th style="width: 59%">Item Name</th>
                                 <th>Price</th>
                                 <th>Subtotal</th>
                               </tr>
@@ -157,11 +153,12 @@ $po_header_id = $_REQUEST['po_header_id'];
                               <!-- DETAIL ROW -->
                             <?php
 
-                            $sql = "SELECT *  
+                            $sql = "SELECT pol.qty , i.item_code , i.description , pol.price   
                             FROM po_line_all pol,
                             inventory i
                             where  
                             pol.po_header_id = '".$po_header_id."'
+                            and i.ledger_id = '".$ledger_new."'
                             and i.id = pol.inventory_item_id
                             ";
                             $result = $conn->query($sql);
@@ -173,10 +170,8 @@ $po_header_id = $_REQUEST['po_header_id'];
                                 <td><?php  echo $row['qty']; ?></td>
                                 <td><?php  echo $row['item_code']; ?></td>
                                 <td><?php  echo $row['description']; ?></td>
-                                <td>El snort testosterone trophy driving gloves handsome gerry Richardson helvetica tousled street art master testosterone trophy driving gloves handsome gerry Richardson
-                                </td>
-                                <td><?php  echo $row['price']; ?></td>
-                                <td><?php  echo ($row['qty'] * $row['price'] ); ?></td>
+                                <td><?php  echo number_format($row['price']); ?></td>
+                                <td><?php  echo number_format(($row['qty'] * $row['price'] )); ?></td>
                               </tr>
 
                             <?php
@@ -195,37 +190,63 @@ $po_header_id = $_REQUEST['po_header_id'];
                       <div class="row">
                         <!-- accepted payments column -->
                         <div class="col-xs-6">
-                          <p class="lead">Payment Methods:</p>
-                          <img src="images/visa.png" alt="Visa">
-                          <img src="images/mastercard.png" alt="Mastercard">
-                          <img src="images/american-express.png" alt="American Express">
-                          <img src="images/paypal.png" alt="Paypal">
+                          <p class="lead">Additional Info:</p>
                           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris
+                            <?php
+
+                            $user_check_ledger = "SELECT po_description  FROM po_header_all WHERE po_header_id = '".$po_header_id."'"; 
+                            $result_ledger = mysqli_query($conn,$user_check_ledger);
+                            $existing_ledger = mysqli_fetch_assoc($result_ledger);
+
+                            echo $existing_ledger['po_description'];
+
+                            ?>
                           </p>
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-6">
-                          <p class="lead">Amount Due <?php  echo $po_due; ?> </p>
+                          <p class="lead"></p>
                           <div class="table-responsive">
                             <table class="table">
                               <tbody>
+
+                                <?php
+                                $sql = "SELECT sum(pol.qty*pol.price) as subtotal,
+                                asa.tax
+                                from po_header_all poh,
+                                po_line_all pol,
+                                ap_supplier_all asa
+                                where
+                                pol.po_header_id = poh.po_header_id
+                                and poh.supplier = asa.party_id
+                                and poh.ledger_id = asa.ledger_id
+                                and poh.ledger_id = '".$ledger_new."'
+                                and poh.po_header_id =  '".$po_header_id."'
+                                group by 
+                                asa.tax";
+                                $result = $conn->query($sql);
+                                while($row = $result->fetch_assoc()) {
+
+
+                                ?>
                                 <tr>
                                   <th style="width:50%">Subtotal:</th>
-                                  <td>Rp 125.000</td>
+                                  <td>Rp <?php  echo number_format($row['subtotal']); ?></td>
                                 </tr>
                                 <tr>
-                                  <th>Tax (10%)</th>
-                                  <td>Rp 12.500</td>
+                                  <th>Tax (<?php  echo $row['tax']*100; ?> %)</th>
+                                  <td>Rp <?php  echo number_format(($row['subtotal']*$row['tax'])); ?></td>
                                 </tr>
                                 <tr>
-                                  <th>Shipping:</th>
-                                  <td>Rp 9.000</td>
+                                  <th>Grand Total:</th>
+                                  <td>Rp <?php  echo number_format($row['subtotal'] + ($row['subtotal']*$row['tax'])); ?></td>
                                 </tr>
-                                <tr>
-                                  <th>Total:</th>
-                                  <td>Rp 146.500</td>
-                                </tr>
+                                
+                                <?php
+                                
+                                }
+                                
+                                ?>
                               </tbody>
                             </table>
                           </div>
@@ -236,9 +257,8 @@ $po_header_id = $_REQUEST['po_header_id'];
                     </section>
                       <!-- this row will not appear when printing -->
                        <div class="row no-print">
-                        <div class="col-xs-12">
-                          <button class="btn btn-default" onclick="printDiv('printableArea')"><i class="fa fa-print"></i> Print</button>
-                          <a href="payment_po.php"><button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button></a>
+                        <div class="col-lg-12 col-md-12 col-xs-12">
+                         <button class="btn btn-success pull-right" onclick="printDiv('printableArea')"><i class="fa fa-print"></i> Print</button></a>
                           <button class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="savePdf('printableArea')"><i class="fa fa-download"></i> Generate PDF</button>
                         </div>
                       </div>
