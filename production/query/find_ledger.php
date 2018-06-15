@@ -7,7 +7,7 @@
 
     $ledger_new =  $existing_ledger['ledger'];
 
-    $user_check_outlet = "SELECT b.outlet_id as outlet FROM employee a , outlet b	
+    $user_check_outlet = "SELECT b.outlet_id as outlet , a.role FROM employee a , outlet b	
     WHERE a.name = '".$user_check."' 
     and a.ledger_id = b.ledger_id	
     and a.outlet_id = b.outlet_id"; 
@@ -15,5 +15,6 @@
     $existing_outlet = mysqli_fetch_assoc($result_outlet);
 
     $outlet_new =  $existing_outlet['outlet'];
+    $staff_role =  $existing_outlet['role'];
 
 ?>
