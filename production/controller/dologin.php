@@ -48,6 +48,11 @@
 		    );
 		}  
       	session_destroy(); 
+
+		session_start();
+      	$logout = true;
+		$_SESSION['logout'] = $logout;
+
 	    header("location: login.php");
 	}
 

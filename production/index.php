@@ -73,7 +73,12 @@ else{
         <!-- Sidebar Menu -->
         <?php
           if ($_SESSION['userRole'] == "Staff"){
-            session_destroy(); 
+            session_destroy();
+
+            session_start();
+            $logout = true;
+            $_SESSION['logout'] = $logout;
+ 
             header("location: login.php"); 
           } else if ($_SESSION['userRole'] == "Admin") {
             include("view/sidebar.php");

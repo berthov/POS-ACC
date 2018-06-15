@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("controller/doconnect.php");
 ?>
 <!DOCTYPE html>
@@ -119,4 +120,16 @@ include("controller/doconnect.php");
     <script src="../production/common/error.js"></script>
     
   </body>
+
+   <?php
+      if($_SESSION['logout'] == true){
+      ?>
+      <script>
+        toastr.success('You are logged out');
+      </script>
+      <?php
+        $_SESSION['logout'] = false;
+      }
+    ?>
+
 </html>
