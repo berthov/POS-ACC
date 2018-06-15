@@ -50,7 +50,13 @@ include("query/find_ledger.php");
       <div class="main_container">
         
         <!-- Sidebar Menu -->
-        <?php include("view/sidebar.php"); ?>
+        <?php 
+          if ($_SESSION['userRole'] == "Staff"){
+            include("view/sidebarStaff.php"); 
+          } else if ($_SESSION['userRole'] == "Admin") {
+            include("view/sidebar.php");
+          } 
+        ?>
         <!-- End Of Sidebar  -->
         
         <!-- Top Navigation -->

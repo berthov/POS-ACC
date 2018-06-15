@@ -9,7 +9,7 @@
 		$passwordlogin = md5(mysqli_escape_string($conn, $_POST['password']));
 		$firstLogin = false;
 
-		$sql = "SELECT employee_id FROM employee WHERE BINARY name = '$usernamelogin' and password = '$passwordlogin'";
+		$sql = "SELECT employee_id, role FROM employee WHERE BINARY name = '$usernamelogin' and password = '$passwordlogin'";
 		$result = mysqli_query($conn,$sql);
 
 		//check query
@@ -25,10 +25,16 @@
       	
       	if($count == 1) {
         	$_SESSION['login_user'] = $usernamelogin;
+        	$userRole = $row['role'];
+        	$_SESSION['userRole'] = $userRole;
         	$firstLogin = true;
         	$_SESSION['firstLogin'] = $firstLogin;
-        	echo 'success';
-      	}else {
+        	if ($_SESSION['userRole'] == "Admin"){
+        		echo 'success';
+        	} else if ($_SESSION['userRole'] == "Staff") {
+        		echo 'successStaff';
+        	}
+      	} else {
       		echo 'error';
      	}
 	}

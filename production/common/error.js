@@ -18,7 +18,10 @@ $(document).ready(function() {
           if(response=='success'){
             window.location.href="../production/index.php";
           }
-          else{
+          else if (response=='successStaff'){
+            window.location.href="../production/media_gallery.php"; 
+          }
+          else {
             toastr.error('Wrong Password or Username');
           }
         }
