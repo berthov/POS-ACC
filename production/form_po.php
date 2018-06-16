@@ -82,7 +82,8 @@ include("query/find_ledger.php");
                             $sql = "SELECT * 
                             FROM outlet
                             where
-                            ledger_id = '".$ledger_new."'";
+                            ledger_id = '".$ledger_new."'
+                            and outlet_id = '".$outlet_new."'";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                           ?>

@@ -19,7 +19,7 @@ include("common/modal.html");
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
                     <li>
-                      <a href="javascript:;">
+                      <a href="billing.php">
                         <span class="badge bg-red pull-right">50%</span>
                         <span>Billing</span>
                       </a>

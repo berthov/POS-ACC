@@ -92,7 +92,8 @@ include("query/find_ledger.php");
                             
                             <?php
                               $sql = "SELECT description,id FROM inventory
-                              where ledger_id = '".$ledger_new."' ";
+                              where ledger_id = '".$ledger_new."' 
+                              and outlet_id = '".$outlet_new."'";
                               $result = $conn->query($sql);
                               $a = 0;
                               while($row = $result->fetch_assoc()) {
@@ -174,6 +175,7 @@ include("query/find_ledger.php");
                               inv.ledger_id = mt.ledger_id
                               and inv.id = mt.inventory_item_id
                               and inv.ledger_id = '".$ledger_new."'
+                              and inv.outlet_id = '".$outlet_new."'
                               order by mt.transaction_id desc
                               ";
 

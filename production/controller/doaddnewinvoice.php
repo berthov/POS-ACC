@@ -53,8 +53,11 @@ if ( empty($_REQUEST['discount']) ) {
   $customer_name = $_REQUEST['customer_name'];
    
     $check_outlet = 
-    "SELECT o.* FROM employee e, outlet o WHERE e.ledger_id = '".$ledger_new."' and e.name = '".$user_check."' 
-    and e.outlet_id = o.name and o.status = 'Active'";
+    "SELECT o.* 
+    FROM employee e, outlet o 
+    WHERE e.ledger_id = '".$ledger_new."' 
+    and e.name = '".$user_check."' 
+    and e.outlet_id = o.outlet_id and o.status = 'Active'";
     $result_outlet = mysqli_query($conn,$check_outlet);
     $existing_outlet = mysqli_fetch_assoc($result_outlet);
 

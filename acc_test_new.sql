@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2018 at 05:03 AM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Generation Time: Jun 16, 2018 at 04:57 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -51,7 +53,7 @@ CREATE TABLE `ap_supplier_all` (
   `supplier_site` varchar(255) DEFAULT NULL,
   `supplier_type` varchar(255) DEFAULT NULL,
   `status` varchar(255) NOT NULL,
-  `tax` int(20) NOT NULL,
+  `tax` float NOT NULL,
   `created_date` date DEFAULT NULL,
   `created_by` varchar(255) DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
@@ -64,7 +66,7 @@ CREATE TABLE `ap_supplier_all` (
 --
 
 INSERT INTO `ap_supplier_all` (`party_id`, `supplier_name`, `supplier_site`, `supplier_type`, `status`, `tax`, `created_date`, `created_by`, `last_update_date`, `last_update_by`, `ledger_id`) VALUES
-(2, 'cba', 'jakarta', 'impor', 'Active', 2, '2018-03-22', 'admin', NULL, NULL, '123');
+(2, 'cba', 'jakarta', 'impor', 'Active', 0.2, '2018-03-22', 'admin', NULL, NULL, '123');
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,11 @@ CREATE TABLE `ar_check_all` (
 INSERT INTO `ar_check_all` (`payment_id`, `invoice_id`, `payment_number`, `payment_date`, `payment_type`, `payment_amount`, `created_by`, `created_date`, `last_update_by`, `last_update_date`) VALUES
 (271, '20180602091854', 'Dari Toko', '2018-06-02', 'Cash', 200000, 'ben', '2018-06-02', 'ben', '2018-06-02'),
 (272, '20180602091917', 'Dari Toko', '2018-06-02', 'Cash', 100000, 'yoha', '2018-06-02', 'yoha', '2018-06-02'),
-(273, '20180602100005', 'Dari Toko', '2018-06-02', 'Debit/Credit', 200000, 'yoha', '2018-06-02', 'yoha', '2018-06-02');
+(273, '20180602100005', 'Dari Toko', '2018-06-02', 'Debit/Credit', 200000, 'yoha', '2018-06-02', 'yoha', '2018-06-02'),
+(274, '20180616134116', 'Dari Toko', '2018-06-16', 'Cash', 200000, 'nov', '2018-06-16', 'nov', '2018-06-16'),
+(275, '20180616134321', 'Dari Toko', '2018-06-16', 'Cash', 100000, 'asd', '2018-06-16', 'asd', '2018-06-16'),
+(276, '20180616135107', 'Dari Toko', '2018-06-16', 'Cash', 100000, 'asd', '2018-06-16', 'asd', '2018-06-16'),
+(277, '20180616135520', 'Dari Toko', '2018-06-16', 'Cash', 100000, 'asd', '2018-06-16', 'asd', '2018-06-16');
 
 -- --------------------------------------------------------
 
@@ -120,68 +126,69 @@ CREATE TABLE `cogs` (
 --
 
 INSERT INTO `cogs` (`item_cost_id`, `item_cost`, `periode`, `last_update_date`, `last_update_by`, `created_date`, `created_by`, `type`, `inventory_item_id`, `ledger_id`, `sales_price`, `outlet_id`) VALUES
-(1, 45000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '27', '123', 0, ''),
-(2, 55000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '36', '123', 0, ''),
-(3, 34000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '37', '123', 0, ''),
-(4, 1, '2018-04-16', '2018-04-16', 'ben', '2018-04-16', 'ben', 'Manual', '36', '123', 1, ''),
-(5, 1, '2018-04-16', '2018-04-16', 'ben', '2018-04-16', 'ben', 'Manual', '27', '123', 2, ''),
-(6, 1, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 2, ''),
-(7, 1, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 2, ''),
-(8, 2, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 2, ''),
-(9, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '37', '123', 15000, ''),
-(10, 0, '2018-04-04', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 0, ''),
-(11, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '38', '123', 15000, ''),
-(12, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '36', '123', 15000, ''),
-(13, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 15000, ''),
-(14, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 15000, ''),
-(15, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(16, 123, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(17, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(18, 1, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(19, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(20, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2, ''),
-(21, 1500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, ''),
-(22, 1, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(23, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, ''),
-(24, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, ''),
-(25, 1500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2, ''),
-(26, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2, ''),
-(27, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, ''),
-(28, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(29, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, ''),
-(30, 1000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1500, ''),
-(31, 20000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 25000, ''),
-(32, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 25000, ''),
-(33, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 20000, ''),
-(34, 12500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 15000, ''),
-(35, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0, ''),
-(36, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0, ''),
-(37, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0, ''),
-(38, 10000, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 10000, ''),
-(39, 15000, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 15000, ''),
-(40, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 123, ''),
-(41, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 123, ''),
-(42, 111, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 111, ''),
-(43, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '36', '123', 123, ''),
-(44, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '36', '123', 15000, ''),
-(45, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '36', '123', 15000, ''),
-(46, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 15000, ''),
-(47, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '37', '123', 15000, ''),
-(48, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '45', '123', 15000, ''),
-(49, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '38', '123', 15000, ''),
-(50, 11000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 15000, ''),
-(51, 12000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '37', '123', 15000, ''),
-(52, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 17000, ''),
-(53, 10000, '2018-05-13', '2018-05-13', 'ben', '2018-05-13', 'ben', 'Manual', '68', '123', 15000, ''),
-(54, 10000, '2018-05-14', '2018-05-14', '123', '2018-05-14', '123', 'Manual', '92', '05141141', 15000, ''),
-(55, 10000, '2018-05-16', '2018-05-16', 'ben', '2018-05-16', 'ben', 'Manual', '27', '123', 10000, ''),
-(56, 10000, '2018-05-16', '2018-05-16', 'ben', '2018-05-16', 'ben', 'Manual', '27', '123', 20000, ''),
-(57, 0, '2018-05-16', '2018-05-16', 'ben', '2018-05-16', 'ben', 'Manual', '40', '123', 20000, ''),
-(58, 5000, '2018-05-19', '2018-05-19', 'ben', '2018-05-19', 'ben', 'Manual', '27', '123', 20000, ''),
-(59, 7500, '2018-05-19', '2018-05-19', 'ben', '2018-05-19', 'ben', 'Manual', '27', '123', 10000, ''),
-(60, 10000, '2018-05-19', '2018-05-19', 'ben', '2018-05-19', 'ben', 'Manual', '70', '123', 5000, ''),
-(61, 5000, '2018-05-25', '2018-05-25', 'ben', '2018-05-25', 'ben', 'Manual', '47', '123', 10000, ''),
-(62, 10, '2018-05-25', '2018-05-25', 'ben', '2018-05-25', 'ben', 'Manual', '48', '123', 10, '');
+(1, 45000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '27', '123', 0, '1'),
+(2, 55000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '36', '123', 0, '1'),
+(3, 34000, '0000-00-00', NULL, NULL, NULL, NULL, NULL, '37', '123', 0, '1'),
+(4, 1, '2018-04-16', '2018-04-16', 'ben', '2018-04-16', 'ben', 'Manual', '36', '123', 1, '1'),
+(5, 1, '2018-04-16', '2018-04-16', 'ben', '2018-04-16', 'ben', 'Manual', '27', '123', 2, '1'),
+(6, 1, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 2, '1'),
+(7, 1, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 2, '1'),
+(8, 2, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 2, '1'),
+(9, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '37', '123', 15000, '1'),
+(10, 0, '2018-04-04', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 0, '1'),
+(11, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '38', '123', 15000, '1'),
+(12, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '36', '123', 15000, '1'),
+(13, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '27', '123', 15000, '1'),
+(14, 10000, '2018-04-17', '2018-04-17', 'ben', '2018-04-17', 'ben', 'Manual', '45', '123', 15000, '1'),
+(15, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(16, 123, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(17, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(18, 1, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(19, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(20, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2, '1'),
+(21, 1500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, '1'),
+(22, 1, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(23, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, '1'),
+(24, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, '1'),
+(25, 1500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2, '1'),
+(26, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 2, '1'),
+(27, 0, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1, '1'),
+(28, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(29, 2, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 0, '1'),
+(30, 1000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 1500, '1'),
+(31, 20000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 25000, '1'),
+(32, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 25000, '1'),
+(33, 15000, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 20000, '1'),
+(34, 12500, '2018-04-18', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '27', '123', 15000, '1'),
+(35, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0, '1'),
+(36, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0, '1'),
+(37, 0, '1970-01-01', '2018-04-18', 'ben', '2018-04-18', 'ben', 'Manual', '', '123', 0, '1'),
+(38, 10000, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 10000, '1'),
+(39, 15000, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 15000, '1'),
+(40, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 123, '1'),
+(41, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 123, '1'),
+(42, 111, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '27', '123', 111, '1'),
+(43, 123, '2018-04-19', '2018-04-19', 'ben', '2018-04-19', 'ben', 'Manual', '36', '123', 123, '1'),
+(44, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '36', '123', 15000, '1'),
+(45, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '36', '123', 15000, '1'),
+(46, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 15000, '1'),
+(47, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '37', '123', 15000, '1'),
+(48, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '45', '123', 15000, '1'),
+(49, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '38', '123', 15000, '1'),
+(50, 11000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 15000, '1'),
+(51, 12000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '37', '123', 15000, '1'),
+(52, 10000, '2018-04-23', '2018-04-23', 'ben', '2018-04-23', 'ben', 'Manual', '27', '123', 17000, '1'),
+(53, 10000, '2018-05-13', '2018-05-13', 'ben', '2018-05-13', 'ben', 'Manual', '68', '123', 15000, '1'),
+(54, 10000, '2018-05-14', '2018-05-14', '123', '2018-05-14', '123', 'Manual', '92', '05141141', 15000, '1'),
+(55, 10000, '2018-05-16', '2018-05-16', 'ben', '2018-05-16', 'ben', 'Manual', '27', '123', 10000, '1'),
+(56, 10000, '2018-05-16', '2018-05-16', 'ben', '2018-05-16', 'ben', 'Manual', '27', '123', 20000, '1'),
+(57, 0, '2018-05-16', '2018-05-16', 'ben', '2018-05-16', 'ben', 'Manual', '40', '123', 20000, '1'),
+(58, 5000, '2018-05-19', '2018-05-19', 'ben', '2018-05-19', 'ben', 'Manual', '27', '123', 20000, '1'),
+(59, 7500, '2018-05-19', '2018-05-19', 'ben', '2018-05-19', 'ben', 'Manual', '27', '123', 10000, '1'),
+(60, 10000, '2018-05-19', '2018-05-19', 'ben', '2018-05-19', 'ben', 'Manual', '70', '123', 5000, '1'),
+(61, 5000, '2018-05-25', '2018-05-25', 'ben', '2018-05-25', 'ben', 'Manual', '47', '123', 10000, '1'),
+(62, 10, '2018-05-25', '2018-05-25', 'ben', '2018-05-25', 'ben', 'Manual', '48', '123', 10, '1'),
+(63, 50000, '2018-06-16', '2018-06-16', 'asd', '2018-06-16', 'asd', 'Manual', '72', '123', 100000, '8');
 
 -- --------------------------------------------------------
 
@@ -208,8 +215,12 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`name`, `role`, `email`, `outlet_id`, `employee_id`, `created_by`, `last_update_by`, `created_date`, `last_update_date`, `password`, `ledger_id`) VALUES
-('ben', 'Staff', 'ben@aa', '1', 12, NULL, NULL, '2018-04-12', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
-('yoha', 'Staff', 'bernard.thoven@gmail.com', '8', 27, NULL, NULL, '2018-05-29', NULL, '7815696ecbf1c96e6894b779456d330e', '123');
+('ben', 'Admin\r\n', 'ben@aa', '1', 12, NULL, NULL, '2018-04-12', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
+('yoha', 'Staff', 'bernard.thoven@gmail.com', '8', 27, NULL, NULL, '2018-05-29', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
+('asd', 'Admin', 'asd@asd', '8', 28, NULL, NULL, '2018-06-16', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
+('nov', 'Admin', 'noviani.sumarto94@gmail.com', '1', 29, NULL, NULL, '2018-06-16', NULL, '7815696ecbf1c96e6894b779456d330e', '123'),
+('asdasd', 'Admin', 'asdasdd@asds', '10', 30, NULL, NULL, '2018-06-16', NULL, '7815696ecbf1c96e6894b779456d330e', '06160350'),
+('asd1', 'Admin', 'asdasdd@asdaa', '11', 31, NULL, NULL, '2018-06-16', NULL, '7815696ecbf1c96e6894b779456d330e', '06160341');
 
 -- --------------------------------------------------------
 
@@ -310,7 +321,7 @@ INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `sales_price`,
 (39, 'RMT-0000006', 'Pineapple Case', 0, 100000, 0, 10, 50000, NULL, '', NULL, NULL, '123', 'Inactive', 'uncategorized', '1'),
 (40, 'RMT-0000007', 'Black Flower', 3, 20000, 0, 10, 0, NULL, 'ben', NULL, '2018-05-19', '123', 'Inactive', 'uncategorized', '1'),
 (41, 'RMT-0000008', 'Flower case', 0, 100000, 0, 10, 50000, NULL, '', NULL, NULL, '123', 'Inactive', 'uncategorized', '1'),
-(42, 'RMT-0000009', 'Pug Case', 10, 100000, 0, 10, 50000, NULL, 'yoha', NULL, '2018-06-02', '123', 'Active', 'uncategorized', '1'),
+(42, 'RMT-0000009', 'Pug Case', 8, 100000, 0, 10, 50000, NULL, 'nov', NULL, '2018-06-16', '123', 'Active', 'uncategorized', '1'),
 (43, 'RMT-0000010', 'Simpsons', 0, 100000, 0, 10, 50000, NULL, 'ben', NULL, '2018-05-25', '123', 'Active', 'uncategorized', '1'),
 (44, 'RMT-0000011', 'Captain America', 0, 100000, 0, 10, 50000, NULL, '', NULL, NULL, '123', 'Inactive', 'uncategorized', '1'),
 (45, 'RMT-0000012', 'Nike', 0, 15000, 0, 10, 10000, NULL, 'ben', NULL, '2018-04-24', '123', 'Inactive', 'uncategorized', '1'),
@@ -339,7 +350,8 @@ INSERT INTO `inventory` (`id`, `item_code`, `description`, `qty`, `sales_price`,
 (68, 'A20', 'AYAMGORENG20', 1, 10000, 1, 10, 5000, 'yoha', 'yoha', '2018-05-25', '2018-05-25', '05251103', 'Active', 'Active', '1'),
 (69, 'A21', 'AYAMGORENG21', 1, 10000, 1, 10, 5000, 'yoha', 'yoha', '2018-05-25', '2018-05-25', '05251103', 'Active', 'Active', '1'),
 (70, 'A22', 'AYAMGORENG22', 1, 10000, 1, 10, 5000, 'yoha', 'yoha', '2018-05-25', '2018-05-25', '05251103', 'Active', 'Active', '1'),
-(71, 'A23', 'AYAMGORENG23', 1, 10000, 1, 10, 5000, 'yoha', 'yoha', '2018-05-25', '2018-05-25', '05251103', 'Active', 'Active', '1');
+(71, 'A23', 'AYAMGORENG23', 1, 10000, 1, 10, 5000, 'yoha', 'yoha', '2018-05-25', '2018-05-25', '05251103', 'Active', 'Active', '1'),
+(72, 'RMT-00000001', 'Laptop', 107, 100000, 1, 999, 50000, 'asd', 'asd', '2018-06-16', '2018-06-16', '123', 'Active', 'uncategorized', '8');
 
 -- --------------------------------------------------------
 
@@ -373,7 +385,11 @@ CREATE TABLE `invoice` (
 INSERT INTO `invoice` (`unit_price`, `qty`, `date`, `invoice_line_id`, `invoice_id`, `month`, `payment_method`, `last_update_by`, `last_update_date`, `created_by`, `created_date`, `ledger_id`, `inventory_item_id`, `tax_code`, `tax_amount`, `cogs`) VALUES
 (100000, 2, '2018-06-02 00:00:00', 1333, '20180602091854', 'June', NULL, 'ben', '2018-06-02', 'ben', '2018-06-02', '123', '42', 0, 0, 50000),
 (100000, 1, '2018-06-02 00:00:00', 1334, '20180602091917', 'June', NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '123', '42', 0, 0, 50000),
-(100000, 2, '2018-06-02 00:00:00', 1335, '20180602100005', 'June', NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '123', '42', 0, 0, 50000);
+(100000, 2, '2018-06-02 00:00:00', 1335, '20180602100005', 'June', NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '123', '42', 0, 0, 50000),
+(100000, 2, '2018-06-16 00:00:00', 1336, '20180616134116', 'June', NULL, 'nov', '2018-06-16', 'nov', '2018-06-16', '123', '42', 0, 0, 50000),
+(100000, 1, '2018-06-16 00:00:00', 1337, '20180616134321', 'June', NULL, 'asd', '2018-06-16', 'asd', '2018-06-16', '123', '72', 0, 0, 50000),
+(100000, 1, '2018-06-16 00:00:00', 1338, '20180616135107', 'June', NULL, 'asd', '2018-06-16', 'asd', '2018-06-16', '123', '72', 0, 0, 50000),
+(100000, 1, '2018-06-16 00:00:00', 1339, '20180616135520', 'June', NULL, 'asd', '2018-06-16', 'asd', '2018-06-16', '123', '72', 0, 0, 50000);
 
 -- --------------------------------------------------------
 
@@ -398,17 +414,22 @@ CREATE TABLE `invoice_header` (
   `customer_name` varchar(255) NOT NULL,
   `amount_due_remaining` int(11) DEFAULT NULL,
   `tax_code` float NOT NULL,
-  `outlet_id` varchar(11) NOT NULL
+  `outlet_id` varchar(11) NOT NULL,
+  `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice_header`
 --
 
-INSERT INTO `invoice_header` (`invoice_id`, `invoice_number`, `invoice_date`, `due_date`, `ledger_id`, `discount_amount`, `refund_status`, `outstanding_status`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `payment_method`, `customer_name`, `amount_due_remaining`, `tax_code`, `outlet_id`) VALUES
-('20180602091854', '091854', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'ben', '2018-06-02', 'ben', '2018-06-02', 'Cash', '', 0, 0, '1'),
-('20180602091917', '091917', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'yoha', '2018-06-02', 'yoha', '2018-06-02', 'Cash', '', 0, 0, '8'),
-('20180602100005', '100005', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'yoha', '2018-06-02', 'yoha', '2018-06-02', 'Debit/Credit', '', 0, 0, '8');
+INSERT INTO `invoice_header` (`invoice_id`, `invoice_number`, `invoice_date`, `due_date`, `ledger_id`, `discount_amount`, `refund_status`, `outstanding_status`, `created_by`, `created_date`, `last_update_by`, `last_update_date`, `payment_method`, `customer_name`, `amount_due_remaining`, `tax_code`, `outlet_id`, `description`) VALUES
+('20180602091854', '091854', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'ben', '2018-06-02', 'ben', '2018-06-02', 'Cash', '', 0, 0, '1', NULL),
+('20180602091917', '091917', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'yoha', '2018-06-02', 'yoha', '2018-06-02', 'Cash', '', 0, 0, '8', NULL),
+('20180602100005', '100005', '2018-06-02', '2018-06-02', '123', 0, 'No', 'Paid', 'yoha', '2018-06-02', 'yoha', '2018-06-02', 'Debit/Credit', '', 0, 0, '8', NULL),
+('20180616134116', '134116', '2018-06-16', '2018-06-16', '123', 0, 'No', 'Paid', 'nov', '2018-06-16', 'nov', '2018-06-16', 'Cash', '', 0, 0, '1', ''),
+('20180616134321', '134321', '2018-06-16', '2018-06-16', '123', 0, 'Yes', 'Paid', 'asd', '2018-06-16', 'asd', '2018-06-16', 'Cash', '', 0, 0, '8', ''),
+('20180616135107', '135107', '2018-06-16', '2018-06-16', '123', 0, 'Yes', 'Paid', 'asd', '2018-06-16', 'asd', '2018-06-16', 'Cash', '', 0, 0, '8', ''),
+('20180616135520', '135520', '2018-06-16', '2018-06-16', '123', 0, 'Yes', 'Paid', 'asd', '2018-06-16', 'asd', '2018-06-16', 'Cash', '', 0, 0, '8', '');
 
 -- --------------------------------------------------------
 
@@ -462,7 +483,16 @@ INSERT INTO `material_transaction` (`transaction_id`, `inventory_item_id`, `ledg
 (490, 42, '123', -2, NULL, 'ben', '2018-06-02', 'ben', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', ''),
 (491, 42, '123', -2, NULL, 'ben', '2018-06-02', 'ben', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', '1'),
 (492, 42, '123', -1, NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', '8'),
-(493, 42, '123', -2, NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', '8');
+(493, 42, '123', -2, NULL, 'yoha', '2018-06-02', 'yoha', '2018-06-02', '2018-06-01 17:00:00', 'Penjualan', '8'),
+(494, 42, '123', -2, NULL, 'nov', '2018-06-16', 'nov', '2018-06-16', '2018-06-15 17:00:00', 'Penjualan', '1'),
+(495, 72, '123', -1, NULL, 'asd', '2018-06-16', 'asd', '2018-06-16', '2018-06-15 17:00:00', 'Penjualan', '8'),
+(496, 72, '123', 10, '', 'asd', '2018-06-16', 'asd', '0000-00-00', '2018-06-15 17:00:00', 'Adjustment', '8'),
+(497, 72, '123', 1, '', 'asd', '2018-06-16', 'asd', '0000-00-00', '2018-06-15 17:00:00', 'Adjustment', '8'),
+(498, 72, '123', 1, 'Refund Invoice:134321', 'asd', '2018-06-16', 'asd', '2018-06-16', '2018-06-15 17:00:00', 'Refund', ''),
+(499, 72, '123', -1, NULL, 'asd', '2018-06-16', 'asd', '2018-06-16', '2018-06-15 17:00:00', 'Penjualan', '8'),
+(500, 72, '123', 1, 'Refund Invoice:135107', 'asd', '2018-06-16', 'asd', '2018-06-16', '2018-06-15 17:00:00', 'Refund', ''),
+(501, 72, '123', -1, NULL, 'asd', '2018-06-16', 'asd', '2018-06-16', '2018-06-15 17:00:00', 'Penjualan', '8'),
+(502, 72, '123', 1, 'Refund Invoice:135520', 'asd', '2018-06-16', 'asd', '2018-06-16', '2018-06-15 17:00:00', 'Refund', '');
 
 -- --------------------------------------------------------
 
@@ -485,16 +515,20 @@ CREATE TABLE `outlet` (
   `created_date` date DEFAULT NULL,
   `last_update_date` date DEFAULT NULL,
   `status` varchar(255) NOT NULL,
-  `ledger_id` varchar(255) NOT NULL
+  `ledger_id` varchar(255) NOT NULL,
+  `billing_status` varchar(255) NOT NULL,
+  `expiration_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `outlet`
 --
 
-INSERT INTO `outlet` (`name`, `address`, `phone`, `city`, `province`, `outlet_id`, `postal_code`, `date_founded`, `email`, `last_update_by`, `created_by`, `created_date`, `last_update_date`, `status`, `ledger_id`) VALUES
-('CaseNation.ID', 'Tangerang', '089636053432', 'Tangerang', 'Tangerang', 1, 0, '0000-00-00', NULL, '', NULL, NULL, NULL, 'Active', '123'),
-('Keprabon', 'tangerang', '0000', 'tangerang', 'tangerang', 8, 15117, '0000-00-00', 'noviani.sumarto94@gmail.com', 'ben', 'ben', '2018-05-29', '2018-05-29', 'Active', '123');
+INSERT INTO `outlet` (`name`, `address`, `phone`, `city`, `province`, `outlet_id`, `postal_code`, `date_founded`, `email`, `last_update_by`, `created_by`, `created_date`, `last_update_date`, `status`, `ledger_id`, `billing_status`, `expiration_date`) VALUES
+('CaseNation.ID', 'Tangerang', '089636053432', 'Tangerang', 'Tangerang', 1, 0, '0000-00-00', NULL, '', NULL, NULL, NULL, 'Active', '123', '', '0000-00-00'),
+('Keprabon', 'tangerang', '0000', 'tangerang', 'tangerang', 8, 15117, '0000-00-00', 'noviani.sumarto94@gmail.com', 'ben', 'ben', '2018-05-29', '2018-05-29', 'Active', '123', '', '0000-00-00'),
+('asdasdasd', 'Undefined', 'Undefined', 'Undefined', 'Undefined', 10, 0, '2018-06-16', 'Undefined', 'asdasd', 'asdasd', '2018-06-16', '2018-06-16', 'Active', '06160350', 'Trial', '2018-06-16'),
+('asdasdasd', 'Undefined', 'Undefined', 'Undefined', 'Undefined', 11, 0, '2018-06-16', 'Undefined', 'asd1', 'asd1', '2018-06-16', '2018-06-16', 'Active', '06160341', 'Trial', '2018-06-30');
 
 -- --------------------------------------------------------
 
@@ -520,15 +554,6 @@ CREATE TABLE `po_header_all` (
   `outlet_id` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `po_header_all`
---
-
-INSERT INTO `po_header_all` (`po_header_id`, `po_date`, `supplier`, `ship_to`, `outlets`, `created_date`, `created_by`, `last_update_by`, `last_update_date`, `po_description`, `due_date`, `status`, `ledger_id`, `amount_due_remaining`, `outlet_id`) VALUES
-('20180517214634', '2018-05-17', 'bbbbbb', 'tangerang', 'CaseNation.ID', '2018-05-17', 'ben', 'ben', '2018-05-17', 'laptop', '2018-05-17', 'Paid', '123', 0, ''),
-('20180517220644', '2018-05-17', 'aa', 'jakarta', 'CaseNation.ID', '2018-05-17', 'ben', 'ben', '2018-05-17', 'mobil', '2018-05-17', 'Open', '123', -45001, ''),
-('20180517225849', '2018-05-17', 'cba', 'asd', 'CaseNation.ID', '2018-05-17', 'ben', 'ben', '2018-05-17', 'asd', '2018-05-17', 'Paid', '123', 0, '');
-
 -- --------------------------------------------------------
 
 --
@@ -538,7 +563,7 @@ INSERT INTO `po_header_all` (`po_header_id`, `po_date`, `supplier`, `ship_to`, `
 CREATE TABLE `po_line_all` (
   `po_line_id` int(20) NOT NULL,
   `po_header_id` varchar(255) NOT NULL,
-  `uom` varchar(5) NOT NULL,
+  `uom` varchar(5) DEFAULT NULL,
   `qty` int(20) NOT NULL,
   `price` int(20) NOT NULL,
   `created_date` date DEFAULT NULL,
@@ -547,19 +572,6 @@ CREATE TABLE `po_line_all` (
   `last_update_by` varchar(255) DEFAULT NULL,
   `inventory_item_id` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `po_line_all`
---
-
-INSERT INTO `po_line_all` (`po_line_id`, `po_header_id`, `uom`, `qty`, `price`, `created_date`, `created_by`, `last_update_date`, `last_update_by`, `inventory_item_id`) VALUES
-(26, '20180517214634', 'PCS', 1, 10000, '2018-05-17', 'ben', '2018-05-17', 'ben', '37'),
-(27, '20180517214634', 'PCS', 1, 20000, '2018-05-17', 'ben', '2018-05-17', 'ben', '36'),
-(28, '20180517214634', 'PCS', 1, 15000, '2018-05-17', 'ben', '2018-05-17', 'ben', '27'),
-(29, '20180517220644', 'a', 1, 10000, '2018-05-17', 'ben', '2018-05-17', 'ben', '36'),
-(30, '20180517220644', 'a', 1, 15000, '2018-05-17', 'ben', '2018-05-17', 'ben', '37'),
-(31, '20180517220644', 'a', 1, 20000, '2018-05-17', 'ben', '2018-05-17', 'ben', '27'),
-(32, '20180517225849', 'a', 1, 1, '2018-05-17', 'ben', '2018-05-17', 'ben', '27');
 
 --
 -- Indexes for dumped tables
@@ -658,56 +670,68 @@ ALTER TABLE `po_line_all`
 --
 ALTER TABLE `ap_check_all`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `ap_supplier_all`
 --
 ALTER TABLE `ap_supplier_all`
   MODIFY `party_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `ar_check_all`
 --
 ALTER TABLE `ar_check_all`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=274;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=278;
+
 --
 -- AUTO_INCREMENT for table `cogs`
 --
 ALTER TABLE `cogs`
-  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `item_cost_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
 --
 -- AUTO_INCREMENT for table `fmd_recipe_line`
 --
 ALTER TABLE `fmd_recipe_line`
   MODIFY `recipe_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1336;
+  MODIFY `invoice_line_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1340;
+
 --
 -- AUTO_INCREMENT for table `material_transaction`
 --
 ALTER TABLE `material_transaction`
-  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
+  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=503;
+
 --
 -- AUTO_INCREMENT for table `outlet`
 --
 ALTER TABLE `outlet`
-  MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `outlet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 --
 -- AUTO_INCREMENT for table `po_line_all`
 --
 ALTER TABLE `po_line_all`
-  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `po_line_id` int(20) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -46,11 +46,11 @@
 				 mysqli_query($conn, $sql);
 
 			    
-			    $update_cogs = "UPDATE inventory set cogs ='".$max_cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    $update_cogs = "UPDATE inventory set cogs ='".$max_cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' and outlet_id = '".$outlet_new."'";
 			    mysqli_query($conn, $update_cogs);
 
 			    
-			    $update_sales_price = "UPDATE inventory set sales_price ='".$sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    $update_sales_price = "UPDATE inventory set sales_price ='".$sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' and outlet_id = '".$outlet_new."' ";
 			    mysqli_query($conn, $update_sales_price);
 
 
@@ -88,11 +88,11 @@
 				mysqli_query($conn, $sql);
 
 
-			    $update_cogs = "UPDATE inventory set cogs ='".$cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    $update_cogs = "UPDATE inventory set cogs ='".$cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' and outlet_id = '".$outlet_new."' ";
 			    mysqli_query($conn, $update_cogs);
 
 			    
-			    $update_sales_price = "UPDATE inventory set sales_price ='".$max_sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+			    $update_sales_price = "UPDATE inventory set sales_price ='".$max_sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' and outlet_id = '".$outlet_new."' ";
 			    mysqli_query($conn, $update_sales_price);
 
 				mysqli_close($conn);
@@ -106,11 +106,11 @@
 
 		 mysqli_query($conn, $sql);
 
-	    $update_cogs = "UPDATE inventory set cogs ='".$cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+	    $update_cogs = "UPDATE inventory set cogs ='".$cogs."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' and outlet_id = '".$outlet_new."' ";
 	    mysqli_query($conn, $update_cogs);
 
 	    
-	    $update_sales_price = "UPDATE inventory set sales_price ='".$sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' ";
+	    $update_sales_price = "UPDATE inventory set sales_price ='".$sales_price."' , last_update_by = '".$user_check."' , last_update_date ='".$created."' where id = '".$inventory_item_id."' and outlet_id = '".$outlet_new."' ";
 	    mysqli_query($conn, $update_sales_price);
 		     
 		 mysqli_close($conn);

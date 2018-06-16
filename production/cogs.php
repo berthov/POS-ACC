@@ -92,7 +92,8 @@ include("query/find_ledger.php");
                             
                             <?php
                               $sql = "SELECT description,id FROM inventory
-                              where ledger_id = '".$ledger_new."' ";
+                              where ledger_id = '".$ledger_new."'
+                              and outlet_id = '".$outlet_new."'";
                               $result = $conn->query($sql);
                               $a = 0;
                               while($row = $result->fetch_assoc()) {
@@ -176,6 +177,7 @@ include("query/find_ledger.php");
                               c.inventory_item_id = i.id
                               and c.ledger_id = i.ledger_id
                               and c.ledger_id = '".$ledger_new."'
+                              and c.outlet_id = '".$outlet_new."'
                               and c.item_cost_id = (select 
                                 max(c_1.item_cost_id)
                                 From
