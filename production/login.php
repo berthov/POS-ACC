@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("controller/doconnect.php");
+// include("controller/doconnect.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

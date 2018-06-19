@@ -67,8 +67,15 @@ if ( empty($_REQUEST['discount']) ) {
 <html>
     <style type="text/css" media="print">
       @media print {
-      @page { margin: 0; }
-      body { margin: 1cm; }
+      
+      @page { 
+        margin: 0; 
+        height: auto;
+        }
+      body { 
+        margin: 1cm; 
+        height: auto;
+        }
     }
     </style>
 
@@ -83,118 +90,151 @@ if ( empty($_REQUEST['discount']) ) {
     <link href="../../build/css/custom.css" rel="stylesheet">
 
 <div id="printableArea">
-<div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_content">
-                    <div class="row">
-                      <div class="col-md-4 "></div>
-                      <div class="col-md-4">
-                        <p align="center"><?php echo $existing_outlet['name']; ?></p>
-                        <p align="center"><?php echo $existing_outlet['address']; echo ","; echo $existing_outlet['city']; echo "<br>"; echo $existing_outlet['province']; ?></p>
-                        <div class="row">
-                          <div class="col-md-6 ">
-                            <?php echo $today; ?><br>
-                            Receipt Number<br>
-                          </div>
-                          <div class="col-md-6 pull-right" style="text-align: right;">
-                            <?php echo $time; ?><BR>
-                            D8WBB7<BR>
-                          </div>
-                          <div class="clearfix"></div>
-                          <hr style="margin-top: 2px;">
-                          <div class="col-md-4 " style="text-align: left;">
-                          	
-                        	<?php
-            								for($x = 0; $x < count($arr); $x++ ){
+  <div class="row">
+    <div class="col-md-12 col-xs-12 col-lg-12">
+      <div class="x_panel">
+        <div class="x_content">
+          <div class="row">
+            <!-- <div class="col-md-4"></div> -->
+            <div class="col-md-12 col-xs-12 col-lg-12">
+              <p align="center"><?php echo $existing_outlet['name']; ?></p>
+              <p align="center"><?php echo $existing_outlet['address']; echo ","; echo $existing_outlet['city']; echo "<br>"; echo $existing_outlet['province']; ?></p>
+              <div class="row">
+                <div class="col-md-6 col-xs-6">
+                  <?php echo $today; ?><br>
+                  Receipt Number<br>
+                </div>
+                <div class="col-md-6 col-xs-6 pull-right" style="text-align: right;">
+                  <?php echo $time; ?><BR>
+                  <?php echo $invoice_number; ?><BR>
+                </div>
+                <div class="clearfix"></div>
+                <hr style="margin-top: 2px;">
+                <div class="col-md-4 col-xs-4" style="text-align: left;">
+                	
+              	<?php
+    							for($x = 0; $x < count($arr); $x++ ){
 
-                              $check_item = "SELECT * FROM inventory WHERE ledger_id = '".$ledger_new."' and id = '".$arr[$x]."' ";
-                              $result_item = mysqli_query($conn,$check_item);
-                              $existing_item = mysqli_fetch_assoc($result_item);
+                    $check_item = "SELECT * FROM inventory WHERE ledger_id = '".$ledger_new."' and id = '".$arr[$x]."' ";
+                    $result_item = mysqli_query($conn,$check_item);
+                    $existing_item = mysqli_fetch_assoc($result_item);
 
-            									if($quant[$x] > 0){							     	
-                                echo $existing_item['description'];  echo'<br>';
-                              }
-                      	   	}
-                          ?>
+    								if($quant[$x] > 0){							     	
+                      echo $existing_item['description'];  echo'<br>';
+                    }
+            	   	}
+                ?>
 
-                          </div>
-                          <div class="col-md-4 " style="text-align: right;">
+                </div>
+                <div class="col-md-4 col-xs-4" style="text-align: center;">
 
-                          	<?php
-              								for($x = 0; $x < count($arr); $x++ ){
-              									if($quant[$x] > 0){							     	
-                                  echo $quant[$x]; echo "x"; echo '<br>'; 
-                            		}
-    	                        }
+                	<?php
+    								for($x = 0; $x < count($arr); $x++ ){
+    									if($quant[$x] > 0){							     	
+                        echo $quant[$x]; echo "x"; echo '<br>'; 
+                  		}
+                    }
 
-	                        ?>
-                          </div>
-                          <div class="col-md-4 pull-right" style="text-align: left;">
-                          	
-                          	<?php
-              								for($x = 0; $x < count($arr); $x++ ){
-              									if($quant[$x] > 0){							     	
-              							     echo "Rp."; echo number_format($arr1[$x] * $quant[$x]); echo '<br>'; 
-                            		}
-    	                        }
-  	                        ?>
+                ?>
+                </div>
+                <div class="col-md-4 col-xs-4 pull-right" style="text-align: right;">
+                	
+                	<?php
+    								for($x = 0; $x < count($arr); $x++ ){
+    									if($quant[$x] > 0){							     	
+    							     echo "Rp."; echo number_format($arr1[$x] * $quant[$x]); echo '<br>'; 
+                  		}
+                    }
+                  ?>
 
-                          </div>
-                          <div class="clearfix"></div>
-                          <hr style="margin-top: 2px;">
-                          <div class="col-md-6">
-                          <p>
-                            Discount<br>
-                            Subtotal<br>
-                            Tax</p>
-                          </div>
-                          <div class="col-md-6 pull-right" style="text-align: right;">
+                </div>
+                <div class="clearfix"></div>
+                <hr style="margin-top: 2px;">
+                <div class="col-md-6 col-xs-6">
+                <p>
+                  <?php              
+                  
+                  if ($discount === 0 && $tax_code === 0 ) {
+                    echo "Subtotal"; echo "<br>";  
+                  }
+                  else if ($discount === 0 ) {
+                  echo "Subtotal"; echo "<br>";
+                  echo "Tax"; echo "<br>";                  
+                  }
+                  else if ($tax_code ===0 ) {
+                  echo "Discount"; echo "<br>";
+                  echo "Subtotal"; echo "<br>";                 
+                  }
+                  else{
+                  echo "Discount"; echo "<br>";
+                  echo "Subtotal"; echo "<br>";
+                  echo "Tax"; echo "<br>";
+                  }
+                  ?>
+                  
+                  </p>
+                </div>
+                <div class="col-md-6 col-xs-6 pull-right" style="text-align: right;">
 
-                          <?php
-                        		$subtotal = 0;
-            								for($x = 0; $x < count($arr); $x++ ){
-            									if($quant[$x] > 0){	
-            									$subtotal	+= $arr1[$x] * $quant[$x];						     	
-              								}
-  	                        }
-                          
-                          echo "Rp."; echo $discount; echo "<br>";
-	                        echo "Rp."; echo number_format($subtotal - $discount); echo "<br>";
-                          echo "Rp."; echo number_format($tax_code * ($subtotal - $discount)); echo "<br>";
-	                        
-                          ?>
+                <?php
+              		$subtotal = 0;
+    							for($x = 0; $x < count($arr); $x++ ){
+    								if($quant[$x] > 0){	
+    								$subtotal	+= $arr1[$x] * $quant[$x];						     	
+    								}
+                  }
+                
+                if ($discount === 0 && $tax_code === 0 ) {
+                  echo "Rp."; echo number_format($subtotal - $discount); echo "<br>";  
+                }
+                else if ($discount === 0 ) {
+                echo "Rp."; echo number_format($subtotal - $discount); echo "<br>";
+                echo "Rp."; echo number_format($tax_code * ($subtotal - $discount)); echo "<br>";                  
+                }
+                else if ($tax_code ===0 ) {
+                echo "Rp."; echo $discount; echo "<br>";
+                echo "Rp."; echo number_format($subtotal - $discount); echo "<br>";                  # code...
+                }
+                else{
+                echo "Rp."; echo $discount; echo "<br>";
+                echo "Rp."; echo number_format($subtotal - $discount); echo "<br>";
+                echo "Rp."; echo number_format($tax_code * ($subtotal - $discount)); echo "<br>";
+                }
+                ?>
 
-                          </div>
-                          <div class="clearfix"></div>
-                          <hr style="margin-top: 2px;">
-                          <div class="col-md-6 ">
-                          <h4 style="margin-top: -10px;"><b>Total</b></h4>
-                          </div>
-                          <div class="col-md-6 pull-right" style="text-align: right;">
-                          <h4 style="margin-top: -10px;"><b>
-                          
-                          <?php
-                        		$subtotal = 0;
-            								for($x = 0; $x < count($arr); $x++ ){
-            									if($quant[$x] > 0){	
-            									$subtotal	+= $arr1[$x] * $quant[$x];						     	
-              								}
-  	                        }
-	                        echo "Rp."; echo number_format(($subtotal - $discount) + ($tax_code * ($subtotal - $discount))) ; echo "<br>";
-	                        ?>
+                </div>
+                <div class="clearfix"></div>
+                <hr style="margin-top: 2px;">
+                <div class="col-md-6 col-xs-6">
+                <h4 style="margin-top: -10px;"><b>Grand Total</b></h4>
+                </div>
+                <div class="col-md-6 col-xs-6 pull-right" style="text-align: right;">
+                <h4 style="margin-top: -10px;"><b>
+                
+                <?php
+              		$subtotal = 0;
+    							for($x = 0; $x < count($arr); $x++ ){
+    								if($quant[$x] > 0){	
+    								$subtotal	+= $arr1[$x] * $quant[$x];						     	
+    								}
+                  }
+              
+                  echo "Rp."; echo number_format(($subtotal - $discount) + ($tax_code * ($subtotal - $discount))) ; echo "<br>";
+              
+                ?>
 
-	                        </b></h4>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4"></div>
-                    </div>
-                  </div>
+                </b></h4>
                 </div>
               </div>
             </div>
-            </div>
+            <!-- <div class="col-md-4"></div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </html>
 
 

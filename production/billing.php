@@ -97,8 +97,9 @@ include("query/find_ledger.php");
                   <p class="lead">Additional Info :</p>
                   <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                   <strong><?php echo $row['name']; ?></strong><br>
-                  Expiration Date : <?php echo $row['expiration_date']; ?><br>
-                  Status : <strong><?php echo $row['status']; ?></strong>
+                  Valid Until : <strong><?php echo $row['expiration_date']; ?></strong><br>
+                  Status : <strong><?php echo $row['status']; ?></strong><br>
+                  Billing Status : <strong><?php echo $row['billing_status']; ?></strong>
                   </p>
 
                   <?php
@@ -124,6 +125,8 @@ include("query/find_ledger.php");
                     from outlet
                     where
                     ledger_id = '".$ledger_new."'
+                    and billing_status = 'Trial'
+                    and status = 'Active'
                     ";
 
                     $result = $conn->query($sql);
@@ -150,26 +153,36 @@ include("query/find_ledger.php");
                   <div class="x_content">
                     <div class="row">
                       <div class="col-md-6 col-sm-6 col-xs-6">
-                      <h4><strong>12 Month Subscription Total</strong></h4>
+                        <h4><strong>12 Month Subscription Total</strong></h4>
                       </div>
                       <div class="col-md-6 col-sm-6 col-xs-6" align="right">
-                       <?php
+
+                      <?php
                       $sql = "SELECT count(outlet_id) as outlet
                       from outlet
                       where
                       ledger_id = '".$ledger_new."'
                       and status = 'Active'
+                      and billing_status = 'Trial'
                       ";
 
                       $result = $conn->query($sql);
                       while($row = $result->fetch_assoc()) {
-                    ?>
-                      <h4><strong>Rp. <?php echo number_format($row['outlet'] * 200000 *12) ; ?>/ Mon</strong></h4>
-                    <?php
-                    }
-                    ?>
+                      ?>
+
+                        <h4><strong>Rp. <?php echo number_format($row['outlet'] * 200000 *12) ; ?>/ Mon</strong></h4>
+
+                      <?php
+
+                      }
+
+                      ?>
+
                       </div>
-                    Your Activation Will be extended from your payment date
+                      Your activation will be extended when your payment already verified
+                      <div class="col-md-12 col-xl-12 col-xs-12" align="center">
+                        <button style="margin-top: 20px; width: 100%" class="btn btn-round btn-primary">Pay</button>
+                      </div>
                     </div>
                   </div>
                 </div>

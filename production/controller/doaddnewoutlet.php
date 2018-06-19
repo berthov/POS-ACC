@@ -17,10 +17,12 @@
   	$created_date =  date("Y-m-d");
   	$last_update_date =  date("Y-m-d");
   	$status = 'Active';
+  	$expiration_date = date("Y-m-d", strtotime("+14 days"));
+  	$billing_status = 'Trial';
 	
 
-	$sql = "INSERT INTO outlet (name, address,phone,city,province,postal_code,date_founded,email,created_by , created_date,last_update_by,last_update_date,status,ledger_id)
-		VALUES ('".$outlet_name."', '".$address."' , '".$phone."' , '".$city."' , '".$province."','".$postal_code."','".$date_founded."','".$email."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$status."','".$ledger_new."')";
+	$sql = "INSERT INTO outlet (name, address,phone,city,province,postal_code,date_founded,email,created_by , created_date,last_update_by,last_update_date,status,ledger_id,billing_status,expiration_date)
+		VALUES ('".$outlet_name."', '".$address."' , '".$phone."' , '".$city."' , '".$province."','".$postal_code."','".$date_founded."','".$email."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$status."','".$ledger_new."','".$billing_status."','".$expiration_date."')";
 
 		if (mysqli_query($conn, $sql)) {
 		    echo "New record created successfully";
