@@ -3,6 +3,7 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
+include("query/redirect_billing.php");
 
 $recipe_name = "";
 

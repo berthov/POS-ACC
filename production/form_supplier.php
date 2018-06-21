@@ -2,6 +2,7 @@
 session_start();
 include("controller/session.php");
 include("query/find_ledger.php");
+include("query/redirect_billing.php");
 ?>
 
 <!DOCTYPE html>

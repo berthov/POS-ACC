@@ -2,6 +2,7 @@
 session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
+include("query/redirect_billing.php");
 
 $invoice_id = $_REQUEST['invoice_id'];
 $user_check = $_SESSION['login_user'];

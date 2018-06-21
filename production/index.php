@@ -3,6 +3,7 @@ session_start();
 include("controller/session.php");
 include("controller/doconnect.php");
 include("query/find_ledger.php");
+include("query/redirect_billing.php");
 
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
@@ -23,6 +24,7 @@ if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
 else{
  $p_outlet = ''; 
 }
+
 
 ?>
 

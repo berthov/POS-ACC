@@ -1,6 +1,8 @@
 <?php
 session_start();
 include("controller/session.php");
+include("query/redirect_billing.php");
+
 ?>
 
 <!DOCTYPE html>
