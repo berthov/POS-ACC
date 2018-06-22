@@ -5,12 +5,12 @@
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
-		$usernamelogin = mysqli_escape_string($conn, $_POST['username']);
-		$passwordlogin = md5(mysqli_escape_string($conn, $_POST['password']));
+		$usernamelogin = mysqli_escape_string($conn1, $_POST['username']);
+		$passwordlogin = md5(mysqli_escape_string($conn1, $_POST['password']));
 		$firstLogin = false;
 
 		$sql = "SELECT employee_id, role FROM employee WHERE BINARY name = '$usernamelogin' and password = '$passwordlogin'";
-		$result = mysqli_query($conn,$sql);
+		$result = mysqli_query($conn1,$sql);
 
 		//check query
 		/*if (!$result) {

@@ -1,7 +1,7 @@
 <?php
+include("controller/doconnect.php");
 session_start();
 include("controller/session.php");
-include("controller/doconnect.php");
 include("query/find_ledger.php");
 include("query/redirect_billing.php");
 
@@ -154,7 +154,7 @@ else{
                 }
               ?>
               </div>
-              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>">
+              <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>&outlet_id=<?=$p_outlet?>">
                 <?php 
                 if (isset($_REQUEST['reservation'])){
                        echo $start_date; echo " - "; echo $end_date;

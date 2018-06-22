@@ -6,10 +6,11 @@
 	$password = "";
 	$dbname = "acc_test";
 	
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
+	$conn1 = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
-if (!$conn) {
+if (!$conn1) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
 
 ?>

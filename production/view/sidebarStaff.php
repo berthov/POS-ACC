@@ -46,7 +46,7 @@ include("controller/doconnect.php");
     <!-- sidebar menu -->
 
     <!-- /menu footer buttons -->
-    <div class="sidebar-footer hidden-small">
+  <!--   <div class="sidebar-footer hidden-small">
       <a data-toggle="tooltip" data-placement="top" title="Settings">
         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
       </a>
@@ -59,7 +59,7 @@ include("controller/doconnect.php");
       <a data-toggle="tooltip" data-placement="top" title="Logout" href="controller/dologout.php">
         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
       </a>
-    </div>
+    </div> -->
     <!-- /menu footer buttons -->
 
   </div>
