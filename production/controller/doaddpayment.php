@@ -2,6 +2,7 @@
 	
 	session_start();
 	include("doconnect.php");
+	include("../query/find_ledger.php");
 	include("session.php");
 
 	$payment_number = $_REQUEST['payment_number'];	

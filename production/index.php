@@ -61,7 +61,7 @@ else{
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
         <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.css" rel="stylesheet">
   </head>
@@ -96,7 +96,7 @@ else{
         <div class="right_col" role="main">
           <!-- top tiles -->
           <div class="row tile_count">
-            <form class="form-horizontal" action="index.php" method="post">
+          <form class="form-horizontal" action="index.php" method="post">
 
             <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Gross Sales</span>
@@ -211,7 +211,7 @@ else{
                   }
                 ?>
 
-                </select>
+              </select>
             </div>
 
             <!-- Datepicker -->
@@ -232,7 +232,7 @@ else{
                   </div>
                   <div class="col-md-6">
                  
-                </div>
+                  </div>
 
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <canvas id="lineChart1"></canvas>

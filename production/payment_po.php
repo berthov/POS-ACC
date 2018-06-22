@@ -149,11 +149,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                         </div>
                       </div>
 
-                      <?php 
-                      
-                      }
-                      
-                      ?>
+
 
                     <div class="row">
                       <div class="col-md-12 col-sm-12 col-xs-12">
@@ -167,53 +163,53 @@ $po_header_id = $_REQUEST['po_header_id'];
                             <!-- PO LINE  -->
                             <div class="panel-body">
                               <div class="panel panel-default" style="padding-top: 20px;  border: 0px;">                                                 
-                              <div class="table-responsive" >
-                                <table class="table table-striped jambo_table bulk_action">
-                                  <thead>
-                                    <tr class="headings">
-                                      <th class="column-title">#</th>
-                                      <th class="column-title">Payment Number </th>
-                                      <th class="column-title">Payment Date </th>
-                                      <th class="column-title">Payment Type </th>
-                                      <th class="column-title">Amount </th>
-                                    </tr>
-                                  </thead>
+                                <div class="table-responsive" >
+                                  <table class="table table-striped jambo_table bulk_action">
+                                    <thead>
+                                      <tr class="headings">
+                                        <th class="column-title">#</th>
+                                        <th class="column-title">Payment Number </th>
+                                        <th class="column-title">Payment Date </th>
+                                        <th class="column-title">Payment Type </th>
+                                        <th class="column-title">Amount </th>
+                                      </tr>
+                                    </thead>
 
-                                  <tbody>
-                                  <!-- QUERY UNTUK PAYMENT DETAIL BERDASARKAN PO ID  -->
+                                    <tbody>
+                                    <!-- QUERY UNTUK PAYMENT DETAIL BERDASARKAN PO ID  -->
+                                      <?php
+                                      $sql_payment = 
+                                      "SELECT * 
+                                      FROM
+                                      AP_CHECK_ALL ACA
+                                      where
+                                      ACA.PO_HEADER_ID = '".$po_header_id."'
+                                      ";
+
+                                      $result_payment = $conn->query($sql_payment);
+                                      while($row_payment = $result_payment->fetch_assoc()) {
+
+                                      ?>
+                                    
+                                      <tr">
+                                        <td>#</td>
+                                        <td><?php echo $row_payment["payment_number"] ?></td>
+                                        <td><?php echo date('d-M-Y', strtotime($row_payment["payment_date"])); ?></td>
+                                        <td><?php echo $row_payment["payment_type"] ?></td>
+                                        <td><?php echo $row_payment["payment_amount"] ?></td>
+                                      </tr>
+                                    
                                     <?php
-                                    $sql_payment = 
-                                    "SELECT * 
-                                    FROM
-                                    AP_CHECK_ALL ACA
-                                    where
-                                    ACA.PO_HEADER_ID = '".$po_header_id."'
-                                    ";
-
-                                    $result_payment = $conn->query($sql_payment);
-                                    while($row_payment = $result_payment->fetch_assoc()) {
-
+                                    
+                                    }
+                                    
                                     ?>
-                                  
-                                    <tr">
-                                      <td>#</td>
-                                      <td><?php echo $row_payment["payment_number"] ?></td>
-                                      <td><?php echo date('d-M-Y', strtotime($row_payment["payment_date"])); ?></td>
-                                      <td><?php echo $row_payment["payment_type"] ?></td>
-                                      <td><?php echo $row_payment["payment_amount"] ?></td>
-                                    </tr>
-                                  
-                                  <?php
-                                  
-                                  }
-                                  
-                                  ?>
-                                  <!-- END OF QUERY -->
-                                  </tbody>
-                                </table>
-                              </div>
+                                    <!-- END OF QUERY -->
+                                    </tbody>
+                                  </table>
+                                </div>
 
-                              <div class="clear"></div>    
+                                <div class="clear"></div>    
                               </div>
                             </div>
                           </div>
@@ -280,13 +276,20 @@ $po_header_id = $_REQUEST['po_header_id'];
                         </div>
                       </div>
                     </div>
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-12 col-sm-12 col-xs-12" align="center">
-						              <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
+                    <div class="ln_solid"></div>
+                    <div class="form-group">
+                      <div class="col-md-12 col-sm-12 col-xs-12" align="center">
+					              <button class="btn btn-primary" type="reset">Reset</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
                       </div>
+                    </div>
+
+                    <?php 
+                    
+                    }
+                    
+                    ?>
+
                     </form>
                   </div>
                 </div>

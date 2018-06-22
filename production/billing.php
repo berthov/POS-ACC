@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <?php
 include("controller/doconnect.php");
 session_start();
 include("controller/session.php");
 include("query/find_ledger.php");
 ?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,7 +33,7 @@ include("query/find_ledger.php");
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../build/css/custom.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
@@ -95,12 +95,12 @@ include("query/find_ledger.php");
                   ?>
 
                   <p class="lead">Additional Info :</p>
-                  <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                  <h4><p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                   <strong><?php echo $row['name']; ?></strong><br>
                   Valid Until : <strong><?php echo $row['expiration_date']; ?></strong><br>
                   Status : <strong><?php echo $row['status']; ?></strong><br>
                   Billing Status : <strong><?php echo $row['billing_status']; ?></strong>
-                  </p>
+                  </p></h4>
 
                   <?php
                   
