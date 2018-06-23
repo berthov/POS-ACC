@@ -121,7 +121,8 @@ session_start();
     
   </body>
 
-   <?php
+  <?php
+    if(isset($_SESSION["logout"]) && !empty($_SESSION["logout"])){
       if($_SESSION['logout'] == true){
       ?>
       <script>
@@ -130,6 +131,7 @@ session_start();
       <?php
         $_SESSION['logout'] = false;
       }
-    ?>
+    }
+  ?>
 
 </html>
