@@ -9,13 +9,13 @@ $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
 
 if(isset($_REQUEST['reservation'])){
-  $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 0,10))) ;
+  $start_date = date('Y-m-d',strtotime($_REQUEST['reservation'])) ;
   $reservation = $_REQUEST['reservation'];
 }
 
-if(isset($_REQUEST['reservation'])){
-  $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 13,10))) ;
-  $reservation = $_REQUEST['reservation'];
+if(isset($_REQUEST['reservation2'])){
+  $end_date = date('Y-m-d',strtotime($_REQUEST['reservation2'])) ;
+  $reservation2 = $_REQUEST['reservation2'];
 }
 
 if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
@@ -58,8 +58,8 @@ else{
     <!-- JQVMap -->
     <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-        <!-- jQuery custom content scroller -->
+    <link href="../vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
     <!-- Custom Theme Style -->
@@ -193,9 +193,9 @@ else{
             </div>
 
             <!-- SELECT OUTLET  -->
-            <div class="col-lg-3 col-md-3 col-xs-4">
+            <div class="col-lg-3 col-md-3 col-xs-12 input-group" >
               
-              <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category">
+              <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category" style="margin-top:10px">
                 <option value="all">All Outlet</option>
                 
                  <?php
@@ -215,7 +215,9 @@ else{
             </div>
 
             <!-- Datepicker -->
-            <?php include("view/datepicker.php"); ?>
+            <div class="col-xs-12">
+              <?php include("view/datepicker.php"); ?>
+            </div>
             <!-- End Of Datepicker  -->
           </form>
           </div>
@@ -290,6 +292,7 @@ else{
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../vendors/jquery/dist/jquery.js"></script>
     <!-- Bootstrap -->
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -323,8 +326,10 @@ else{
     <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="../vendors/moment/moment.js"></script>
+    <script src="../vendors/bootstrap/js/collapse.js"></script>
+    <script src="../vendors/bootstrap/js/transition.js"></script>
+    <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
@@ -335,9 +340,47 @@ else{
 
   
     $(document).ready(function(){
-      $("#reservation").on("change", function() {
-        this.form.submit();
-      });
+
+      $("#reservation").on("dp.keydown keypress keyup", false);
+      $("#reservation2").on("dp.keydown keypress keyup", false);
+
+      $(function () {
+        $('#reservation').datetimepicker({
+          format: 'MM/DD/YYYY'
+        });
+        $('#reservation2').datetimepicker({
+          useCurrent: false, //Important! See issue #1075
+          format: 'MM/DD/YYYY'
+        });
+        $("#reservation2").on("dp.change", function (e) {
+            $('#reservation').data("DateTimePicker").maxDate(e.date);
+        });
+        $("#reservation").on("dp.change", function (e) {
+            $('#reservation2').data("DateTimePicker").minDate(e.date);
+        });
+
+        $("#reservation2").on("dp.hide", function() {
+          this.form.submit();
+        });
+
+        $( "#reservation" ).click(function(event){
+          $(this).attr('readonly', 'readonly');
+        });
+
+        $( "#reservation2" ).click(function(event){
+          $(this).attr('readonly', 'readonly');
+        });
+
+        $("#reservation").on("dp.hide", function() {
+          $(this).removeAttr('readonly').select();
+        });
+
+        $("#reservation2").on("dp.hide", function() {
+          $(this).removeAttr('readonly').select();
+        });
+    });
+
+      
     });
 
     var ctxL = document.getElementById("lineChart1").getContext('2d');
