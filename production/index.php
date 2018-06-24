@@ -8,13 +8,10 @@ include("query/redirect_billing.php");
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
 
-if(isset($_REQUEST['reservation'])){
-  $start_date = date('Y-m-d',strtotime($_REQUEST['reservation'])) ;
-  $reservation = $_REQUEST['reservation'];
-}
-
 if(isset($_REQUEST['reservation2'])){
-  $end_date = date('Y-m-d',strtotime($_REQUEST['reservation2'])) ;
+  $start_date = date_format(date_create_from_format('m-d-Y', $_REQUEST['reservation']), 'Y-m-d');
+  $end_date = date_format(date_create_from_format('m-d-Y', $_REQUEST['reservation2']), 'Y-m-d');
+  $reservation = $_REQUEST['reservation'];
   $reservation2 = $_REQUEST['reservation2'];
 }
 
@@ -104,8 +101,8 @@ else{
                 <?php include("query/gross_sales.php") ?>
               </div>
               <span class="count_bottom"><a href="ar_list_summary.php?start_date=<?=$start_date?>&end_date=<?=$end_date?>&outlet_id=<?=$p_outlet?>">
-                <?php                 
-                if (isset($_REQUEST['reservation'])){
+                <?php                
+                    if (isset($_REQUEST['reservation'])){
                        echo $start_date; echo " - "; echo $end_date;
                     }
                     else{
@@ -346,11 +343,11 @@ else{
 
       $(function () {
         $('#reservation').datetimepicker({
-          format: 'MM/DD/YYYY'
+          format: 'MM-DD-YYYY'
         });
         $('#reservation2').datetimepicker({
           useCurrent: false, //Important! See issue #1075
-          format: 'MM/DD/YYYY'
+          format: 'MM-DD-YYYY'
         });
         $("#reservation2").on("dp.change", function (e) {
             $('#reservation').data("DateTimePicker").maxDate(e.date);

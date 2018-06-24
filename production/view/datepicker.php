@@ -28,11 +28,11 @@
             <div class='input-group date'>
                 <input type='text' class="form-control" autocomplete="off" name="reservation2" id="reservation2"
                  value="<?php 
-                    if ($end_date === ""){
-                      echo date('m-d-Y');
+                    if (isset($reservation2) && !empty($reservation2)){
+                      echo $reservation2;
                     }
                     else {
-                      echo $reservation2;
+                      echo date('m-d-Y');
                     }
                   ?>"
                 />
@@ -46,12 +46,12 @@
         <div class="form-group">
             <div class='input-group date'>
                 <input type='text' class="form-control" autocomplete="off" name="reservation" id="reservation" 
-                value="<?php 
-                    if ($start_date === ""){
-                      echo date('m-d-Y');
+                value="<?php
+                    if (isset($reservation) && !empty($reservation)){
+                      echo $reservation;
                     }
                     else {
-                      echo $reservation;
+                      echo date('m-d-Y');
                     }
                   ?>"
                 />
