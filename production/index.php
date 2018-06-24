@@ -193,7 +193,7 @@ else{
             </div>
 
             <!-- SELECT OUTLET  -->
-            <div class="col-lg-3 col-md-3 col-xs-12 input-group" >
+            <div class="col-lg-3 col-md-3 col-xs-12">
               
               <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category" style="margin-top:10px">
                 <option value="all">All Outlet</option>
@@ -215,7 +215,7 @@ else{
             </div>
 
             <!-- Datepicker -->
-            <div class="col-xs-12">
+            <div class="col-lg-9 col-md-9 col-xs-12" style="margin-top: 10px;">
               <?php include("view/datepicker.php"); ?>
             </div>
             <!-- End Of Datepicker  -->
