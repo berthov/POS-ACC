@@ -54,7 +54,7 @@ else{
     <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
     <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
+    <!-- bootstrap-datepicker -->
     <link href="../vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
@@ -322,7 +322,7 @@ else{
     <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
     <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
+    <!-- bootstrap-datepicker -->
     <script src="../vendors/moment/moment.js"></script>
     <script src="../vendors/bootstrap/js/collapse.js"></script>
     <script src="../vendors/bootstrap/js/transition.js"></script>
@@ -368,9 +368,7 @@ else{
           $('#reservation2').data("DateTimePicker").minDate(e.date);
           $(this).removeAttr('readonly').select();
         });
-    });
-
-      
+      });
     });
 
     var ctxL = document.getElementById("lineChart1").getContext('2d');
