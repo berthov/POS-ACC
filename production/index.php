@@ -349,14 +349,10 @@ else{
           useCurrent: false, //Important! See issue #1075
           format: 'MM-DD-YYYY'
         });
-        $("#reservation2").on("dp.change", function (e) {
-            $('#reservation').data("DateTimePicker").maxDate(e.date);
-        });
-        $("#reservation").on("dp.change", function (e) {
-            $('#reservation2').data("DateTimePicker").minDate(e.date);
-        });
 
-        $("#reservation2").on("dp.hide", function() {
+        $("#reservation2").on("dp.hide", function(e) {
+          $(this).removeAttr('readonly').select();
+          $('#reservation').data("DateTimePicker").maxDate(e.date);
           this.form.submit();
         });
 
@@ -368,11 +364,8 @@ else{
           $(this).attr('readonly', 'readonly');
         });
 
-        $("#reservation").on("dp.hide", function() {
-          $(this).removeAttr('readonly').select();
-        });
-
-        $("#reservation2").on("dp.hide", function() {
+        $("#reservation").on("dp.hide", function(e) {
+          $('#reservation2').data("DateTimePicker").minDate(e.date);
           $(this).removeAttr('readonly').select();
         });
     });
