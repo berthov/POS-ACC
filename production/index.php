@@ -49,7 +49,7 @@ else{
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
+  
     <!-- bootstrap-progressbar -->
     <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
@@ -138,6 +138,7 @@ else{
                   where
                   date_format(ih.invoice_date,'%Y-%m-%d') between '".$start_date."' and '".$end_date."'
                   and ih.ledger_id = '".$ledger_new."'
+                  and (ih.outlet_id = '".$p_outlet."' or  ('".$p_outlet."' = '' ) ) 
                   ";
                   $result1 = $conn->query($sql1);
                   while($row1 = $result1->fetch_assoc()) {
@@ -171,6 +172,8 @@ else{
                   FROM inventory 
                   where
                   ledger_id = '".$ledger_new."'
+                  and status = 'Active'
+                  and (outlet_id = '".$p_outlet."' or  ('".$p_outlet."' = '' ) ) 
                   ";
                   $result1 = $conn->query($sql1);
                   while($row1 = $result1->fetch_assoc()) {
@@ -246,10 +249,14 @@ else{
                     <?php
                   $sql1 = "SELECT sum(inv.qty) as qty , i.description
                   FROM invoice inv,
+                  invoice_header ih,
                   inventory i
                   where i.id = inv.inventory_item_id
+                  and ih.invoice_id = inv.invoice_id
+                  and ih.ledger_id = inv.ledger_id
                   and i.ledger_id = inv.ledger_id
                   and i.ledger_id = '".$ledger_new."'
+                  and ih.refund_status not in ('Yes')
                   group by i.description
                   order by qty desc
                   limit 4
@@ -332,7 +339,7 @@ else{
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
-	
+  
     <script type="text/javascript">
 
   

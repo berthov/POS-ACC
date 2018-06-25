@@ -372,4 +372,52 @@ if(isset($_POST["outstanding_sales"])){
       fclose($output);  
  } 
 
+ // outstanding_sap.php
+if(isset($_POST["outstanding_ap"])){
+     
+      header('Content-Type: text/csv; charset=utf-8');  
+      header('Content-Disposition: attachment; filename=Monthly Oustanding AP.csv');  
+      $output = fopen("php://output", "w");  
+      fputcsv($output, array('Period', 'Invoice Amount', 'Real', 'Outstanding'));  
+      $query = "
+              SELECT
+              date_format(poh.po_date,'%M-%y') as period,
+              (select sum(pol.qty * pol.price)
+              from
+              po_header_all poh1,
+              po_line_all pol
+              where
+              pol.po_header_id = poh1.po_header_id
+              and date_format(poh.po_date,'%M-%y') = date_format(poh1.po_date,'%M-%y')
+              and poh1.outlet_id = poh.outlet_id
+              ) as invoice_amount,
+              (select sum(aca.payment_amount)
+              from
+              po_header_all poh1,
+              ap_check_all aca
+              where
+              aca.po_header_id = poh1.po_header_id
+              and date_format(poh.po_date,'%M-%y') = date_format(poh1.po_date,'%M-%y')
+              and poh1.outlet_id = poh.outlet_id
+              ) as amount,
+              sum(poh.amount_due_remaining) as outstanding
+              FROM
+              po_header_all poh
+              WHERE
+              poh.ledger_id = '".$ledger_new."'
+              and (poh.outlet_id = '".$p_outlet."' or  ('".$p_outlet."' = '' ) ) 
+              group by 
+              date_format(poh.po_date,'%M-%y')
+              order by 
+              date_format(poh.po_date,'%m%Y') asc
+              limit 12
+              ";  
+      $result = mysqli_query($conn, $query);  
+      while($row = mysqli_fetch_assoc($result))  
+      {  
+           fputcsv($output, $row);  
+      }  
+      fclose($output);  
+ } 
+
  ?>

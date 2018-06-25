@@ -2,7 +2,8 @@
 	session_start();
 	include("doconnect.php");
 	include("session.php");
-	
+	include("../query/find_ledger.php");
+		
 	$id = $_REQUEST['id'];
 	$item_code = $_REQUEST['item_code'];	
 	$description = $_REQUEST['description'];

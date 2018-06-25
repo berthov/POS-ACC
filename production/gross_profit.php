@@ -10,14 +10,11 @@ include("query/redirect_billing.php");
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d');
 
-if(isset($_REQUEST['reservation'])){
-  $start_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 0,10))) ;
+if(isset($_REQUEST['reservation2'])){
+  $start_date = date_format(date_create_from_format('m-d-Y', $_REQUEST['reservation']), 'Y-m-d');
+  $end_date = date_format(date_create_from_format('m-d-Y', $_REQUEST['reservation2']), 'Y-m-d');
   $reservation = $_REQUEST['reservation'];
-}
-
-if(isset($_REQUEST['reservation'])){
-  $end_date = date('Y-m-d',strtotime(substr($_REQUEST['reservation'], 13,10))) ;
-  $reservation = $_REQUEST['reservation'];
+  $reservation2 = $_REQUEST['reservation2'];
 }
 
 if(isset($_REQUEST['outlet_id']) && $_REQUEST['outlet_id'] !='all' ){
@@ -44,9 +41,9 @@ else{
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-        <!-- jQuery custom content scroller -->
+    <!-- bootstrap-datepicker -->
+    <link href="../vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
@@ -107,7 +104,7 @@ else{
                   </div>
                 </div>
                 <div class="x_panel">
-                 <div class="row x_title"> 
+                  <div class="row x_title"> 
                    <div class="col-lg-12 col-md-12 col-xs-12">
                       <h2>Gross Summary</h2>
                       <div class="clearfix"></div>
@@ -115,8 +112,8 @@ else{
                     </div>
                       <form class="form-horizontal" action="gross_profit.php" method="post">
                       
-                      <div class="col-lg-3 col-md-3 col-xs-4">  
-                        <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category">
+                      <div class="col-lg-3 col-md-3 col-xs-12">  
+                        <select name="outlet_id" id="category" class="form-control col-lg-3 col-md-3 col-xs-4 category" style="margin-top:10px">
                           <option value="all">All Outlet</option>
                           
                            <?php
@@ -136,10 +133,14 @@ else{
 
                           </select>
                       </div>
+
                       <!-- Datepicker -->
-                      <?php include("view/datepicker.php"); ?>
+                      <div class="col-lg-9 col-md-9 col-xs-12" style="margin-top: 10px;">
+                        <?php include("view/datepicker.php"); ?>
+                      </div>
                       <!-- End Of Datepicker  -->
-                 </div>
+
+                  </div>
                   <div class="x_content">
                     <table class="table ">
                       <tbody>
@@ -196,9 +197,11 @@ else{
     <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-datepicker -->
+    <script src="../vendors/moment/moment.js"></script>
+    <script src="../vendors/bootstrap/js/collapse.js"></script>
+    <script src="../vendors/bootstrap/js/transition.js"></script>
+    <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- Custom Theme Scripts -->
@@ -206,11 +209,41 @@ else{
 	
     <script type="text/javascript">
   
-    $(document).ready(function(){
-              $("#reservation").on("change", function() {
-                this.form.submit();
-              });
-    });
+      $(document).ready(function(){
+
+        $("#reservation").on("dp.keydown keypress keyup", false);
+        $("#reservation2").on("dp.keydown keypress keyup", false);
+
+        $(function () {
+          $('#reservation').datetimepicker({
+            format: 'MM-DD-YYYY'
+          });
+          $('#reservation2').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'MM-DD-YYYY'
+          });
+
+          $("#reservation2").on("dp.hide", function(e) {
+            $(this).removeAttr('readonly').select();
+            $('#reservation').data("DateTimePicker").maxDate(e.date);
+            this.form.submit();
+          });
+
+          $( "#reservation" ).click(function(event){
+            $(this).attr('readonly', 'readonly');
+          });
+
+          $( "#reservation2" ).click(function(event){
+            $(this).attr('readonly', 'readonly');
+          });
+
+          $("#reservation").on("dp.hide", function(e) {
+            $('#reservation2').data("DateTimePicker").minDate(e.date);
+            $(this).removeAttr('readonly').select();
+          });
+        });
+      });
+
     </script>
 
   </body>

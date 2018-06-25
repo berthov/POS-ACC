@@ -154,7 +154,7 @@ include("common/modal.html");
                             <!-- <a id="ahref1" href="controller/refund_invoice.php?invoice_id=<?php echo $row["invoice_id"]?>" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund </a> -->
 
 
-                            <button data-toggle="modal" type="button" data-target="#modalRefund"  class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund 
+                            <button data-toggle="modal" type="button" data-target="#modalRefund" class="btn btn-danger btn-xs btnrefund" data-id=<?php echo $row['invoice_id']; ?>><i class="fa fa-pencil"></i> Refund 
                             </button> 
                           </td>
                         </tr> 

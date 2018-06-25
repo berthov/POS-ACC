@@ -40,6 +40,7 @@ include("controller/doconnect.php");
               <li><a href="payment_method.php">Payment Method</a></li>
               <li><a href="category_sales.php">Category Sales</a></li>
               <li><a href="outstanding_sales.php">Outstanding Sales</a></li>
+              <li><a href="outstanding_ap.php">Outstanding AP</a></li>
             </ul>
           </li>
           <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
