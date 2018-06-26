@@ -98,9 +98,9 @@ include("query/redirect_billing.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supplier_type">Supplier Type <span class="required"></span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <select class="form-control col-md-7 col-xs-12" name="supplier_site" id="supplier_site">
-                            <option value="Cash">Lokal</option>
-                            <option value="Debit/Credit">Impor</option>
+                          <select class="form-control col-md-7 col-xs-12" name="supplier_type" id="supplier_type">
+                            <option value="Lokal">Lokal</option>
+                            <option value="Impor">Impor</option>
                           </select>
                         </div>
                       </div>

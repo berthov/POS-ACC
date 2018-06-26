@@ -68,7 +68,7 @@ include("controller/doconnect.php");
               <li><a href="tables_invoice.php">Sales Invoice Summary</a></li>
               <li><a href="table_cogs.php">Table COGS</a></li>
               <li><a href="po_summary.php">Purchase Invoice Summary</a></li>   
-              <!-- <li><a href="table_supplier.php">Table Supplier</a></li>              -->
+              <li><a href="table_supplier.php">Table Supplier</a></li>             
             </ul>
           </li>
           <li><a><i class="fa fa-table"></i> Outlets Settings <span class="fa fa-chevron-down"></span></a>

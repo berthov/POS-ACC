@@ -205,8 +205,8 @@ include("query/redirect_billing.php");
                                       </select>
                                     </td>
                                     <!-- <td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td> -->
-                                    <td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>
-                                    <td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>
+                                    <td><input type="number" class="form-control" id="qty" min="0" name="qty[]" required="required"></td>
+                                    <td><input type="number" class="form-control" id="price" min="0" name="price[]" required="required"></td>
                                     <td>
 <!--                                         <button class="btn btn-danger" type="button" onclick="deleteRow(this);"> 
                                           <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 

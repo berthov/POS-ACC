@@ -2,6 +2,7 @@
 	session_start();
 	include("doconnect.php");
 	include("session.php");
+	include("../query/find_ledger.php");
 	
 	$party_id = $_REQUEST['party_id'];
 	$supplier_name = $_REQUEST['supplier_name'];	
@@ -10,8 +11,6 @@
 	$tax = $_REQUEST['tax'];	
 	$status = $_REQUEST['status'];
 	$last_update_date =  date("Y-m-d");
-
-
 
 
 	if (is_numeric($tax) == 0) {

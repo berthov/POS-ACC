@@ -3,7 +3,8 @@
 	session_start();
 	include("doconnect.php");
 	include("session.php");
-
+	include("../query/find_ledger.php");
+	
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 	$payment_number = $_REQUEST['payment_number'];	

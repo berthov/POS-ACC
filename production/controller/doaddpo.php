@@ -38,8 +38,21 @@ if (isset($_REQUEST['po_date'])) {
     mysqli_query($conn, $sql_line);
       }
 
+// cek tax supplier
+
+    $check_supplier = 
+    "SELECT asa.* 
+    FROM ap_supplier_all asa 
+    WHERE asa.ledger_id = '".$ledger_new."' 
+    and asa.party_id = '".$supplier."' 
+    ";
+    $result_supplier = mysqli_query($conn,$check_supplier);
+    $existing_supplier = mysqli_fetch_assoc($result_supplier);
+
+    $tax = $existing_supplier['tax'];
+
 // update amount_due_remaining
-  $sql_header = "UPDATE PO_HEADER_ALL poh set poh.amount_due_remaining = (select sum(price*qty) from PO_LINE_ALL POL where poh.po_header_id = pol.po_header_id) where poh.po_header_id = '".$po_header_id."'";
+  $sql_header = "UPDATE PO_HEADER_ALL poh set poh.amount_due_remaining = (select sum(price*qty) + (sum(price*qty) * '".$tax."') from PO_LINE_ALL POL where poh.po_header_id = pol.po_header_id) where poh.po_header_id = '".$po_header_id."'";
   mysqli_query($conn, $sql_header);
 
 

@@ -130,12 +130,14 @@ else{
                             and date_format(poh.po_date,'%M-%y') = date_format(poh1.po_date,'%M-%y')
                             and poh1.outlet_id = poh.outlet_id
                             ) as amount,
-                            (select sum(pol.qty * pol.price)
+                            (select (sum(pol.qty * pol.price)) + (sum(pol.qty * pol.price) * asa.tax)
                             from
                             po_header_all poh1,
-                            po_line_all pol
+                            po_line_all pol,
+                            ap_supplier_all asa
                             where
                             pol.po_header_id = poh1.po_header_id
+                            and asa.party_id = poh1.supplier
                             and date_format(poh.po_date,'%M-%y') = date_format(poh1.po_date,'%M-%y')
                             and poh1.outlet_id = poh.outlet_id
                             ) as invoice_amount,

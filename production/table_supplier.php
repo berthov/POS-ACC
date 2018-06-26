@@ -16,6 +16,16 @@ include("query/redirect_billing.php");
 
     <title>Bonne Journée!</title>
 
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
+    <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
+    <script src="../vendors/toastr/toastr.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -32,9 +42,19 @@ include("query/redirect_billing.php");
     
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+
+    <!-- Change Status -->
+    <script src="../production/controller/changeStatus.js"></script>
+
+    <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
+  
+    <link href="../vendors/switchery/bootstrap_toggle/2.2.2/bootstrap_toggle.min.css" rel="stylesheet">
+    <script src="../vendors/switchery/bootstrap_toggle/2.2.2/bootstrap_toggle.min.js"></script>
   </head>
 
   <body class="nav-md">
+
     <div class="container body">
       <div class="main_container">
 
@@ -90,16 +110,20 @@ include("query/redirect_billing.php");
                           <th>Supplier Site</th>
                           <th>Supplier Type</th>
                           <th>Tax</th>
+                          <th>Edit</th>
                           <th>Status</th>
-                          <th style="width: 20%">#Edit</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
 
-                            $sql = "SELECT * FROM ap_supplier_all
-                            where
-                            ledger_id = '".$ledger_new."'";
+                            $sql = "SELECT asa.*
+                              FROM 
+                              ap_supplier_all asa
+                              where 
+                              asa.ledger_id = '".$ledger_new."'
+                              ";
+
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                         ?>
@@ -108,12 +132,22 @@ include("query/redirect_billing.php");
                           <td><?php echo $row["supplier_name"]?></td>
                           <td><?php echo $row["supplier_site"]?></td>
                           <td><?php echo $row["supplier_type"]?></td>
-                          <td><?php echo $row["tax"]?></td>
-                          <td><?php echo $row["status"]?></td>
-                          <td align="center">
-                            <a href="update_supplier.php?party_id=<?php echo $row["party_id"]?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-                            <a href="controller/deletesupplier.php?id=<?php echo $row["party_id"]?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                          <td><?php echo $row["tax"]*100?>%</td>
+                          <td>
+                            <a href="update_supplier.php?party_id=<?php echo $row["party_id"]?>" class="btn btn-info"><i class="fa fa-pencil"></i> Edit </a>
+                            <!-- <a href="controller/deleteinventory.php?id=<?php echo $row["id"]?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>-->                          
                           </td>
+                          <td>
+                            <!-- <input type="checkbox" class="changeInventoryStatus" checked data-value=<?php echo $row['status'];?> data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-id=<?php echo $row['id']; ?>> -->
+                          </td>
+                          <script type="text/javascript">
+                            $('.changeInventoryStatus').each(function(){
+                              var dataStatus = $(this).data('value');
+                              if(dataStatus == "Inactive"){
+                                $(this).removeAttr("checked");
+                              }
+                            })
+                          </script>
                         </tr>
                         
                         <?php
@@ -125,15 +159,16 @@ include("query/redirect_billing.php");
                  
                   </div>
                 </div>
-              </div>
-                <div class="col-md-12 col-sm-12 col-xs-12"> 
-                  <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="inventory" enctype=" multipart/form-data">
-                    <div class="form-group">
-                      <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
-                      <div class="col-md-4">
-                          <input type="submit" name="export_table_supplier" class="btn btn-success" value="Export to excel"/>
-                      </div>
-                    </div>                    
+
+
+
+                   <form class="form-horizontal" action="controller/export_index_csv.php" method="post" name="inventory" enctype="multipart/form-data">
+                              <div class="form-group">
+                                <label class="col-md-4 control-label" for="singlebutton">Excel Export</label>
+                                <div class="col-md-4">
+                                    <input type="submit" name="inventory" class="btn btn-success" value="Export to excel"/>
+                                </div>
+                              </div>                    
                   </form>
               </div>
             </div>
@@ -147,10 +182,10 @@ include("query/redirect_billing.php");
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- jQuery custom content scroller -->
+    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -164,11 +199,17 @@ include("query/redirect_billing.php");
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-
-    <!-- jQuery custom content scroller -->
-    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-
   </body>
+
+  <?php
+    if($_SESSION['itemUpdated'] == true){
+    ?>
+    <script>
+      toastr.success('Item Updated');
+    </script>
+    <?php
+      $_SESSION['itemUpdated'] = false;
+    }
+  ?>
+  
 </html>

@@ -2,6 +2,7 @@
 	session_start();
 	include("doconnect.php");
 	include("session.php");
+	include("../query/find_ledger.php");
 	
 	$outlet_id = $_REQUEST['outlet_id'];
 	$outlet_name = $_REQUEST['outlet_name'];	

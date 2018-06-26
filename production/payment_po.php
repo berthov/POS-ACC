@@ -138,7 +138,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                       <div class="form-group">
                         <label class="col-md-2 col-sm-2 col-xs-12">Outsanding</label>
                         <div class="col-md-4 col-sm-4 col-xs-12">
-                          <input type="text" class="form-control" placeholder="<?php echo $row["amount_due_remaining"] ?>" name="outstanding" disabled="disabled">
+                          <input type="text" class="form-control" placeholder="<?php echo "Rp."; echo number_format($row["amount_due_remaining"]) ?>" name="outstanding" disabled="disabled">
                         </div>
                       </div>
 
@@ -196,7 +196,7 @@ $po_header_id = $_REQUEST['po_header_id'];
                                         <td><?php echo $row_payment["payment_number"] ?></td>
                                         <td><?php echo date('d-M-Y', strtotime($row_payment["payment_date"])); ?></td>
                                         <td><?php echo $row_payment["payment_type"] ?></td>
-                                        <td><?php echo $row_payment["payment_amount"] ?></td>
+                                        <td><?php echo number_format($row_payment["payment_amount"]) ?></td>
                                       </tr>
                                     
                                     <?php

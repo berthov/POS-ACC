@@ -1,6 +1,7 @@
 <?php
 
 	include("doconnect.php");
+	include("../query/find_ledger.php");
 	session_start();
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){

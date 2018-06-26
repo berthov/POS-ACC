@@ -1,6 +1,7 @@
 <?php
 	
 	include("doconnect.php");
+	include("../query/find_ledger.php");
 	/*$id = $_REQUEST['id'];
 
 		$sql = "DELETE from INVENTORY where ID = '".$id."'";

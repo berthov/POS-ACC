@@ -1,6 +1,8 @@
 <?php
 
 	include("doconnect.php");
+	include("../query/find_ledger.php");
+	
 	session_start();
 
 	$query = "SELECT * FROM inventory WHERE name LIKE "%'.$search_string.'%"";

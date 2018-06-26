@@ -126,9 +126,9 @@ else{
 
                         <tr>
                           <th scope="row"><?php echo $row['period']; ?></th>
-                          <td><?php echo number_format($row['invoice_amount']); ?></td>
-                          <td><?php echo number_format($row['amount']); ?></td>
-                          <td><?php echo number_format($row['outstanding']); ?></td>
+                          <td><?php echo "Rp."; echo number_format($row['invoice_amount']); ?></td>
+                          <td><?php echo "Rp."; echo number_format($row['amount']); ?></td>
+                          <td><?php echo "Rp."; echo number_format($row['outstanding']); ?></td>
                         </tr>
 
                         <?php
