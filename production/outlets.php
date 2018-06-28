@@ -7,6 +7,7 @@ include("query/redirect_billing.php");
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 
   <head>

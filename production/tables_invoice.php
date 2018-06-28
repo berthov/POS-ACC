@@ -4,12 +4,11 @@ session_start();
 include("controller/session.php");
 include("query/find_ledger.php");
 include("query/redirect_billing.php");
+include("common/modal.html");
 ?>
 
 <!DOCTYPE html>
-<?php
-include("common/modal.html");
-?>
+
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

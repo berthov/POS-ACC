@@ -46,7 +46,6 @@ if($existing_outlet === NULL){
  $dbname = "acc_test";
 
  $conn = mysqli_connect($servername, $username, $password, $dbname);
-
 }
 else{
  // $servername = "iix27.rumahweb.com";

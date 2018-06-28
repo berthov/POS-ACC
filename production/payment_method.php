@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+include("controller/doconnect.php");
 session_start();
 include("controller/session.php");
-include("controller/doconnect.php");
 include("query/find_ledger.php");
 include("query/redirect_billing.php");
 
@@ -75,7 +75,7 @@ else{
         <div class="right_col" role="main">
           <div class="">
             <div class="row">
-              <div class="col-md-10 col-sm-10 col-xs-12">
+              <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
                 <div class="x_panel">
                   <div class="row x_title"> 
                    <div class="col-lg-12 col-md-12 col-xs-12">

@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-
 <?php
-session_start();
 include("controller/doconnect.php");
+session_start();
 include("controller/session.php");
 include("query/find_ledger.php");
 include("query/redirect_billing.php");
@@ -24,6 +22,8 @@ else{
  $p_outlet = ''; 
 }
 ?>
+
+<!DOCTYPE html>
 
 <html lang="en">
   <head>

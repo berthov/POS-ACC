@@ -1,4 +1,5 @@
 <?php
+include("controller/doconnect.php");
 session_start();
 include("controller/session.php");
 include("query/find_ledger.php");
