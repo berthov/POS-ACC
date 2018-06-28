@@ -32,6 +32,6 @@
 
 		mysqli_close($conn);
 
-		// header("Location:../outlets.php");
+		header("Location:../outlets.php");
 
 ?>
