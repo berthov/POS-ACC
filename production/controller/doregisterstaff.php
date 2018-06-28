@@ -1,7 +1,7 @@
 <?php
-	session_start();
 
 	include("doconnect.php");
+	session_start();
 	$user_check = $_SESSION['login_user'];
 	include("../query/find_ledger.php");
 
@@ -32,16 +32,20 @@
 
 			else {
 
-					// $user_name = $_SESSION['login_user'];
-
-					// $user_check_ledger = "SELECT a.ledger_id as ledger FROM employee a WHERE a.name = '".$user_name."'"; 
-					// $result_ledger = mysqli_query($conn,$user_check_ledger);
-					// $existing_ledger = mysqli_fetch_assoc($result_ledger);
-
-					// $ledger_new =  $existing_ledger['ledger'];
-					
 					$sql = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password,ledger_id) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister','$ledger_new')";
 	  				$result = mysqli_query($conn, $sql);
+
+	  				// cek double entry kalau dia input waktu statusnya udah member
+	  				$sql_p = "SELECT * FROM employee where ledger_id = '".$ledger_new."' and name = '".$usernameregister."' and email = '".$emailregister."'  ";
+	  				$result_p = mysqli_query($conn1, $sql_p);
+	  				$existing_p = mysqli_fetch_assoc($result_p);
+
+
+	  				if ($existing_p === NULL) {
+						$sql_p = "INSERT INTO employee (name, role, email, outlet_id, employee_id, created_by, last_update_by, created_date, last_update_date, password,ledger_id) VALUES ('$usernameregister', '$roleregister', '$emailregister', '$outletregister', NULL, NULL, NULL, '$created', NULL, '$passwordregister','$ledger_new')";
+	  					$result_p = mysqli_query($conn1, $sql_p);	
+	  				}
+
 					header("location: ../employees.php");
 			}
 		} else {

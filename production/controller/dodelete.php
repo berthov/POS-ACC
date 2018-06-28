@@ -1,7 +1,7 @@
 <?php
 	include("doconnect.php");
+	session_start();	
 	include("../query/find_ledger.php");
-	session_start();
 
 	if(isset($_POST['action']) && $_POST['action'] == 'deleteStaff'){
 			$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
