@@ -1,20 +1,23 @@
 <?php
 	
 	include("doconnect.php");
+	session_start();	
+	include("session.php");
 	include("../query/find_ledger.php");
+	
 	/*$id = $_REQUEST['id'];
 
-		$sql = "DELETE from INVENTORY where ID = '".$id."'";
-		
-		if (mysqli_query($conn, $sql)) {
-		    echo "New record created successfully";
-		} else {
-		    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
+	$sql = "DELETE from INVENTORY where ID = '".$id."'";
+	
+	if (mysqli_query($conn, $sql)) {
+	    echo "New record created successfully";
+	} else {
+	    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+	}
 
-		mysqli_close($conn);
+	mysqli_close($conn);
 
-		header("Location:../tables_dynamic.php");*/
+	header("Location:../tables_dynamic.php");*/
 
 	$mode=$_POST['mode'];
 

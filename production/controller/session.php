@@ -1,7 +1,6 @@
 <?php
    include("doconnect.php");
 
-   
    $user_check = $_SESSION['login_user'];
    if($user_check == null){
       header("location: login.php");

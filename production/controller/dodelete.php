@@ -1,6 +1,7 @@
 <?php
 	include("doconnect.php");
 	session_start();	
+	include("session.php");
 	include("../query/find_ledger.php");
 
 	if(isset($_POST['action']) && $_POST['action'] == 'deleteStaff'){
