@@ -1,195 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>BT Printer</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i,900,900i&amp;subset=cyrillic" rel="stylesheet">
     <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+
+    <style>
+        html {text-align: center;background-color: #444444;margin: 0;padding: 0}
+        body {
+            font-family: 'Roboto', sans-serif;
+            max-width:1024px;margin:0 auto;
+            text-align: left;
+            background-color: white;
+            padding:8px;
+            font-size:17px;
+        }
+        h1,h2{text-align: center}
+        blockquote {background:#eee;padding:8px;margin:4px 0;font-size:12px;}
+        img {max-width:100%}
+        .btn, button {background-color: darkgreen;color:white;padding: 16px;border:1px solid green}
+  .btn{display:inline-block;text-decoration:none}
+
+@media print {
+    html,body{margin:0;padding:10px;  
+        font-size:32px;
+    }
+    body{
+        width : 640px; 
+    }
+    blockquote {background:#fff;border-left:4px solid #222; font-size:22px;}
+    a {color:#000}  
     
-    <!-- Custom styling plus plugins -->
-    <link href="../build/css/custom.css" rel="stylesheet">
-<?php
-include("controller/doconnect.php");
-echo "string";
-echo "string";
-echo "string";
-?>
-<div class="row">
-              <div class="col-md-12">
-                <div class="x_panel">
-                  <div class="x_content">
-                    <div class="row">
-                      <div class="col-md-4"></div>
-                      <div class="col-md-4">
-                        <p align="center">CaseNation.Indo</p>
-                        <p align="center">Jln. Marina Raya Ruko Exclusive</p>
-                        <div class="row">
-                          <div class="col-md-6">
-                            19 Nov 2017<br>
-                            Receipt Number<br>
-                            Collected by
-                          </div>
-                          <div class="col-md-6 pull-right" style="text-align: right;">
-                            14:14<BR>
-                            D8WBB7<BR>
-                            Novi Sumarto
-                          </div>
-                          <div class="clearfix"></div>
-                          <hr style="margin-top: 2px;">
-                          <div class="col-md-4">
-                            Mario Case<br>
-                            Supreme Case<br>
-                          </div>
-                          <div class="col-md-4" style="text-align: right;">
-                            1x<br>
-                            2x<br>
-                          </div>
-                          <div class="col-md-4" style="text-align: right;">
-                            Rp. 100000<br>
-                            Rp. 200000<br>
-                          </div>
-                          <div class="clearfix"></div>
-                          <hr style="margin-top: 2px;">
-                          <div class="col-md-6">
-                          <p>Subtotal</p>
-                          </div>
-                          <div class="col-md-6 pull-right" style="text-align: right;">
-                          <p>Rp.300000</p>
-                          </div>
-                          <div class="clearfix"></div>
-                          <hr style="margin-top: 2px;">
-                          <div class="col-md-6">
-                          <h4 style="margin-top: -10px;"><b>Total</b></h4>
-                          </div>
-                          <div class="col-md-6 pull-right" style="text-align: right;">
-                          <h4 style="margin-top: -10px;"><b>Rp.300000</b></h4>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-            <button type="submit" name="submit" value="Insert" class="btn btn-round btn-primary" onclick="window.print()"></button>
-
-<br>
-              <?php
-                $sql1 = "SELECT sum(unit_price * qty) as amount , date_format(date,'%d-%m-%y') as date1
-                FROM invoice 
-                where
-                date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')
-                group by date_format(date,'%d-%m-%Y')";
-                $result1 = $conn->query($sql1);
-                while($row1 = $result1->fetch_assoc()) {
-                                  
-                if( $row1['amount'] >0 ) {
-                  echo $row1['amount'];
-                }
-                else{
-                  echo "0";
-                }
-              }
-
-              echo "<br>";
-
-          /*    $total = 0;
-              $sql2 = "SELECT invoice_id ,count(*) as count , max(invoice_line_id)
-                  FROM invoice 
-                  where
-                  date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')
-                  group by invoice_id";
-                  $result2 = $conn->query($sql2);
-                  while($row2 = $result2->fetch_assoc()) {
-                    echo $row2['invoice_id']; echo ",";
-                    echo $row2['count'];   
-                    echo "<br>";
-
-                }*/
-
-                // $query = "SELECT distinct date_format(date,'%M') as month , date_format(date,'%m') as a , date_format(sysdate(),'%m')  as b , DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m') as c
-                //   FROM invoice 
-                //   where month IS NOT NULL
-                //   and date_format(date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
-                //   order by date 
-                //   /*where
-                //   date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
-                //   ";
-                // $data=mysqli_query($conn,$query);   
-                // while($row=mysqli_fetch_array($data)){                   
-                //     echo "\"";echo $row['month'] ; echo "\"" ;echo ",";
-                //     // echo "\"";echo $row['a'] ; echo "\"" ;echo ",";
-                //     // echo "\"";echo $row['c'] ; echo "\"" ;echo ",";
-                    
-                // }
-
-                // echo "<br>";
-
-                // $query = "SELECT sum(qty*unit_price) as amount , month
-                //   FROM invoice 
-                //   where month IS NOT NULL
-                //   group by month
-                //   order by date 
-                //   limit 6
-                //   /*where
-                //   date_format(date,'%d-%m-%Y') = date_format(sysdate(),'%d-%m-%Y')*/
-                //   ";
-                // $data=mysqli_query($conn,$query);   
-                // while($row=mysqli_fetch_array($data)){                   
-                //     echo $row['amount']  ;echo ",";                    
-                // }
-
-                // echo "<br>";
-
-                //             $sql1 = "select datediff(date_format(sysdate(),'%Y-%m-%d'),'2018-05-01') as dess
-                //             from dual
-                //             ";
-                //             $result1 = $conn->query($sql1);
-                //             while($row1 = $result1->fetch_assoc()) {                                                               
-                //               echo $row1['dess'];
-                //           }
+<script>
+    // send to print
+    function BtPrint(prn){
+        var S = "#Intent;scheme=rawbt;";
+        var P =  "package=ru.a402d.rawbtprinter;end;";
+        var textEncoded = encodeURI(prn);
+        window.location.href="intent:"+textEncoded+S+P;
+    }
 
 
-                  $query = "
-                  SELECT sum(i.qty*i.unit_price)  as amount , 
-                  date_format(ih.invoice_date,'%Y%m')
-                  FROM invoice i,
-                  invoice_header ih
-                  where i.month IS NOT NULL
-                  and ih.invoice_id = i.invoice_id
-                  and ih.ledger_id = i.ledger_id
-                  -- and date_format(ih.invoice_date,'%Y%m') >= DATE_FORMAT(date_add(sysdate(), INTERVAL - 5 MONTH),'%Y%m')
-                  group by date_format(ih.invoice_date,'%Y%m')
-                  order by date_format(ih.invoice_date,'%Y%m') 
-                  ";
-                $data=mysqli_query($conn,$query);   
-                while($row=mysqli_fetch_array($data)){                   
-                    echo $row['amount']  ;echo ",";                    
-                }
+</script>
+
+</head>
+<body>
+
+<style>
+pre {font-family:monospace}
+</style>
+<pre id="pre_print">
+--------------------------------
+            TEST
+--------------------------------
+Items 1
+3 x $20.00
+Items 2
+1 x $40.00
+********************************
+                   TOTAL $100.00
+--------------------------------
 
 
-?>
+</pre>
+<button onclick="BtPrint(document.getElementById('pre_print').innerText)">button</button>
+<br/><br/>
 
-
-<form class="form-horizontal" action="controller/functions.php" method="POST" enctype="multipart/form-data">
-                     <fieldset>
-                              <!-- Form Name -->
-                              <legend>MASS ADD CSV </legend>
-       
-                              <!-- File Button -->
-                              <div class="form-group">
-                                  <label class="col-md-4 control-label" for="filebutton">Select File</label>
-                                  <div class="col-md-4">
-                                      <input type="file" name="file" class="input-large">
-                                  </div>
-                              </div>
-       
-                              <!-- Button -->
-                              <div class="form-group">
-                                  <label class="col-md-4 control-label" for="singlebutton">Import data</label>
-                                  <div class="col-md-4">
-                                      <button type="submit" name="Import" value="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
-                                  </div>
-                              </div>      
-                       </fieldset>
-                 </form>
+</body>
+</html>
