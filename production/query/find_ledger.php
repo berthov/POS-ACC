@@ -56,7 +56,7 @@ else{
  $servername = "localhost";
  $username = "root";
  $password = "";
- $dbname = $ledger_new;
+ $dbname = "fris6556_" .$ledger_new;
 
  $conn = mysqli_connect($servername, $username, $password, $dbname);
 }
