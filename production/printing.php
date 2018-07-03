@@ -47,11 +47,14 @@
     // symbolic
     var ESC = chr(27);
     var LF = chr(10);
+    var HT = chr(9);
+    var VT = chr(11);
 
     // user friendly command name
     var PrnAlignLeft = ESC+'a'+chr(0);
     var PrnAlignCenter = ESC+'a'+chr(1);
     var PrnAlignRight = ESC+'a'+chr(2);
+    var PrnItalic = ESC+chr(4);
     var PrnBoldOn = ESC+'G'+chr(1);
     var PrnBoldOff = ESC+'G'+chr(0);
 
@@ -75,42 +78,55 @@
     function slip(){
         // собираем чек
         var prn = '';
-        prn += PrnAlignCenter;
-        prn += PrnBoldOn+'ООО "Рога и Копыта"'+PrnBoldOff+LF;
-        prn += 'г. Сочи, переулок "Два Карла"'+LF;
-        prn += 'Подвал'+LF+LF;
-        prn += PrnBoldOn+'КАССОВЫЙ ЧЕК № 3'+PrnBoldOff+LF;
-        prn += 'ПРИХОД' +LF;
-        prn += PrnAlignRight;
-        prn += 'Смена: 2'+LF;
-        prn += PrnAlignLeft;
-        prn += 'ИНН: 7701237658'+LF;
-        prn += 'Кассир: Администратор'+LF;
-        prn += 'Дата/время: 16.10.2017 20:11:09'+LF;
-        prn += 'Клиент: tywrtyrtyrtwwrt@ttt.tu'+LF;
-        prn += '--------------------------------'+LF;
+        // prn += PrnAlignCenter;
+        // prn += PrnBoldOn+'ООО "Рога и Копыта"'+PrnBoldOff+LF;
+        // prn += 'г. Сочи, переулок "Два Карла"'+LF;
+        // prn += 'Подвал'+LF+LF;
+        // prn += PrnBoldOn+'КАССОВЫЙ ЧЕК № 3'+PrnBoldOff+LF;
+        // prn += 'ПРИХОД' +LF;
+        // prn += PrnAlignRight;
+        // prn += 'Смена: 2'+LF;
+        // prn += PrnAlignLeft;
+        // prn += 'ИНН: 7701237658'+LF;
+        // prn += 'Кассир: Администратор'+LF;
+        // prn += 'Дата/время: 16.10.2017 20:11:09'+LF;
+        // prn += 'Клиент: tywrtyrtyrtwwrt@ttt.tu'+LF;
+        // prn += '--------------------------------'+LF;
 
-        prn += PrnAlignLeft+ 'Samsung™ S5570 > Galaxy Mini '+LF;
-        prn += PrnAlignRight+ '1 x 7 300'+LF;
+        // prn += PrnAlignLeft+ 'Samsung™ S5570 > Galaxy Mini '+LF;
+        // prn += PrnAlignRight+ '1 x 7 300'+LF;
 
+
+        // prn += '--------------------------------'+LF;
+        // prn += PrnAlignRight+PrnBoldOn+'ИТОГ: 7300.00'+PrnBoldOff+LF;
+        // prn += LF;
+        // prn += PrnAlignLeft;
+        // prn += 'ayam goreng : 0149060506089651'+LF;
+        // prn += 'ФН №     : 0149060506089651'+LF;
+        // prn += 'ФД №     : 3'+LF;
+        // prn += 'ФПД      : 846945255'+LF;
+
+        // prn += LF;
+
+        // prn += PrnAlignCenter;
+        // prn += QrCode('t=20171016T201109&s=7300.00&fn=0149060506089651&i=3&fp=846945255&n=1')+LF;
+
+        // prn += LF;
+        // prn += LF;
+        // передаем на печать
 
         prn += '--------------------------------'+LF;
         prn += PrnAlignRight+PrnBoldOn+'ИТОГ: 7300.00'+PrnBoldOff+LF;
         prn += LF;
-        prn += PrnAlignLeft;
-        prn += 'Зав.№ККТ : 0149060506089651'+LF;
-        prn += 'ФН №     : 0149060506089651'+LF;
-        prn += 'ФД №     : 3'+LF;
-        prn += 'ФПД      : 846945255'+LF;
-
+        prn += 'BERNARD'+HT;
+        prn += 'thoven'+HT;
+        prn += 'lukito'+LF;
+        prn += PrnAlignRight+'0149060506089651'+LF;
+        prn += PrnAlignRight+'0149060506089651'+LF;
+        prn += PrnAlignRight+': 3'+LF;
+        prn += PrnAlignRight+'846945255'+LF;
         prn += LF;
-
-        prn += PrnAlignCenter;
-        prn += QrCode('t=20171016T201109&s=7300.00&fn=0149060506089651&i=3&fp=846945255&n=1')+LF;
-
-        prn += LF;
-        prn += LF;
-        // передаем на печать
+        prn += LF;        
         BtPrint(prn);
     }
 
