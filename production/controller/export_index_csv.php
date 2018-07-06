@@ -30,8 +30,8 @@ $p_outlet = $_REQUEST['p_outlet'];
            {
 
 
-             $sql = "INSERT into inventory (item_code, description,qty,sales_price,min,max,cogs,status,category,created_by,last_update_by,created_date,last_update_date,ledger_id) 
-                   values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$getData[6]."','".$getData[7]."','".$getData[8]."','".$user_check."','".$user_check."','".$created_date."','".$last_update_date."','".$ledger_new."')";
+             $sql = "INSERT into inventory (item_code, description,qty,sales_price,min,max,cogs,status,category,created_by,last_update_by,created_date,last_update_date,ledger_id,outlet_id) 
+                   values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."','".$getData[5]."','".$getData[6]."','".$getData[7]."','".$getData[8]."','".$user_check."','".$user_check."','".$created_date."','".$last_update_date."','".$ledger_new."','".$outlet_new."')";
                    $result = mysqli_query($conn, $sql);
         if(!isset($result))
         {

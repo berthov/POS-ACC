@@ -28,6 +28,7 @@ include("query/redirect_billing.php");
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
@@ -174,7 +175,7 @@ include("query/redirect_billing.php");
                           <td><?php echo $row1['province'];?></td>
                           <td><?php echo $row1['staff'];?></td>
                           <td>
-                            <a href="updateoutlet.php?id=<?php echo $row1["outlet_id"]?>" class="btn btn-info"><i class="fa fa-pencil"></i> Edit </a>                          
+                            <a href="updateoutlet.php?id=<?php echo $row1["outlet_id"]?>" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Edit </a>                          
                           </td>
                           <td>
                               <input type="checkbox" class="changeOutletStatus" checked data-value=<?php echo $row1['status'];?> data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-id=<?php echo $row1['outlet_id']; ?>>                          
@@ -226,14 +227,18 @@ include("query/redirect_billing.php");
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 
     <?php
-      if($_SESSION['outletUpdated'] == true){
-      ?>
-      <script>
-        toastr.success('Outlet Updated');
-      </script>
-      <?php
-        $_SESSION['outletUpdated'] = false;
+      if(isset($_SESSION['outletUpdated']) && !empty($_SESSION['outletUpdated'])){
+        if($_SESSION['outletUpdated'] == true){
+        ?>
+        <script>
+          toastr.success('Outlet Updated');
+        </script>
+        <?php
+          $_SESSION['outletUpdated'] = false;
+        }
       }
+
+      
     ?>
 
   </body>

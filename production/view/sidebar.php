@@ -7,7 +7,7 @@ include("controller/doconnect.php");
 <div class="col-md-3 left_col menu_fixed">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>Bonne Journée!</span></a>
+      <a href="index.php" class="site_title"><i class="fas fa-feather-alt"></i> <span>Bonne Journée!</span></a>
     </div>
 
     <div class="clearfix"></div>
@@ -71,7 +71,7 @@ include("controller/doconnect.php");
               <li><a href="table_supplier.php">Table Supplier</a></li>             
             </ul>
           </li>
-          <li><a><i class="fa fa-table"></i> Outlets Settings <span class="fa fa-chevron-down"></span></a>
+          <li><a><i class="fas fa-store" style="width:26px; opacity:99; font-size:15px"></i> Outlets Settings <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="outlets.php">Outlets</a></li>
               <!-- <li><a href="receipts.php">Receipt</a></li> -->

@@ -24,13 +24,13 @@ include("common/modal.html");
                       </a>
                     </li>
                     <!-- <li><a href="javascript:;">Email Notification</a></li> -->
-                    <li><a href="controller/dologout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="controller/dologout.php"><i class="fas fa-sign-out-alt pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 <!-- INI UNTUK NOTIFICATION NANTI PAKE QUERY AJA -->
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-bell-o"></i>
+                    <i class="far fa-bell"></i>
                     <span class="badge bg-green">
                     
                     <?php

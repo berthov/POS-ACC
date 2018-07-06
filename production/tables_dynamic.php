@@ -32,6 +32,7 @@ include("query/redirect_billing.php");
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -147,7 +148,7 @@ include("query/redirect_billing.php");
                           <td><?php echo $row["max"]?></td>
                           <td><?php echo $row["name"]?></td>
                           <td>
-                            <a href="updateinventory.php?id=<?php echo $row["id"]?>" class="btn btn-info"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="updateinventory.php?id=<?php echo $row["id"]?>" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Edit </a>
                             <!-- <a href="controller/deleteinventory.php?id=<?php echo $row["id"]?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>-->                          
                           </td>
                           <td>

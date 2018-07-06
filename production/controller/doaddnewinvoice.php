@@ -89,6 +89,32 @@ if ( empty($_REQUEST['discount']) ) {
     <!-- Custom styling plus plugins -->
     <link href="../../build/css/custom.css" rel="stylesheet">
 
+
+    <script type="text/javascript">
+
+    var ESC = chr(27);
+    var LF = chr(10);
+    var HT = chr(9);
+    var VT = chr(11);
+
+    // user friendly command name
+    var PrnAlignLeft = ESC+'a'+chr(0);
+    var PrnAlignCenter = ESC+'a'+chr(1);
+    var PrnAlignRight = ESC+'a'+chr(2);
+    var PrnItalic = ESC+chr(4);
+    var PrnBoldOn = ESC+'G'+chr(1);
+    var PrnBoldOff = ESC+'G'+chr(0);
+
+
+      function BtPrint(prn){
+        var S = "#Intent;scheme=rawbt;";
+        var P =  "package=ru.a402d.rawbtprinter;end;";
+        var textEncoded = encodeURI(prn);
+        window.location.href="intent:"+textEncoded+S+P;
+      }
+    </script>
+    
+
 <div id="printableArea">
   <div class="row">
     <div class="col-md-12 col-xs-12 col-lg-12">
@@ -223,6 +249,8 @@ if ( empty($_REQUEST['discount']) ) {
               
                 ?>
 
+                <button onclick="BtPrint(document.getElementById('printableArea').innerText)">Print text from &lt;pre&gt;...&lt;/pre&gt;</button>
+
                 </b></h4>
                 </div>
               </div>
@@ -244,7 +272,7 @@ if ( empty($_REQUEST['discount']) ) {
 
 <script type="text/javascript">
 
-      function printDiv(printableArea) {
+      /*function printDiv(printableArea) {
            var printContents = document.getElementById(printableArea).innerHTML;
            var originalContents = document.body.innerHTML;
 
@@ -257,7 +285,7 @@ if ( empty($_REQUEST['discount']) ) {
       function closePrintView() {
         document.location.href = '../media_gallery.php';
     }
-      document.getElementById("demo").innerHTML = printDiv('printableArea'); 
+      document.getElementById("demo").innerHTML = printDiv('printableArea'); */
 </script>
 
 <?php

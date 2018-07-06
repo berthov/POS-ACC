@@ -23,6 +23,7 @@ include("query/redirect_billing.php");
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -132,8 +133,8 @@ include("query/redirect_billing.php");
                             <a href="payment_po.php?po_header_id=<?php echo $row["po_header_id"]?>"><button type="button" class="btn btn-success btn-xs"><?php echo $row['status']; ?></button></a>
                           </td>
                           <td>
-                            <a href="template_po.php?po_header_id=<?php echo $row["po_header_id"]?>" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete </a>
+                            <a href="template_po.php?po_header_id=<?php echo $row["po_header_id"]?>" class="btn btn-primary btn-xs"><i class="fas fa-eye"></i> View </a>
+                            <a href="#" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i> Delete </a>
                           </td>
                         </tr> 
 

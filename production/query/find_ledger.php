@@ -43,7 +43,7 @@ if($existing_outlet === NULL){
  $servername = "localhost";
  $username = "root";
  $password = "";
- $dbname = "acc_test";
+ $dbname = "fris6556_acc_test";
 
  $conn = mysqli_connect($servername, $username, $password, $dbname);
 }

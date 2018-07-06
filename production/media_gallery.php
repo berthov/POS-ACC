@@ -27,6 +27,8 @@ include("query/redirect_billing.php");
     <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- Switchery -->
@@ -83,7 +85,7 @@ include("query/redirect_billing.php");
                   </div>
                   
                   <div class="x_content">
-                    <div class="row">
+                    <div class="row" style="overflow-y:auto; oveerflow-x:hidden height:400px;">
                       <form id="formInvoice" action="controller/doaddnewinvoice.php" method="POST" >
                         <?php
 
@@ -100,9 +102,15 @@ include("query/redirect_billing.php");
                             while($row = $result->fetch_assoc()) {
                         ?>
 
-                        <div class="col-md-4 col-xs-6 col-lg-2 parentSearch">
-                          <div class="thumbnail" align="center">
-                            <p><input type="hidden" name="arr[]" value="<?php echo $row["id"]?>"><search><?php echo $row["description"]?></search></p>
+                        <div class="col-md-4 col-xs-6 col-lg-3 parentSearch" >
+                          <div class="thumbnail" align="center" >
+                            <p><input type="hidden" name="arr[]" value="<?php echo $row["id"]?>"><?php 
+                              if ($row["qty"] == 0){
+                                echo '<search style="color:#e32a2a; font-weight:bold;" >'. $row["description"] .'</search>';
+                              } else {
+                                echo '<search style="color:green; font-weight:bold;"> ' . $row["description"] . ' </search>';
+                              }
+                            ?></p>
                             <p><input type="hidden" name="arr1[]" value="<?php echo $row["sales_price"]?>"><?php echo number_format($row["sales_price"]) ?></p>
                             <div class="caption">
                               <div class="input-group">
@@ -138,8 +146,8 @@ include("query/redirect_billing.php");
                         <div class="clearfix"></div>
                         <!-- <button type="submit" name="submit" value="Insert" class="btn btn-round btn-primary" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button> -->
 
-                        <button id="toSummary" type="button" class="btn btn-round btn-primary" data-target=".bs-example-modal-sm" data-toggle="modal" onclick="validateValue();" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button>
-                        
+                        <button id="toSummary" type="button" class="btn btn-round btn-primary" data-target=".bs-example-modal-sm" data-toggle="modal" onclick="validateValue();" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-shopping-cart" style="top: 3px;"></span></button>
+
                         <!--Modal -->
                           <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
