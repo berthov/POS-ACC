@@ -25,6 +25,7 @@ $po_header_id = $_REQUEST['po_header_id'];
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
+    <link href="../vendors/font-awesome-2/css/all.css" rel="stylesheet"> 
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">

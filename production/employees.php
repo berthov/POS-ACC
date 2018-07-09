@@ -4,7 +4,7 @@ session_start();
 include("controller/session.php");
 include("query/find_ledger.php");
 include("query/redirect_billing.php");
-include("common/modal.html");
+/*include("common/modal.html");*/
 ?>
 
 <!DOCTYPE html>
@@ -22,8 +22,8 @@ include("common/modal.html");
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
+    <link href="../vendors/font-awesome-2/css/all.css" rel="stylesheet"> 
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">

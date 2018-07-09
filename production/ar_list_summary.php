@@ -25,6 +25,7 @@ $p_outlet = $_REQUEST['outlet_id'];
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
+    <link href="../vendors/font-awesome-2/css/all.css" rel="stylesheet"> 
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">

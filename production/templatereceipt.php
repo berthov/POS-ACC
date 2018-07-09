@@ -21,8 +21,8 @@ include("query/redirect_billing.php");
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Font Awesome -->
+    <link href="../vendors/font-awesome-2/css/all.css" rel="stylesheet"> 
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    
     <!-- Custom styling plus plugins -->
     <link href="../build/css/custom.css" rel="stylesheet">
   </head>
