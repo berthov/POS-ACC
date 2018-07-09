@@ -1,9 +1,10 @@
 <?php
-	session_start();
 	include("doconnect.php");
+	session_start();
+	$user_check = $_SESSION['login_user'];
 	include("../query/find_ledger.php");
 
-	$user_check = $_SESSION['login_user'];
+
 	//$invoice_id = $_REQUEST['invoice_id'];
 	$invoice_id = $_POST['invoice_id'];
 	$created = date("Y-m-d");
