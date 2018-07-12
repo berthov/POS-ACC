@@ -3,8 +3,6 @@ $(document).ready(function(){
 	$('.btnrefund').click(function() { 
 		$('.refunddata').unbind( "click" );
 
-		console.log("masuk sini");
-
 	    invoice_id = $(this).attr('data-id');
 
 	    // document.getElementById("demo").innerHTML = invoice_id; 
@@ -12,7 +10,6 @@ $(document).ready(function(){
 
 
 	  $('.refunddata').on("click", function() {
-	  	console.log("ini seteelah modal");
 	    $.ajax({
 	        type:'post',
 	        url:'controller/refund_invoice.php',
