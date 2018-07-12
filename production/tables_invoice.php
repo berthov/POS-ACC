@@ -4,7 +4,7 @@ session_start();
 include("controller/session.php");
 include("query/find_ledger.php");
 include("query/redirect_billing.php");
-include("common/modal.html");
+/*include("common/modal.html");*/
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +45,6 @@ include("common/modal.html");
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
 
-    <script src="../production/controller/refund.js"></script>
   </head>
 
   <body class="nav-md">
@@ -216,6 +215,8 @@ include("common/modal.html");
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script src="../production/controller/refund.js"></script>
   
   </body>
 </html>
