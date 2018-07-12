@@ -23,6 +23,7 @@ $(document).ready(function(){
                 currentRow.fadeOut(800,function(){
                     currentRow.remove();
                 })
+                toastr.success("Staff Deleted");
             } else {
               console.log("error");
             }

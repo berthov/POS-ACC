@@ -19,7 +19,7 @@ include("query/redirect_billing.php");
     
     <title>Bonne Journée! </title>
 
-        <!-- Toastr -->
+    <!-- Toastr -->
     <link rel="stylesheet" href="../vendors/toastr/toastr.min.css">
     <script src="../vendors/toastr/jquery-1.9.1.min.js"></script>
     <script src="../vendors/toastr/toastr.min.js"></script>
