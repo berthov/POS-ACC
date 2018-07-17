@@ -112,7 +112,7 @@ include("query/redirect_billing.php");
                                   <tr>
                                     <td><input type="hidden" name="counter[]" id="counter">#</td>
                                     <td>
-                                      <select class="form-control" id="inventory_item_id" name="inventory_item_id[]" required="required">
+                                      <select class="form-control itemname" id="inventory_item_id" name="inventory_item_id[]" required="required">
                                       <?php
 
                                         $sql = "SELECT description , id 
@@ -128,7 +128,7 @@ include("query/redirect_billing.php");
                                       ?>
                                       </select>
                                     </td>
-                                    <td><input type="number" class="form-control" id="qty" name="qty[]" required="required"></td>
+                                    <td><input type="number" class="form-control qty" id="qty" name="qty[]" required="required"></td>
                                     <td></td>
                                   </tr>
                                 </table>
@@ -204,8 +204,8 @@ function myCreateFunction() {
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     cell1.innerHTML = '<td><input type="hidden" name="counter[]" id="counter">#</td>';
-    cell2.innerHTML = '<select class="form-control" id="inventory_item_id" name="inventory_item_id[]" required="required"><?php $sql = "SELECT description,id FROM inventory";$result = $conn->query($sql);$a = 0;while($row = $result->fetch_assoc()) {?><option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option><?php } ?></select>';
-    cell3.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
+    cell2.innerHTML = '<select class="form-control itemname" id="inventory_item_id" name="inventory_item_id[]" required="required"><?php $sql = "SELECT description,id FROM inventory";$result = $conn->query($sql);$a = 0;while($row = $result->fetch_assoc()) {?><option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option><?php } ?></select>';
+    cell3.innerHTML = '<td><input type="text" class="form-control qty" id="qty" name="qty[]" required="required"></td>';
     cell4.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
 }
 

@@ -103,7 +103,7 @@ include("query/redirect_billing.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qty">Quantity <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="qty" name="qty" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                          <input type="number" id="qty" name="qty" required="required" min="0" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
                       <!-- <div class="item form-group">
@@ -124,7 +124,7 @@ include("query/redirect_billing.php");
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="min">Min Threshold <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="min" name="min" required="required" min="1" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
+                          <input type="number" id="min" name="min" required="required" min="0" max="9999" class="form-control col-md-7 col-xs-12" placeholder="1-9999">
                         </div>
                       </div>
                       <div class="item form-group">

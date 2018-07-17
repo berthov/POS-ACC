@@ -32,7 +32,7 @@
 
 	  				// RECIPE LINE
 
-  				    for($y = 0; $y < count($counter); $y++ ){
+  				    for($y = 0; $y < count($inventory_item_id); $y++ ){
 				    $sql_line = "INSERT INTO fmd_recipe_line (recipe_id,inventory_item_id,qty,created_by, created_date,last_update_by,last_update_date)
 				    VALUES ('".$recipe_id."','".$inventory_item_id[$y]."' , '".$qty[$y]."' ,'".$user_check."','".$created."','".$user_check."','".$created."')";
 				    

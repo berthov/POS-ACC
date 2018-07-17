@@ -175,15 +175,28 @@ $(document).ready(function() {
     var recipe_name=$("#recipe_name").val();
     var inventory_item_id=$("#inventory_item_id").val();
     var counter=$("#counter").val();
-    var qty=$("#qty").val();
+    var qty=$(".qty").val();
+    var itemquantity = [];
+    var itemname = [];
+    var eachname;
+    var eachqty;
+    $(".qty").each(function(){
+        eachqty = parseInt(this.value);
+        itemquantity.push(+eachqty);
+    })
+
+    $(".itemname").each(function(){
+        eachname = parseInt(this.value);
+        itemname.push(+eachname);
+    })
 
       $.ajax({
         type:'post',
         url:'controller/doaddrecipe.php',
         data:{
             'recipe_name':recipe_name,
-            'inventory_item_id':inventory_item_id,
-            'qty':qty,
+            'inventory_item_id':itemname,
+            'qty':itemquantity,
             'counter':counter
         },
         success:function(response){

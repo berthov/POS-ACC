@@ -115,6 +115,12 @@ if(isset($_REQUEST['recipe_name'])){
                         ?>
                             </select>
                         </div>
+
+                        <label class="col-md-1 col-sm-3 col-xs-3">COGS</label>
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                          <input type="text" class="form-control" name="cogs" id="cogs" readonly=""></input>
+                        </div>
+
                       </div>
                       <div class="form-group">
                         <label class="col-md-1 col-sm-3 col-xs-3">Period</label>
@@ -150,19 +156,19 @@ if(isset($_REQUEST['recipe_name'])){
                       <tbody>
                         <?php
 
-                            $sql = "SELECT frl.item_code , frl.description , frl.qty , i.qty as quantity  , sum(pol.qty*pol.price) as po_price , round(sum(pol.qty*pol.price) /  sum(pol.qty),0) as tes
+                            $sql = "SELECT frl.inventory_item_id , i.description , frl.qty , i.qty as quantity  , sum(pol.qty*pol.price) as po_price , round(sum(pol.qty*pol.price) /  sum(pol.qty),0) as tes
                             FROM fmd_recipe_header frh, 
                             fmd_recipe_line frl
                             right join inventory i
-                            on frl.item_code = i.item_code
+                            on frl.inventory_item_id = i.id
                             right join po_line_all pol
-                            on frl.item_code = pol.item_code
+                            on frl.inventory_item_id = pol.inventory_item_id
                             where frh.recipe_id = frl.recipe_id
                             and frh.recipe_id = '".$recipe_name."'
                             and frh.ledger_id = '".$ledger_new."'
                             group by
-                            frl.item_code, 
-                            frl.description, 
+                            frl.inventory_item_id, 
+                            i.description, 
                             frl.qty, 
                             i.qty";
                             $result = $conn->query($sql);
