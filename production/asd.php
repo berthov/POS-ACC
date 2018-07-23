@@ -1,4 +1,10 @@
+<?php
 
+$a = date("H:i:s");
+
+$s=array('a','b','c','d','e','f');
+$s_to_json=json_encode((array)$s);
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -39,6 +45,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
+
+    function chr(x){
+        return String.fromCharCode(x);
+    }
+    // symbolic
+    var ESC = chr(27);
+    var LF = chr(10);
+
+    var PrnAlignLeft = ESC+'a'+chr(0);
+    var PrnAlignCenter = ESC+'a'+chr(1);
+    var PrnAlignRight = ESC+'a'+chr(2);
+    var PrnItalic = ESC+chr(4);
+    var PrnBoldOn = ESC+'G'+chr(1);
+    var PrnBoldOff = ESC+'G'+chr(0);
+    var fromPHP=<?php echo $s_to_json ?>;
+    
     // send to print
     function BtPrint(prn){
         var S = "#Intent;scheme=rawbt;";
@@ -47,6 +69,20 @@
         window.location.href="intent:"+textEncoded+S+P;
     }
 
+function slip(){
+        // собираем чек
+        var prn = '';
+
+        for (var i = 0; i < fromPHP.length; i++) {
+            prn += PrnAlignRight+<?php echo json_encode($a) ?>+LF;
+        }
+
+        prn += <?php echo json_encode($a) ?>+LF;
+        prn += PrnAlignLeft+ 'Samsung™ S5570 > Galaxy Mini '+LF;
+        prn += PrnAlignRight+ '1 x 7 300'+LF;
+
+        BtPrint(prn);
+    }
 
 </script>
 
@@ -72,6 +108,7 @@ Items 2
 </pre>
 <button onclick="BtPrint(document.getElementById('pre_print').innerText)">button</button>
 <br/><br/>
+<button onclick="slip()">tes</button>
 
 </body>
 </html>
