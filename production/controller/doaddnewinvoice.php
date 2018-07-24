@@ -20,7 +20,10 @@
   $invoice_number = date("His");
   $description = $_REQUEST['description'];
 
-
+  $test = var_dump(array_values(array_filter($quant))); echo "<br>";
+  var_dump($quant); echo "<br>";
+  echo json_encode($quant);echo "<br>";
+  // $test = var_dump(count(array_filter($quant))); echo "<br>";
 
   // ini variable tambahan buat nanti
 
@@ -92,6 +95,10 @@ if ( empty($_REQUEST['discount']) ) {
 
     <script type="text/javascript">
 
+    function chr(x){
+        return String.fromCharCode(x);
+    }
+
     var ESC = chr(27);
     var LF = chr(10);
     var HT = chr(9);
@@ -104,7 +111,10 @@ if ( empty($_REQUEST['discount']) ) {
     var PrnItalic = ESC+chr(4);
     var PrnBoldOn = ESC+'G'+chr(1);
     var PrnBoldOff = ESC+'G'+chr(0);
-
+    var con = <?php echo json_encode(count(array_filter($quant)))?>;
+    var item_desc = <?php echo json_encode(array_values(array_filter($arr)))?>;
+    var quantity = <?php echo json_encode(array_values(array_filter($quant)))?>;
+    var price = <?php echo json_encode(array_values(array_filter($arr1)))?>;
 
       function BtPrint(prn){
         var S = "#Intent;scheme=rawbt;";
@@ -112,16 +122,34 @@ if ( empty($_REQUEST['discount']) ) {
         var textEncoded = encodeURI(prn);
         window.location.href="intent:"+textEncoded+S+P;
       }
+
+      function slip(){
+        // собираем чек
+        var prn = '';
+        prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['name']) ?>+LF;
+        prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['address']) ?>+LF+LF;
+
+        for (var i = 0; i < con ; i++) {
+
+          prn += PrnAlignLeft+item_desc[i]+LF;
+          prn += PrnAlignCenter+quantity[i]+'x'+HT;
+          prn += PrnAlignRight+quantity[i]*price[i]+LF;
+        }
+
+        prn += LF;
+        BtPrint(prn);
+    }
+
     </script>
     
 
-<div id="printableArea">
+
+<!-- <div id="printableArea">
   <div class="row">
     <div class="col-md-12 col-xs-12 col-lg-12">
       <div class="x_panel">
         <div class="x_content">
           <div class="row">
-            <!-- <div class="col-md-4"></div> -->
             <div class="col-md-12 col-xs-12 col-lg-12">
               <p align="center"><?php echo $existing_outlet['name']; ?></p>
               <p align="center"><?php echo $existing_outlet['address']; echo ","; echo $existing_outlet['city']; echo "<br>"; echo $existing_outlet['province']; ?></p>
@@ -255,13 +283,14 @@ if ( empty($_REQUEST['discount']) ) {
                 </div>
               </div>
             </div>
-            <!-- <div class="col-md-4"></div> -->
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div> -->
+
+<button onclick="slip()">tes</button>
 
 </html>
 

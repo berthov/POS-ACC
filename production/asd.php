@@ -4,6 +4,7 @@ $a = date("H:i:s");
 
 $s=array('a','b','c','d','e','f');
 $s_to_json=json_encode((array)$s);
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
