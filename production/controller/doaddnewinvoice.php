@@ -54,7 +54,8 @@ if ( empty($_REQUEST['discount']) ) {
   }
 
   $customer_name = $_REQUEST['customer_name'];
-   
+  $desc_array = array();
+
     $check_outlet = 
     "SELECT o.* 
     FROM employee e, outlet o 
@@ -64,6 +65,18 @@ if ( empty($_REQUEST['discount']) ) {
     $result_outlet = mysqli_query($conn,$check_outlet);
     $existing_outlet = mysqli_fetch_assoc($result_outlet);
 
+
+    for($x = 0; $x < count($arr); $x++ ){
+
+      $check_item = "SELECT * FROM inventory WHERE ledger_id = '".$ledger_new."' and id = '".$arr[$x]."' ";
+      $result_item = mysqli_query($conn,$check_item);
+      $existing_item = mysqli_fetch_assoc($result_item);
+
+      if($quant[$x] > 0){                   
+        echo $existing_item['description'];  echo'<br>';
+      $desc_array[] = $existing_item['description'];
+      }
+    }
 
 ?>
 
@@ -103,6 +116,10 @@ if ( empty($_REQUEST['discount']) ) {
     var LF = chr(10);
     var HT = chr(9);
     var VT = chr(11);
+    var GS = chr(29);
+    var SP = chr(32);
+    var FF = chr(12);
+    var dol = chr(36);
 
     // user friendly command name
     var PrnAlignLeft = ESC+'a'+chr(0);
@@ -111,10 +128,12 @@ if ( empty($_REQUEST['discount']) ) {
     var PrnItalic = ESC+chr(4);
     var PrnBoldOn = ESC+'G'+chr(1);
     var PrnBoldOff = ESC+'G'+chr(0);
-    var con = <?php echo json_encode(count(array_filter($quant)))?>;
-    var item_desc = <?php echo json_encode(array_values(array_filter($arr)))?>;
+    var tes = ESC+chr(12);
+    var count = <?php echo json_encode(count(array_filter($quant)))?>;
+    // var item_desc = <?php echo json_encode(array_values(array_filter($arr)))?>;
     var quantity = <?php echo json_encode(array_values(array_filter($quant)))?>;
     var price = <?php echo json_encode(array_values(array_filter($arr1)))?>;
+    var desc_array =  <?php echo json_encode($desc_array)?>;
 
       function BtPrint(prn){
         var S = "#Intent;scheme=rawbt;";
@@ -129,11 +148,15 @@ if ( empty($_REQUEST['discount']) ) {
         prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['name']) ?>+LF;
         prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['address']) ?>+LF+LF;
 
-        for (var i = 0; i < con ; i++) {
+        for (var i = 0; i < count ; i++) {
 
-          prn += PrnAlignLeft+item_desc[i]+LF;
-          prn += PrnAlignCenter+quantity[i]+'x'+HT;
+          prn += PrnAlignLeft+desc_array[i]+LF;
+          prn += quantity[i]+'x'+HT+price[i];
+          prn += price[i]+PrnAlignRight+HT;
           prn += PrnAlignRight+quantity[i]*price[i]+LF;
+          console.log(desc_array[i]);
+          console.log(quantity[i]);
+          console.log(price[i]);
         }
 
         prn += LF;
