@@ -20,13 +20,7 @@
   $invoice_number = date("His");
   $description = $_REQUEST['description'];
 
-  $test = var_dump(array_values(array_filter($quant))); echo "<br>";
-  var_dump($quant); echo "<br>";
-  echo json_encode($quant);echo "<br>";
-  // $test = var_dump(count(array_filter($quant))); echo "<br>";
-
   // ini variable tambahan buat nanti
-
   $outstanding_status = 'Open';
   $refund_status = 'No';
   $due_date = date('Y-m-d', strtotime($_REQUEST['due_date']));
@@ -54,7 +48,6 @@ if ( empty($_REQUEST['discount']) ) {
   }
 
   $customer_name = $_REQUEST['customer_name'];
-  $desc_array = array();
 
     $check_outlet = 
     "SELECT o.* 
@@ -64,6 +57,18 @@ if ( empty($_REQUEST['discount']) ) {
     and e.outlet_id = o.outlet_id and o.status = 'Active'";
     $result_outlet = mysqli_query($conn,$check_outlet);
     $existing_outlet = mysqli_fetch_assoc($result_outlet);
+
+
+  $desc_array = array();
+
+
+  echo json_encode($quant);echo "<br>";
+  echo json_encode($arr1);echo "<br>";
+  
+  var_dump(array_values($arr)); echo "<br>";
+  var_dump(array_values($arr1)); echo "<br>";
+  var_dump(array_values($quant)); echo "<br>";
+  // $test = var_dump(count(array_filter($quant))); echo "<br>";
 
 
     for($x = 0; $x < count($arr); $x++ ){
@@ -77,6 +82,9 @@ if ( empty($_REQUEST['discount']) ) {
       $desc_array[] = $existing_item['description'];
       }
     }
+
+    echo "<pre>";
+ echo sprintf("3 spaces added: |%12s", $outstanding_status);
 
 ?>
 
@@ -128,12 +136,12 @@ if ( empty($_REQUEST['discount']) ) {
     var PrnItalic = ESC+chr(4);
     var PrnBoldOn = ESC+'G'+chr(1);
     var PrnBoldOff = ESC+'G'+chr(0);
-    var tes = ESC+chr(12);
+    var tes = ESC+'D';
     var count = <?php echo json_encode(count(array_filter($quant)))?>;
-    // var item_desc = <?php echo json_encode(array_values(array_filter($arr)))?>;
     var quantity = <?php echo json_encode(array_values(array_filter($quant)))?>;
-    var price = <?php echo json_encode(array_values(array_filter($arr1)))?>;
-    var desc_array =  <?php echo json_encode($desc_array)?>;
+    var price    = <?php echo json_encode(array_values(array_filter($arr1)))?>;
+    var desc_array =  <?php echo json_encode(array_values(array_filter($desc_array)))?>;
+    var cek = <?php echo json_encode(sprintf("%8s", ' '))?>;
 
       function BtPrint(prn){
         var S = "#Intent;scheme=rawbt;";
@@ -150,15 +158,18 @@ if ( empty($_REQUEST['discount']) ) {
 
         for (var i = 0; i < count ; i++) {
 
+          
           prn += PrnAlignLeft+desc_array[i]+LF;
-          prn += quantity[i]+'x'+HT+price[i];
-          prn += price[i]+PrnAlignRight+HT;
+          // prn += PrnAlignLeft+quantity[i]+'x'+cek;
+          // prn += price[i]+PrnAlignRight;
           prn += PrnAlignRight+quantity[i]*price[i]+LF;
           console.log(desc_array[i]);
           console.log(quantity[i]);
           console.log(price[i]);
+          console.log(i);
+          console.log(cek);
+          
         }
-
         prn += LF;
         BtPrint(prn);
     }
