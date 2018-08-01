@@ -19,8 +19,7 @@
   $type = 'Penjualan';
   $invoice_number = date("His");
   $description = $_REQUEST['description'];
-
-  // ini variable tambahan buat nanti
+  
   $outstanding_status = 'Open';
   $refund_status = 'No';
   $due_date = date('Y-m-d', strtotime($_REQUEST['due_date']));
@@ -48,7 +47,11 @@ if ( empty($_REQUEST['discount']) ) {
   }
 
   $customer_name = $_REQUEST['customer_name'];
+  
+  $seasons = array();  
+  // $test = var_dump(count(array_filter($quant))); echo "<br>";
 
+ 
     $check_outlet = 
     "SELECT o.* 
     FROM employee e, outlet o 
@@ -58,34 +61,52 @@ if ( empty($_REQUEST['discount']) ) {
     $result_outlet = mysqli_query($conn,$check_outlet);
     $existing_outlet = mysqli_fetch_assoc($result_outlet);
 
+ 
 
-  $desc_array = array();
-
-
-  echo json_encode($quant);echo "<br>";
-  echo json_encode($arr1);echo "<br>";
-  
-  var_dump(array_values($arr)); echo "<br>";
-  var_dump(array_values($arr1)); echo "<br>";
-  var_dump(array_values($quant)); echo "<br>";
-  // $test = var_dump(count(array_filter($quant))); echo "<br>";
-
-
-    for($x = 0; $x < count($arr); $x++ ){
+// buat print
+    for($x = 0; $x < count($quant); $x++ ){
 
       $check_item = "SELECT * FROM inventory WHERE ledger_id = '".$ledger_new."' and id = '".$arr[$x]."' ";
       $result_item = mysqli_query($conn,$check_item);
       $existing_item = mysqli_fetch_assoc($result_item);
 
-      if($quant[$x] > 0){                   
-        echo $existing_item['description'];  echo'<br>';
-      $desc_array[] = $existing_item['description'];
+    if($quant[$x] > 0){                   
+      $seasons[] = $existing_item['description'];
+    }
+  }
+
+  $subtotal = 0;
+
+    for($x = 0; $x < count($arr); $x++ ){
+      if($quant[$x] > 0){ 
+      $subtotal += $arr1[$x] * $quant[$x];                  
       }
     }
-
-    echo "<pre>";
- echo sprintf("3 spaces added: |%12s", $outstanding_status);
-
+  
+  if ($discount === 0 && $tax_code === 0 ) {
+    $discount_p = 0;
+    $subtotal_p = sprintf("%15s",($subtotal - $discount_p));   
+    $tax_p = 0;
+    $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+  }
+  else if ($discount === 0 ) {
+  $discount_p = 0;
+  $subtotal_p = sprintf("%15s",($subtotal - $discount_p));
+  $tax_p = sprintf("%15s",$tax_code * ($subtotal - $discount));
+  $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+  }
+  else if ($tax_code === 0 ) {
+  $discount_p = sprintf("%15s",$discount);
+  $subtotal_p = sprintf("%15s",($subtotal - $discount));
+  $tax_p = 0;
+  $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+  }
+  else{
+  $discount_p = sprintf("%15s",$discount);
+  $subtotal_p = sprintf("%15s",($subtotal - $discount));
+  $tax_p = sprintf("%15s",($tax_code * ($subtotal - $discount)));
+  $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+  }
 ?>
 
 <html>
@@ -124,11 +145,6 @@ if ( empty($_REQUEST['discount']) ) {
     var LF = chr(10);
     var HT = chr(9);
     var VT = chr(11);
-    var GS = chr(29);
-    var SP = chr(32);
-    var FF = chr(12);
-    var dol = chr(36);
-
     // user friendly command name
     var PrnAlignLeft = ESC+'a'+chr(0);
     var PrnAlignCenter = ESC+'a'+chr(1);
@@ -136,12 +152,22 @@ if ( empty($_REQUEST['discount']) ) {
     var PrnItalic = ESC+chr(4);
     var PrnBoldOn = ESC+'G'+chr(1);
     var PrnBoldOff = ESC+'G'+chr(0);
-    var tes = ESC+'D';
+
+    
+
+    var subtotal = 0;
+    var discount = <?php echo json_encode($discount)?>;
+    var tax = <?php echo json_encode($tax_code)?>; 
     var count = <?php echo json_encode(count(array_filter($quant)))?>;
+    var item_desc = <?php echo json_encode(array_values(array_filter($seasons)))?>;
     var quantity = <?php echo json_encode(array_values(array_filter($quant)))?>;
-    var price    = <?php echo json_encode(array_values(array_filter($arr1)))?>;
-    var desc_array =  <?php echo json_encode(array_values(array_filter($desc_array)))?>;
-    var cek = <?php echo json_encode(sprintf("%8s", ' '))?>;
+    var price = <?php echo json_encode(array_values(array_filter($arr1)))?>;
+    var test = <?php echo json_encode($seasons)?>;
+
+    var discount_p = <?php echo json_encode($discount_p)?>;
+    var tax_p = <?php echo json_encode($tax_p)?>;
+    var subtotal_p = <?php echo json_encode($subtotal_p)?>;
+    var total_p = <?php echo json_encode($total_p)?>;
 
       function BtPrint(prn){
         var S = "#Intent;scheme=rawbt;";
@@ -154,22 +180,53 @@ if ( empty($_REQUEST['discount']) ) {
         // собираем чек
         var prn = '';
         prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['name']) ?>+LF;
-        prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['address']) ?>+LF+LF;
+        prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['address']) ?>+LF;
+        prn += PrnAlignCenter+<?php echo json_encode($existing_outlet['phone']) ?>+LF+LF
+        prn += PrnBoldOn+'--------------------------------'+PrnBoldOff+LF;
+        prn += PrnAlignLeft+'Date:'+<?php echo json_encode(sprintf("%27s",$time)) ?>+LF
+        prn += PrnAlignLeft+'Receipt Number :'+<?php echo json_encode(sprintf("%16s",$invoice_number)) ?>+LF
+        prn += PrnBoldOn+'--------------------------------'+PrnBoldOff+LF;
 
         for (var i = 0; i < count ; i++) {
 
-          
-          prn += PrnAlignLeft+desc_array[i]+LF;
-          // prn += PrnAlignLeft+quantity[i]+'x'+cek;
-          // prn += price[i]+PrnAlignRight;
+        subtotal +=  parseInt((quantity[i]*price[i]));
+
+          prn += PrnAlignLeft+item_desc[i]+LF;
+          // prn += PrnAlignCenter+quantity[i]+'x'+HT;
           prn += PrnAlignRight+quantity[i]*price[i]+LF;
-          console.log(desc_array[i]);
+          console.log(item_desc[i]);
           console.log(quantity[i]);
           console.log(price[i]);
-          console.log(i);
-          console.log(cek);
-          
+          console.log(test[i]);
+          console.log(subtotal);
         }
+
+        prn += PrnAlignRight+PrnBoldOn+'--------------------------------'+PrnBoldOff+LF;
+        
+        console.log(discount);
+        console.log(tax);
+        console.log(<?php echo $subtotal_p; ?>);
+        
+
+        if (discount == 0 && tax == 0 ) {
+        prn += PrnAlignRight+'Subtotal:'+subtotal_p+LF;
+          }
+        else if (discount == 0 ) {
+        prn += PrnAlignRight+'Subtotal:'+subtotal_p+LF;
+        prn += PrnAlignRight+'Tax:'+tax_p+LF;                  
+          }
+        else if (tax == 0 ) {
+        prn += PrnAlignRight+'Discount:'+discount_p+LF;
+        prn += PrnAlignRight+'Subtotal:'+subtotal_p+LF;        
+          }
+        else{
+        prn += PrnAlignRight+'Discount:'+discount_p+LF;
+        prn += PrnAlignRight+'Subtotal:'+subtotal_p+LF;        
+        prn += PrnAlignRight+'Tax:'+tax_p+LF;
+        }
+
+        prn += PrnAlignRight+PrnBoldOn+'--------------------------------'+PrnBoldOff+LF;
+        prn += PrnAlignRight+PrnBoldOn+'Total:'+(total_p)+PrnBoldOff+LF;
         prn += LF;
         BtPrint(prn);
     }
