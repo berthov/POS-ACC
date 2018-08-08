@@ -48,9 +48,7 @@ if ( empty($_REQUEST['discount']) ) {
 
   $customer_name = $_REQUEST['customer_name'];
   
-  $seasons = array();  
-  // $test = var_dump(count(array_filter($quant))); echo "<br>";
-
+ 
  
     $check_outlet = 
     "SELECT o.* 
@@ -64,15 +62,17 @@ if ( empty($_REQUEST['discount']) ) {
  
 
 // buat print
+    $seasons = array(); 
+  
     for($x = 0; $x < count($quant); $x++ ){
 
       $check_item = "SELECT * FROM inventory WHERE ledger_id = '".$ledger_new."' and id = '".$arr[$x]."' ";
       $result_item = mysqli_query($conn,$check_item);
       $existing_item = mysqli_fetch_assoc($result_item);
 
-    if($quant[$x] > 0){                   
+    // if($quant[$x] > 0){                   
       $seasons[] = $existing_item['description'];
-    }
+    // }
   }
 
   $subtotal = 0;
@@ -85,28 +85,38 @@ if ( empty($_REQUEST['discount']) ) {
   
   if ($discount === 0 && $tax_code === 0 ) {
     $discount_p = 0;
-    $subtotal_p = sprintf("%15s",($subtotal - $discount_p));   
-    $tax_p = 0;
-    $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+    $tax_p = 0;    
+    $subtotal_p = sprintf("%15s",$subtotal);   
+    $total_p = sprintf("%15s",$subtotal_p);
   }
   else if ($discount === 0 ) {
   $discount_p = 0;
-  $subtotal_p = sprintf("%15s",($subtotal - $discount_p));
-  $tax_p = sprintf("%15s",$tax_code * ($subtotal - $discount));
-  $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+  $subtotal_p = sprintf("%15s",$subtotal);
+  $tax_p = sprintf("%15s",$tax_code * $subtotal);
+  $total_p = sprintf("%15s",$subtotal_p + $tax_p);
   }
   else if ($tax_code === 0 ) {
   $discount_p = sprintf("%15s",$discount);
   $subtotal_p = sprintf("%15s",($subtotal - $discount));
   $tax_p = 0;
-  $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+  $total_p = sprintf("%15s",$subtotal_p - $discount_p + $tax_p);
   }
   else{
   $discount_p = sprintf("%15s",$discount);
   $subtotal_p = sprintf("%15s",($subtotal - $discount));
   $tax_p = sprintf("%15s",($tax_code * ($subtotal - $discount)));
-  $total_p = sprintf("%15s",$discount_p + $subtotal_p + $tax_p);
+  $total_p = sprintf("%15s",$subtotal_p - $discount_p + $tax_p);
   }
+
+    echo json_encode(array_values(array_filter($seasons))); echo "<br>";
+    echo json_encode(array_values(array_filter($quant)));echo "<br>";
+    echo json_encode(array_values(array_filter($arr1)));echo "<br>";
+    echo json_encode(count($quant));echo "<br>";
+
+    var_dump(array_values($seasons)); echo "<br>";
+    var_dump(array_values($quant)); echo "<br>";
+    var_dump(array_values($arr1)); echo "<br>";
+
 ?>
 
 <html>
@@ -158,11 +168,10 @@ if ( empty($_REQUEST['discount']) ) {
     var subtotal = 0;
     var discount = <?php echo json_encode($discount)?>;
     var tax = <?php echo json_encode($tax_code)?>; 
-    var count = <?php echo json_encode(count(array_filter($quant)))?>;
-    var item_desc = <?php echo json_encode(array_values(array_filter($seasons)))?>;
-    var quantity = <?php echo json_encode(array_values(array_filter($quant)))?>;
-    var price = <?php echo json_encode(array_values(array_filter($arr1)))?>;
-    var test = <?php echo json_encode($seasons)?>;
+    var count = <?php echo json_encode(count($quant))?>;
+    var item_desc = <?php echo json_encode(array_values($seasons))?>;
+    var quantity = <?php echo json_encode(array_values($quant))?>;
+    var price = <?php echo json_encode(array_values($arr1))?>;
 
     var discount_p = <?php echo json_encode($discount_p)?>;
     var tax_p = <?php echo json_encode($tax_p)?>;
@@ -189,17 +198,18 @@ if ( empty($_REQUEST['discount']) ) {
 
         for (var i = 0; i < count ; i++) {
 
+         if(quantity[i] > 0){                   
+
         subtotal +=  parseInt((quantity[i]*price[i]));
 
-          prn += PrnAlignLeft+item_desc[i]+LF;
-          // prn += PrnAlignCenter+quantity[i]+'x'+HT;
-          prn += PrnAlignRight+quantity[i]*price[i]+LF;
+          prn += PrnAlignLeft +item_desc[i]+LF;
+          prn += PrnAlignLeft +quantity[i]+ 'x'+HT+quantity[i]*price[i]+LF;
           console.log(item_desc[i]);
           console.log(quantity[i]);
           console.log(price[i]);
-          console.log(test[i]);
           console.log(subtotal);
         }
+      }
 
         prn += PrnAlignRight+PrnBoldOn+'--------------------------------'+PrnBoldOff+LF;
         
