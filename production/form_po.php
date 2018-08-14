@@ -304,7 +304,7 @@ function myCreateFunction() {
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
-    var cell6 = row.insertCell(5);  
+    // var cell6 = row.insertCell(5);  
     cell1.innerHTML = '<td><input type="hidden" name="counter[]" id="counter">#</td>';
     cell2.innerHTML = '<td><select class="form-control" id="inventory_item_id" name="inventory_item_id[]" required="required"><?php $sql = "SELECT description , id FROM inventory 
                                         where ledger_id = '".$ledger_new."'";
@@ -312,10 +312,10 @@ function myCreateFunction() {
                                         $a = 0;
                                         while($row = $result->fetch_assoc()) {
                                       ?><option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option><?php } ?></select></td>';
-    cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td>';
-    cell4.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
-    cell5.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>';
-    cell6.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
+    // cell3.innerHTML = '<td><input type="text" class="form-control" id="uom" name="uom[]" required="required"></td>';
+    cell3.innerHTML = '<td><input type="text" class="form-control" id="qty" name="qty[]" required="required"></td>';
+    cell4.innerHTML = '<td><input type="text" class="form-control" id="price" name="price[]" required="required"></td>';
+    cell5.innerHTML = '<td><button class="btn btn-danger" type="button" onclick="deleteRow(this);"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></td>';
 }
 
                                                        

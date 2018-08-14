@@ -83,7 +83,21 @@ include("query/redirect_billing.php");
                       <div class="form-group">
                         <label class="col-md-1 col-sm-3 col-xs-3">Recipe Name</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="text" class="form-control" name="recipe_name" id="recipe_name"></input>
+                          <select class="form-control" id="recipe_name" name="recipe_name[]" required="required">
+                          <?php
+
+                            $sql = "SELECT description , id 
+                            FROM inventory 
+                            where ledger_id = '".$ledger_new."'";
+                            $result = $conn->query($sql);
+                            $a = 0;
+                            while($row = $result->fetch_assoc()) {
+                          ?>
+                          <option value="<?php echo $row["id"] ?>"> <?php echo $row["description"] ?></option>
+                          <?php
+                            }
+                          ?>
+                          </select>
                         </div>
                       </div>
                       <div class="clearfix"><br></div>
@@ -112,7 +126,7 @@ include("query/redirect_billing.php");
                                   <tr>
                                     <td><input type="hidden" name="counter[]" id="counter">#</td>
                                     <td>
-                                      <select class="form-control itemname" id="inventory_item_id" name="inventory_item_id[]" required="required">
+                                      <select class="form-control item name" id="inventory_item_id" name="inventory_item_id[]" required="required">
                                       <?php
 
                                         $sql = "SELECT description , id 

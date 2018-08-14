@@ -11,6 +11,18 @@ if(isset($_REQUEST['recipe_name'])){
   $recipe_name = $_REQUEST['recipe_name'] ;
 }
 
+  $check_cogs = "SELECT cogs FROM inventory WHERE ledger_id = '".$ledger_new."' and id = '".$recipe_name."' ";
+  $result = mysqli_query($conn,$check_cogs);
+  $existing = mysqli_fetch_assoc($result);
+
+  if ($existing) { 
+     $cogs = $existing['cogs'];
+   }
+   else{
+    $cogs = 0;
+   }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,30 +107,32 @@ if(isset($_REQUEST['recipe_name'])){
                     <br />
                     <form class="form-horizontal form-label-left input_mask" method="POST" action="calculate_cogs.php">
                       <div class="form-group">
-                        <label class="col-md-1 col-sm-3 col-xs-3">Goods Name</label>
+                        <label class="col-md-1 col-sm-3 col-xs-3">Recipe Name</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
                           <select class="form-control" name="recipe_name" id="calculate_cogs">
                               <option value="" disabled selected>Select Goods</option>
                           
                             <?php
                             $sql = "SELECT  frh.recipe_name ,frh.recipe_id
-                            FROM fmd_recipe_header frh
-                            where frh.ledger_id = '".$ledger_new."'
+                            FROM fmd_recipe_header frh,
+                            inventory i
+                            where 
+                            frh.recipe_name = i.id
+                            and frh.ledger_id = '".$ledger_new."'
                             ";
                             $result = $conn->query($sql);
                             while($row1 = $result->fetch_assoc()) {
                           ?>
-                              <option value="<?php echo $row1["recipe_id"] ?>"> <?php echo $row1["recipe_name"] ?></option>
-                          <?php
+                              <option value="<?php echo $row1["recipe_name"] ?>"> <?php echo $row1["recipe_name"] ?></option>
+                          <?php                         
                         }
-                      
                         ?>
                             </select>
                         </div>
 
                         <label class="col-md-1 col-sm-3 col-xs-3">COGS</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="text" class="form-control" name="cogs" id="cogs" readonly=""></input>
+                          <input type="text" class="form-control" name="cogs" id="cogs" readonly="" placeholder="<?php echo number_format($cogs) ?>"></input>
                         </div>
 
                       </div>
@@ -149,28 +163,43 @@ if(isset($_REQUEST['recipe_name'])){
                           <th>Item Description</th>
                           <th>Quantity Recipe</th>
                           <th>Available To Use</th>
-                          <th>Item Cost</th>
-                          <th>test</th>
+                          <th>Price</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
 
-                            $sql = "SELECT frl.inventory_item_id , i.description , frl.qty , i.qty as quantity  , sum(pol.qty*pol.price) as po_price , round(sum(pol.qty*pol.price) /  sum(pol.qty),0) as tes
-                            FROM fmd_recipe_header frh, 
+                            $sql = "SELECT 
+                            frl.inventory_item_id , 
+                            i.item_code,
+                            i.description , 
+                            frl.qty , 
+                            i.qty as quantity ,
+                            po.avg                         
+                            FROM 
+                            (
+                            select pol.inventory_item_id , sum(pol.qty*pol.price)/count(pol.inventory_item_id) as avg
+                            from po_header_all poh,
+                            po_line_all pol
+                            where 
+                            poh.po_header_id = pol.po_header_id
+                            and poh.ledger_id = '".$ledger_new."'
+                            group by
+                            pol.inventory_item_id) PO,
+                            fmd_recipe_header frh, 
                             fmd_recipe_line frl
                             right join inventory i
-                            on frl.inventory_item_id = i.id
-                            right join po_line_all pol
-                            on frl.inventory_item_id = pol.inventory_item_id
+                            on frl.inventory_item_id = i.id                         
                             where frh.recipe_id = frl.recipe_id
-                            and frh.recipe_id = '".$recipe_name."'
+                            and frh.recipe_name = '".$recipe_name."'
                             and frh.ledger_id = '".$ledger_new."'
+                            and i.id = po.inventory_item_id
                             group by
                             frl.inventory_item_id, 
                             i.description, 
                             frl.qty, 
-                            i.qty";
+                            i.qty,
+                            i.item_code";
                             $result = $conn->query($sql);
                             while($row = $result->fetch_assoc()) {
                         ?>
@@ -180,8 +209,7 @@ if(isset($_REQUEST['recipe_name'])){
                           <td><?php echo $row["description"]?></td>
                           <td><?php echo $row["qty"]?></td>
                           <td><?php echo $row["quantity"]?></td>
-                          <td><?php echo $row["po_price"]?></td>
-                          <td><?php echo $row["tes"]?></td>
+                          <td><?php echo number_format($row["avg"])?></td>
                         </tr>
                         
                         <?php
@@ -201,6 +229,13 @@ if(isset($_REQUEST['recipe_name'])){
                       </div>
                     </div>
                       </div>
+                    </form>
+                    <form method="POST" action="controller/docalculate_recipe.php">
+                      <input type="hidden" name="recipe_name" value="<?php echo $recipe_name ?>">
+                      <button type="submit" class="btn btn-success">Calculate COGS</button>
+                    </form>
+                    <form method="POST" action="do_production.php">
+                      <button type="submit" class="btn btn-primary">Production</button>
                     </form>
                   </div>
                 </div>
@@ -249,20 +284,9 @@ if(isset($_REQUEST['recipe_name'])){
     <script type="text/javascript">
   
     $(document).ready(function(){
-      /*$("#reservation").on("change paste keyup", function() {
-             var x = document.getElementById("reservation").value;
-             var y = document.getElementById("reservation").value;
-             var start_date = x.substr(1,10) ;
-             var end_date = x.substr(14,10) ;
-
-            document.getElementById("demo").innerHTML = start_date;
-            document.getElementById("demo1").innerHTML = end_date;
-
-            });*/
-
-              $("#calculate_cogs").on("change", function() {
-                this.form.submit();
-              });
+      $("#calculate_cogs").on("change", function() {
+        this.form.submit();
+      });
     });
     </script>
 	
