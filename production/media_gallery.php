@@ -146,10 +146,10 @@ include("query/redirect_billing.php");
                         <div class="clearfix"></div>
                         <!-- <button type="submit" name="submit" value="Insert" class="btn btn-round btn-primary" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-ok"></span></button> -->
 
-                        <button id="toSummary" type="button" class="btn btn-round btn-primary" data-target=".bs-example-modal-sm" data-toggle="modal" onclick="validateValue();" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-shopping-cart" style="top: 3px;"></span></button>
+                        <button id="toSummary" type="button" class="btn btn-round btn-primary" data-target=".modal" data-toggle="modal" onclick="validateValue();" style="position: absolute; right: 0; bottom: 0;"><span class="glyphicon glyphicon-shopping-cart" style="top: 3px;"></span></button>
 
                         <!--Modal -->
-                          <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                         <!--  <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                               <div class="modal-content">
 
@@ -311,8 +311,201 @@ include("query/redirect_billing.php");
 
                               </div>
                             </div>
-                          </div>
+                          </div> -->
+
+                          
                         <!--Modal -->
+                        <div class="modal multi-step fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="modal">
+                          <div class="modal-dialog modal-md">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                      </button>
+                                      <h4 class="modal-title step-1" id="myModalLabel2" data-step="1">Your Order</h4>
+                                      <h4 class="modal-title step-2" id="myModalLabel2" data-step="2">Payment Method</h4>
+                                  </div>
+                                  <div class="modal-body step step-1">
+                                    <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                      <div class="form-group description" style="flex:5;"></div>
+                                      <div class="form-group quantity" style="width:10px; flex:2; text-align:center;"></div>
+                                      <div class="form-group itemprice" style="width:10px; flex:2; text-align:right;"></div>
+                                    </div>
+                                    
+                                    <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                      <div class="form-group" style="flex:7; align:right">Total before Discount & Tax</div>
+                                      <div class="form-group total" style="width:10px; flex:2; text-align:right;"></div>
+                                    </div>
+
+                                    <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                      <div class="form-group" style="flex:7; align:right">Subtotal</div>
+                                      <div class="form-group disc" style="width:10px; flex:2; text-align:right;"></div>
+                                    </div>
+
+                                    <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                      <div class="form-group" style="flex:7; align:right">Total</div>
+                                      <div class="form-group afterTax" style="width:10px; flex:2; text-align:right;"></div>
+                                    </div>
+
+                                    <div class="modal-header">
+                                      <h4 class="modal-title step-1" id="myModalLabel2">Discount & Tax</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <div>
+                                          <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Discount</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <input type="number" class="discount" name="discount" min="0" style="width: 171px; height: 30px;"/>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <div>
+                                          <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Tax</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <select class="form-control tax_code" name="tax_code" id="tax_code" style="width: 171px; height: 30px;">
+                                              <option value="" disabled selected>Select Tax</option>
+                                              <option value="Yes">Yes</option>
+                                              <option value="No">No</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <p></p>
+
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <div>
+                                          <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Customer Name</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <input type="text" class="customer_name" name="customer_name" style="width: 171px; height: 30px;" />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <p></p>
+
+
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <div>
+                                          <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Invoice Date</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <fieldset>
+                                              <div class="control-group">
+                                                <div class="controls">
+                                                  <div class="xdisplay_inputx">
+                                                    <input type="text" class="form-control" id="single_cal3" placeholder="Date" aria-describedby="inputSuccess2Status3" name="invoice_date" style="width: 171px; height: 27px;">
+                                                    <span id="inputSuccess2Status3" class="sr-only">(success)
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </fieldset>                             
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <p></p>
+                                    
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <div>
+                                          <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Due Date</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <fieldset>
+                                              <div class="control-group">
+                                                <div class="controls">
+                                                  <div class="xdisplay_inputx">
+                                                    <input type="text" class="form-control" id="single_cal2" placeholder="Date" aria-describedby="inputSuccess2Status3" name="due_date" style="width: 171px; height: 27px;">
+                                                    <span id="inputSuccess2Status3" class="sr-only">(success)
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </fieldset>                             
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  
+                                  <div class="modal-body step step-2">
+
+                                    <div class="modal-body" style="display:flex; word-wrap: break-word;">
+                                      <div class="form-group" style="flex:7; align:right">Total</div>
+                                      <div class="form-group afterTax" style="width:10px; flex:2; text-align:right;"></div>
+                                    </div>
+                                    
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <select class="form-control" name="payment_method" id="payment_method">
+                                          <option value="" disabled selected>Select Method</option>
+                                          <option value="Cash">Cash</option>
+                                          <option value="Debit/Credit">Debit/Credit</option>
+                                          <option value="Voucher">Voucher</option>
+                                        </select>
+                                      </div>
+                                    </div>
+
+                                    <div class="modal-body" id="modalPayment" style="display:none;">
+                                      <div class="form-group">
+                                        <div>
+                                          <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Payment Amount</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <input type="number" class="cashPayment" name="cashPayment" min="0" style="width: 200px; height: 30px;"/>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="modal-body" id="modalChange" style="display:none;">
+                                      <div class="form-group">
+                                        <div>
+                                          <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Change</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <input type="number" class="change" name="change" min="0" style="width: 200px; height: 30px;"  disabled/>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div class="modal-body">
+                                      <div class="form-group">
+                                        <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Description</label>
+                                          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <textarea type="textarea" class="description" name="description" style="max-width: 200px;"></textarea>
+                                          </div>
+                                      </div>
+                                    </div>
+
+
+                                  </div>
+
+                                  <p></p>
+
+                                  <div class="modal-body">
+                                    <div class="form-group">
+                                    </div>
+                                  </div>
+
+                                  <p></p>
+
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary step step-1" data-step="1" onclick="sendEvent()">Continue</button>
+                                      <button id="submitModal" type="submit" data-step="2" class="btn btn-primary step step-2">Print Invoice</button>
+                                  </div>
+                              </div>
+                          </div>
                       </form>
                     </div>
                   </div>
@@ -327,6 +520,9 @@ include("query/redirect_billing.php");
         <!-- /footer content -->
       </div>
     </div>
+
+    
+  </div>
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -348,6 +544,8 @@ include("query/redirect_billing.php");
     <script src="../production/controller/media_gallery.js"></script>
 
     <script src="../production/controller/search.js"></script>
+
+    <script src="../production/common/multi-step-modal.js"></script>
 
   </body>
 
