@@ -152,6 +152,7 @@ function validateValue() {
   });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   $("#payment_method").on('change', function(){
     if($('#payment_method').val() == "Cash"){
       $("#modalPayment").show();
@@ -179,6 +180,8 @@ function validateValue() {
   
 
 >>>>>>> parent of cc8b9b0... kembalian3
+=======
+>>>>>>> parent of 69dc0e7... Merge branch 'master' of https://github.com/berthov/POS-ACC
 }
 
   $('body').on('hidden.bs.modal', '.modal', function () {
