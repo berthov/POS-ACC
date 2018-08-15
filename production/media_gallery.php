@@ -75,7 +75,7 @@ include("query/redirect_billing.php");
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-12 col-xs-12">
+              <div class="col-md-12 col-xs-12" style="padding-bottom:210px">
                 <div class="x_panel">
                   <div id="search-box" >
                     <div id="search-div">
