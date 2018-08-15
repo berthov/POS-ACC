@@ -155,17 +155,32 @@ function validateValue() {
     if($('#payment_method').val() == "Cash"){
       $("#modalPayment").show();
       $("#modalChange").show();
+      if($(".cashPayment").val() == ""){
+        var btn = document.getElementById("submitModal"); btn.disabled = true;
+      }
     } else {
+      var btn = document.getElementById("submitModal"); btn.disabled = false;
       $("#modalPayment").hide();
       $("#modalChange").hide();
+      $( ".change" ).val("");
+      $(".cashPayment").val("");
     }
   })
 
   $(".cashPayment").on('input', function(){
     payment = $(".cashPayment").val();
-    change = payment - total;
-    $( ".change" ).val(change);
+    if(payment<total){
+      var btn = document.getElementById("submitModal"); btn.disabled = true;
+      change = payment - total;
+      $( ".change" ).val(change);
+    } else {
+      var btn = document.getElementById("submitModal"); btn.disabled = false;
+      change = payment - total;
+      $( ".change" ).val(change);
+    }
   })
+
+  
 
 }
 
