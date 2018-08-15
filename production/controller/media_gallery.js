@@ -27,6 +27,8 @@ function validateValue() {
   var $tableTotal = $( "<table></table>" );
   var discount, payment, change;
 
+  $("#payment_method").trigger("change");
+
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
     eachquantity = parseInt(this.value);
@@ -179,9 +181,6 @@ function validateValue() {
       $( ".change" ).val(change);
     }
   })
-
-  
-
 }
 
   $('body').on('hidden.bs.modal', '.modal', function () {
@@ -192,6 +191,7 @@ function validateValue() {
       $(".disc").empty();
       $(".total").empty();
       $(".discount, .tax_code").unbind();
+      $('#payment_method').val("");
       $(this).find("input,textarea,select").val('').end();
       $(this).removeData('bs.modal');
       $(".modal").find('.step-1').show();
