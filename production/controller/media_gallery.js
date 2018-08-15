@@ -25,7 +25,7 @@ function validateValue() {
   var $table3 = $( "<table></table>" );
   var $tableSubtotal = $( "<table></table>" );
   var $tableTotal = $( "<table></table>" );
-  var discount;
+  var discount, payment, change;
 
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
@@ -151,6 +151,22 @@ function validateValue() {
     }
   });
 
+  $("#payment_method").on('change', function(){
+    if($('#payment_method').val() == "Cash"){
+      $("#modalPayment").show();
+      $("#modalChange").show();
+    } else {
+      $("#modalPayment").hide();
+      $("#modalChange").hide();
+    }
+  })
+
+  $(".cashPayment").on('input', function(){
+    payment = $(".cashPayment").val();
+    change = payment - total;
+    $( ".change" ).val(change);
+  })
+
 }
 
   $('body').on('hidden.bs.modal', '.modal', function () {
@@ -162,6 +178,9 @@ function validateValue() {
       $(".total").empty();
       $(".discount, .tax_code").unbind();
       $(this).find("input,textarea,select").val('').end();
+      $(this).removeData('bs.modal');
+      $(".modal").find('.step-1').show();
+      $(".modal").find('.step-2').hide();
       sum = 0;
   });
 
@@ -261,3 +280,8 @@ $(".input-number").keydown(function (e) {
         e.preventDefault();
     }
 });
+
+sendEvent = function() {
+  $('.modal').trigger('next.m.2');
+}
+
