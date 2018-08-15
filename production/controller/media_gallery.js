@@ -27,8 +27,6 @@ function validateValue() {
   var $tableTotal = $( "<table></table>" );
   var discount;
 
-  $("#payment_method").trigger("change");
-
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
     eachquantity = parseInt(this.value);
@@ -170,11 +168,17 @@ function validateValue() {
     $( ".change" ).val(change);
   })
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 2164535... kembalian
 =======
 
 >>>>>>> parent of 0383783... kembalian2
+=======
+
+  
+
+>>>>>>> parent of cc8b9b0... kembalian3
 }
 
   $('body').on('hidden.bs.modal', '.modal', function () {
@@ -185,7 +189,6 @@ function validateValue() {
       $(".disc").empty();
       $(".total").empty();
       $(".discount, .tax_code").unbind();
-      $('#payment_method').val("");
       $(this).find("input,textarea,select").val('').end();
       sum = 0;
   });
