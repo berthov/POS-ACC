@@ -94,6 +94,7 @@ include("query/redirect_billing.php");
                             i.ledger_id = '".$ledger_new."'
                             and status = 'Active'
                             and sales_price is not null
+                            and sales_price > 0
                             and ((outlet_id = '".$outlet_new."' and '".$staff_role."' = 'Staff') or ('".$staff_role."' = 'Admin'))
                             order by i.description";
                             $result = $conn->query($sql);

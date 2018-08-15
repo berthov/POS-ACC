@@ -7,20 +7,25 @@
 
 	$recipe_name = $_REQUEST['recipe_name'];
 	$periode = date("Y-m-d");
+	$created = date("Y-m-d");
+
+	$period_bulan = date_format(date_create_from_format('m-d-Y', $_REQUEST['reservation2']), 'Y-F');
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 // PERHITUNGAN RATA" 
 		$sql = "SELECT 
-	        sum(po.avg) as item_cost                         
+	        sum(po.avg) * frl.qty as item_cost                         
 	        FROM 
 	        (
-	        select pol.inventory_item_id , sum(pol.qty*pol.price)/count(pol.inventory_item_id) as avg
+	        select pol.inventory_item_id , round(sum(pol.qty)/count(pol.inventory_item_id)) as avg
 	        from po_header_all poh,
 	        po_line_all pol
 	        where 
 	        poh.po_header_id = pol.po_header_id
 	        and poh.ledger_id = '".$ledger_new."'
+	        and poh.outlet_id = '".$outlet_new."'
+            and date_format(poh.po_date,'%Y-%M') = '".$period_bulan."'
 	        group by
 	        pol.inventory_item_id) PO,
 	        fmd_recipe_header frh, 
@@ -43,7 +48,7 @@
             FROM cogs c
             where 
             c.ledger_id = '".$ledger_new."'
-            and c.inventory_item_id = '".$inventory_item_id."'
+            and c.inventory_item_id = '".$recipe_name."'
             and c.outlet_id = '".$outlet_new."'
             and c.item_cost_id = (select 
             max(c_1.item_cost_id)

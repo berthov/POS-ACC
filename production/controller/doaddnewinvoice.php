@@ -444,7 +444,7 @@ if ( empty($_REQUEST['discount']) ) {
 	    		else{
 
             // insert line invoice transaction
-	    				$sql = "INSERT INTO invoice (inventory_item_id,unit_price,qty ,date,invoice_id,month,created_by , created_date,last_update_by,last_update_date,ledger_id,tax_code , tax_amount , cogs)
+	    				$sql = "INSERT INTO invoice (inventory_item_id,unit_price,qty ,date,invoice_id,month,created_by , created_date,last_update_by,last_update_date,ledger_id,tax_code , tax_amount ,cogs)
 						VALUES ('".$arr[$y]."','".$arr1[$y]."' , '".$quant[$y]."' , '".$today."' , '".$invoice_id."', '".$month."','".$user_check."','".$created_date."','".$user_check."','".$last_update_date."','".$ledger_new."','".$tax_code."','".$tax_code."' * '".$arr1[$y]."' * '".$quant[$y]."' , '".$cogs[$y]."' )";
 						mysqli_query($conn, $sql);
 
