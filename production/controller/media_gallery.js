@@ -25,7 +25,9 @@ function validateValue() {
   var $table3 = $( "<table></table>" );
   var $tableSubtotal = $( "<table></table>" );
   var $tableTotal = $( "<table></table>" );
-  var discount;
+  var discount, payment, change;
+
+  $("#payment_method").trigger("change");
 
   quantity = $('.input-number').val();
   $('.input-number').each(function(){
@@ -151,40 +153,34 @@ function validateValue() {
     }
   });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   $("#payment_method").on('change', function(){
     if($('#payment_method').val() == "Cash"){
       $("#modalPayment").show();
       $("#modalChange").show();
+      if($(".cashPayment").val() == ""){
+        var btn = document.getElementById("submitModal"); btn.disabled = true;
+      }
     } else {
+      var btn = document.getElementById("submitModal"); btn.disabled = false;
       $("#modalPayment").hide();
       $("#modalChange").hide();
+      $( ".change" ).val("");
+      $(".cashPayment").val("");
     }
   })
 
   $(".cashPayment").on('input', function(){
     payment = $(".cashPayment").val();
-    change = payment - total;
-    $( ".change" ).val(change);
+    if(payment<total){
+      var btn = document.getElementById("submitModal"); btn.disabled = true;
+      change = payment - total;
+      $( ".change" ).val(change);
+    } else {
+      var btn = document.getElementById("submitModal"); btn.disabled = false;
+      change = payment - total;
+      $( ".change" ).val(change);
+    }
   })
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 2164535... kembalian
-=======
-
->>>>>>> parent of 0383783... kembalian2
-=======
-
-  
-
->>>>>>> parent of cc8b9b0... kembalian3
-=======
->>>>>>> parent of 69dc0e7... Merge branch 'master' of https://github.com/berthov/POS-ACC
-=======
->>>>>>> parent of 2164535... kembalian
 }
 
   $('body').on('hidden.bs.modal', '.modal', function () {
@@ -195,7 +191,11 @@ function validateValue() {
       $(".disc").empty();
       $(".total").empty();
       $(".discount, .tax_code").unbind();
+      $('#payment_method').val("");
       $(this).find("input,textarea,select").val('').end();
+      $(this).removeData('bs.modal');
+      $(".modal").find('.step-1').show();
+      $(".modal").find('.step-2').hide();
       sum = 0;
   });
 
@@ -295,3 +295,8 @@ $(".input-number").keydown(function (e) {
         e.preventDefault();
     }
 });
+
+sendEvent = function() {
+  $('.modal').trigger('next.m.2');
+}
+
