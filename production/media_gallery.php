@@ -467,6 +467,8 @@ include("query/redirect_billing.php");
                                       </div>
                                     </div>
 
+                                    <p></p>
+
                                     <div class="modal-body" id="modalChange" style="display:none;">
                                       <div class="form-group">
                                         <div>
@@ -477,6 +479,8 @@ include("query/redirect_billing.php");
                                         </div>
                                       </div>
                                     </div>
+
+                                    <p></p>
 
                                     <div class="modal-body">
                                       <div class="form-group">
