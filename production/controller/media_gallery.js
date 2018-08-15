@@ -25,7 +25,7 @@ function validateValue() {
   var $table3 = $( "<table></table>" );
   var $tableSubtotal = $( "<table></table>" );
   var $tableTotal = $( "<table></table>" );
-  var discount, payment, change;
+  var discount;
 
   $("#payment_method").trigger("change");
 
@@ -153,6 +153,7 @@ function validateValue() {
     }
   });
 
+<<<<<<< HEAD
   $("#payment_method").on('change', function(){
     if($('#payment_method').val() == "Cash"){
       $("#modalPayment").show();
@@ -181,6 +182,8 @@ function validateValue() {
       $( ".change" ).val(change);
     }
   })
+=======
+>>>>>>> parent of 2164535... kembalian
 }
 
   $('body').on('hidden.bs.modal', '.modal', function () {
@@ -193,9 +196,6 @@ function validateValue() {
       $(".discount, .tax_code").unbind();
       $('#payment_method').val("");
       $(this).find("input,textarea,select").val('').end();
-      $(this).removeData('bs.modal');
-      $(".modal").find('.step-1').show();
-      $(".modal").find('.step-2').hide();
       sum = 0;
   });
 
@@ -295,8 +295,3 @@ $(".input-number").keydown(function (e) {
         e.preventDefault();
     }
 });
-
-sendEvent = function() {
-  $('.modal').trigger('next.m.2');
-}
-
