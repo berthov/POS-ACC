@@ -22,6 +22,15 @@ if(isset($_REQUEST['recipe_name'])){
     $cogs = 0;
    }
 
+$start_date = date('Y-m-d');
+$period = date('Y-F');
+
+if(isset($_REQUEST['reservation2'])){
+  $start_date = date_format(date_create_from_format('m-d-Y', $_REQUEST['reservation2']), 'Y-m-d');
+  $reservation = $_REQUEST['reservation2'];
+  $period = date_format(date_create_from_format('m-d-Y', $_REQUEST['reservation2']), 'Y-F');
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -45,8 +54,8 @@ if(isset($_REQUEST['recipe_name'])){
     <!-- Font Awesome -->
     <link href="../vendors/font-awesome-2/css/all.css" rel="stylesheet"> 
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datepicker -->
+    <link href="../vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -113,7 +122,7 @@ if(isset($_REQUEST['recipe_name'])){
                               <option value="" disabled selected>Select Goods</option>
                           
                             <?php
-                            $sql = "SELECT  frh.recipe_name ,frh.recipe_id
+                            $sql = "SELECT  frh.recipe_name ,frh.recipe_id , i.description
                             FROM fmd_recipe_header frh,
                             inventory i
                             where 
@@ -123,7 +132,7 @@ if(isset($_REQUEST['recipe_name'])){
                             $result = $conn->query($sql);
                             while($row1 = $result->fetch_assoc()) {
                           ?>
-                              <option value="<?php echo $row1["recipe_name"] ?>"> <?php echo $row1["recipe_name"] ?></option>
+                              <option value="<?php echo $row1["recipe_name"] ?>"> <?php echo $row1["description"] ?></option>
                           <?php                         
                         }
                         ?>
@@ -139,7 +148,22 @@ if(isset($_REQUEST['recipe_name'])){
                       <div class="form-group">
                         <label class="col-md-1 col-sm-3 col-xs-3">Period</label>
                         <div class="col-md-3 col-sm-3 col-xs-12">
-                          <input type="text" class="form-control" name="period" id="period"></input>
+                         <div class="form-group">
+                          <div class='input-group date'>
+                              <input type='text' class="form-control" autocomplete="off" name="reservation2" id="reservation2" 
+                              value="<?php
+                                  if (isset($reservation) && !empty($reservation)){
+                                    echo $reservation;
+                                  }
+                                  else {
+                                    echo date('m-d-Y');
+                                  }
+                                ?>"
+                              />
+                              <span class="add-on input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                              </span>
+                          </div>
                         </div>
                       </div>
                       <div class="clearfix"><br></div>
@@ -163,7 +187,8 @@ if(isset($_REQUEST['recipe_name'])){
                           <th>Item Description</th>
                           <th>Quantity Recipe</th>
                           <th>Available To Use</th>
-                          <th>Price</th>
+                          <th>Avg Purchase</th>
+                          <th>Avg Purchase * Quantity Recipe</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -178,12 +203,14 @@ if(isset($_REQUEST['recipe_name'])){
                             po.avg                         
                             FROM 
                             (
-                            select pol.inventory_item_id , sum(pol.qty*pol.price)/count(pol.inventory_item_id) as avg
+                            select pol.inventory_item_id , round(sum(pol.qty)/count(pol.inventory_item_id),0) as avg
                             from po_header_all poh,
                             po_line_all pol
                             where 
                             poh.po_header_id = pol.po_header_id
                             and poh.ledger_id = '".$ledger_new."'
+                            and poh.outlet_id = '".$outlet_new."'
+                            and date_format(poh.po_date,'%Y-%M') = '".$period."' 
                             group by
                             pol.inventory_item_id) PO,
                             fmd_recipe_header frh, 
@@ -210,6 +237,7 @@ if(isset($_REQUEST['recipe_name'])){
                           <td><?php echo $row["qty"]?></td>
                           <td><?php echo $row["quantity"]?></td>
                           <td><?php echo number_format($row["avg"])?></td>
+                          <td><?php echo number_format($row["avg"]*$row["qty"]) ?></td>
                         </tr>
                         
                         <?php
@@ -232,6 +260,7 @@ if(isset($_REQUEST['recipe_name'])){
                     </form>
                     <form method="POST" action="controller/docalculate_recipe.php">
                       <input type="hidden" name="recipe_name" value="<?php echo $recipe_name ?>">
+                      <input type="hidden" name="reservation2" value="<?php echo $reservation ?>">
                       <button type="submit" class="btn btn-success">Calculate COGS</button>
                     </form>
                     <form method="POST" action="do_production.php">
@@ -275,7 +304,11 @@ if(isset($_REQUEST['recipe_name'])){
     <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-
+    <!-- bootstrap-datepicker -->
+    <script src="../vendors/moment/moment.js"></script>
+    <script src="../vendors/bootstrap/js/collapse.js"></script>
+    <script src="../vendors/bootstrap/js/transition.js"></script>
+    <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- jQuery custom content scroller -->
     <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
@@ -283,11 +316,35 @@ if(isset($_REQUEST['recipe_name'])){
     
     <script type="text/javascript">
   
+    // $(document).ready(function(){
+    //   $("#calculate_cogs").on("change", function() {
+    //     this.form.submit();
+    //   });
+    // });
+
     $(document).ready(function(){
-      $("#calculate_cogs").on("change", function() {
-        this.form.submit();
+
+        $("#reservation2").on("dp.keydown keypress keyup", false);
+
+        $(function () {
+          $('#reservation2').datetimepicker({
+            useCurrent: false, //Important! See issue #1075
+            format: 'MM-DD-YYYY'
+          });
+
+          $("#reservation2").on("dp.hide", function(e) {
+            $(this).removeAttr('readonly').select();
+            this.form.submit();
+          });
+
+
+          $( "#reservation2" ).click(function(event){
+            $(this).attr('readonly', 'readonly');
+          });
+
+        });
       });
-    });
+
     </script>
 	
   </body>
