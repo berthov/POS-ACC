@@ -421,6 +421,9 @@ if ( empty($_REQUEST['discount']) ) {
 <?php
 
 
+  if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_SESSION['rand'])){
+
+  unset($_SESSION['rand']);
 // HEADER
     // insert header invoice transaction
     $sql_header = "INSERT INTO invoice_header (invoice_id,invoice_number,invoice_date ,due_date,ledger_id,discount_amount,refund_status,outstanding_status , created_by,created_date,last_update_by,last_update_date,payment_method,customer_name,tax_code,outlet_id,description)
@@ -485,4 +488,6 @@ if ( empty($_REQUEST['discount']) ) {
     }
 
 	mysqli_close($conn);
+
+}
 ?>
